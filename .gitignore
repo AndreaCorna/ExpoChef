@@ -13,5 +13,5 @@ bin/
 gen/
 proguard/
 *.log
-metaioSDK/
+metaioSDK/*
 .idea/inspectionProfiles/
