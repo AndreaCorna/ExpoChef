@@ -11,4 +11,4 @@
 		android:right="20dip" 
 		android:bottom="2dip" />
 	<corners android:radius="5dip" />
-</shape><!-- From: file:/Users/Lorenzo/Documents/Android/AndroidStudioProjects/ExpoGame/metaioSDK/res/drawable/toastbackground.xml -->
+</shape><!-- From: file:/home/degrigis/Projects/ExpoGame/metaioSDK/res/drawable/toastbackground.xml -->

@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/Users/Lorenzo/Documents/Android/AndroidStudioProjects/ExpoGame/metaioSDK/assets"/></dataSet><dataSet config="release"><source path="/Users/Lorenzo/Documents/Android/AndroidStudioProjects/ExpoGame/metaioSDK/build-types/release/assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="/home/degrigis/Projects/ExpoGame/metaioSDK/assets"/></dataSet><dataSet config="release"><source path="/home/degrigis/Projects/ExpoGame/metaioSDK/build-types/release/assets"/></dataSet></merger>
