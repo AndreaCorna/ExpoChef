@@ -13,3 +13,4 @@ bin/
 gen/
 proguard/
 *.log
+metaioSDK/

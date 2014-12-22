@@ -28,12 +28,6 @@
         </activity>
 
         <provider
-            android:name=".MascotContentProvider"
-            android:authorities="it.polimi.expogame"
-            android:enabled="true"
-            android:exported="false" >
-        </provider>
-        <provider
             android:name=".providers.IngredientsProvider"
             android:authorities="it.polimi.expogame"
             android:enabled="true"
