@@ -26,6 +26,31 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name=".MascotContentProvider"
+            android:authorities="it.polimi.expogame"
+            android:enabled="true"
+            android:exported="false" >
+        </provider>
+        <provider
+            android:name=".providers.IngredientsProvider"
+            android:authorities="it.polimi.expogame"
+            android:enabled="true"
+            android:exported="false" >
+        </provider>
+        <provider
+            android:name=".providers.MascotsProvider"
+            android:authorities="it.polimi.expogame"
+            android:enabled="true"
+            android:exported="false" >
+        </provider>
+        <provider
+            android:name=".providers.DishesProvider"
+            android:authorities="it.polimi.expogame"
+            android:enabled="true"
+            android:exported="false" >
+        </provider>
     </application>
 
 </manifest>
