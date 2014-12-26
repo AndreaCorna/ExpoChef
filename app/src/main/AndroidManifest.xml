@@ -2,8 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="it.polimi.expogame" >
 
+    <!-- remember to put always the uses-permission above the application tag -->
+    <!-- PERMISSION HERE -->
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!-- END PERMISSION -->
 
     <application
         android:allowBackup="true"

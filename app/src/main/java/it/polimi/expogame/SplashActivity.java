@@ -65,7 +65,7 @@ public class SplashActivity extends Activity {
                 try {
                     website = new URI("http://bullcantshit.noip.me/jsontest.html");
                 } catch (URISyntaxException e) {
-                    Log.w("ExpoGame", "Wrong URI");
+                    Log.w("ExpoGame", "Wrong/Malformed URI");
                     e.printStackTrace();
                 }
 
@@ -94,6 +94,7 @@ public class SplashActivity extends Activity {
                     Log.w("ExpoGame", "test field " + s);
 
                 } catch (Exception e) {
+                    Log.w("ExpoGame","Error during the convertion of JSON");
 
                 }
             }
@@ -114,17 +115,29 @@ public class SplashActivity extends Activity {
             finish();
         }
 
+        /**
+         * Convert the input stream from the server in a String in order
+         * to assign lately this string to a JSON obj
+         * @param is the input stream received from our server
+         * @return the String equivalent to the content of the server response, that will
+         *         be our JSON
+         * @throws IOException
+         */
         private String convertInputStreamToString(InputStream is) throws IOException{
             BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(is));
             String line = "";
             String result = "";
             while((line = bufferedReader.readLine()) != null)
                 result += line;
-
             is.close();
             return result;
         }
 
+        /**
+         * Helper method in order to check if the client is connected or not
+         * to a valid wifi/3g
+         * @return true if the client has got a valid connection
+         */
         private boolean isConnected(){
             ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
