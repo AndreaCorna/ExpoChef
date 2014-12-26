@@ -24,7 +24,9 @@ import java.net.URISyntaxException;
 
 
 /**
- * If a connection is up and running, SplashActivity ( entry point of app ) will update the coordinates of our mascotte
+ * ( ENTRY POINT OF APPLICATION )
+ *
+ * If a connection is up and running, SplashActivity will update the coordinates of our mascotte
  * by fetching the JSON returned from the web-app.
  *
  * Done that it will launch the MainActivity of the application.
@@ -46,18 +48,18 @@ public class SplashActivity extends Activity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Log.w("ExpoGame", "OnPreExecute");
-            // before start to fetch from server, it will be nice to show a loading gif here
+
+            //TODO add a gif that show a loading
         }
 
         @Override
         protected Void doInBackground(Void...params) {
 
-            InputStream is = null;
-            String json="";
-
             //if the client has got a valid connection perform the update from the server
             if(isConnected()) {
+
+                InputStream is = null;
+                String json="";
                 HttpGet request = new HttpGet();
                 URI website = null;
                 HttpClient httpclient = new DefaultHttpClient();
@@ -80,7 +82,6 @@ public class SplashActivity extends Activity {
                     else
                         json = "wtf";
 
-
                 } catch (Exception e) {
                     Log.w("ExpoGame", "Something went wrong during connection with server");
                     e.printStackTrace();
@@ -93,13 +94,13 @@ public class SplashActivity extends Activity {
                     String s = jsonObject.get("glossary").toString();
                     Log.w("ExpoGame", "test field " + s);
 
-                } catch (Exception e) {
-                    Log.w("ExpoGame","Error during the convertion of JSON");
+                } catch (JSONException e) {
+                    Log.w("ExpoGame","Error during the conversion of JSON");
 
                 }
             }
 
-            //TODO: Here if we have got a valid JSON let's parse it and update the db
+            //TODO: If (valid JSON)  parse it and update the db
 
             return null;
         }
@@ -108,7 +109,7 @@ public class SplashActivity extends Activity {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             // After completing updating db
-            // will close this activity and lauch main activity
+            // will close this activity and launch main activity
             Intent i = new Intent(SplashActivity.this, MainActivity.class);
             startActivity(i);
             // close this activity
@@ -126,11 +127,13 @@ public class SplashActivity extends Activity {
         private String convertInputStreamToString(InputStream is) throws IOException{
             BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(is));
             String line = "";
-            String result = "";
+
+            StringBuilder sb = new StringBuilder(); //Java like :) 
+
             while((line = bufferedReader.readLine()) != null)
-                result += line;
+                sb.append(line);
             is.close();
-            return result;
+            return sb.toString();
         }
 
         /**
