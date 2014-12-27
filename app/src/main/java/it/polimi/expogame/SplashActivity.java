@@ -128,7 +128,7 @@ public class SplashActivity extends Activity {
             BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(is));
             String line = "";
 
-            StringBuilder sb = new StringBuilder(); //Java like :) 
+            StringBuilder sb = new StringBuilder(); //Java like :)
 
             while((line = bufferedReader.readLine()) != null)
                 sb.append(line);
