@@ -9,5 +9,7 @@
     <string name="title_activity_splash">SplashActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="catchit">Catch it!</string>
+    <string name="metaioSDKSignature">i3NJrPOwc7AA7giMfmDw356rP555ImvzM4J1W2J8FR0=</string>
 
 </resources>

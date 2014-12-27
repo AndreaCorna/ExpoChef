@@ -1,5 +1,6 @@
 package it.polimi.expogame;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +15,7 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.polimi.expogame.fragments.ar.ARActivity;
 import it.polimi.expogame.fragments.ar.ARFragment;
 import it.polimi.expogame.fragments.cook.CookFragment;
 import it.polimi.expogame.fragments.cook.CookManagerFragment;
@@ -124,4 +126,5 @@ class CustomPagerAdapter extends FragmentPagerAdapter{
         }
         return title;
     }
+
 }
