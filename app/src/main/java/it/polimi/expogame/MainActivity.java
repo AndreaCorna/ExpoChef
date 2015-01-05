@@ -11,6 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.gms.maps.SupportMapFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +20,7 @@ import it.polimi.expogame.fragments.ar.ARFragment;
 import it.polimi.expogame.fragments.cook.CookFragment;
 import it.polimi.expogame.fragments.cook.CookManagerFragment;
 import it.polimi.expogame.fragments.info.InfoFragment;
-import it.polimi.expogame.fragments.map.MapFragment;
+import it.polimi.expogame.fragments.map.ExpoMapFragment;
 
 
 public class MainActivity extends FragmentActivity {
@@ -80,7 +82,7 @@ class CustomPagerAdapter extends FragmentPagerAdapter{
         //switch link the tab number with the fragment which has to be used
         switch (position){
             case 0:
-                fragment = new MapFragment();
+                fragment = new ExpoMapFragment();
                 break;
             case 1:
                 fragment = new ARFragment();
