@@ -4,9 +4,14 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ListView;
 
 import it.polimi.expogame.R;
 import it.polimi.expogame.support.Dish;
@@ -19,7 +24,10 @@ import it.polimi.expogame.support.Dish;
  * Use the {@link InfoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class InfoFragment extends Fragment implements  WorldFragment.OnDishSelectedListener{
+public class InfoFragment extends Fragment implements  WorldFragment.OnDishSelectedListener, AdapterView.OnItemClickListener,View.OnClickListener{
+
+    public static final String TAG = "InfoFragment";
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -65,7 +73,12 @@ public class InfoFragment extends Fragment implements  WorldFragment.OnDishSelec
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_info, container, false);
+        View view =  inflater.inflate(R.layout.fragment_info, container, false);
+        ListView listZones = (ListView) view.findViewById(R.id.listZones);
+        listZones.setOnItemClickListener(this);
+        Button button = (Button)view.findViewById(R.id.infoButton);
+        button.setOnClickListener(this);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -89,6 +102,27 @@ public class InfoFragment extends Fragment implements  WorldFragment.OnDishSelec
 
     }
 
+    /*Start andre*/
 
+    private void getZones(){
+
+    }
+
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        DetailsFragment detailsFragment = new DetailsFragment(new Dish());
+
+        FragmentTransaction trans = getFragmentManager().beginTransaction();
+        trans.replace(R.id.root_frame, detailsFragment, DetailsFragment.Tag);
+        trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        trans.addToBackStack(null);
+        trans.commit();
+    }
 
 }
