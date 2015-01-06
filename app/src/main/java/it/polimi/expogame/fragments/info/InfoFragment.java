@@ -121,7 +121,10 @@ public class InfoFragment extends Fragment implements  WorldFragment.OnDishSelec
         FragmentTransaction trans = getFragmentManager().beginTransaction();
         trans.replace(R.id.root_frame, detailsFragment, DetailsFragment.Tag);
         trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        trans.addToBackStack(null);
+        if(getFragmentManager().findFragmentByTag(this.TAG) == null){
+            trans.addToBackStack(this.TAG);
+        }
+
         trans.commit();
     }
 

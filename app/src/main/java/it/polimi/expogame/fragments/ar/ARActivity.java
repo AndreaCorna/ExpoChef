@@ -209,7 +209,7 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
         metaioSDK.setRendererClippingPlaneLimits(10, 220000);
 
         // let's create LLA objects for known cities
-        LLACoordinate rome = new LLACoordinate(45.299317, 9.767436, 0, 0);
+        LLACoordinate rome = new LLACoordinate(45.738374, 9.479915, 0, 0);
 
         // create radar
         mRadar = metaioSDK.createRadar();

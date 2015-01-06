@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import it.polimi.expogame.fragments.ar.ARFragment;
 import it.polimi.expogame.fragments.cook.CookManagerFragment;
 import it.polimi.expogame.fragments.map.MapFragment;
-import it.polimi.expogame.support.RootFragment;
+import it.polimi.expogame.fragments.info.RootFragment;
 
 
 public class MainActivity extends FragmentActivity {

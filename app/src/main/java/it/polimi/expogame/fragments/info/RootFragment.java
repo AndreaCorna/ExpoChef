@@ -1,4 +1,4 @@
-package it.polimi.expogame.support;
+package it.polimi.expogame.fragments.info;
 
 
 import android.support.v4.app.FragmentTransaction;
