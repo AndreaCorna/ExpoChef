@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,6 +33,8 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import it.polimi.expogame.R;
+import it.polimi.expogame.database.ExpoGameDbHelper;
+import it.polimi.expogame.database.MascotsTable;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,10 +75,10 @@ public class ExpoMapFragment extends Fragment implements OnMapReadyCallback, Goo
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-
     }
+
+
 
     @Override
     public void onResume() {
