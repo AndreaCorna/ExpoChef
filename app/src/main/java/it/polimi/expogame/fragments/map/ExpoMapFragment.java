@@ -108,6 +108,22 @@ public class ExpoMapFragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         Log.d(TAG,"-------------Map Ready-------------");
 
+        initializeMap(googleMap);
+
+
+        setupOverlay(googleMap);
+
+
+        addMarkers(googleMap);
+
+    }
+
+
+    /**
+     * Setup th Map type the camera position and the allowed gestures
+     * @param googleMap
+     */
+    private void initializeMap(GoogleMap googleMap) {
         //setting up map type and camera position
         googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         CameraPosition cameraPosition = new CameraPosition.Builder()
@@ -120,8 +136,13 @@ public class ExpoMapFragment extends Fragment implements OnMapReadyCallback {
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
         googleMap.getUiSettings().setAllGesturesEnabled(false);
+    }
 
-
+    /**
+     * Creates the Overlay for the Expo area
+     * @param googleMap
+     */
+    private void setupOverlay(GoogleMap googleMap) {
         //setting up ground overlay
         GroundOverlayOptions expoMap = new GroundOverlayOptions()
                 .image(BitmapDescriptorFactory.fromResource(R.drawable.expomapv2))
@@ -140,14 +161,13 @@ public class ExpoMapFragment extends Fragment implements OnMapReadyCallback {
                 .transparency(0.7f)
                 .zIndex(1f);
         GroundOverlay backOverlay = googleMap.addGroundOverlay(greyBack);
+    }
 
-
+    private void addMarkers(GoogleMap googleMap) {
         googleMap.addMarker(new MarkerOptions()
                 .position(new LatLng(45.518824, 9.106110))
                 .title("Marker"));
-
     }
-
 
 
 }
