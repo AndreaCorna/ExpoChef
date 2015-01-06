@@ -1,8 +1,14 @@
 package it.polimi.expogame.fragments.map;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.InflateException;
@@ -10,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -31,15 +39,19 @@ import it.polimi.expogame.R;
  * Use the {@link ExpoMapFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ExpoMapFragment extends Fragment implements OnMapReadyCallback {
+public class ExpoMapFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnCameraChangeListener {
 
 
     private static final String TAG = "ExpoMapFragment";
     private View view;
-    //
-     private final LatLng INIT_POSITION = new LatLng(45.519899, 9.101893);
 
-    //private final LatLng INIT_POSITION = new LatLng(45.519939, 9.101604);
+    //Map Settings
+    private float minZoom = 15;
+    private final LatLng INIT_POSITION = new LatLng(45.519899, 9.101893);
+    //Cisano Bergamasco
+    //private final LatLng INIT_POSITION = new LatLng(45.738317, 9.476013);
+
+    private GoogleMap googleMap;
 
     /**
      * Use this factory method to create a new instance of
@@ -59,9 +71,45 @@ public class ExpoMapFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        LocationManager service = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        boolean enabled = service
+                .isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+        // check if enabled and if not send user to the GSP settings
+        // Better solution would be to display a dialog and suggesting to
+        // go to the settings
+        if (!enabled) {
+            buildAlertMessageNoGps();
+        }
+    }
+
+    private void buildAlertMessageNoGps() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -104,6 +152,10 @@ public class ExpoMapFragment extends Fragment implements OnMapReadyCallback {
         super.onDetach();
     }
 
+
+
+
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         Log.d(TAG,"-------------Map Ready-------------");
@@ -116,6 +168,8 @@ public class ExpoMapFragment extends Fragment implements OnMapReadyCallback {
 
         addMarkers(googleMap);
 
+        googleMap.setMyLocationEnabled(true);
+
     }
 
 
@@ -124,8 +178,37 @@ public class ExpoMapFragment extends Fragment implements OnMapReadyCallback {
      * @param googleMap
      */
     private void initializeMap(GoogleMap googleMap) {
+        this.googleMap = googleMap;
         //setting up map type and camera position
         googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        setUpCameraPosition(googleMap);
+
+        googleMap.getUiSettings().setRotateGesturesEnabled(false);
+        googleMap.getUiSettings().setScrollGesturesEnabled(false);
+        googleMap.getUiSettings().setTiltGesturesEnabled(false);
+
+        googleMap.setOnCameraChangeListener(this);
+    }
+
+    /**
+     * Take the user back to the map when tryes to zoom out
+     * @param cameraPosition
+     */
+    @Override
+    public void onCameraChange(CameraPosition cameraPosition) {
+
+
+        if (cameraPosition.zoom < minZoom) {
+            setUpCameraPosition(googleMap);
+        }
+
+    }
+
+    /**
+     * Move camera to the initPosition and with the other camera settings
+     * @param googleMap
+     */
+    private void setUpCameraPosition(GoogleMap googleMap) {
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(INIT_POSITION)      // Sets the center of the map to Expo site
                 .zoom(15)                   // Sets the zoom
@@ -134,9 +217,9 @@ public class ExpoMapFragment extends Fragment implements OnMapReadyCallback {
                 .build();                   // Creates a CameraPosition from the builder
 
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
-        googleMap.getUiSettings().setAllGesturesEnabled(false);
     }
+
+
 
     /**
      * Creates the Overlay for the Expo area
@@ -166,8 +249,10 @@ public class ExpoMapFragment extends Fragment implements OnMapReadyCallback {
     private void addMarkers(GoogleMap googleMap) {
         googleMap.addMarker(new MarkerOptions()
                 .position(new LatLng(45.518824, 9.106110))
-                .title("Marker"));
+                .title("Tommy Tomato")
+                .snippet("Verdura"));
     }
+
 
 
 }
