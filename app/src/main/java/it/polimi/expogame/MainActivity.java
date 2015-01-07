@@ -1,24 +1,36 @@
 package it.polimi.expogame;
 
-
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.google.android.gms.maps.SupportMapFragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import it.polimi.expogame.database.ExpoGameDbHelper;
+import it.polimi.expogame.database.MascotsTable;
 import it.polimi.expogame.fragments.ar.ARFragment;
+import it.polimi.expogame.fragments.cook.CookFragment;
 import it.polimi.expogame.fragments.cook.CookManagerFragment;
-import it.polimi.expogame.fragments.map.MapFragment;
+import it.polimi.expogame.fragments.info.InfoFragment;
+import it.polimi.expogame.fragments.map.ExpoMapFragment;
 import it.polimi.expogame.fragments.info.RootFragment;
 
 
 public class MainActivity extends FragmentActivity {
-
+    private static final String TAG = "MAIN ACTIVITY";
     private ViewPager viewPager = null;
 
     @Override
@@ -31,6 +43,25 @@ public class MainActivity extends FragmentActivity {
         //creating the adapter to attach to the viewPager
         CustomPagerAdapter customPagerAdapter = new CustomPagerAdapter(fragmentManager);
         viewPager.setAdapter(customPagerAdapter);
+        testDB();
+    }
+
+
+    //TODO  Delete this method is just a test for checking if the database is working
+    public  void testDB(){
+        String[] allColumns = {MascotsTable.COLUMN_CATEGORY,MascotsTable.COLUMN_NAME};
+        ExpoGameDbHelper myhelper = new ExpoGameDbHelper(this);
+        SQLiteDatabase database = myhelper.getWritableDatabase();
+        Cursor cursor = database.query(ExpoGameDbHelper.TABLE_MASCOTS,allColumns,null,null,null,null,null);
+        cursor.moveToFirst();
+
+        while(!cursor.isAfterLast()){
+            Log.d(TAG, "Category:  " + cursor.getString(0));
+            Log.d(TAG,"Name:  "+cursor.getString(1));
+
+            cursor.moveToNext();
+        }
+        cursor.close();
     }
 
 
@@ -79,7 +110,7 @@ class CustomPagerAdapter extends FragmentPagerAdapter {
         //switch link the tab number with the fragment which has to be used
         switch (position){
             case 0:
-                fragment = new MapFragment();
+                fragment = new ExpoMapFragment();
                 break;
             case 1:
                 fragment = new ARFragment();
