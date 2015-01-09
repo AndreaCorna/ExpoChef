@@ -19,11 +19,18 @@ public class ExpoGameDbHelper extends SQLiteAssetHelper {
     private static final int DATABASE_VERSION = 1;
     public static final String TABLE_MASCOTS = "mascots";
 
+    private static ExpoGameDbHelper instance;
 
-    public ExpoGameDbHelper(Context context) {
+    private ExpoGameDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+
+    public static ExpoGameDbHelper getInstance(Context context){
+        if(instance==null)
+            instance = new ExpoGameDbHelper(context.getApplicationContext());  //avoid Activity context leakage :)
+        return instance;
+    }
 
 
 }
