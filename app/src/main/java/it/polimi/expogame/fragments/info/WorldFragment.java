@@ -1,15 +1,22 @@
 package it.polimi.expogame.fragments.info;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import it.polimi.expogame.R;
 import it.polimi.expogame.support.Dish;
+
 
 
 /**
@@ -20,7 +27,7 @@ import it.polimi.expogame.support.Dish;
  * Use the {@link WorldFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WorldFragment extends Fragment {
+public class WorldFragment extends Fragment implements ListView.OnItemClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -30,7 +37,11 @@ public class WorldFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnDishSelectedListener mListener;
+    private OnDishSelectedListener dishSelectedListener;
+
+    private ListView listZones;
+    private ArrayAdapter<String> listAdapter ;
+
 
     /**
      * Use this factory method to create a new instance of
@@ -67,13 +78,28 @@ public class WorldFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_world, container, false);
+        View view = inflater.inflate(R.layout.fragment_world, container, false);
+        listZones = (ListView)view.findViewById(R.id.listZone);
+        listZones.setOnItemClickListener(this);
+        Button buttonInfo = (Button)view.findViewById(R.id.buttonInfo);
+        buttonInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (dishSelectedListener != null) {
+                    dishSelectedListener.onDishSelected(new Dish());
+                }
+            }
+        });
+        loadZones();
+
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Dish dish) {
-        if (mListener != null) {
-            mListener.onDishSelected(dish);
+        if (dishSelectedListener != null) {
+            dishSelectedListener.onDishSelected(dish);
         }
     }
 
@@ -81,7 +107,7 @@ public class WorldFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (OnDishSelectedListener) activity;
+            dishSelectedListener = (OnDishSelectedListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnIngredientSelectedListener");
@@ -91,7 +117,16 @@ public class WorldFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        dishSelectedListener = null;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if(dishSelectedListener != null){
+            //TODO retrieve dish information
+            Dish dish = new Dish();
+            dishSelectedListener.onDishSelected(dish);
+        }
     }
 
     /**
@@ -109,4 +144,15 @@ public class WorldFragment extends Fragment {
         public void onDishSelected(Dish dish);
     }
 
+
+    private void loadZones(){
+        String[] zones = new String[] { "Nord America", "America Centrale", "America del Sud", "Europa dell'est",
+                "Europa dell'ovest", "Estremo Oriente", "Medio Oriente", "Africa", "Oceania"};
+        ArrayList<String> zoneList = new ArrayList<String>();
+        zoneList.addAll( Arrays.asList(zones) );
+
+        // Create ArrayAdapter using the planet list.
+        listAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.simplerow, zoneList);
+        listZones.setAdapter(listAdapter);
+    }
 }

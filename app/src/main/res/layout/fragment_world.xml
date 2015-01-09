@@ -7,4 +7,26 @@
         android:text="World Fragment"
         android:id="@+id/worldFragmentLabel" />
 
+    <ListView
+        android:layout_width="215dp"
+        android:layout_height="537dp"
+        android:id="@+id/listZone"
+        android:layout_gravity="left|top"
+        android:clickable="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Button"
+        android:id="@+id/buttonInfo"
+        android:layout_gravity="right|top" />
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/rowTextView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textSize="16sp" >
+    </TextView>
+
 </FrameLayout>

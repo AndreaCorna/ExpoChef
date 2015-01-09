@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -24,12 +25,15 @@ import it.polimi.expogame.database.MascotsTable;
 import it.polimi.expogame.fragments.ar.ARFragment;
 import it.polimi.expogame.fragments.cook.CookFragment;
 import it.polimi.expogame.fragments.cook.CookManagerFragment;
+import it.polimi.expogame.fragments.info.DetailsFragment;
 import it.polimi.expogame.fragments.info.InfoFragment;
+import it.polimi.expogame.fragments.info.WorldFragment;
 import it.polimi.expogame.fragments.map.ExpoMapFragment;
 import it.polimi.expogame.fragments.info.RootFragment;
+import it.polimi.expogame.support.Dish;
 
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements WorldFragment.OnDishSelectedListener{
     private static final String TAG = "MAIN ACTIVITY";
     private ViewPager viewPager = null;
 
@@ -85,6 +89,20 @@ public class MainActivity extends FragmentActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDishSelected(Dish dish) {
+        DetailsFragment detailsFragment = new DetailsFragment(new Dish());
+
+        FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+        trans.replace(R.id.root_frame, detailsFragment, DetailsFragment.Tag);
+        trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        if(getFragmentManager().findFragmentByTag(this.TAG) == null){
+            trans.addToBackStack(this.TAG);
+        }
+
+        trans.commit();
     }
 
 
