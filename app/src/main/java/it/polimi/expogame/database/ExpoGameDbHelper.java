@@ -18,6 +18,7 @@ public class ExpoGameDbHelper extends SQLiteAssetHelper {
     private static final String DATABASE_NAME = "locals";
     private static final int DATABASE_VERSION = 1;
     public static final String TABLE_MASCOTS = "mascots";
+    public static final String TABLE_DISHES = DishesTable.TABLE_NAME;
 
     private static ExpoGameDbHelper instance;
 

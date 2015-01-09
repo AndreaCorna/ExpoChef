@@ -54,7 +54,7 @@ public class MainActivity extends FragmentActivity implements WorldFragment.OnDi
     //TODO  Delete this method is just a test for checking if the database is working
     public  void testDB(){
         String[] allColumns = {MascotsTable.COLUMN_CATEGORY,MascotsTable.COLUMN_NAME};
-        ExpoGameDbHelper myhelper = new ExpoGameDbHelper(this);
+        ExpoGameDbHelper myhelper = ExpoGameDbHelper.getInstance(this);
         SQLiteDatabase database = myhelper.getWritableDatabase();
         Cursor cursor = database.query(ExpoGameDbHelper.TABLE_MASCOTS,allColumns,null,null,null,null,null);
         cursor.moveToFirst();
