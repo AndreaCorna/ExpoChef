@@ -12,6 +12,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,6 +22,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+
+import it.polimi.expogame.support.Mascotte;
 
 
 /**
@@ -64,6 +68,10 @@ public class SplashActivity extends Activity {
                 URI website = null;
                 HttpClient httpclient = new DefaultHttpClient();
 
+                ArrayList <Mascotte> remoteMascottes = new ArrayList <Mascotte>();
+
+
+
                 try {
                     website = new URI("http://bullcantshit.noip.me/jsontest.html");
                 } catch (URISyntaxException e) {
@@ -80,7 +88,7 @@ public class SplashActivity extends Activity {
                     if (is != null)
                         json = convertInputStreamToString(is);
                     else
-                        json = "wtf";
+                        json = "";
 
                 } catch (Exception e) {
                     Log.w("ExpoGame", "Something went wrong during connection with server");
@@ -90,18 +98,24 @@ public class SplashActivity extends Activity {
                 try {
 
                     JSONObject jsonObject = new JSONObject(json);
-                    Log.w("ExpoGame", "JSON created!");
-                    String s = jsonObject.get("glossary").toString();
-                    Log.w("ExpoGame", "test field " + s);
+                    JSONArray jsonArray = jsonObject.getJSONArray("test");
+                    Log.w("ExpoGame", "jsonArray " + jsonArray.length());
+
+                    for(int i=0;i<jsonArray.length();i++)
+                       {
+                           JSONObject jsonMascotte = jsonArray.getJSONObject(i);
+                           Mascotte m = new Mascotte(jsonMascotte.getString("name"),jsonMascotte.getInt("longitude"),
+                                                    jsonMascotte.getInt("latitude"));
+                           remoteMascottes.add(m);
+                       }
+
+                //TODO now update the content provider of mascots with the values in the objects
 
                 } catch (JSONException e) {
                     Log.w("ExpoGame","Error during the conversion of JSON");
 
                 }
             }
-
-            //TODO: If (valid JSON)  parse it and update the db
-
             return null;
         }
 
