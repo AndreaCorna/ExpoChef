@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.util.Log;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
@@ -17,7 +18,7 @@ import it.polimi.expogame.database.DishesTable;
 import it.polimi.expogame.database.ExpoGameDbHelper;
 
 public class DishesProvider extends ContentProvider {
-
+    private static final String TAG ="DishesProvider";
     static final String AUTHORITY = "it.polimi.expogame.dishesprovider";
     private static final String BASE_PATH = "dishes";
     private static final int DISHES = 10;
@@ -34,6 +35,7 @@ public class DishesProvider extends ContentProvider {
     static {
         sURIMatcher.addURI(AUTHORITY, BASE_PATH, DISHES);
         sURIMatcher.addURI(AUTHORITY, BASE_PATH + "/#", DISH_ID);
+        sURIMatcher.addURI(AUTHORITY, BASE_PATH + "/zones", ZONES);
     }
 
     private ExpoGameDbHelper database;
@@ -65,7 +67,7 @@ public class DishesProvider extends ContentProvider {
 
         this.database = ExpoGameDbHelper.getInstance(this.getContext());
 
-        return false;
+        return true;
     }
 
 
@@ -76,6 +78,7 @@ public class DishesProvider extends ContentProvider {
         SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
         checkColumns(projection);
         queryBuilder.setTables(ExpoGameDbHelper.TABLE_DISHES);
+        Log.d(TAG, "After set tables");
 
         int uriType = sURIMatcher.match(uri);
 
@@ -93,6 +96,7 @@ public class DishesProvider extends ContentProvider {
         }
 
         SQLiteDatabase db = this.database.getWritableDatabase();
+        Log.d(TAG, db.toString());
         Cursor cursor = queryBuilder.query(db, projection, selection, selectionArgs, null, null, sortOrder);
         cursor.setNotificationUri(getContext().getContentResolver(), uri);
 

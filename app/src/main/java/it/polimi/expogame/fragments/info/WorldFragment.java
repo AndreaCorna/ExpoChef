@@ -1,8 +1,13 @@
 package it.polimi.expogame.fragments.info;
 
 import android.app.Activity;
+import android.content.ContentValues;
+import android.content.CursorLoader;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import it.polimi.expogame.R;
+import it.polimi.expogame.database.DishesTable;
+import it.polimi.expogame.providers.DishesProvider;
 import it.polimi.expogame.support.Dish;
 
 
@@ -27,7 +34,7 @@ import it.polimi.expogame.support.Dish;
  * Use the {@link WorldFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WorldFragment extends Fragment implements ListView.OnItemClickListener{
+public class WorldFragment extends Fragment implements ListView.OnItemClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -37,10 +44,12 @@ public class WorldFragment extends Fragment implements ListView.OnItemClickListe
     private String mParam1;
     private String mParam2;
 
+    private static final String TAG = "WorldFragment";
+
     private OnDishSelectedListener dishSelectedListener;
 
     private ListView listZones;
-    private ArrayAdapter<String> listAdapter ;
+    private ArrayAdapter<String> listAdapter;
 
 
     /**
@@ -79,9 +88,9 @@ public class WorldFragment extends Fragment implements ListView.OnItemClickListe
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_world, container, false);
-        listZones = (ListView)view.findViewById(R.id.listZone);
+        listZones = (ListView) view.findViewById(R.id.listZone);
         listZones.setOnItemClickListener(this);
-        Button buttonInfo = (Button)view.findViewById(R.id.buttonInfo);
+        Button buttonInfo = (Button) view.findViewById(R.id.buttonInfo);
         buttonInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,7 +131,7 @@ public class WorldFragment extends Fragment implements ListView.OnItemClickListe
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if(dishSelectedListener != null){
+        if (dishSelectedListener != null) {
             //TODO retrieve dish information
             Dish dish = new Dish();
             dishSelectedListener.onDishSelected(dish);
@@ -145,14 +154,30 @@ public class WorldFragment extends Fragment implements ListView.OnItemClickListe
     }
 
 
-    private void loadZones(){
-        String[] zones = new String[] { "Nord America", "America Centrale", "America del Sud", "Europa dell'est",
-                "Europa dell'ovest", "Estremo Oriente", "Medio Oriente", "Africa", "Oceania"};
-        ArrayList<String> zoneList = new ArrayList<String>();
-        zoneList.addAll( Arrays.asList(zones) );
+    private void loadZones() {
 
-        // Create ArrayAdapter using the planet list.
+        ArrayList<String> zoneList = new ArrayList<String>();
+
+
+        Uri uri = Uri.parse(DishesProvider.CONTENT_URI+"/zones");
+        String[] projection = {DishesTable.COLUMN_ZONE};
+        Cursor cursor = getActivity().getContentResolver().query(uri,projection,null,null,null);
+        if(cursor != null){
+            Log.d(TAG,""+cursor.getCount());
+            cursor.moveToFirst();
+            while (cursor.isAfterLast() == false){
+                String zone = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_ZONE));
+                zoneList.add(zone);
+                Log.d(TAG,zone);
+                cursor.moveToNext();
+            }
+
+        }else{
+            Log.d(TAG,"cursor load zones world fragment is null");
+
+        }
         listAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.simplerow, zoneList);
         listZones.setAdapter(listAdapter);
     }
+
 }

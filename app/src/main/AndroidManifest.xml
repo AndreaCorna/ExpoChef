@@ -53,10 +53,11 @@
         </provider>
         <provider
             android:name=".providers.DishesProvider"
-            android:authorities="it.polimi.expogame"
             android:enabled="true"
-            android:exported="false" >
+            android:exported="false"
+            android:authorities="it.polimi.expogame.dishesprovider">
         </provider>
+
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -67,5 +68,7 @@
             android:value="AIzaSyCZkWYcWGl7pcO3vf5AJu6VLS24XuJtEKc"/>
 
     </application>
+
+
 
 </manifest>
