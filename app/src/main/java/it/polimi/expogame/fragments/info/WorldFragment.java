@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import it.polimi.expogame.R;
 import it.polimi.expogame.database.DishesTable;
@@ -204,7 +205,11 @@ public class WorldFragment extends Fragment  {
         ArrayList<String> dishesList = new ArrayList<String>();
 
         String[] projection = {DishesTable.COLUMN_NAME};
-        Cursor cursor = getActivity().getContentResolver().query(DishesProvider.CONTENT_URI,projection,null,null,null);
+        String selection = DishesTable.COLUMN_ZONE + " = ?";
+
+        String[] selectionArgs = new String[]{zone};
+        Log.d(TAG,selectionArgs[0].toString());
+        Cursor cursor = getActivity().getContentResolver().query(DishesProvider.CONTENT_URI,projection,selection,selectionArgs,null);
         if(cursor != null){
             cursor.moveToFirst();
             while (cursor.isAfterLast() == false){
