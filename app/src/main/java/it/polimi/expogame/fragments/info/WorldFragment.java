@@ -1,8 +1,6 @@
 package it.polimi.expogame.fragments.info;
 
 import android.app.Activity;
-import android.content.ContentValues;
-import android.content.CursorLoader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,9 +13,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import it.polimi.expogame.R;
 import it.polimi.expogame.database.DishesTable;
@@ -34,7 +32,7 @@ import it.polimi.expogame.support.Dish;
  * Use the {@link WorldFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WorldFragment extends Fragment implements ListView.OnItemClickListener {
+public class WorldFragment extends Fragment  {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -49,7 +47,11 @@ public class WorldFragment extends Fragment implements ListView.OnItemClickListe
     private OnDishSelectedListener dishSelectedListener;
 
     private ListView listZones;
-    private ArrayAdapter<String> listAdapter;
+    private ArrayAdapter<String> listAdapterZones;
+
+    private ListView listDishes;
+    private ArrayAdapter<String> listAdapterDishes;
+
 
 
     /**
@@ -89,16 +91,41 @@ public class WorldFragment extends Fragment implements ListView.OnItemClickListe
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_world, container, false);
         listZones = (ListView) view.findViewById(R.id.listZone);
-        listZones.setOnItemClickListener(this);
-        Button buttonInfo = (Button) view.findViewById(R.id.buttonInfo);
-        buttonInfo.setOnClickListener(new View.OnClickListener() {
+        listZones.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String zone = listAdapterZones.getItem(position);
+                TextView label = (TextView)getView().findViewById(R.id.rowTextView);
+                label.setText("List dishes zone " + zone);
+                listZones.setVisibility(View.INVISIBLE);
+                loadDishesByZone(zone);
+
+            }
+        });
+        listDishes = (ListView)view.findViewById(R.id.listDishesOfZone);
+        listDishes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (dishSelectedListener != null) {
-                    dishSelectedListener.onDishSelected(new Dish());
+                    Dish dish = new Dish();
+                    dishSelectedListener.onDishSelected(dish);
                 }
             }
         });
+        listDishes.setVisibility(View.INVISIBLE);
+
+        final Button goBackButton = (Button)view.findViewById(R.id.goBackButton);
+        goBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView label = (TextView)getView().findViewById(R.id.rowTextView);
+                label.setText("List Zones");
+                listDishes.setVisibility(View.INVISIBLE);
+                listZones.setVisibility(View.VISIBLE);
+                goBackButton.setVisibility(View.INVISIBLE);
+            }
+        });
+
         loadZones();
 
 
@@ -129,14 +156,7 @@ public class WorldFragment extends Fragment implements ListView.OnItemClickListe
         dishSelectedListener = null;
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (dishSelectedListener != null) {
-            //TODO retrieve dish information
-            Dish dish = new Dish();
-            dishSelectedListener.onDishSelected(dish);
-        }
-    }
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -176,8 +196,29 @@ public class WorldFragment extends Fragment implements ListView.OnItemClickListe
             Log.d(TAG,"cursor load zones world fragment is null");
 
         }
-        listAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.simplerow, zoneList);
-        listZones.setAdapter(listAdapter);
+        listAdapterZones = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.simplerow, zoneList);
+        listZones.setAdapter(listAdapterZones);
     }
 
+    private void loadDishesByZone(String zone){
+        ArrayList<String> dishesList = new ArrayList<String>();
+
+        String[] projection = {DishesTable.COLUMN_NAME};
+        Cursor cursor = getActivity().getContentResolver().query(DishesProvider.CONTENT_URI,projection,null,null,null);
+        if(cursor != null){
+            cursor.moveToFirst();
+            while (cursor.isAfterLast() == false){
+                String dish = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_NAME));
+                dishesList.add(dish);
+                Log.d(TAG,dish);
+                cursor.moveToNext();
+            }
+        }
+        listAdapterDishes = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.simplerow, dishesList);
+        listDishes.setAdapter(listAdapterDishes);
+        listDishes.setVisibility(View.VISIBLE);
+        Button goBackButton = (Button)getView().findViewById(R.id.goBackButton);
+        goBackButton.setVisibility(View.VISIBLE);
+
+    }
 }

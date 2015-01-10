@@ -1,32 +1,39 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="it.polimi.expogame.fragments.info.WorldFragment">
+    android:layout_height="match_parent" tools:context="it.polimi.expogame.fragments.info.WorldFragment"
+    android:orientation="vertical"
+    >
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="World Fragment"
-        android:id="@+id/worldFragmentLabel" />
-
-    <ListView
-        android:layout_width="215dp"
-        android:layout_height="537dp"
-        android:id="@+id/listZone"
-        android:layout_gravity="left|top"
-        android:clickable="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/buttonInfo"
-        android:layout_gravity="right|top" />
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/rowTextView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:textSize="16sp" >
+        android:textSize="16sp"
+        android:text="List Zones"
+        >
     </TextView>
 
-</FrameLayout>
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listZone"
+        android:layout_gravity="left|center_vertical"
+        />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listDishesOfZone"
+        android:layout_gravity="left|center_vertical"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Go back"
+        android:id="@+id/goBackButton"
+        android:visibility="invisible" />
+
+</LinearLayout>
