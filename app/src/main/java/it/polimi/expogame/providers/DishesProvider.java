@@ -86,7 +86,7 @@ public class DishesProvider extends ContentProvider {
             case DISHES:
                 break;
             case DISH_ID:
-                queryBuilder.appendWhere(DishesTable.COLUMN_NAME + "=" + uri.getLastPathSegment());
+                queryBuilder.appendWhere(DishesTable.COLUMN_ID + "=" + uri.getLastPathSegment());
                 break;
             case ZONES:
                 queryBuilder.setDistinct(true);

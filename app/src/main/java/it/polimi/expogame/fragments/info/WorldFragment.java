@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,7 +52,7 @@ public class WorldFragment extends Fragment  {
     private ArrayAdapter<String> listAdapterZones;
 
     private ListView listDishes;
-    private ArrayAdapter<String> listAdapterDishes;
+    private SimpleCursorAdapter listAdapterDishes;
 
 
 
@@ -108,8 +109,9 @@ public class WorldFragment extends Fragment  {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (dishSelectedListener != null) {
-                    Dish dish = new Dish();
-                    dishSelectedListener.onDishSelected(dish);
+                    Log.d(TAG,"id "+id);
+                    loadDishClicked(id);
+
                 }
             }
         });
@@ -204,12 +206,13 @@ public class WorldFragment extends Fragment  {
     private void loadDishesByZone(String zone){
         ArrayList<String> dishesList = new ArrayList<String>();
 
-        String[] projection = {DishesTable.COLUMN_NAME};
+        //String[] projection = {DishesTable.COLUMN_NAME};
         String selection = DishesTable.COLUMN_ZONE + " = ?";
 
         String[] selectionArgs = new String[]{zone};
         Log.d(TAG,selectionArgs[0].toString());
-        Cursor cursor = getActivity().getContentResolver().query(DishesProvider.CONTENT_URI,projection,selection,selectionArgs,null);
+        Cursor cursor = getActivity().getContentResolver().query(DishesProvider.CONTENT_URI,null,selection,selectionArgs,null);
+        /*
         if(cursor != null){
             cursor.moveToFirst();
             while (cursor.isAfterLast() == false){
@@ -219,11 +222,41 @@ public class WorldFragment extends Fragment  {
                 cursor.moveToNext();
             }
         }
-        listAdapterDishes = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.simplerow, dishesList);
+        */
+        String[] columns = new String[] { DishesTable.COLUMN_NAME, DishesTable.COLUMN_NATIONALITY };
+
+        int[] to = new int[] { R.id.name_dish, R.id.country_dish };
+
+        listAdapterDishes = new SimpleCursorAdapter(getActivity().getApplicationContext(),R.layout.list_dishes_item,cursor,columns,to);
+
+        //listAdapterDishes = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.simplerow, dishesList);
         listDishes.setAdapter(listAdapterDishes);
         listDishes.setVisibility(View.VISIBLE);
         Button goBackButton = (Button)getView().findViewById(R.id.goBackButton);
         goBackButton.setVisibility(View.VISIBLE);
+
+    }
+
+    private void loadDishClicked(long id){
+        Uri uri = Uri.parse(DishesProvider.CONTENT_URI+"/"+id);
+        String[] projection = new String[]{};
+        Cursor cursor = getActivity().getContentResolver().query(uri,projection,null,null,null);
+        if(cursor != null){
+            cursor.moveToFirst();
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_NAME));
+            String nationality = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_NATIONALITY));
+            String imageUrl = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_IMAGE));
+            String description = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_DESCRIPTION));
+            String zone = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_ZONE));
+            int created = cursor.getInt(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_CREATED));
+            boolean createdDish = false;
+            if(created == 1){
+                createdDish = true;
+            }
+
+            dishSelectedListener.onDishSelected(new Dish(id,name,nationality,imageUrl,description,zone,createdDish));
+
+        }
 
     }
 }

@@ -6,6 +6,7 @@ import  android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import it.polimi.expogame.R;
 import it.polimi.expogame.support.Dish;
@@ -75,6 +76,8 @@ public class DetailsFragment extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_details, container, false);
+        TextView label = (TextView)view.findViewById(R.id.detailsFragmentLabel);
+        label.setText("Details of "+dish.getName()+"\n"+"Nationality "+dish.getNationality());
         return view;
     }
 

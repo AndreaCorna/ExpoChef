@@ -93,7 +93,7 @@ public class MainActivity extends FragmentActivity implements WorldFragment.OnDi
 
     @Override
     public void onDishSelected(Dish dish) {
-        DetailsFragment detailsFragment = new DetailsFragment(new Dish());
+        DetailsFragment detailsFragment = new DetailsFragment(dish);
 
         FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
         trans.replace(R.id.root_frame, detailsFragment, DetailsFragment.Tag);
