@@ -87,7 +87,7 @@ public class DetailsFragment extends Fragment{
         TextView nationality = (TextView)view.findViewById(R.id.nationality_dish);
         nationality.setText(dish.getNationality());
         ImageView imageDish = (ImageView)view.findViewById(R.id.imageDish);
-        imageDish.setImageResource(R.drawable.ic_launcher);
+        imageDish.setImageResource(R.drawable.margherita);
 
 
         return view;
