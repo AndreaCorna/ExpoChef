@@ -65,7 +65,7 @@ public class SplashActivity extends Activity {
                 HttpClient httpclient = new DefaultHttpClient();
 
                 try {
-                    website = new URI("http://bullcantshit.noip.me/jsontest.html");
+                    website = new URI("http://192.168.0.101:3000/api/mascots");
                 } catch (URISyntaxException e) {
                     Log.w("ExpoGame", "Wrong/Malformed URI");
                     e.printStackTrace();

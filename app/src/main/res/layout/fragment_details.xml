@@ -3,8 +3,48 @@
     android:layout_height="match_parent" tools:context="it.polimi.expogame.fragments.info.DetailsFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="Cook Details Fragment"
-        android:id="@+id/detailsFragmentLabel" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="left|top">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Large Text"
+            android:id="@+id/nameDishLabel"
+            android:layout_gravity="center_horizontal|top"
+            android:paddingTop="20dp"
+            android:textStyle="bold|italic"
+           />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageDish"
+            android:layout_gravity="center"
+            android:src="@android:drawable/presence_video_online"
+            android:layout_weight="0.30" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:id="@+id/descriptionDishLabel"
+            android:layout_weight="0.60" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:id="@+id/shareButton"
+            android:layout_gravity="right|top"
+            android:background="@drawable/facebook"
+            android:layout_weight="0.05"/>
+    </LinearLayout>
 
 </FrameLayout>
