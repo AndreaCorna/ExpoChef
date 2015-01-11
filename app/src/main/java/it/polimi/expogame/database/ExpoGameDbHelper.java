@@ -1,14 +1,8 @@
 package it.polimi.expogame.database;
 
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Lorenzo on 06/01/15.

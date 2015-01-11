@@ -77,8 +77,6 @@ public class SplashActivity extends Activity {
 
                 ArrayList <Mascotte> remoteMascottes = new ArrayList <Mascotte>();
 
-
-
                 try {
                     website = new URI("http://192.168.1.37:3000/api/mascots");
                 } catch (URISyntaxException e) {
@@ -106,7 +104,6 @@ public class SplashActivity extends Activity {
 
                     JSONObject jsonObject = new JSONObject(json);
                     JSONArray jsonArray = jsonObject.getJSONArray("list");
-                    Log.w("ExpoGame", "jsonArray " + jsonArray.length());
 
                     for(int i=0;i<jsonArray.length();i++)
                        {
@@ -115,6 +112,9 @@ public class SplashActivity extends Activity {
                                                     jsonMascotte.getString("latitude"));
                            remoteMascottes.add(m);
                        }
+                } catch (JSONException e) {
+                    Log.w("ExpoGame","Error during the JSON handling");
+                }
 
                     //Let's update the mascots coordinates with the new remotly acquired
                     //( if they are not changed let's make the update anyway )
@@ -157,10 +157,7 @@ public class SplashActivity extends Activity {
 
                     c.close();
                     */
-                } catch (Exception e) {
-                    Log.w("ExpoGame","Error during the updating of coordinates");
 
-                }
             }
             return null;
         }
