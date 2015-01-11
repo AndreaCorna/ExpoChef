@@ -208,8 +208,24 @@ public class WorldFragment extends Fragment  {
 
         int[] to = new int[] { R.id.name_dish, R.id.country_dish };
 
-        listAdapterDishes = new SimpleCursorAdapter(getActivity().getApplicationContext(),R.layout.list_dishes_item,cursor,columns,to);
+        listAdapterDishes = new SimpleCursorAdapter(getActivity().getApplicationContext(),R.layout.list_dishes_item,cursor,columns,to){
+            @Override
+            public boolean isEnabled(int position){
+                Cursor cursor = this.getCursor();
+                cursor.moveToPosition(position);
+                int created = cursor.getInt(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_CREATED));
+                if(created == 1){
+                    return true;
+                }else{
+                    return false;
+                }
+
+            }
+        };
         listItems.setAdapter(listAdapterDishes);
+        
+
+
         Button goBackButton = (Button)getView().findViewById(R.id.goBackButton);
         goBackButton.setVisibility(View.VISIBLE);
 
