@@ -5,6 +5,7 @@ package it.polimi.expogame.database;
  */
 public class MascotsTable {
 
+    public static final String TABLE_NAME="Mascots";
     public static final String COLUMN_CATEGORY = "category";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_LATITUDE= "latitude";

@@ -13,6 +13,7 @@ import android.view.View;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.locks.Lock;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -50,16 +51,14 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
 
     private MyAnnotatedGeometriesGroupCallback mAnnotatedGeometriesGroupCallback;
 
-    //------added by me
-
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
 
-    //-----
 
     /**
      * Geometries
      */
+    private ArrayList <IGeometry> MascotteList;
     private IGeometry mRomeGeo;
 
 
@@ -276,6 +275,8 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
                 mAnnotatedGeometriesGroup.setSelectedGeometry(geometry);
             }
         });
+
+        // TODO extract the mascotte clicked and unlock all the ingredient in the db associated to it
     }
 
     //added by degrigis START ----------------------------------------------------------------------

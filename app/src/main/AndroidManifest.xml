@@ -53,17 +53,18 @@
             android:enabled="true"
             android:exported="false" >
         </provider>
-        <provider
-            android:name=".providers.MascotsProvider"
-            android:authorities="it.polimi.expogame"
-            android:enabled="true"
-            android:exported="false" >
-        </provider>
+
         <provider
             android:name=".providers.DishesProvider"
             android:enabled="true"
             android:exported="false"
             android:authorities="it.polimi.expogame.dishesprovider">
+        </provider>
+        <provider
+            android:name=".providers.MascotsProvider"
+            android:enabled="true"
+            android:exported="false"
+            android:authorities="it.polimi.expogame.mascotsprovider">
         </provider>
 
 

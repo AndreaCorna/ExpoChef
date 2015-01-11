@@ -5,26 +5,24 @@ package it.polimi.expogame.support;
  */
 public class Mascotte {
 
-
-
     private String name;
-    private Integer longi;
-    private Integer lat;
+    private String longi;
+    private String lat;
 
     public Mascotte() {
     }
 
-    public Mascotte(String name, Integer longi, Integer lat) {
+    public Mascotte(String name, String longi, String lat) {
         this.name = name;
         this.longi = longi;
         this.lat = lat;
     }
 
-    public Integer getLongi() {
+    public String getLongi() {
         return longi;
     }
 
-    public Integer getLat() {
+    public String getLat() {
         return lat;
     }
 
@@ -36,11 +34,11 @@ public class Mascotte {
         this.name = name;
     }
 
-    public void setLat(Integer lat) {
+    public void setLat(String lat) {
         this.lat = lat;
     }
 
-    public void setLongi(Integer longi) {
+    public void setLongi(String longi) {
         this.longi = longi;
     }
 }

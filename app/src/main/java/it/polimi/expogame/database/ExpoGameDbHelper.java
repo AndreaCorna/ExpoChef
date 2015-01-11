@@ -15,11 +15,12 @@ import java.util.List;
  * Class as a singleton
  */
 public class ExpoGameDbHelper extends SQLiteAssetHelper {
+
     private static final String TAG = "DBHELPER";
-    private static final String DATABASE_NAME = "locals";
+    private static final String DATABASE_NAME = "db.sqlite3";
     private static final int DATABASE_VERSION = 1;
-    public static final String TABLE_MASCOTS = "mascots";
-    public static final String TABLE_INGREDIENTS = "ingredients";
+    public static final String TABLE_MASCOTS = MascotsTable.TABLE_NAME;
+    public static final String TABLE_INGREDIENTS = IngredientTable.TABLE_NAME;
     public static final String TABLE_DISHES = DishesTable.TABLE_NAME;
 
 

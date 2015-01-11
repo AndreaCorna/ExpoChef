@@ -5,6 +5,7 @@ package it.polimi.expogame.database;
  */
 public class IngredientTable {
 
+    public static final String TABLE_NAME="Ingredients";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_IMAGE = "image";
     public static final String COLUMN_TYPE = "type";

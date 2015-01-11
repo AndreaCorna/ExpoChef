@@ -1,7 +1,10 @@
 package it.polimi.expogame;
 
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -24,6 +27,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
+import it.polimi.expogame.database.MascotsTable;
+import it.polimi.expogame.providers.MascotsProvider;
 import it.polimi.expogame.support.Mascotte;
 
 
@@ -37,6 +42,7 @@ import it.polimi.expogame.support.Mascotte;
  *
  */
 public class SplashActivity extends Activity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,13 +73,14 @@ public class SplashActivity extends Activity {
                 HttpGet request = new HttpGet();
                 URI website = null;
                 HttpClient httpclient = new DefaultHttpClient();
+                ContentResolver cr;
 
                 ArrayList <Mascotte> remoteMascottes = new ArrayList <Mascotte>();
 
 
 
                 try {
-                    website = new URI("http://bullcantshit.noip.me/jsontest.html");
+                    website = new URI("http://192.168.1.37:3000/api/mascots");
                 } catch (URISyntaxException e) {
                     Log.w("ExpoGame", "Wrong/Malformed URI");
                     e.printStackTrace();
@@ -98,21 +105,60 @@ public class SplashActivity extends Activity {
                 try {
 
                     JSONObject jsonObject = new JSONObject(json);
-                    JSONArray jsonArray = jsonObject.getJSONArray("test");
+                    JSONArray jsonArray = jsonObject.getJSONArray("list");
                     Log.w("ExpoGame", "jsonArray " + jsonArray.length());
 
                     for(int i=0;i<jsonArray.length();i++)
                        {
                            JSONObject jsonMascotte = jsonArray.getJSONObject(i);
-                           Mascotte m = new Mascotte(jsonMascotte.getString("name"),jsonMascotte.getInt("longitude"),
-                                                    jsonMascotte.getInt("latitude"));
+                           Mascotte m = new Mascotte(jsonMascotte.getString("name"),jsonMascotte.getString("longitude"),
+                                                    jsonMascotte.getString("latitude"));
                            remoteMascottes.add(m);
                        }
 
-                //TODO now update the content provider of mascots with the values in the objects
+                    //Let's update the mascots coordinates with the new remotly acquired
+                    //( if they are not changed let's make the update anyway )
+                    cr  = getContentResolver();
 
-                } catch (JSONException e) {
-                    Log.w("ExpoGame","Error during the conversion of JSON");
+                    for(Mascotte m : remoteMascottes)
+                        {
+                            String where = MascotsTable.COLUMN_NAME + " = ?";
+                            String[] name = new String[]{m.getName()};
+
+                            ContentValues values = new ContentValues();
+
+                            values.put(MascotsTable.COLUMN_LATITUDE,m.getLat());
+                            values.put(MascotsTable.COLUMN_LONGITUDE,m.getLongi());
+
+                            cr.update(MascotsProvider.CONTENT_URI,values,where,name);
+                        }
+
+
+                    // DEBUG testing if coordinates are changed
+                    /*
+                    Cursor c = cr.query( MascotsProvider.CONTENT_URI,
+                            new String[]{MascotsTable.COLUMN_NAME,MascotsTable.COLUMN_LONGITUDE},
+                            null,
+                            null,
+                            null);
+                    remoteMascottes.clear();
+                    while (c.moveToNext())
+                    {
+                        Mascotte m = new Mascotte(c.getString(0),""+c.getFloat(1),"");
+                        remoteMascottes.add(m);
+
+                    }
+
+                    for(Mascotte m : remoteMascottes)
+                    {
+                        Log.w("ExpoGameUpdate", ""+m.getName());
+                        Log.w("ExpoGameUpdate",""+m.getLongi());
+                    }
+
+                    c.close();
+                    */
+                } catch (Exception e) {
+                    Log.w("ExpoGame","Error during the updating of coordinates");
 
                 }
             }

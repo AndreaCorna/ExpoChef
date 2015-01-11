@@ -4,7 +4,7 @@
 /.idea/libraries
 .DS_Store
 /build
-
+db.sqlite3
 *.apk
 *.ap_
 *.dex
