@@ -19,15 +19,11 @@
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listZone"
+        android:id="@+id/listItem"
         android:layout_gravity="left|center_vertical"
         />
 
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/listDishesOfZone"
-        android:layout_gravity="left|center_vertical"/>
+
 
     <Button
         android:layout_width="wrap_content"

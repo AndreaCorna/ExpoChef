@@ -5,12 +5,12 @@
 
         <TextView
             android:id="@+id/name_dish"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textSize="16dip" />
         <TextView
             android:id="@+id/country_dish"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textSize="16dip" />
 

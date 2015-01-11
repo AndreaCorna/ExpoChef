@@ -17,7 +17,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import it.polimi.expogame.R;
 import it.polimi.expogame.database.DishesTable;
@@ -44,15 +43,15 @@ public class WorldFragment extends Fragment  {
     private String mParam1;
     private String mParam2;
 
-    private static final String TAG = "WorldFragment";
+    public static final String TAG = "WorldFragment";
 
     private OnDishSelectedListener dishSelectedListener;
 
-    private ListView listZones;
+    private ListView listItems;
     private ArrayAdapter<String> listAdapterZones;
 
-    private ListView listDishes;
     private SimpleCursorAdapter listAdapterDishes;
+    private boolean inZoneList = true;
 
 
 
@@ -92,30 +91,23 @@ public class WorldFragment extends Fragment  {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_world, container, false);
-        listZones = (ListView) view.findViewById(R.id.listZone);
-        listZones.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listItems = (ListView) view.findViewById(R.id.listItem);
+        listItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String zone = listAdapterZones.getItem(position);
-                TextView label = (TextView)getView().findViewById(R.id.rowTextView);
+                TextView label = (TextView) getView().findViewById(R.id.rowTextView);
                 label.setText("List dishes zone " + zone);
-                listZones.setVisibility(View.INVISIBLE);
-                loadDishesByZone(zone);
-
-            }
-        });
-        listDishes = (ListView)view.findViewById(R.id.listDishesOfZone);
-        listDishes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (dishSelectedListener != null) {
-                    Log.d(TAG,"id "+id);
+                //listItems.setVisibility(View.INVISIBLE);
+                if(inZoneList){
+                    loadDishesByZone(zone);
+                    inZoneList = false;
+                }else{
                     loadDishClicked(id);
-
                 }
+
             }
         });
-        listDishes.setVisibility(View.INVISIBLE);
 
         final Button goBackButton = (Button)view.findViewById(R.id.goBackButton);
         goBackButton.setOnClickListener(new View.OnClickListener() {
@@ -123,14 +115,15 @@ public class WorldFragment extends Fragment  {
             public void onClick(View v) {
                 TextView label = (TextView)getView().findViewById(R.id.rowTextView);
                 label.setText("List Zones");
-                listDishes.setVisibility(View.INVISIBLE);
-                listZones.setVisibility(View.VISIBLE);
                 goBackButton.setVisibility(View.INVISIBLE);
+                inZoneList = true;
+
+                loadZones();
             }
         });
 
         loadZones();
-
+        inZoneList = true;
 
         return view;
     }
@@ -200,38 +193,23 @@ public class WorldFragment extends Fragment  {
 
         }
         listAdapterZones = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.simplerow, zoneList);
-        listZones.setAdapter(listAdapterZones);
+        listItems.setAdapter(listAdapterZones);
     }
 
     private void loadDishesByZone(String zone){
-        ArrayList<String> dishesList = new ArrayList<String>();
 
-        //String[] projection = {DishesTable.COLUMN_NAME};
         String selection = DishesTable.COLUMN_ZONE + " = ?";
 
         String[] selectionArgs = new String[]{zone};
         Log.d(TAG,selectionArgs[0].toString());
         Cursor cursor = getActivity().getContentResolver().query(DishesProvider.CONTENT_URI,null,selection,selectionArgs,null);
-        /*
-        if(cursor != null){
-            cursor.moveToFirst();
-            while (cursor.isAfterLast() == false){
-                String dish = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_NAME));
-                dishesList.add(dish);
-                Log.d(TAG,dish);
-                cursor.moveToNext();
-            }
-        }
-        */
+
         String[] columns = new String[] { DishesTable.COLUMN_NAME, DishesTable.COLUMN_NATIONALITY };
 
         int[] to = new int[] { R.id.name_dish, R.id.country_dish };
 
         listAdapterDishes = new SimpleCursorAdapter(getActivity().getApplicationContext(),R.layout.list_dishes_item,cursor,columns,to);
-
-        //listAdapterDishes = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.simplerow, dishesList);
-        listDishes.setAdapter(listAdapterDishes);
-        listDishes.setVisibility(View.VISIBLE);
+        listItems.setAdapter(listAdapterDishes);
         Button goBackButton = (Button)getView().findViewById(R.id.goBackButton);
         goBackButton.setVisibility(View.VISIBLE);
 
