@@ -17,7 +17,7 @@ import java.util.List;
 public class ExpoGameDbHelper extends SQLiteAssetHelper {
 
     private static final String TAG = "DBHELPER";
-    private static final String DATABASE_NAME = "db.sqlite3";
+    private static final String DATABASE_NAME = "locals.sqlite";
     private static final int DATABASE_VERSION = 1;
     public static final String TABLE_MASCOTS = MascotsTable.TABLE_NAME;
     public static final String TABLE_INGREDIENTS = IngredientTable.TABLE_NAME;

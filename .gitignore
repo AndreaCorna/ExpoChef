@@ -16,3 +16,4 @@ proguard/
 metaioSDK/*
 .idea/inspectionProfiles/
 metSDK/*
+*.sqlite
