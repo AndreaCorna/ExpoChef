@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import it.polimi.expogame.R;
 import it.polimi.expogame.support.Dish;
 
@@ -78,10 +80,12 @@ public class DetailsFragment extends Fragment{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_details, container, false);
         TextView nameDish = (TextView)view.findViewById(R.id.nameDishLabel);
-        nameDish.setText(dish.getName());
+        nameDish.setText(dish.getName().toUpperCase());
         nameDish.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         TextView descriptionDish = (TextView)view.findViewById(R.id.descriptionDishLabel);
         descriptionDish.setText(dish.getDescription());
+        TextView nationality = (TextView)view.findViewById(R.id.nationality_dish);
+        nationality.setText(dish.getNationality());
         ImageView imageDish = (ImageView)view.findViewById(R.id.imageDish);
         imageDish.setImageResource(R.drawable.ic_launcher);
 
