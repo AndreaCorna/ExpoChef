@@ -98,7 +98,6 @@ public class WorldFragment extends Fragment  {
                 String zone = listAdapterZones.getItem(position);
                 TextView label = (TextView) getView().findViewById(R.id.rowTextView);
                 label.setText("List dishes zone " + zone);
-                //listItems.setVisibility(View.INVISIBLE);
                 if(inZoneList){
                     loadDishesByZone(zone);
                     inZoneList = false;
@@ -154,18 +153,7 @@ public class WorldFragment extends Fragment  {
 
 
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnDishSelectedListener {
-        // TODO: Update argument type and name
         public void onDishSelected(Dish dish);
     }
 
@@ -209,6 +197,7 @@ public class WorldFragment extends Fragment  {
         int[] to = new int[] { R.id.name_dish, R.id.country_dish };
 
         listAdapterDishes = new SimpleCursorAdapter(getActivity().getApplicationContext(),R.layout.list_dishes_item,cursor,columns,to){
+            /*Override of method in order to disable dishes that are not created yet*/
             @Override
             public boolean isEnabled(int position){
                 Cursor cursor = this.getCursor();
@@ -224,8 +213,6 @@ public class WorldFragment extends Fragment  {
         };
         listItems.setAdapter(listAdapterDishes);
         
-
-
         Button goBackButton = (Button)getView().findViewById(R.id.goBackButton);
         goBackButton.setVisibility(View.VISIBLE);
 
