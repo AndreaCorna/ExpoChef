@@ -99,7 +99,7 @@ public class MainActivity extends FragmentActivity implements WorldFragment.OnDi
         trans.replace(R.id.root_frame, detailsFragment, DetailsFragment.Tag);
         trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         if(getFragmentManager().findFragmentByTag(this.TAG) == null){
-            trans.addToBackStack(this.TAG);
+            trans.addToBackStack(WorldFragment.TAG);
         }
 
         trans.commit();

@@ -86,18 +86,13 @@ public class DetailsFragment extends Fragment{
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        /*try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnIngredientSelectedListener");
-        }*/
+
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        //mListener = null;
     }
+
 
 }
