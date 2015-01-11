@@ -1,15 +1,29 @@
 package it.polimi.expogame.fragments.info;
 
 import android.app.Activity;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.widget.SimpleCursorAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import it.polimi.expogame.R;
+import it.polimi.expogame.database.DishesTable;
+import it.polimi.expogame.providers.DishesProvider;
 import it.polimi.expogame.support.Dish;
+
 
 
 /**
@@ -20,7 +34,7 @@ import it.polimi.expogame.support.Dish;
  * Use the {@link WorldFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WorldFragment extends Fragment {
+public class WorldFragment extends Fragment  {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -30,7 +44,17 @@ public class WorldFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnDishSelectedListener mListener;
+    private static final String TAG = "WorldFragment";
+
+    private OnDishSelectedListener dishSelectedListener;
+
+    private ListView listZones;
+    private ArrayAdapter<String> listAdapterZones;
+
+    private ListView listDishes;
+    private SimpleCursorAdapter listAdapterDishes;
+
+
 
     /**
      * Use this factory method to create a new instance of
@@ -67,13 +91,54 @@ public class WorldFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_world, container, false);
+        View view = inflater.inflate(R.layout.fragment_world, container, false);
+        listZones = (ListView) view.findViewById(R.id.listZone);
+        listZones.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String zone = listAdapterZones.getItem(position);
+                TextView label = (TextView)getView().findViewById(R.id.rowTextView);
+                label.setText("List dishes zone " + zone);
+                listZones.setVisibility(View.INVISIBLE);
+                loadDishesByZone(zone);
+
+            }
+        });
+        listDishes = (ListView)view.findViewById(R.id.listDishesOfZone);
+        listDishes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (dishSelectedListener != null) {
+                    Log.d(TAG,"id "+id);
+                    loadDishClicked(id);
+
+                }
+            }
+        });
+        listDishes.setVisibility(View.INVISIBLE);
+
+        final Button goBackButton = (Button)view.findViewById(R.id.goBackButton);
+        goBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView label = (TextView)getView().findViewById(R.id.rowTextView);
+                label.setText("List Zones");
+                listDishes.setVisibility(View.INVISIBLE);
+                listZones.setVisibility(View.VISIBLE);
+                goBackButton.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        loadZones();
+
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Dish dish) {
-        if (mListener != null) {
-            mListener.onDishSelected(dish);
+        if (dishSelectedListener != null) {
+            dishSelectedListener.onDishSelected(dish);
         }
     }
 
@@ -81,7 +146,7 @@ public class WorldFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (OnDishSelectedListener) activity;
+            dishSelectedListener = (OnDishSelectedListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnIngredientSelectedListener");
@@ -91,8 +156,10 @@ public class WorldFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        dishSelectedListener = null;
     }
+
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -109,4 +176,87 @@ public class WorldFragment extends Fragment {
         public void onDishSelected(Dish dish);
     }
 
+
+    private void loadZones() {
+
+        ArrayList<String> zoneList = new ArrayList<String>();
+
+
+        Uri uri = Uri.parse(DishesProvider.CONTENT_URI+"/zones");
+        String[] projection = {DishesTable.COLUMN_ZONE};
+        Cursor cursor = getActivity().getContentResolver().query(uri,projection,null,null,null);
+        if(cursor != null){
+            Log.d(TAG,""+cursor.getCount());
+            cursor.moveToFirst();
+            while (cursor.isAfterLast() == false){
+                String zone = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_ZONE));
+                zoneList.add(zone);
+                Log.d(TAG,zone);
+                cursor.moveToNext();
+            }
+
+        }else{
+            Log.d(TAG,"cursor load zones world fragment is null");
+
+        }
+        listAdapterZones = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.simplerow, zoneList);
+        listZones.setAdapter(listAdapterZones);
+    }
+
+    private void loadDishesByZone(String zone){
+        ArrayList<String> dishesList = new ArrayList<String>();
+
+        //String[] projection = {DishesTable.COLUMN_NAME};
+        String selection = DishesTable.COLUMN_ZONE + " = ?";
+
+        String[] selectionArgs = new String[]{zone};
+        Log.d(TAG,selectionArgs[0].toString());
+        Cursor cursor = getActivity().getContentResolver().query(DishesProvider.CONTENT_URI,null,selection,selectionArgs,null);
+        /*
+        if(cursor != null){
+            cursor.moveToFirst();
+            while (cursor.isAfterLast() == false){
+                String dish = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_NAME));
+                dishesList.add(dish);
+                Log.d(TAG,dish);
+                cursor.moveToNext();
+            }
+        }
+        */
+        String[] columns = new String[] { DishesTable.COLUMN_NAME, DishesTable.COLUMN_NATIONALITY };
+
+        int[] to = new int[] { R.id.name_dish, R.id.country_dish };
+
+        listAdapterDishes = new SimpleCursorAdapter(getActivity().getApplicationContext(),R.layout.list_dishes_item,cursor,columns,to);
+
+        //listAdapterDishes = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.simplerow, dishesList);
+        listDishes.setAdapter(listAdapterDishes);
+        listDishes.setVisibility(View.VISIBLE);
+        Button goBackButton = (Button)getView().findViewById(R.id.goBackButton);
+        goBackButton.setVisibility(View.VISIBLE);
+
+    }
+
+    private void loadDishClicked(long id){
+        Uri uri = Uri.parse(DishesProvider.CONTENT_URI+"/"+id);
+        String[] projection = new String[]{};
+        Cursor cursor = getActivity().getContentResolver().query(uri,projection,null,null,null);
+        if(cursor != null){
+            cursor.moveToFirst();
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_NAME));
+            String nationality = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_NATIONALITY));
+            String imageUrl = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_IMAGE));
+            String description = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_DESCRIPTION));
+            String zone = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_ZONE));
+            int created = cursor.getInt(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_CREATED));
+            boolean createdDish = false;
+            if(created == 1){
+                createdDish = true;
+            }
+
+            dishSelectedListener.onDishSelected(new Dish(id,name,nationality,imageUrl,description,zone,createdDish));
+
+        }
+
+    }
 }
