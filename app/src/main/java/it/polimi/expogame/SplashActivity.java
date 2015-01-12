@@ -1,7 +1,10 @@
 package it.polimi.expogame;
 
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -12,6 +15,10 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,6 +28,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+
+import it.polimi.expogame.database.MascotsTable;
+import it.polimi.expogame.providers.MascotsProvider;
+import it.polimi.expogame.support.Mascotte;
 
 
 /**
@@ -33,6 +45,7 @@ import java.net.URISyntaxException;
  *
  */
 public class SplashActivity extends Activity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,16 +75,26 @@ public class SplashActivity extends Activity {
                 String json="";
                 HttpGet request = new HttpGet();
                 URI website = null;
-                HttpClient httpclient = new DefaultHttpClient();
+
+                HttpParams httpParams = new BasicHttpParams();
+                HttpConnectionParams.setConnectionTimeout(httpParams, 5000);
+
+                //set the timeout to 5 seconds for the http connection
+                HttpClient httpclient = new DefaultHttpClient(httpParams);
+
+                ContentResolver cr;
+
+                ArrayList <Mascotte> remoteMascottes = new ArrayList <Mascotte>();
 
                 try {
-                    website = new URI("http://192.168.0.101:3000/api/mascots");
+                    website = new URI("http://192.168.1.37:3000/api/mascots");
                 } catch (URISyntaxException e) {
                     Log.w("ExpoGame", "Wrong/Malformed URI");
                     e.printStackTrace();
                 }
 
                 request.setURI(website);
+
 
                 try {
                     HttpResponse response = httpclient.execute(request);
@@ -80,28 +103,72 @@ public class SplashActivity extends Activity {
                     if (is != null)
                         json = convertInputStreamToString(is);
                     else
-                        json = "wtf";
+                        json = "";
 
-                } catch (Exception e) {
+                } catch (Exception e) { //if connection fails game over
                     Log.w("ExpoGame", "Something went wrong during connection with server");
                     e.printStackTrace();
+                    return null;
                 }
 
                 try {
 
                     JSONObject jsonObject = new JSONObject(json);
-                    Log.w("ExpoGame", "JSON created!");
-                    String s = jsonObject.get("glossary").toString();
-                    Log.w("ExpoGame", "test field " + s);
+                    JSONArray jsonArray = jsonObject.getJSONArray("list");
 
+                    for(int i=0;i<jsonArray.length();i++)
+                    {
+                        JSONObject jsonMascotte = jsonArray.getJSONObject(i);
+                        Mascotte m = new Mascotte(jsonMascotte.getString("name"),jsonMascotte.getString("longitude"),
+                                jsonMascotte.getString("latitude"));
+                        remoteMascottes.add(m);
+                    }
                 } catch (JSONException e) {
-                    Log.w("ExpoGame","Error during the conversion of JSON");
-
+                    Log.w("ExpoGame","Error during the JSON handling");
+                    return null;
                 }
+
+                //Let's update the mascots coordinates with the new remotly acquired
+                //( if they are not changed let's make the update anyway )
+                cr  = getContentResolver();
+
+                for(Mascotte m : remoteMascottes)
+                {
+                    String where = MascotsTable.COLUMN_NAME + " = ?";
+                    String[] name = new String[]{m.getName()};
+
+                    ContentValues values = new ContentValues();
+
+                    values.put(MascotsTable.COLUMN_LATITUDE,m.getLat());
+                    values.put(MascotsTable.COLUMN_LONGITUDE,m.getLongi());
+
+                    cr.update(MascotsProvider.CONTENT_URI,values,where,name);
+                }
+
+                // DEBUG testing if coordinates are changed
+                    /*
+                    Cursor c = cr.query( MascotsProvider.CONTENT_URI,
+                            new String[]{MascotsTable.COLUMN_NAME,MascotsTable.COLUMN_LONGITUDE},
+                            null,
+                            null,
+                            null);
+                    remoteMascottes.clear();
+                    while (c.moveToNext())
+                    {
+                        Mascotte m = new Mascotte(c.getString(0),""+c.getFloat(1),"");
+                        remoteMascottes.add(m);
+
+                    }
+
+                    for(Mascotte m : remoteMascottes)
+                    {
+                        Log.w("ExpoGameUpdate", ""+m.getName());
+                        Log.w("ExpoGameUpdate",""+m.getLongi());
+                    }
+
+                    c.close();
+                    */
             }
-
-            //TODO: If (valid JSON)  parse it and update the db
-
             return null;
         }
 
