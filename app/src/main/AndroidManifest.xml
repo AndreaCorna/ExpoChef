@@ -5,12 +5,20 @@
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true"/>
+
+
+    <!-- remember to put always the uses-permission above the application tag -->
+    <!-- PERMISSION HERE -->
+
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.PRIORITY_HIGH_ACCURACY"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.CAMERA"/>
+
+    <!-- END PERMISSION -->
 
     <application
         android:allowBackup="true"
@@ -45,17 +53,18 @@
             android:enabled="true"
             android:exported="false" >
         </provider>
-        <provider
-            android:name=".providers.MascotsProvider"
-            android:authorities="it.polimi.expogame"
-            android:enabled="true"
-            android:exported="false" >
-        </provider>
+
         <provider
             android:name=".providers.DishesProvider"
             android:enabled="true"
             android:exported="false"
             android:authorities="it.polimi.expogame.dishesprovider">
+        </provider>
+        <provider
+            android:name=".providers.MascotsProvider"
+            android:enabled="true"
+            android:exported="false"
+            android:authorities="it.polimi.expogame.mascotsprovider">
         </provider>
 
 

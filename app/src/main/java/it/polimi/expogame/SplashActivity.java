@@ -117,35 +117,35 @@ public class SplashActivity extends Activity {
                     JSONArray jsonArray = jsonObject.getJSONArray("list");
 
                     for(int i=0;i<jsonArray.length();i++)
-                    {
-                        JSONObject jsonMascotte = jsonArray.getJSONObject(i);
-                        Mascotte m = new Mascotte(jsonMascotte.getString("name"),jsonMascotte.getString("longitude"),
-                                jsonMascotte.getString("latitude"));
-                        remoteMascottes.add(m);
-                    }
+                       {
+                           JSONObject jsonMascotte = jsonArray.getJSONObject(i);
+                           Mascotte m = new Mascotte(jsonMascotte.getString("name"),jsonMascotte.getString("longitude"),
+                                                    jsonMascotte.getString("latitude"));
+                           remoteMascottes.add(m);
+                       }
                 } catch (JSONException e) {
                     Log.w("ExpoGame","Error during the JSON handling");
                     return null;
                 }
 
-                //Let's update the mascots coordinates with the new remotly acquired
-                //( if they are not changed let's make the update anyway )
-                cr  = getContentResolver();
+                    //Let's update the mascots coordinates with the new remotly acquired
+                    //( if they are not changed let's make the update anyway )
+                    cr  = getContentResolver();
 
-                for(Mascotte m : remoteMascottes)
-                {
-                    String where = MascotsTable.COLUMN_NAME + " = ?";
-                    String[] name = new String[]{m.getName()};
+                    for(Mascotte m : remoteMascottes)
+                        {
+                            String where = MascotsTable.COLUMN_NAME + " = ?";
+                            String[] name = new String[]{m.getName()};
 
-                    ContentValues values = new ContentValues();
+                            ContentValues values = new ContentValues();
 
-                    values.put(MascotsTable.COLUMN_LATITUDE,m.getLat());
-                    values.put(MascotsTable.COLUMN_LONGITUDE,m.getLongi());
+                            values.put(MascotsTable.COLUMN_LATITUDE,m.getLat());
+                            values.put(MascotsTable.COLUMN_LONGITUDE,m.getLongi());
 
-                    cr.update(MascotsProvider.CONTENT_URI,values,where,name);
-                }
+                            cr.update(MascotsProvider.CONTENT_URI,values,where,name);
+                        }
 
-                // DEBUG testing if coordinates are changed
+                    // DEBUG testing if coordinates are changed
                     /*
                     Cursor c = cr.query( MascotsProvider.CONTENT_URI,
                             new String[]{MascotsTable.COLUMN_NAME,MascotsTable.COLUMN_LONGITUDE},
