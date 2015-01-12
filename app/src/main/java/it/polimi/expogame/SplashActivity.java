@@ -15,6 +15,9 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -72,7 +75,13 @@ public class SplashActivity extends Activity {
                 String json="";
                 HttpGet request = new HttpGet();
                 URI website = null;
-                HttpClient httpclient = new DefaultHttpClient();
+
+                HttpParams httpParams = new BasicHttpParams();
+                HttpConnectionParams.setConnectionTimeout(httpParams, 5000);
+
+                //set the timeout to 5 seconds for the http connection
+                HttpClient httpclient = new DefaultHttpClient(httpParams);
+
                 ContentResolver cr;
 
                 ArrayList <Mascotte> remoteMascottes = new ArrayList <Mascotte>();
@@ -86,6 +95,7 @@ public class SplashActivity extends Activity {
 
                 request.setURI(website);
 
+
                 try {
                     HttpResponse response = httpclient.execute(request);
                     is = response.getEntity().getContent();
@@ -95,9 +105,10 @@ public class SplashActivity extends Activity {
                     else
                         json = "";
 
-                } catch (Exception e) {
+                } catch (Exception e) { //if connection fails game over
                     Log.w("ExpoGame", "Something went wrong during connection with server");
                     e.printStackTrace();
+                    return null;
                 }
 
                 try {
@@ -114,6 +125,7 @@ public class SplashActivity extends Activity {
                        }
                 } catch (JSONException e) {
                     Log.w("ExpoGame","Error during the JSON handling");
+                    return null;
                 }
 
                     //Let's update the mascots coordinates with the new remotly acquired
@@ -132,7 +144,6 @@ public class SplashActivity extends Activity {
 
                             cr.update(MascotsProvider.CONTENT_URI,values,where,name);
                         }
-
 
                     // DEBUG testing if coordinates are changed
                     /*
@@ -157,7 +168,6 @@ public class SplashActivity extends Activity {
 
                     c.close();
                     */
-
             }
             return null;
         }
