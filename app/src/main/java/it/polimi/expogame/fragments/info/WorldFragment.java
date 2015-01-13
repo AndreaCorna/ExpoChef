@@ -1,13 +1,16 @@
 package it.polimi.expogame.fragments.info;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -19,6 +22,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import it.polimi.expogame.R;
+import it.polimi.expogame.activities.DetailsActivity;
 import it.polimi.expogame.database.DishesTable;
 import it.polimi.expogame.providers.DishesProvider;
 import it.polimi.expogame.support.Dish;
@@ -84,6 +88,8 @@ public class WorldFragment extends Fragment  {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
     }
 
     @Override
@@ -125,6 +131,13 @@ public class WorldFragment extends Fragment  {
         inZoneList = true;
 
         return view;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -235,8 +248,18 @@ public class WorldFragment extends Fragment  {
                 createdDish = true;
             }
 
-            dishSelectedListener.onDishSelected(new Dish(id,name,nationality,imageUrl,description,zone,createdDish));
+            //dishSelectedListener.onDishSelected(new Dish(id,name,nationality,imageUrl,description,zone,createdDish));
 
+            Intent intent = new Intent(getActivity().getApplicationContext(), DetailsActivity.class);
+            intent.putExtra("idDish",id);
+            intent.putExtra("nameDish",name);
+            intent.putExtra("nationalityDish",nationality);
+            intent.putExtra("imageUrlDish",imageUrl);
+            intent.putExtra("descriptionDish",description);
+            intent.putExtra("zoneDish",zone);
+            intent.putExtra("createdDish",createdDish);
+
+            startActivity(intent);
         }
 
     }

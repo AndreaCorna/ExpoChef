@@ -3,6 +3,7 @@ package it.polimi.expogame.fragments.info;
 import android.app.Activity;
 import android.os.Bundle;
 import  android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,6 +72,7 @@ public class DetailsFragment extends Fragment{
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
 
@@ -79,16 +81,17 @@ public class DetailsFragment extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_details, container, false);
-        TextView nameDish = (TextView)view.findViewById(R.id.nameDishLabel);
-        nameDish.setText(dish.getName().toUpperCase());
-        nameDish.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-        TextView descriptionDish = (TextView)view.findViewById(R.id.descriptionDishLabel);
-        descriptionDish.setText(dish.getDescription());
-        TextView nationality = (TextView)view.findViewById(R.id.nationality_dish);
-        nationality.setText(dish.getNationality());
-        ImageView imageDish = (ImageView)view.findViewById(R.id.imageDish);
-        imageDish.setImageResource(R.drawable.margherita);
-
+        if(dish != null) {
+            TextView nameDish = (TextView) view.findViewById(R.id.nameDishLabel);
+            nameDish.setText(dish.getName().toUpperCase());
+            nameDish.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            TextView descriptionDish = (TextView) view.findViewById(R.id.descriptionDishLabel);
+            descriptionDish.setText(dish.getDescription());
+            TextView nationality = (TextView) view.findViewById(R.id.nationality_dish);
+            nationality.setText(dish.getNationality());
+            ImageView imageDish = (ImageView) view.findViewById(R.id.imageDish);
+            imageDish.setImageResource(R.drawable.margherita);
+        }
 
         return view;
     }
@@ -98,6 +101,7 @@ public class DetailsFragment extends Fragment{
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
 
@@ -105,6 +109,14 @@ public class DetailsFragment extends Fragment{
     public void onDetach() {
         super.onDetach();
     }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+    }
+
 
 
 }
