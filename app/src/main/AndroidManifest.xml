@@ -4,29 +4,25 @@
 
     <uses-feature
         android:glEsVersion="0x00020000"
-        android:required="true"/>
-
+        android:required="true" />
 
     <!-- remember to put always the uses-permission above the application tag -->
     <!-- PERMISSION HERE -->
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.PRIORITY_HIGH_ACCURACY"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.PRIORITY_HIGH_ACCURACY" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <!-- END PERMISSION -->
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-
-
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
@@ -53,31 +49,26 @@
             android:enabled="true"
             android:exported="false" >
         </provider>
-
         <provider
             android:name=".providers.DishesProvider"
+            android:authorities="it.polimi.expogame.dishesprovider"
             android:enabled="true"
-            android:exported="false"
-            android:authorities="it.polimi.expogame.dishesprovider">
+            android:exported="false" >
         </provider>
         <provider
             android:name=".providers.MascotsProvider"
+            android:authorities="it.polimi.expogame.mascotsprovider"
             android:enabled="true"
-            android:exported="false"
-            android:authorities="it.polimi.expogame.mascotsprovider">
+            android:exported="false" >
         </provider>
-
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyCZkWYcWGl7pcO3vf5AJu6VLS24XuJtEKc"/>
+            android:value="AIzaSyCZkWYcWGl7pcO3vf5AJu6VLS24XuJtEKc" />
 
     </application>
-
-
 
 </manifest>

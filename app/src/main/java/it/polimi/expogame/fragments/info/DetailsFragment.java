@@ -3,6 +3,7 @@ package it.polimi.expogame.fragments.info;
 import android.app.Activity;
 import android.os.Bundle;
 import  android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,6 +72,7 @@ public class DetailsFragment extends Fragment{
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
 
@@ -98,6 +100,7 @@ public class DetailsFragment extends Fragment{
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
 
@@ -105,6 +108,14 @@ public class DetailsFragment extends Fragment{
     public void onDetach() {
         super.onDetach();
     }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+    }
+
 
 
 }

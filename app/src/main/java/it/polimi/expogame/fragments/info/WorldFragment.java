@@ -6,8 +6,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -84,6 +86,8 @@ public class WorldFragment extends Fragment  {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
     }
 
     @Override
@@ -125,6 +129,13 @@ public class WorldFragment extends Fragment  {
         inZoneList = true;
 
         return view;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

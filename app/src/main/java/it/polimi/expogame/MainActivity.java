@@ -8,8 +8,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,7 +33,7 @@ import it.polimi.expogame.fragments.info.RootFragment;
 import it.polimi.expogame.support.Dish;
 
 
-public class MainActivity extends FragmentActivity implements WorldFragment.OnDishSelectedListener{
+public class MainActivity extends ActionBarActivity implements WorldFragment.OnDishSelectedListener{
     private static final String TAG = "MAIN ACTIVITY";
     private ViewPager viewPager = null;
 
@@ -47,6 +47,7 @@ public class MainActivity extends FragmentActivity implements WorldFragment.OnDi
         //creating the adapter to attach to the viewPager
         CustomPagerAdapter customPagerAdapter = new CustomPagerAdapter(fragmentManager);
         viewPager.setAdapter(customPagerAdapter);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         testDB();
     }
 
@@ -88,6 +89,7 @@ public class MainActivity extends FragmentActivity implements WorldFragment.OnDi
             return true;
         }
 
+        onBackPressed();
         return super.onOptionsItemSelected(item);
     }
 
@@ -138,6 +140,8 @@ class CustomPagerAdapter extends FragmentPagerAdapter {
                 break;
             case 3:
                 fragment = new RootFragment();
+
+
                 break;
         }
         return fragment;
@@ -172,5 +176,7 @@ class CustomPagerAdapter extends FragmentPagerAdapter {
         }
         return title;
     }
+
+
 
 }
