@@ -1,6 +1,7 @@
 package it.polimi.expogame.fragments.info;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import it.polimi.expogame.R;
+import it.polimi.expogame.activities.DetailsActivity;
 import it.polimi.expogame.database.DishesTable;
 import it.polimi.expogame.providers.DishesProvider;
 import it.polimi.expogame.support.Dish;
@@ -246,8 +248,18 @@ public class WorldFragment extends Fragment  {
                 createdDish = true;
             }
 
-            dishSelectedListener.onDishSelected(new Dish(id,name,nationality,imageUrl,description,zone,createdDish));
+            //dishSelectedListener.onDishSelected(new Dish(id,name,nationality,imageUrl,description,zone,createdDish));
 
+            Intent intent = new Intent(getActivity().getApplicationContext(), DetailsActivity.class);
+            intent.putExtra("idDish",id);
+            intent.putExtra("nameDish",name);
+            intent.putExtra("nationalityDish",nationality);
+            intent.putExtra("imageUrlDish",imageUrl);
+            intent.putExtra("descriptionDish",description);
+            intent.putExtra("zoneDish",zone);
+            intent.putExtra("createdDish",createdDish);
+
+            startActivity(intent);
         }
 
     }

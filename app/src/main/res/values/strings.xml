@@ -13,5 +13,6 @@
     <string name="metaioSDKSignature">i3NJrPOwc7AA7giMfmDw356rP555ImvzM4J1W2J8FR0=</string>
     <string name="label_description">Description</string>
     <string name="label_nationality">Nationality</string>
+    <string name="title_activity_details">Details of</string>
 
 </resources>
