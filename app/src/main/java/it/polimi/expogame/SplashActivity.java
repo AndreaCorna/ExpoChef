@@ -69,6 +69,7 @@ public class SplashActivity extends Activity {
         protected Void doInBackground(Void...params) {
 
             //if the client has got a valid connection perform the update from the server
+            //TODO perform this update only if the last update is 24h old
             if(isConnected()) {
 
                 InputStream is = null;
@@ -119,8 +120,8 @@ public class SplashActivity extends Activity {
                     for(int i=0;i<jsonArray.length();i++)
                        {
                            JSONObject jsonMascotte = jsonArray.getJSONObject(i);
-                           Mascotte m = new Mascotte(jsonMascotte.getString("name"),jsonMascotte.getString("longitude"),
-                                                    jsonMascotte.getString("latitude"));
+                           Mascotte m = new Mascotte(jsonMascotte.getString("name"),jsonMascotte.getString("latitude"),
+                                                    jsonMascotte.getString("longitude"));
                            remoteMascottes.add(m);
                        }
                 } catch (JSONException e) {

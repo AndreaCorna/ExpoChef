@@ -12,7 +12,7 @@ public class Mascotte {
     public Mascotte() {
     }
 
-    public Mascotte(String name, String longi, String lat) {
+    public Mascotte(String name, String lat, String longi) {
         this.name = name;
         this.longi = longi;
         this.lat = lat;

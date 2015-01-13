@@ -1,6 +1,8 @@
 package it.polimi.expogame.fragments.ar;
 
 
+import android.content.ContentResolver;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
@@ -42,26 +44,29 @@ import com.metaio.sdk.jni.Vector3d;
 import com.metaio.tools.io.AssetsManager;
 
 import it.polimi.expogame.R;
+import it.polimi.expogame.database.MascotsTable;
+import it.polimi.expogame.providers.MascotsProvider;
+import it.polimi.expogame.support.Mascotte;
 
 public class ARActivity extends ARViewActivity implements LocationListener, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener
 
 {
     private IAnnotatedGeometriesGroup mAnnotatedGeometriesGroup;
-
     private MyAnnotatedGeometriesGroupCallback mAnnotatedGeometriesGroupCallback;
 
+    //----GPS and LOCATION SERVICE OBJ-------------
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
+    //---------------------------------------
 
+    //----MASCOTS MODELS OBJECT--------------
+    private ArrayList <IGeometry> MascotsList;
+    private ArrayList <Mascotte> Mascots;
+    private final int range=200; //this is the range in which you can see a mascot
+    //----------------------------------------
 
-    /**
-     * Geometries
-     */
-    private ArrayList <IGeometry> MascotteList;
-    private IGeometry mRomeGeo;
-
-
+    //Radar object displayed in the metaio view
     private IRadar mRadar;
 
     @Override
@@ -85,7 +90,27 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
 
         }
 
+        //Retreive the mascots from the content providers
+        ContentResolver cr = getContentResolver();
+        Mascots = new ArrayList <Mascotte>();
 
+        //TODO retreive the obj for the 3D model too
+        Cursor c = cr.query( MascotsProvider.CONTENT_URI,
+                new String[]{MascotsTable.COLUMN_NAME,MascotsTable.COLUMN_LATITUDE,MascotsTable.COLUMN_LONGITUDE},
+                null,
+                null,
+                null);
+
+        while (c.moveToNext())
+        {
+            Mascotte m = new Mascotte(c.getString(0),c.getString(1),c.getString(2));
+            Log.w("MetaioACTIVITY","generated mascotte with lati"+m.getLat());
+            Mascots.add(m);
+        }
+
+        c.close();
+
+        MascotsList = new ArrayList<IGeometry>();
     }
 
     @Override
@@ -161,7 +186,12 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
                 heading = (float)(-Math.atan2(v.getY(), v.getX()) - Math.PI / 2.0);
             }
 
-            IGeometry geos[] = new IGeometry[] {mRomeGeo};
+            IGeometry geos[] = new IGeometry[MascotsList.size()];
+            for(int i=0; i<MascotsList.size();i++)
+            {
+            geos[i] = MascotsList.get(i);
+            }
+
             Rotation rot = new Rotation((float)(Math.PI / 2.0), 0.0f, -heading);
             for (IGeometry geo : geos)
             {
@@ -192,6 +222,11 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
         return null;
     }
 
+    /**
+     * This method is called from the onSurfaceCreated in the ARViewActivity of MetaioSDK,
+     * basically after the configuration of the metaio arview it ask us to load content
+     * on the screen
+     */
     @Override
     protected void loadContents()
     {
@@ -207,9 +242,6 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
         // Set render frustum accordingly
         metaioSDK.setRendererClippingPlaneLimits(10, 220000);
 
-        // let's create LLA objects for known cities
-        LLACoordinate rome = new LLACoordinate(45.738374, 9.479915, 0, 0);
-
         // create radar
         mRadar = metaioSDK.createRadar();
 
@@ -220,14 +252,44 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
         mRadar.setRelativeToScreen(IGeometry.ANCHOR_TL);
 
 
-        mRomeGeo = createPOIGeometry(rome); //Crea il pippottino da associare alle coordinate di rome
+        //Let's handle the 3d models that we need to display
 
-        mRadar.add(mRomeGeo); //view point on the radar
-        mAnnotatedGeometriesGroup.addGeometry(mRomeGeo, "Pippottino0"); //view the character
+        //This function create the 3d model on the metaio view if and only if
+        //it is near the player
+
+        for(Mascotte mascotte : Mascots) {
+
+        //Link a LLACoordinates to an IGeometry and check if it will be displayed or not due to
+        //the player position ( by switching the .setVisible() propriety  )
+        IGeometry NewMascot = createPOIGeometry(new LLACoordinate(Float.parseFloat(mascotte.getLat()),
+                Float.parseFloat(mascotte.getLongi()),
+                0, 0));
+
+        //MascotList contains all the IGeometries generated from the mascots java objects
+        //retreived from the MascotsProvider
+        MascotsList.add(NewMascot);
+
+        //Add the IGeomtry created on the radar ( it will be displayed or not due to
+        //the createPoiGeometry functions that check the distance between the mascot's coord
+        //and the player position )
+        mRadar.add(NewMascot);
+
+        NewMascot.setName(mascotte.getName());
+        Log.w("MetaioACTIVITY","Create mascot"+mascotte.getName());
+        //mAnnotatedGeometriesGroup.addGeometry(NewMascot,NewMascot.getName());
+        }
 
 
     }
 
+    //-----UTILITY------------------------------------------------------------------------------
+
+    /**
+     * Create Igeometry object based on coordinates of mascots and theri obj model
+     * TODO pass also the path of the obj model
+     * @param lla are the coordinates lati+longi of the mascot
+     * @return the IGeometry 3d object that will be displayed on the ARView
+     */
     private IGeometry createPOIGeometry(LLACoordinate lla)
     {
         final File path =
@@ -239,15 +301,24 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
             IGeometry geo = metaioSDK.createGeometry(path);
             geo.setTranslationLLA(lla);
             geo.setLLALimitsEnabled(true);
-            geo.setScale(50);
+            geo.setScale(150);
+
+            //Log.w("MetaioACTIVITY", "mascots coord" + lla.getLatitude() + lla.getLongitude());
+            //Log.w("MetaioACTIVITY","your coord"+ mSensors.getLocation().getLatitude()+ mSensors.getLocation().getLongitude());
+
             LLACoordinate location = geo.getTranslationLLA();
+
             float distance = (float)MetaioCloudUtils.getDistanceBetweenTwoCoordinates(location, mSensors.getLocation());
-            if(distance < 20)
+
+            if(distance < range) //CHECK THE PLAYER AND MASCOT POSITION DISTANCE
             {
                 geo.setVisible(true);
+                //Log.w("MetaioACTIVITY","True for a mascot");
             }
             else
-                geo.setVisible(false); // test to hide the character if I am far from it
+            {   geo.setVisible(false);
+                //Log.w("MetaioACTIVITY","False for a mascot");
+            }
             return geo;
         }
         else
@@ -257,6 +328,9 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
         }
     }
 
+    //-----------------------------------------------------------------------------------------------
+
+
     @Override
     protected void onGeometryTouched(final IGeometry geometry)
     {
@@ -264,7 +338,6 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
 
         mSurfaceView.queueEvent(new Runnable()
         {
-
             @Override
             public void run()
             {
@@ -272,17 +345,17 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
                         "yellow.png"));
                 mRadar.setObjectTexture(geometry, AssetsManager.getAssetPathAsFile(getApplicationContext(),
                         "red.png"));
-                mAnnotatedGeometriesGroup.setSelectedGeometry(geometry);
+                //mAnnotatedGeometriesGroup.setSelectedGeometry(geometry);
             }
         });
 
         // TODO extract the mascotte clicked and unlock all the ingredient in the db associated to it
+        Log.w("MetaioActivity","mascot selected"+geometry.getName());
+        
     }
 
-    //added by degrigis START ----------------------------------------------------------------------
-
     /**
-     * this function (should) update the SurfaceView of metaio to show the characters
+     * this function update the SurfaceView of metaio to show the characters
      * when you are at 2m from them or hide when you are further .
      * For now it's called when an user tap  the screen ( registered as callback
      * under the OnConfigurationChange method of OnTouch() )
@@ -290,26 +363,24 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
     @Override
     protected void updateView()
     {
-
-        final int range=20;
-
         mSurfaceView.queueEvent(new Runnable()
         {
-
             @Override
             public void run()
             {
-                LLACoordinate location = mRomeGeo.getTranslationLLA();
+                for(IGeometry mascotte : MascotsList){
+                LLACoordinate location = mascotte.getTranslationLLA();
                 float distance = (float)MetaioCloudUtils.getDistanceBetweenTwoCoordinates(location, mSensors.getLocation());
 
                 if(distance < range)
                 {
-                    mRomeGeo.setVisible(true);
+                    mascotte.setVisible(true);
                 }
                 else
-                    mRomeGeo.setVisible(false); // test to hide the character if I am far from it
-            }
-        });
+                    mascotte.setVisible(false);
+                }
+          }
+       });
     }
 
     //Method called when we are connected to the location service
@@ -340,13 +411,8 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        // do nothing for now
 
     }
-
-
-    //added by degrigis END ----------------------------------------------------------------------
-
 
     final class MyAnnotatedGeometriesGroupCallback extends AnnotatedGeometriesGroupCallback
     {
