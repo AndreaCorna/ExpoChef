@@ -54,7 +54,7 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
     //----MASCOTS MODELS OBJECT--------------
     private ArrayList<IGeometry> MascotsList;
     private ArrayList<Mascotte> Mascots;
-    private final int range = 30; //this is the range in which you can see a mascot
+    private final int range = 50; //this is the range in which you can see a mascot
     //----------------------------------------
 
     //Radar object displayed in the metaio view
