@@ -7,9 +7,9 @@ public class IngredientTable {
 
     public static final String TABLE_NAME="Ingredients";
     public static final String COLUMN_NAME = "name";
-    public static final String COLUMN_IMAGE = "image";
-    public static final String COLUMN_TYPE = "type";
-    public static final String COLUMN_AVAILABLE = "false";
+    public static final String COLUMN_IMAGEURL = "imageUrl";
+    public static final String COLUMN_CATEGORY = "category";
+    public static final String COLUMN_UNLOCKED = "unlocked";
 
 
 }

@@ -104,7 +104,7 @@ public class IngredientsProvider extends ContentProvider {
      */
     private void checkColumns(String[] projection) {
 
-        String[] available = { IngredientTable.COLUMN_NAME, IngredientTable.COLUMN_TYPE, IngredientTable.COLUMN_AVAILABLE};
+        String[] available = { IngredientTable.COLUMN_NAME, IngredientTable.COLUMN_CATEGORY, IngredientTable.COLUMN_UNLOCKED};
 
         if (projection != null) {
             HashSet<String> requestedColumns = new HashSet<String>(Arrays.asList(projection));

@@ -2,6 +2,8 @@ package it.polimi.expogame.fragments.ar;
 
 
 import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +13,7 @@ import android.support.v4.BuildConfig;
 import android.text.TextPaint;
 import android.util.Log;
 import android.view.View;
+import android.os.Vibrator;
 
 
 import java.io.File;
@@ -44,8 +47,11 @@ import com.metaio.sdk.jni.Vector3d;
 import com.metaio.tools.io.AssetsManager;
 
 import it.polimi.expogame.R;
+import it.polimi.expogame.database.IngredientTable;
 import it.polimi.expogame.database.MascotsTable;
+import it.polimi.expogame.providers.IngredientsProvider;
 import it.polimi.expogame.providers.MascotsProvider;
+import it.polimi.expogame.support.Ingredient;
 import it.polimi.expogame.support.Mascotte;
 
 public class ARActivity extends ARViewActivity implements LocationListener, GoogleApiClient.ConnectionCallbacks,
@@ -54,6 +60,8 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
 {
     private IAnnotatedGeometriesGroup mAnnotatedGeometriesGroup;
     private MyAnnotatedGeometriesGroupCallback mAnnotatedGeometriesGroupCallback;
+    private ContentResolver cr;
+
 
     //----GPS and LOCATION SERVICE OBJ-------------
     private GoogleApiClient mGoogleApiClient;
@@ -91,7 +99,7 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
         }
 
         //Retreive the mascots from the content providers
-        ContentResolver cr = getContentResolver();
+        cr = getContentResolver();
         Mascots = new ArrayList <Mascotte>();
 
         //TODO retreive the obj for the 3D model too
@@ -313,11 +321,11 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
             if(distance < range) //CHECK THE PLAYER AND MASCOT POSITION DISTANCE
             {
                 geo.setVisible(true);
-                //Log.w("MetaioACTIVITY","True for a mascot");
+                Log.w("MetaioACTIVITY","True for a mascot");
             }
             else
             {   geo.setVisible(false);
-                //Log.w("MetaioACTIVITY","False for a mascot");
+                Log.w("MetaioACTIVITY","False for a mascot");
             }
             return geo;
         }
@@ -349,9 +357,51 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
             }
         });
 
-        // TODO extract the mascotte clicked and unlock all the ingredient in the db associated to it
-        Log.w("MetaioActivity","mascot selected"+geometry.getName());
-        
+        //Log.w("MetaioActivity","mascot selected"+geometry.getName());
+        Vibrator v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
+        // Vibrate for 500 milliseconds
+        v.vibrate(500);
+
+
+        //-------Debug--------------------
+        /*
+        Cursor c = cr.query(IngredientsProvider.CONTENT_URI,
+                new String[]{IngredientTable.COLUMN_NAME,IngredientTable.COLUMN_UNLOCKED},
+                null,
+                null,
+                null);
+
+        while (c.moveToNext())
+        {
+            Log.w("MetaioACTIVITy",""+c.getString(0)+c.getString(1));
+        }
+
+        c.close();
+        ----------------------------------*/
+
+        String where = IngredientTable.COLUMN_CATEGORY + " = ?";
+        String[] name = new String[]{geometry.getName()};
+
+        ContentValues values = new ContentValues();
+        values.put(IngredientTable.COLUMN_UNLOCKED,1);
+
+        cr.update(IngredientsProvider.CONTENT_URI,values,where,name);
+
+        //-------Debug--------------------
+        /*
+        c = cr.query(IngredientsProvider.CONTENT_URI,
+                new String[]{IngredientTable.COLUMN_NAME,IngredientTable.COLUMN_UNLOCKED},
+                null,
+                null,
+                null);
+
+        while (c.moveToNext())
+        {
+            Log.w("MetaioACTIVITy",""+c.getString(0)+c.getString(1));
+        }
+
+        c.close();
+        -------------------------------*/
     }
 
     /**
