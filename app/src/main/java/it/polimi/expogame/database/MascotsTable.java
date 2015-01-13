@@ -11,5 +11,6 @@ public class MascotsTable {
     public static final String COLUMN_LATITUDE= "latitude";
     public static final String COLUMN_LONGITUDE = "longitude";
     public static final String COLUMN_IMAGE = "image";
+    public static final String COLUMN_CAPTURED="captured";
 
 }

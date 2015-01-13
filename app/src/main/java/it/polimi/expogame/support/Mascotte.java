@@ -8,6 +8,7 @@ public class Mascotte {
     private String name;
     private String longi;
     private String lat;
+    private int captured;
 
     public Mascotte() {
     }
@@ -30,6 +31,9 @@ public class Mascotte {
         return name;
     }
 
+    public int getCaptured(){return captured;}
+
+
     public void setName(String name) {
         this.name = name;
     }
@@ -41,4 +45,6 @@ public class Mascotte {
     public void setLongi(String longi) {
         this.longi = longi;
     }
+
+    public void setCaptured(int value){ this.captured = value;}
 }
