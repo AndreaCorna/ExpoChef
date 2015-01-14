@@ -24,6 +24,7 @@ import com.google.android.gms.location.LocationServices;
 import com.metaio.cloud.plugin.util.MetaioCloudUtils;
 import com.metaio.sdk.ARViewActivity;
 import com.metaio.sdk.MetaioDebug;
+import com.metaio.sdk.jni.Camera;
 import com.metaio.sdk.jni.IGeometry;
 import com.metaio.sdk.jni.IMetaioSDKCallback;
 import com.metaio.sdk.jni.IRadar;
@@ -290,6 +291,17 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
             MetaioDebug.log(Log.ERROR, "Missing files for POI geometry");
             return null;
         }
+    }
+
+    @Override
+    protected void startCamera()
+    {
+        Camera cam = new Camera();
+        cam.setYuvPipeline(Boolean.FALSE); //disable it to avoid green camera display on some devices(?)
+        cam.setFacing(Camera.FACE_BACK);
+        cam.setDownsample(1);
+        cam.setIndex(0);
+        metaioSDK.startCamera(cam);
     }
 
     //-----------------------------------------------------------------------------------------------
