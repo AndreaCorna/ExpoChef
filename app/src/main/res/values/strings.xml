@@ -14,5 +14,7 @@
     <string name="label_description">Description</string>
     <string name="label_nationality">Nationality</string>
     <string name="title_activity_details">Details of</string>
+    <string name="string_options">options</string>
+    <string name="title_activity_zone">ZoneActivity</string>
 
 </resources>
