@@ -22,6 +22,7 @@ import android.widget.ListView;
 import it.polimi.expogame.database.ExpoGameDbHelper;
 import it.polimi.expogame.database.MascotsTable;
 import it.polimi.expogame.fragments.ar.ARFragment;
+import it.polimi.expogame.fragments.cook.CookFragment;
 import it.polimi.expogame.fragments.cook.CookManagerFragment;
 import it.polimi.expogame.fragments.info.ZoneFragment;
 import it.polimi.expogame.fragments.map.ExpoMapFragment;
@@ -54,7 +55,8 @@ public class MainActivity extends ActionBarActivity {
 
             @Override
             public void onPageSelected(int position) {
-                if(position == 2){
+                if(customPagerAdapter.getItem(position).getClass().equals(CookManagerFragment.class)){
+
                     mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                     getSupportActionBar().setHomeButtonEnabled(true);
