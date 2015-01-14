@@ -17,5 +17,6 @@
     <string name="string_options">options</string>
     <string name="title_activity_zone">ZoneActivity</string>
     <string name="list_zone_activity">List dishes</string>
+    <string name="label_list_zones">List zones</string>
 
 </resources>
