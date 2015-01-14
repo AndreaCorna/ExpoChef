@@ -68,7 +68,7 @@ public class InfoFragment extends Fragment implements  WorldFragment.OnDishSelec
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        //((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
     }
 
@@ -89,7 +89,7 @@ public class InfoFragment extends Fragment implements  WorldFragment.OnDishSelec
     @Override
     public void onResume(){
         super.onResume();
-        ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        //((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
     }
 

@@ -31,8 +31,6 @@ public class ARFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-
 
     }
 
@@ -79,7 +77,6 @@ public class ARFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onResume(){
         super.onResume();
-        ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
     }
 }

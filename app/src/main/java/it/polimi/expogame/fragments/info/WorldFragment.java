@@ -13,9 +13,11 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -57,7 +59,7 @@ public class WorldFragment extends Fragment  {
     private SimpleCursorAdapter listAdapterDishes;
     private boolean inZoneList = true;
 
-
+    private LoadListZoneInterface loader;
 
     /**
      * Use this factory method to create a new instance of
@@ -88,7 +90,7 @@ public class WorldFragment extends Fragment  {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        //((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
     }
 
@@ -136,22 +138,17 @@ public class WorldFragment extends Fragment  {
     @Override
     public void onResume(){
         super.onResume();
-        ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-
+        Log.d(TAG,"RESUMERESUMERESUMERESUMERESUMERESUMERESUMERESUMERESUMERESUME");
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Dish dish) {
-        if (dishSelectedListener != null) {
-            dishSelectedListener.onDishSelected(dish);
-        }
-    }
+
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
             dishSelectedListener = (OnDishSelectedListener) activity;
+            loader = (LoadListZoneInterface)activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnIngredientSelectedListener");
@@ -162,12 +159,17 @@ public class WorldFragment extends Fragment  {
     public void onDetach() {
         super.onDetach();
         dishSelectedListener = null;
+        loader = null;
     }
 
 
 
     public interface OnDishSelectedListener {
         public void onDishSelected(Dish dish);
+    }
+
+    public interface LoadListZoneInterface{
+        public void setAdapter(ArrayAdapter adapter);
     }
 
 
@@ -195,6 +197,7 @@ public class WorldFragment extends Fragment  {
         }
         listAdapterZones = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.simplerow, zoneList);
         listItems.setAdapter(listAdapterZones);
+        loader.setAdapter(listAdapterZones);
     }
 
     private void loadDishesByZone(String zone){

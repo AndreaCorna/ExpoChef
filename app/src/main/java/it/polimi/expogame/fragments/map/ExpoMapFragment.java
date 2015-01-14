@@ -78,7 +78,6 @@ public class ExpoMapFragment extends Fragment implements OnMapReadyCallback, Goo
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
     }
 
