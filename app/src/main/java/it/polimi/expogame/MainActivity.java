@@ -127,7 +127,7 @@ public class MainActivity extends ActionBarActivity implements WorldFragment.OnD
         }
         // Handle action bar actions click
         switch (item.getItemId()) {
-      
+
             default:
                 return super.onOptionsItemSelected(item);
         }
