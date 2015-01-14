@@ -6,7 +6,6 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -16,7 +15,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 
@@ -25,16 +23,12 @@ import it.polimi.expogame.database.ExpoGameDbHelper;
 import it.polimi.expogame.database.MascotsTable;
 import it.polimi.expogame.fragments.ar.ARFragment;
 import it.polimi.expogame.fragments.cook.CookManagerFragment;
-import it.polimi.expogame.fragments.info.DetailsFragment;
-import it.polimi.expogame.fragments.info.InfoFragment;
-import it.polimi.expogame.fragments.info.WorldFragment;
+import it.polimi.expogame.fragments.info.ZoneFragment;
 import it.polimi.expogame.fragments.map.ExpoMapFragment;
 import it.polimi.expogame.fragments.info.RootFragment;
-import it.polimi.expogame.support.Dish;
 
 
-
-public class MainActivity extends ActionBarActivity implements WorldFragment.OnDishSelectedListener, WorldFragment.LoadListZoneInterface{
+public class MainActivity extends ActionBarActivity {
     private static final String TAG = "MAIN ACTIVITY";
     private ViewPager viewPager = null;
 
@@ -57,8 +51,6 @@ public class MainActivity extends ActionBarActivity implements WorldFragment.OnD
         customPagerAdapter = new CustomPagerAdapter(fragmentManager);
 
         viewPager.setAdapter(customPagerAdapter);
-        testDB();
-
 
 
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
@@ -93,25 +85,6 @@ public class MainActivity extends ActionBarActivity implements WorldFragment.OnD
 
     }
 
-
-    //TODO  Delete this method is just a test for checking if the database is working
-    public  void testDB(){
-        String[] allColumns = {MascotsTable.COLUMN_CATEGORY,MascotsTable.COLUMN_NAME};
-        ExpoGameDbHelper myhelper = ExpoGameDbHelper.getInstance(this);
-        SQLiteDatabase database = myhelper.getWritableDatabase();
-        Cursor cursor = database.query(ExpoGameDbHelper.TABLE_MASCOTS,allColumns,null,null,null,null,null);
-        cursor.moveToFirst();
-
-        while(!cursor.isAfterLast()){
-            Log.d(TAG, "Category:  " + cursor.getString(0));
-            Log.d(TAG,"Name:  "+cursor.getString(1));
-
-            cursor.moveToNext();
-        }
-        cursor.close();
-    }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -140,26 +113,14 @@ public class MainActivity extends ActionBarActivity implements WorldFragment.OnD
         return super.onPrepareOptionsMenu(menu);
     }
 
-    @Override
-    public void onDishSelected(Dish dish) {
-        DetailsFragment detailsFragment = new DetailsFragment(dish);
 
-        FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
-        trans.replace(R.id.root_frame, detailsFragment, DetailsFragment.Tag);
-        trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        if(getFragmentManager().findFragmentByTag(this.TAG) == null){
-            trans.addToBackStack(WorldFragment.TAG);
-        }
-
-        trans.commit();
-    }
 
     //implementation of interface in order to set dynamically the adapter of zones
-    @Override
+    /*@Override
     public void setAdapter(ArrayAdapter adapter) {
         optionsListView.setAdapter(adapter);
         invalidateOptionsMenu();
-    }
+    }*/
 
     /*Private class in order to manage the click on the slide bar*/
     private class SlideMenuClickListener implements
@@ -175,7 +136,6 @@ public class MainActivity extends ActionBarActivity implements WorldFragment.OnD
     }
 
     public void displayView(String position){
-        getSupportFragmentManager().beginTransaction().replace(R.id.root_frame,new InfoFragment()).commit();
         mDrawerLayout.closeDrawers();
     }
 

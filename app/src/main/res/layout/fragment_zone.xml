@@ -1,25 +1,23 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="it.polimi.expogame.fragments.info.WorldFragment"
-    android:orientation="vertical">
+    android:layout_height="match_parent" tools:context="it.polimi.expogame.fragments.info.ZoneFragment"
+    android:id="@+id/zone_fragment_layout">
 
-    <!-- TODO: Update blank fragment layout -->
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/rowTextView"
+        android:id="@+id/title_zone_fragment"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:textSize="16sp"
-        android:text="List Zones"
-        >
+        android:text="List Dishes">
     </TextView>
 
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/listItem"
+        android:id="@+id/list_dishes_zone_fragment"
         android:layout_gravity="left|center_vertical"
         />
 
-</LinearLayout>
+</FrameLayout>

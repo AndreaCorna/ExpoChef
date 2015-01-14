@@ -73,6 +73,10 @@
             android:name=".activities.DetailsActivity"
             android:label="@string/title_activity_details" >
         </activity>
+        <activity
+            android:name=".activities.ZoneActivity"
+            android:label="@string/title_activity_zone" >
+        </activity>
     </application>
 
 </manifest>
