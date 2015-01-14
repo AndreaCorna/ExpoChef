@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import it.polimi.expogame.R;
-import it.polimi.expogame.fragments.info.InfoFragment;
 
 /**
  * Root fragment in order to create transaction inside the fragment from info fragment to details fragment
