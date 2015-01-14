@@ -16,5 +16,6 @@
     <string name="title_activity_details">Details of</string>
     <string name="string_options">options</string>
     <string name="title_activity_zone">ZoneActivity</string>
+    <string name="list_zone_activity">List dishes</string>
 
 </resources>
