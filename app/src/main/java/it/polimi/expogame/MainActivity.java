@@ -46,6 +46,27 @@ public class MainActivity extends ActionBarActivity {
         //getting reference of the ViewPager element in the view
 
         viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(position == 2){
+                    mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                }else{
+                    mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         FragmentManager fragmentManager = getSupportFragmentManager();
         //creating the adapter to attach to the viewPager
         customPagerAdapter = new CustomPagerAdapter(fragmentManager);
@@ -81,6 +102,7 @@ public class MainActivity extends ActionBarActivity {
                 invalidateOptionsMenu();
             }
         };
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         mDrawerLayout.setDrawerListener(actionBarDrawerToggle);
 
     }
