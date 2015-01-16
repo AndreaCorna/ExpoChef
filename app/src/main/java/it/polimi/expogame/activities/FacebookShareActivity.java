@@ -2,7 +2,6 @@ package it.polimi.expogame.activities;
 
 import android.app.Activity;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -14,7 +13,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -38,7 +36,6 @@ import java.io.ByteArrayOutputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import it.polimi.expogame.MainActivity;
 import it.polimi.expogame.R;
 
 
@@ -77,8 +74,7 @@ public class FacebookShareActivity extends Activity {
 
     }
 
-    private void getHashKey()
-    {
+    private void getHashKey(){
         // Used for test purposes.
         // Need to set this in facebook https://developers.facebook.com/apps/ under key hashes in the android platform.
         try {
@@ -104,8 +100,7 @@ public class FacebookShareActivity extends Activity {
         }
     }
 
-    public void postButtonPressed(View view)
-    {
+    public void postButtonPressed(View view){
         Toast.makeText(this, getResources().getString(R.string.sharing_facebook_toast), Toast.LENGTH_SHORT).show();
         mPendingAction = true;
         Session session = Session.getActiveSession();
@@ -113,50 +108,41 @@ public class FacebookShareActivity extends Activity {
             session = new Session(getApplicationContext());
             Session.OpenRequest openSessionRequest = new Session.OpenRequest(this);
         }
-        else
-        {
-            if (session.getState().equals(SessionState.CREATED))
-            {
+        else{
+            if (session.getState().equals(SessionState.CREATED)){
                 // Session is not opened or closed, session is created but not opened.
                 session = new Session(this);
                 Session.setActiveSession(session);
                 session.openForPublish(new Session.OpenRequest(this).setCallback(callback).setPermissions(PERMISSION));
             }
-            else
-            {
+            else{
                 onSessionStateChange(session, session.getState(), null);
             }
         }
         Session.setActiveSession(session);
     }
 
-    private void onSessionStateChange(Session session, SessionState state, Exception exception)
-    {
-        if(exception != null)
-        {
+    private void onSessionStateChange(Session session, SessionState state, Exception exception){
+        if(exception != null){
             // Handle exception here.
             Log.v("Facebook CALLBACK", "Facebook login error " + exception);
             return;
         }
         if (state != null && state.isOpened()) {
 
-            if (session.isPermissionGranted(PERMISSION))
-            {
-                if (mPendingAction)
-                {
+            if (session.isPermissionGranted(PERMISSION)){
+                if (mPendingAction){
                     // Session ready to make requests.
                     postImageToFacebook();
                     mPendingAction = false;
                 }
             }
-            else
-            {
+            else{
                 // Get the permissions if we don't have them.
                 session.requestNewPublishPermissions(new Session.NewPermissionsRequest(this, PERMISSION));
             }
         }
-        else if (state.isClosed())
-        {
+        else if (state.isClosed()){
             // Session logged out.
             return;
         }
@@ -166,8 +152,7 @@ public class FacebookShareActivity extends Activity {
     private void postImageToFacebook() {
         Session session = Session.getActiveSession();
         final String extraText = postTextView.getText().toString();
-        if (session.isPermissionGranted("publish_actions"))
-        {
+        if (session.isPermissionGranted("publish_actions")){
             Bundle param = new Bundle();
 
             // Add the image
@@ -198,8 +183,7 @@ public class FacebookShareActivity extends Activity {
         }
     }
 
-    private void addNotification(String message, GraphObject result, FacebookRequestError error)
-    {
+    private void addNotification(String message, GraphObject result, FacebookRequestError error){
         String title = null;
         String alertMessage = null;
         if (error == null) {
@@ -230,8 +214,7 @@ public class FacebookShareActivity extends Activity {
 
     private Session.StatusCallback callback = new Session.StatusCallback() {
         @Override
-        public void call(Session session, SessionState state, Exception exception)
-        {
+        public void call(Session session, SessionState state, Exception exception){
             onSessionStateChange(session, state, exception);
         }
     };
