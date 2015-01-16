@@ -173,7 +173,6 @@ public class FacebookShareActivity extends Activity {
 
     private void postImageToFacebook() {
         Session session = Session.getActiveSession();
-        final Uri uri = (Uri) extrasIntent.get(Intent.EXTRA_STREAM);
         final String extraText = postTextView.getText().toString();
         if (session.isPermissionGranted("publish_actions"))
         {
