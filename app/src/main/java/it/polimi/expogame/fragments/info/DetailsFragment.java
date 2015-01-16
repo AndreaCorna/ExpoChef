@@ -75,16 +75,23 @@ public class DetailsFragment extends Fragment{
             nationality.setText(dish.getNationality());
             final ImageView imageDish = (ImageView) view.findViewById(R.id.imageDish);
 
+            //Start retrieve the drawable id of the dish image using its name
             Context context = getActivity().getApplicationContext();
             int index = dish.getImageUrl().indexOf(".");
             String imageUrl = null;
+            //delete extension of file from name if exist
             if (index > 0)
                 imageUrl = dish.getImageUrl().substring(0, index);
+            //get the id
             int id = context.getResources().getIdentifier(imageUrl, "drawable", context.getPackageName());
+
             if(id != 0){
+                //if found, set the image in the details fragment and add tag in order to keep track of the information
+                //it must be used when you want to post image on facebook
                 imageDish.setImageDrawable(getResources().getDrawable(id));
                 imageDish.setTag(new Integer(id));
             }else{
+                //resource not found, use a default one
                 imageDish.setImageDrawable(getResources().getDrawable(R.drawable.cancel));
                 imageDish.setTag(R.drawable.cancel);
             }
