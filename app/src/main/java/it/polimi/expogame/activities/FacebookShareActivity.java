@@ -222,7 +222,7 @@ public class FacebookShareActivity extends Activity {
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.ic_launcher)
+                        .setSmallIcon(R.drawable.icon_facebook_activity)
                         .setContentTitle(title)
                         .setContentText(alertMessage);
         // Creates an explicit intent for an Activity in your app

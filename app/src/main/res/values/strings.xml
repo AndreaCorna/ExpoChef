@@ -36,7 +36,7 @@
     <string name="app_package_name">it.polimi.expogame</string>
 
     <string name="success">Success</string>
-    <string name="successfully_posted_post">Successfully posted \'%1$s\'.\nPost ID: %2$s</string>
+    <string name="successfully_posted_post">Successfully post on Facebook</string>
     <string name="photo_post">Photo Post</string>
     <string name="ok">OK</string>
     <string name="error">Error</string>
