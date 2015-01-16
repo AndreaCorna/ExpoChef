@@ -36,6 +36,7 @@ public class DetailsActivity extends ActionBarActivity {
                     .commit();
         }
         setTitle(getTitle()+" "+name);
+
     }
 
 

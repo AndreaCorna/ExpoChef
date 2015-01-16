@@ -19,4 +19,26 @@
     <string name="list_zone_activity">List dishes</string>
     <string name="label_list_zones">List zones</string>
 
+
+    <!--Facebook share intent Strings-->
+    <string name="title_activity_facebook_share">Facebook</string>
+    <string name="facebook_default_text">Please enter your text here</string>
+    <string name="title_post_text">Write Post</string>
+    <string name="post_button_text">Post</string>
+    <string name="title_facebook_login">Facebook Login</string>
+    <string name="sharing_facebook_toast">Sharing to Facebook</string>
+    <string name="happy_message_facebook">I am very happy. I have just created</string>
+
+
+    <!--LIVE APP ID-->
+    <string name="app_id">558852617585267</string>
+    <string name="facebook_post_content_desc">Image to share</string>
+    <string name="app_package_name">it.polimi.expogame</string>
+
+    <string name="success">Success</string>
+    <string name="successfully_posted_post">Successfully posted \'%1$s\'.\nPost ID: %2$s</string>
+    <string name="photo_post">Photo Post</string>
+    <string name="ok">OK</string>
+    <string name="error">Error</string>
+
 </resources>
