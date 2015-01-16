@@ -1,18 +1,23 @@
 package it.polimi.expogame.fragments.info;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import  android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
 import it.polimi.expogame.R;
+import it.polimi.expogame.activities.FacebookShareActivity;
 import it.polimi.expogame.support.Dish;
 
 
@@ -25,34 +30,16 @@ import it.polimi.expogame.support.Dish;
  * create an instance of this fragment.
  */
 public class DetailsFragment extends Fragment{
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     //private OnFragmentInteractionListener mListener;
     public static final String Tag = "DetailsFragment";
     private Dish dish;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DetailsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static DetailsFragment newInstance(String param1, String param2, Dish dish) {
+
+    public static DetailsFragment newInstance( Dish dish) {
         DetailsFragment fragment = new DetailsFragment(dish);
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -68,10 +55,7 @@ public class DetailsFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
         ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
@@ -89,8 +73,41 @@ public class DetailsFragment extends Fragment{
             descriptionDish.setText(dish.getDescription());
             TextView nationality = (TextView) view.findViewById(R.id.nationality_dish);
             nationality.setText(dish.getNationality());
-            ImageView imageDish = (ImageView) view.findViewById(R.id.imageDish);
-            imageDish.setImageResource(R.drawable.margherita);
+            final ImageView imageDish = (ImageView) view.findViewById(R.id.imageDish);
+
+            //Start retrieve the drawable id of the dish image using its name
+            Context context = getActivity().getApplicationContext();
+            int index = dish.getImageUrl().indexOf(".");
+            String imageUrl = null;
+            //delete extension of file from name if exist
+            if (index > 0)
+                imageUrl = dish.getImageUrl().substring(0, index);
+            //get the id
+            int id = context.getResources().getIdentifier(imageUrl, "drawable", context.getPackageName());
+
+            if(id != 0){
+                //if found, set the image in the details fragment and add tag in order to keep track of the information
+                //it must be used when you want to post image on facebook
+                imageDish.setImageDrawable(getResources().getDrawable(id));
+                imageDish.setTag(new Integer(id));
+            }else{
+                //resource not found, use a default one
+                imageDish.setImageDrawable(getResources().getDrawable(R.drawable.cancel));
+                imageDish.setTag(R.drawable.cancel);
+            }
+
+            Button button = (Button)view.findViewById(R.id.shareButton);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity().getApplicationContext(),FacebookShareActivity.class);
+                    intent.putExtra("name", dish.getName());
+                    Object tag = imageDish.getTag();
+                    int id = tag == null ? -1 : Integer.parseInt(tag.toString());
+                    intent.putExtra("image",id);
+                    startActivity(intent);
+                }
+            });
         }
 
         return view;

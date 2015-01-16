@@ -64,7 +64,8 @@
             android:id="@+id/shareButton"
             android:layout_gravity="right|top"
             android:background="@drawable/facebook"
-            android:layout_weight="0.05"/>
+            android:layout_weight="0.05"
+            />
     </LinearLayout>
 
 </FrameLayout>
