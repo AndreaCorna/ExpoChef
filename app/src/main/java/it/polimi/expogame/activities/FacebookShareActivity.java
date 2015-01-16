@@ -66,23 +66,15 @@ public class FacebookShareActivity extends Activity {
 
         // Used to print the hash key
         //getHashKey();
-
-        // Get the intent that started this activity
         Intent intent = getIntent();
         extrasIntent = intent.getExtras();
-        /*if ((extrasIntent == null) || extrasIntent.size() < 1)
-        {
-            // Nae extras!!! nothing to share, git tae!
-            finish();
-        }
-        else if (!extrasIntent.getInt("image")isE.mpty())
-        {*/
-            postTextView = (TextView)findViewById(R.id.postText);
-            postTextView.setText(getResources().getString(R.string.happy_message_facebook) +" "+ extrasIntent.getString("name"));
-            previewImage = (ImageView)findViewById(R.id.imagePreview_container);
-            previewImage.setImageURI(Uri.parse(baseUrl + extrasIntent.getInt("image")));
 
-        //}
+        postTextView = (TextView)findViewById(R.id.postText);
+        postTextView.setText(getResources().getString(R.string.happy_message_facebook) +" "+ extrasIntent.getString("name"));
+        previewImage = (ImageView)findViewById(R.id.imagePreview_container);
+        previewImage.setImageURI(Uri.parse(baseUrl + extrasIntent.getInt("image")));
+
+
     }
 
     private void getHashKey()
