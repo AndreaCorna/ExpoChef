@@ -34,33 +34,16 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
 
     public static final String TAG = "ZoneFragment";
 
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
 
     private String zone;
     private ListView listItems;
     private SimpleCursorAdapter listAdapter;
 
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment InfoFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ZoneFragment newInstance(String param1, String param2) {
+
+    public static ZoneFragment newInstance() {
         ZoneFragment fragment = new ZoneFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -75,12 +58,6 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
-
     }
 
     @Override
@@ -91,6 +68,8 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
         listItems = (ListView) view.findViewById(R.id.list_dishes_zone_fragment);
         listItems.setOnItemClickListener(this);
         loadDishesByZone(zone);
+        listItems.setAdapter(listAdapter);
+
         return view;
     }
 
@@ -119,6 +98,7 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
         loadDishClicked(id);
     }
 
+
     private void loadDishesByZone(String zone){
         String selection = DishesTable.COLUMN_ZONE + " = ?";
 
@@ -144,8 +124,26 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
                 }
 
             }
+            /*Override this method in order to change color of row of dish*/
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent){
+                final View row = super.getView(position, convertView, parent);
+                Cursor cursor = this.getCursor();
+                cursor.moveToPosition(position);
+                int created = cursor.getInt(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_CREATED));
+                if (created == 0){
+                    row.setBackgroundResource(android.R.color.darker_gray);
+                }
+                else{
+                    row.setBackgroundResource(android.R.color.background_light);
+                }
+                return row;
+            }
+
+
         };
-        listItems.setAdapter(listAdapter);
+
+
     }
 
     private void loadDishClicked(long id){
@@ -165,7 +163,6 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
                 createdDish = true;
             }
 
-            //dishSelectedListener.onDishSelected(new Dish(id,name,nationality,imageUrl,description,zone,createdDish));
 
             Intent intent = new Intent(getActivity().getApplicationContext(), DetailsActivity.class);
             intent.putExtra("idDish",id);

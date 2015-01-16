@@ -14,7 +14,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Large Text"
             android:id="@+id/nameDishLabel"
             android:layout_gravity="center_horizontal|top"
             android:paddingTop="20dp"
@@ -55,7 +54,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Medium Text"
             android:id="@+id/descriptionDishLabel"
             android:layout_weight="0.60" />
 
