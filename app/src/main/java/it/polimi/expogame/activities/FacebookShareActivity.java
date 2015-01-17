@@ -10,6 +10,8 @@ import android.content.pm.Signature;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
@@ -101,25 +103,31 @@ public class FacebookShareActivity extends Activity {
     }
 
     public void postButtonPressed(View view){
-        Toast.makeText(this, getResources().getString(R.string.sharing_facebook_toast), Toast.LENGTH_SHORT).show();
-        mPendingAction = true;
-        Session session = Session.getActiveSession();
-        if (session == null) {
-            session = new Session(getApplicationContext());
-            Session.OpenRequest openSessionRequest = new Session.OpenRequest(this);
-        }
-        else{
-            if (session.getState().equals(SessionState.CREATED)){
-                // Session is not opened or closed, session is created but not opened.
-                session = new Session(this);
-                Session.setActiveSession(session);
-                session.openForPublish(new Session.OpenRequest(this).setCallback(callback).setPermissions(PERMISSION));
+        if (isOnline()) {
+            Toast.makeText(this, getResources().getString(R.string.sharing_facebook_toast), Toast.LENGTH_SHORT).show();
+            mPendingAction = true;
+            Session session = Session.getActiveSession();
+            if (session == null) {
+                session = new Session(getApplicationContext());
+                Session.OpenRequest openSessionRequest = new Session.OpenRequest(this);
             }
             else{
-                onSessionStateChange(session, session.getState(), null);
+                if (session.getState().equals(SessionState.CREATED)){
+                    // Session is not opened or closed, session is created but not opened.
+                    session = new Session(this);
+                    Session.setActiveSession(session);
+                    session.openForPublish(new Session.OpenRequest(this).setCallback(callback).setPermissions(PERMISSION));
+                }
+                else{
+                    onSessionStateChange(session, session.getState(), null);
+                }
             }
+            Session.setActiveSession(session);
+        }else{
+            Toast.makeText(this, getResources().getString(R.string.sharing_facebook_toast_no_internet), Toast.LENGTH_SHORT).show();
+
         }
-        Session.setActiveSession(session);
+
     }
 
     private void onSessionStateChange(Session session, SessionState state, Exception exception){
@@ -255,5 +263,17 @@ public class FacebookShareActivity extends Activity {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         uiHelper.onSaveInstanceState(outState);
+    }
+
+
+    private  boolean isOnline() {
+        Context context = getApplicationContext();
+        ConnectivityManager cm = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            return true;
+        }
+        return false;
     }
 }

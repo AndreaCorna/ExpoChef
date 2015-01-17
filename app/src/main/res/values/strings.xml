@@ -28,6 +28,7 @@
     <string name="title_facebook_login">Facebook Login</string>
     <string name="sharing_facebook_toast">Sharing to Facebook</string>
     <string name="happy_message_facebook">I am very happy. I have just created</string>
+    <string name="sharing_facebook_toast_no_internet">Not connected to internet</string>
 
 
     <!--LIVE APP ID-->
