@@ -67,6 +67,7 @@ public class ImageAdapter extends BaseAdapter {
     }
 
     public Object getItem(int position) {
+        //load an arraylist with object ingredient in order to retrieve them when ask in main activity
         return null;
     }
 

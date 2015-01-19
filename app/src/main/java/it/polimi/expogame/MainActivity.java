@@ -23,6 +23,7 @@ import android.widget.ListView;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 import it.polimi.expogame.database.ExpoGameDbHelper;
 import it.polimi.expogame.database.MascotsTable;
@@ -60,6 +61,8 @@ public class MainActivity extends ActionBarActivity {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //TODO implements getitem in Image
+                // adapter in order to retrieve the object.
                 Ingredient ingredient = (Ingredient)gridview.getAdapter().getItem(position);
                 if(!listIngredientsSelected.contains(ingredient)){
                     view.setBackgroundColor(Color.GREEN);
@@ -186,9 +189,16 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-
+    /*method called with done button in order to load ingredients selected n fragment cook*/
     public void chooseDone(View view){
-
+        List<Fragment> list = getSupportFragmentManager().getFragments();
+        for(Fragment fragment:list){
+            if(fragment.getClass().equals(CookManagerFragment.class)){
+                Log.d(TAG,listIngredientsSelected.toString());
+                CookManagerFragment istance = (CookManagerFragment)fragment;
+                istance.setSelectedIngredients(listIngredientsSelected);
+            }
+        }
     }
 
 

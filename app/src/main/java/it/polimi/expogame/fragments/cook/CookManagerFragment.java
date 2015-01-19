@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.lang.annotation.Inherited;
+import java.util.ArrayList;
 
 import it.polimi.expogame.R;
 import it.polimi.expogame.support.Dish;
@@ -32,6 +33,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     private String mParam1;
     private String mParam2;
 
+    private ArrayList<Ingredient> ingredientsSelected;
 
     /**
      * Use this factory method to create a new instance of
@@ -97,6 +99,8 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
     }
 
-
+    public void setSelectedIngredients(ArrayList<Ingredient> ingredients){
+        this.ingredientsSelected = ingredients;
+    }
 
 }
