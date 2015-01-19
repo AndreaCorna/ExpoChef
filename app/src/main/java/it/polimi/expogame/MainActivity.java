@@ -21,6 +21,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 
+import java.util.ArrayList;
 
 import it.polimi.expogame.database.ExpoGameDbHelper;
 import it.polimi.expogame.database.MascotsTable;
@@ -30,6 +31,7 @@ import it.polimi.expogame.fragments.cook.CookManagerFragment;
 import it.polimi.expogame.fragments.info.ZoneFragment;
 import it.polimi.expogame.fragments.map.ExpoMapFragment;
 import it.polimi.expogame.fragments.info.RootFragment;
+import it.polimi.expogame.support.Ingredient;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -42,6 +44,7 @@ public class MainActivity extends ActionBarActivity {
     private GridView gridview;
     private LinearLayout linearLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
+    private ArrayList<Ingredient> listIngredientsSelected;
 
 
     @Override
@@ -53,6 +56,21 @@ public class MainActivity extends ActionBarActivity {
         gridview = (GridView) findViewById(R.id.gridview);
         gridview.setAdapter(new ImageAdapter(this));
 
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(!view.isSelected()){
+                    view.setSelected(true);
+                    view.setBackgroundColor(getResources().getColor(R.color.abc_background_cache_hint_selector_material_dark));
+                    listIngredientsSelected.add((Ingredient)gridview.getAdapter().getItem(position));
+                }else{
+                    view.setSelected(false);
+                    view.setBackgroundColor(getResources().getColor(R.color.abc_background_cache_hint_selector_material_light));
+
+                    listIngredientsSelected.remove((Ingredient) gridview.getAdapter().getItem(position));
+                }
+            }
+        });
 
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -116,7 +134,7 @@ public class MainActivity extends ActionBarActivity {
         };
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         mDrawerLayout.setDrawerListener(actionBarDrawerToggle);
-
+        listIngredientsSelected = new ArrayList<Ingredient>();
     }
 
     @Override
