@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 import it.polimi.expogame.database.IngredientTable;
 import it.polimi.expogame.providers.IngredientsProvider;
+import it.polimi.expogame.support.Ingredient;
 
 /**
  * Created by Lorenzo on 19/01/15.
@@ -28,28 +29,40 @@ public class ImageAdapter extends BaseAdapter {
 
     // references to our images
     private ArrayList<Integer> mThumbIds;
+    private ArrayList<Ingredient> ingredients;
 
     public ImageAdapter(Context c) {
         mContext = c;
         mThumbIds = new ArrayList<Integer>();
+        ingredients = new ArrayList<Ingredient>();
         ContentResolver cr = mContext.getContentResolver();
         Cursor cursor = cr.query(IngredientsProvider.CONTENT_URI,
-                new String[]{IngredientTable.COLUMN_IMAGEURL},
+                new String[]{},
                 null,
                 null,
                 null);
 
         while (cursor.moveToNext())
         {
-
-            Log.w("Image Adapter", "" + cursor.getString(0));
-            int index = cursor.getString(0).indexOf(".");
-            String imageUrl = null;
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(IngredientTable.COLUMN_NAME));
+            String imageUrl = cursor.getString(cursor.getColumnIndexOrThrow(IngredientTable.COLUMN_IMAGEURL));
+            String category = cursor.getString(cursor.getColumnIndexOrThrow(IngredientTable.COLUMN_CATEGORY));
+            int unlocked = cursor.getInt(cursor.getColumnIndexOrThrow(IngredientTable.COLUMN_UNLOCKED));
+            boolean unblocked;
+            if(unlocked == 0){
+                unblocked = false;
+            }else{
+                unblocked = true;
+            }
+            Ingredient ingredient = new Ingredient(name,imageUrl,category,unblocked);
+            ingredients.add(ingredient);
+            int index = imageUrl.indexOf(".");
+            String urlImage = null;
             //delete extension of file from name if exist
             if (index > 0)
-                imageUrl = cursor.getString(0).substring(0, index);
+                urlImage = imageUrl.substring(0, index);
             //get the id
-            int id = mContext.getResources().getIdentifier(imageUrl, "drawable", mContext.getPackageName());
+            int id = mContext.getResources().getIdentifier(urlImage, "drawable", mContext.getPackageName());
             if (id == 0){
                 id = R.drawable.ic_launcher;
             }
@@ -67,8 +80,7 @@ public class ImageAdapter extends BaseAdapter {
     }
 
     public Object getItem(int position) {
-        //load an arraylist with object ingredient in order to retrieve them when ask in main activity
-        return null;
+        return ingredients.get(position);
     }
 
     public long getItemId(int position) {

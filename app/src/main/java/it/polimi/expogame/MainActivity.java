@@ -61,8 +61,7 @@ public class MainActivity extends ActionBarActivity {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //TODO implements getitem in Image
-                // adapter in order to retrieve the object.
+              
                 Ingredient ingredient = (Ingredient)gridview.getAdapter().getItem(position);
                 if(!listIngredientsSelected.contains(ingredient)){
                     view.setBackgroundColor(Color.GREEN);
