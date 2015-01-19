@@ -87,7 +87,9 @@ public class ImageAdapter extends BaseAdapter {
         }
 
         imageView.setImageResource(mThumbIds.get(position).intValue());
+
         return imageView;
     }
+
 
 }

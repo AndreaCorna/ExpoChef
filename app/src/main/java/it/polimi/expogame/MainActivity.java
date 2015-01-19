@@ -2,6 +2,7 @@ package it.polimi.expogame;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -59,15 +60,14 @@ public class MainActivity extends ActionBarActivity {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(!view.isSelected()){
-                    view.setSelected(true);
-                    view.setBackgroundColor(getResources().getColor(R.color.abc_background_cache_hint_selector_material_dark));
-                    listIngredientsSelected.add((Ingredient)gridview.getAdapter().getItem(position));
+                Ingredient ingredient = (Ingredient)gridview.getAdapter().getItem(position);
+                if(!listIngredientsSelected.contains(ingredient)){
+                    view.setBackgroundColor(Color.GREEN);
+                    listIngredientsSelected.add(ingredient);
                 }else{
-                    view.setSelected(false);
-                    view.setBackgroundColor(getResources().getColor(R.color.abc_background_cache_hint_selector_material_light));
+                    view.setBackgroundColor(303030);
 
-                    listIngredientsSelected.remove((Ingredient) gridview.getAdapter().getItem(position));
+                    listIngredientsSelected.remove(ingredient);
                 }
             }
         });
@@ -187,7 +187,9 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
+    public void chooseDone(View view){
 
+    }
 
 
 
