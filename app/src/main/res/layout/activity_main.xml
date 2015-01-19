@@ -23,14 +23,26 @@
 
     </android.support.v4.view.ViewPager>
 
-    <!-- Listview to display slider menu -->
-    <ListView
-        android:id="@+id/list_slidermenu"
-        android:layout_width="240dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:choiceMode="singleChoice"
-        android:dividerHeight="1dp"
-        android:background="#303030"/>
+        <!-- GridView to display slider menu -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:id="@+id/ingredients_layout"
+            >
+        <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/gridview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:columnWidth="90dp"
+            android:numColumns="auto_fit"
+            android:verticalSpacing="10dp"
+            android:horizontalSpacing="10dp"
+            android:stretchMode="columnWidth"
+            android:gravity="center"
+            android:background="#303030"
+            />
+    </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>

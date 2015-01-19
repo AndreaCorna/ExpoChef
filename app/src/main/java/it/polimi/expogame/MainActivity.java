@@ -15,6 +15,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 
@@ -36,7 +39,8 @@ public class MainActivity extends ActionBarActivity {
     private CustomPagerAdapter customPagerAdapter;
 
     private DrawerLayout mDrawerLayout;
-    private ListView optionsListView;
+    private GridView gridview;
+    private LinearLayout linearLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
 
@@ -45,6 +49,10 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //getting reference of the ViewPager element in the view
+        linearLayout = (LinearLayout)findViewById(R.id.ingredients_layout);
+        gridview = (GridView) findViewById(R.id.gridview);
+        gridview.setAdapter(new ImageAdapter(this));
+
 
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -81,9 +89,7 @@ public class MainActivity extends ActionBarActivity {
 
 
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-        optionsListView = (ListView)findViewById(R.id.list_slidermenu);
 
-        optionsListView.setOnItemClickListener(new SlideMenuClickListener());
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(false);
@@ -137,7 +143,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // if nav drawer is opened, hide the action items
-        boolean drawerOpen = mDrawerLayout.isDrawerOpen(optionsListView);
+        boolean drawerOpen = mDrawerLayout.isDrawerOpen(linearLayout);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -157,15 +163,14 @@ public class MainActivity extends ActionBarActivity {
         public void onItemClick(AdapterView<?> parent, View view, int position,
                                 long id) {
             // display view for selected nav drawer item
-            Log.d(TAG, "dididididididiid " + optionsListView.getAdapter().getItem(position));
-            displayView(optionsListView.getAdapter().getItem(position).toString().toLowerCase());
+            Log.d(TAG, "dididididididiid " + gridview.getAdapter().getItem(position));
 
         }
     }
 
-    public void displayView(String position){
-        mDrawerLayout.closeDrawers();
-    }
+
+
+
 
 
 
@@ -238,3 +243,5 @@ class CustomPagerAdapter extends FragmentPagerAdapter {
         return title;
     }
 }
+
+
