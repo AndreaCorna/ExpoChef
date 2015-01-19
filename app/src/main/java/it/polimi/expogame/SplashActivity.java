@@ -88,7 +88,7 @@ public class SplashActivity extends Activity {
                 ArrayList <Mascotte> remoteMascottes = new ArrayList <Mascotte>();
 
                 try {
-                    website = new URI("http://192.168.1.37:3000/api/mascots");
+                    website = new URI("http://bullcantshit.noip.me:3000/api/mascots");
                 } catch (URISyntaxException e) {
                     Log.w("ExpoGame", "Wrong/Malformed URI");
                     e.printStackTrace();
