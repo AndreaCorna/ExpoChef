@@ -57,6 +57,10 @@ public class ImageAdapter extends BaseAdapter {
             }
             Ingredient ingredient = new Ingredient(name,imageUrl,category,unblocked);
             ingredients.add(ingredient);
+
+            //Retreive the image of the ingredient and add their id
+            //to the mThumbIds array
+
             int index = imageUrl.indexOf(".");
             String urlImage = null;
             //delete extension of file from name if exist
@@ -95,7 +99,7 @@ public class ImageAdapter extends BaseAdapter {
             imageView = new ImageView(mContext);
             imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(8, 8, 8, 8);
+            imageView.setPadding(15, 15, 15, 15);
         } else {
             imageView = (ImageView) convertView;
         }
