@@ -41,7 +41,9 @@ import java.security.NoSuchAlgorithmException;
 import it.polimi.expogame.R;
 
 
-
+/**
+ * Activity that implements method in order to post on facebook
+ */
 public class FacebookShareActivity extends Activity {
 
     private static final String PERMISSION = "publish_actions";
@@ -102,6 +104,10 @@ public class FacebookShareActivity extends Activity {
         }
     }
 
+    /**
+     * the method check is the device is connected to internet, and if it is true starts creating a new session if not exist
+     * already and opens it in order to publish on facebook
+     */
     public void postButtonPressed(View view){
         if (isOnline()) {
             Toast.makeText(this, getResources().getString(R.string.sharing_facebook_toast), Toast.LENGTH_SHORT).show();
@@ -157,6 +163,10 @@ public class FacebookShareActivity extends Activity {
     }
 
 
+    /**
+     * helper method in order to load data that we want to post on facebook and after that
+     * calls the asyncronous task defined in facebook sdk
+     */
     private void postImageToFacebook() {
         Session session = Session.getActiveSession();
         final String extraText = postTextView.getText().toString();
@@ -191,6 +201,9 @@ public class FacebookShareActivity extends Activity {
         }
     }
 
+    /**
+     * Load and show the notification on device bar, reporting the outcome of the post
+     */
     private void addNotification(String message, GraphObject result, FacebookRequestError error){
         String title = null;
         String alertMessage = null;
@@ -266,6 +279,9 @@ public class FacebookShareActivity extends Activity {
     }
 
 
+    /**
+     * Method that checks if the device is connected
+     */
     private  boolean isOnline() {
         Context context = getApplicationContext();
         ConnectivityManager cm = (ConnectivityManager) context

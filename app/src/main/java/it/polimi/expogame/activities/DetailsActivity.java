@@ -15,11 +15,17 @@ import it.polimi.expogame.R;
 import it.polimi.expogame.fragments.info.DetailsFragment;
 import it.polimi.expogame.support.Dish;
 
+/**
+ * This class implements the activity to show details about a dish unlocked by user
+ */
 public class DetailsActivity extends ActionBarActivity {
 
     public static final String TAG ="Details Activity";
 
     @Override
+    /**
+     * Load all information from the intent pass by zonefragment to create a dish object
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);

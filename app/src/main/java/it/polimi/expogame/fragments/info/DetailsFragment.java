@@ -55,7 +55,7 @@ public class DetailsFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+         //enable go back button on activity action bar
         ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
@@ -99,6 +99,7 @@ public class DetailsFragment extends Fragment{
             Button button = (Button)view.findViewById(R.id.shareButton);
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
+                //on click launch the activity to post on facebook passing name and image of a dish
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity().getApplicationContext(),FacebookShareActivity.class);
                     intent.putExtra("name", dish.getName());

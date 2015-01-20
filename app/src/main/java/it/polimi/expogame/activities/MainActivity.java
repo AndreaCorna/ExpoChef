@@ -54,6 +54,8 @@ public class MainActivity extends ActionBarActivity {
         gridview.setAdapter(new ImageAdapter(this));
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            //override in order to change background of an item when is selected and add/remove it from the
+            //arraylist we want to pass to cook fragment
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -75,7 +77,8 @@ public class MainActivity extends ActionBarActivity {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
-
+            //override in order to unlock slider when we are in the cook fragment
+            //also used to enable and disable back button on actionbar
             @Override
             public void onPageSelected(int position) {
                 if(customPagerAdapter.getItem(position).getClass().equals(CookManagerFragment.class)){
@@ -172,7 +175,7 @@ public class MainActivity extends ActionBarActivity {
     }*/
 
     /*Private class in order to manage the click on the slide bar*/
-    private class SlideMenuClickListener implements
+   /* private class SlideMenuClickListener implements
             ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position,
@@ -181,9 +184,9 @@ public class MainActivity extends ActionBarActivity {
             Log.d(TAG, "dididididididiid " + gridview.getAdapter().getItem(position));
 
         }
-    }
+    }*/
 
-    /*method called with done button in order to load ingredients selected n fragment cook*/
+    /*method called with done button slider in order to load ingredients selected n fragment cook*/
     public void chooseDone(View view){
         List<Fragment> list = getSupportFragmentManager().getFragments();
         for(Fragment fragment:list){
