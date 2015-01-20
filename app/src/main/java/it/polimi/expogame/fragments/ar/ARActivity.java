@@ -56,6 +56,7 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
     private ArrayList<IGeometry> MascotsList;
     private ArrayList<Mascotte> Mascots;
     private final int range = 50; //this is the range in which you can see a mascot
+                                 
     //----------------------------------------
 
     //Radar object displayed in the metaio view
@@ -83,9 +84,8 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
         cr = getContentResolver();
         Mascots = new ArrayList<Mascotte>();
 
-        //TODO retreive the obj for the 3D model too
         Cursor c = cr.query(MascotsProvider.CONTENT_URI,
-                new String[]{MascotsTable.COLUMN_NAME, MascotsTable.COLUMN_LATITUDE, MascotsTable.COLUMN_LONGITUDE,MascotsTable.COLUMN_CAPTURED},
+                new String[]{MascotsTable.COLUMN_NAME, MascotsTable.COLUMN_LATITUDE, MascotsTable.COLUMN_LONGITUDE,MascotsTable.COLUMN_CAPTURED,MascotsTable.COLUMN_MODEL},
                 null,
                 null,
                 null);
@@ -93,6 +93,7 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
         while (c.moveToNext()) {
             Mascotte m = new Mascotte(c.getString(0), c.getString(1), c.getString(2));
             m.setCaptured(c.getInt(3));
+            m.setModel(c.getString(4));
             //Log.w("MetaioACTIVITY", "generated mascotte with lati" + m.getLat());
             Mascots.add(m);
         }
@@ -221,19 +222,14 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
                 "yellow.png"));
         mRadar.setRelativeToScreen(IGeometry.ANCHOR_TL);
 
-
-        //Let's handle the 3d models that we need to display
-
-        //This function create the 3d model on the metaio view if and only if
-        //it is near the player
-
         for (Mascotte mascotte : Mascots) {
 
             //Link a LLACoordinates to an IGeometry and check if it will be displayed or not due to
             //the player position ( by switching the .setVisible() propriety  )
             final IGeometry NewMascot = createPOIGeometry(new LLACoordinate(Float.parseFloat(mascotte.getLat()),
                     Float.parseFloat(mascotte.getLongi()),
-                    0, 0));
+                    0, 0),mascotte.getModel());
+
 
             //MascotList contains all the IGeometries generated from the mascots java objects
             //retreived from the MascotsProvider
@@ -255,31 +251,26 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
                 mSurfaceView.queueEvent(new Runnable() {
                     @Override
                     public void run() {
-                        mRadar.setObjectsDefaultTexture(AssetsManager.getAssetPathAsFile(getApplicationContext(),
-                                "yellow.png"));
                         mRadar.setObjectTexture(NewMascot, AssetsManager.getAssetPathAsFile(getApplicationContext(),
                                 "red.png"));
                     }
                 });
             }
         }
-
-
     }
 
     //-----UTILITY------------------------------------------------------------------------------
 
     /**
      * Create Igeometry object based on coordinates of mascots and theri obj model
-     * TODO pass also the path of the obj model
      *
      * @param lla are the coordinates lati+longi of the mascot
      * @return the IGeometry 3d object that will be displayed on the ARView
      */
-    private IGeometry createPOIGeometry(LLACoordinate lla) {
+    private IGeometry createPOIGeometry(LLACoordinate lla, String modelUrl) {
         final File path =
                 AssetsManager.getAssetPathAsFile(getApplicationContext(),
-                        "jalapeno.obj");
+                        modelUrl); //model url is type of "jalapeno.obj" and are in assets with obj+mtl
 
         if (path != null) {
             IGeometry geo = metaioSDK.createGeometry(path);
@@ -313,7 +304,7 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
     protected void startCamera()
     {
 
-
+/*
         Camera cam = new Camera();
         cam.setYuvPipeline(Boolean.FALSE); //disable it to avoid green camera display on some devices(?)
         cam.setFacing(Camera.FACE_BACK);
@@ -330,8 +321,8 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
 
         //clear the camera cash before start it
         //( http://stackoverflow.com/questions/4856955/how-to-programatically-clear-application-data )
-
-        //super.startCamera();
+*/
+        super.startCamera();
     }
 
     //-----------------------------------------------------------------------------------------------
@@ -381,8 +372,6 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
                     mSurfaceView.queueEvent(new Runnable() {
                           @Override
                           public void run() {
-                              mRadar.setObjectsDefaultTexture(AssetsManager.getAssetPathAsFile(getApplicationContext(),
-                                      "yellow.png"));
                               mRadar.setObjectTexture(geometry, AssetsManager.getAssetPathAsFile(getApplicationContext(),
                                       "red.png"));
                           }
