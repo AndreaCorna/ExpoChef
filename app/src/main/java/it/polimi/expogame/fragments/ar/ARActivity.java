@@ -24,6 +24,7 @@ import com.google.android.gms.location.LocationServices;
 import com.metaio.cloud.plugin.util.MetaioCloudUtils;
 import com.metaio.sdk.ARViewActivity;
 import com.metaio.sdk.MetaioDebug;
+import com.metaio.sdk.jni.Camera;
 import com.metaio.sdk.jni.IGeometry;
 import com.metaio.sdk.jni.IMetaioSDKCallback;
 import com.metaio.sdk.jni.IRadar;
@@ -55,6 +56,7 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
     private ArrayList<IGeometry> MascotsList;
     private ArrayList<Mascotte> Mascots;
     private final int range = 50; //this is the range in which you can see a mascot
+                                 
     //----------------------------------------
 
     //Radar object displayed in the metaio view
@@ -82,16 +84,17 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
         cr = getContentResolver();
         Mascots = new ArrayList<Mascotte>();
 
-        //TODO retreive the obj for the 3D model too
         Cursor c = cr.query(MascotsProvider.CONTENT_URI,
-                new String[]{MascotsTable.COLUMN_NAME, MascotsTable.COLUMN_LATITUDE, MascotsTable.COLUMN_LONGITUDE},
+                new String[]{MascotsTable.COLUMN_NAME, MascotsTable.COLUMN_LATITUDE, MascotsTable.COLUMN_LONGITUDE,MascotsTable.COLUMN_CAPTURED,MascotsTable.COLUMN_MODEL},
                 null,
                 null,
                 null);
 
         while (c.moveToNext()) {
             Mascotte m = new Mascotte(c.getString(0), c.getString(1), c.getString(2));
-            Log.w("MetaioACTIVITY", "generated mascotte with lati" + m.getLat());
+            m.setCaptured(c.getInt(3));
+            m.setModel(c.getString(4));
+            //Log.w("MetaioACTIVITY", "generated mascotte with lati" + m.getLat());
             Mascots.add(m);
         }
 
@@ -219,19 +222,14 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
                 "yellow.png"));
         mRadar.setRelativeToScreen(IGeometry.ANCHOR_TL);
 
-
-        //Let's handle the 3d models that we need to display
-
-        //This function create the 3d model on the metaio view if and only if
-        //it is near the player
-
         for (Mascotte mascotte : Mascots) {
 
             //Link a LLACoordinates to an IGeometry and check if it will be displayed or not due to
             //the player position ( by switching the .setVisible() propriety  )
-            IGeometry NewMascot = createPOIGeometry(new LLACoordinate(Float.parseFloat(mascotte.getLat()),
+            final IGeometry NewMascot = createPOIGeometry(new LLACoordinate(Float.parseFloat(mascotte.getLat()),
                     Float.parseFloat(mascotte.getLongi()),
-                    0, 0));
+                    0, 0),mascotte.getModel());
+
 
             //MascotList contains all the IGeometries generated from the mascots java objects
             //retreived from the MascotsProvider
@@ -244,31 +242,41 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
 
             NewMascot.setName(mascotte.getName());
             Log.w("MetaioACTIVITY", "Create mascot" + mascotte.getName());
-            //mAnnotatedGeometriesGroup.addGeometry(NewMascot,NewMascot.getName());
+
+            //Let's turn red the mascots captured yet
+            if(mascotte.getCaptured()==1)
+            {
+
+                //Update the SurfaceView with a red point
+                mSurfaceView.queueEvent(new Runnable() {
+                    @Override
+                    public void run() {
+                        mRadar.setObjectTexture(NewMascot, AssetsManager.getAssetPathAsFile(getApplicationContext(),
+                                "red.png"));
+                    }
+                });
+            }
         }
-
-
     }
 
     //-----UTILITY------------------------------------------------------------------------------
 
     /**
      * Create Igeometry object based on coordinates of mascots and theri obj model
-     * TODO pass also the path of the obj model
      *
      * @param lla are the coordinates lati+longi of the mascot
      * @return the IGeometry 3d object that will be displayed on the ARView
      */
-    private IGeometry createPOIGeometry(LLACoordinate lla) {
+    private IGeometry createPOIGeometry(LLACoordinate lla, String modelUrl) {
         final File path =
                 AssetsManager.getAssetPathAsFile(getApplicationContext(),
-                        "jalapeno.obj");
+                        modelUrl); //model url is type of "jalapeno.obj" and are in assets with obj+mtl
 
         if (path != null) {
             IGeometry geo = metaioSDK.createGeometry(path);
             geo.setTranslationLLA(lla);
             geo.setLLALimitsEnabled(true);
-            geo.setScale(150);
+            geo.setScale(250);
 
             //Log.w("MetaioACTIVITY", "mascots coord" + lla.getLatitude() + lla.getLongitude());
             //Log.w("MetaioACTIVITY","your coord"+ mSensors.getLocation().getLatitude()+ mSensors.getLocation().getLongitude());
@@ -292,45 +300,99 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
         }
     }
 
+    @Override
+    protected void startCamera()
+    {
+
+/*
+        Camera cam = new Camera();
+        cam.setYuvPipeline(Boolean.FALSE); //disable it to avoid green camera display on some devices(?)
+        cam.setFacing(Camera.FACE_BACK);
+        //cam.setDownsample(1);
+        cam.setIndex(0);
+        //cam.setFlip(Camera.FLIP_BOTH);
+        cam.setFlip(Camera.FLIP_NONE);
+
+        metaioSDK.startCamera(cam);
+
+
+        //Problematic GPU VideoCore IV ( galaxy core G350)
+        //Adreno 200 ( from metaio helpdesk )
+
+        //clear the camera cash before start it
+        //( http://stackoverflow.com/questions/4856955/how-to-programatically-clear-application-data )
+*/
+        super.startCamera();
+    }
+
     //-----------------------------------------------------------------------------------------------
 
-
+    /*
+    * Method called when a geometry is touched on the
+    * metaio view, it sets the mascotte as captured ( if it was not yet )
+    * and unlocks all ingredients associated to it
+    * */
     @Override
     protected void onGeometryTouched(final IGeometry geometry) {
         MetaioDebug.log("Geometry selected: " + geometry);
 
-        /*TODO if the mascot is already captured it is worth to do all of this or not?
-        int captured=0;
 
-        for(Mascotte m : Mascots){
-            if(geometry.getName().equals(m.getName()))
-              {
-                  captured = m.getCaptured();
-                  if(captured==0)
-                  { m.setCaptured(1);}
-                  break;
-              }
-            continue;
-        }
-        */
-
-        //if(captured == 0) {
-        mSurfaceView.queueEvent(new Runnable() {
-            @Override
-            public void run() {
-                mRadar.setObjectsDefaultTexture(AssetsManager.getAssetPathAsFile(getApplicationContext(),
-                        "yellow.png"));
-                mRadar.setObjectTexture(geometry, AssetsManager.getAssetPathAsFile(getApplicationContext(),
-                        "red.png"));
-                //mAnnotatedGeometriesGroup.setSelectedGeometry(geometry);
-            }
-        });
-
-        //Log.w("MetaioActivity","mascot selected"+geometry.getName());
         Vibrator v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
         // Vibrate for 500 milliseconds
         v.vibrate(500);
 
+        int captured=0;
+
+        for(Mascotte m : Mascots){
+            Log.w("METAIOACTIVITY",""+m.getName()+m.getCaptured());
+            if(geometry.getName().equals(m.getName())) //let's find the mascotte touched
+              {
+                  captured = m.getCaptured();
+                  if(captured==0)
+                  {
+
+                    Log.w("METAIOACTIVITY","updating catptured routine");
+                    m.setCaptured(1);
+
+                    //Let's update also the mascot content provider
+                    //with the captured=1 value
+                    //MASCOTS PROVIDER UPDATING
+                    //-----------------------------------------------------
+                    String where = MascotsTable.COLUMN_NAME + " = ?";
+                    String[] name = new String[]{m.getName()};
+
+                    ContentValues values = new ContentValues();
+
+                    values.put(MascotsTable.COLUMN_CAPTURED,1);
+                    cr.update(MascotsProvider.CONTENT_URI,values,where,name);
+                    //-----------------------------------------------------
+
+
+                    //Update the SurfaceView with a red point
+                    mSurfaceView.queueEvent(new Runnable() {
+                          @Override
+                          public void run() {
+                              mRadar.setObjectTexture(geometry, AssetsManager.getAssetPathAsFile(getApplicationContext(),
+                                      "red.png"));
+                          }
+                      });
+
+                    //Let's unlock all the ingredients associated to the mascotte
+                    //INGREDIENTS PROVIDER UPDATING
+                    //-----------------------------------------------------
+                    where = IngredientTable.COLUMN_CATEGORY + " = ?";
+                    name = new String[]{m.getName()};
+
+                    values = new ContentValues();
+                    values.put(IngredientTable.COLUMN_UNLOCKED, 1);
+
+                    cr.update(IngredientsProvider.CONTENT_URI, values, where, name);
+                    //-----------------------------------------------------
+                  }
+                  break;
+              }
+            continue;
+        }
 
         //-------Debug--------------------
         /*
@@ -348,13 +410,7 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
         c.close();
         ----------------------------------*/
 
-        String where = IngredientTable.COLUMN_CATEGORY + " = ?";
-        String[] name = new String[]{geometry.getName()};
 
-        ContentValues values = new ContentValues();
-        values.put(IngredientTable.COLUMN_UNLOCKED, 1);
-
-        cr.update(IngredientsProvider.CONTENT_URI, values, where, name);
 
         //-------Debug--------------------
         /*
@@ -371,7 +427,7 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
 
         c.close();
         -------------------------------*/
-        //}
+
     }
 
     /**
@@ -408,7 +464,7 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
 
         mLocationRequest = LocationRequest.create();
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        mLocationRequest.setInterval(1000); // Update location every second
+        mLocationRequest.setInterval(500); // Update location every second
 
         LocationServices.FusedLocationApi.requestLocationUpdates(
                 mGoogleApiClient, mLocationRequest, this);

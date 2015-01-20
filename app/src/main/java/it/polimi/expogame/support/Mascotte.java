@@ -10,6 +10,10 @@ public class Mascotte {
     private String lat;
     private int captured;
 
+
+
+    private String model;
+
     public Mascotte() {
     }
 
@@ -33,6 +37,13 @@ public class Mascotte {
 
     public int getCaptured(){return captured;}
 
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
 
     public void setName(String name) {
         this.name = name;

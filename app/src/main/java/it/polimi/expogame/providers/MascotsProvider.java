@@ -106,7 +106,7 @@ public class MascotsProvider extends ContentProvider {
      */
     private void checkColumns(String[] projection) {
 
-        String[] available = { MascotsTable.COLUMN_NAME,  MascotsTable.COLUMN_LATITUDE, MascotsTable.COLUMN_LONGITUDE, MascotsTable.COLUMN_CATEGORY};
+        String[] available = { MascotsTable.COLUMN_NAME,  MascotsTable.COLUMN_LATITUDE, MascotsTable.COLUMN_LONGITUDE, MascotsTable.COLUMN_CATEGORY , MascotsTable.COLUMN_CAPTURED, MascotsTable.COLUMN_MODEL};
 
         if (projection != null) {
             HashSet<String> requestedColumns = new HashSet<String>(Arrays.asList(projection));
