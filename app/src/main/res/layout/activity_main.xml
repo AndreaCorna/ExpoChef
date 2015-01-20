@@ -26,10 +26,11 @@
         <!-- GridView to display slider menu -->
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="240dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="left"
         android:id="@+id/ingredients_layout"
+        android:layout_weight="0.66"
         >
 
         <LinearLayout
