@@ -193,6 +193,7 @@ public class MainActivity extends ActionBarActivity {
                 istance.setSelectedIngredients(listIngredientsSelected);
             }
         }
+        mDrawerLayout.closeDrawers();
     }
 
 
