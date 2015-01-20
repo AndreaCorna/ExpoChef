@@ -2,6 +2,7 @@ package it.polimi.expogame.fragments.map;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -36,6 +37,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import it.polimi.expogame.R;
 import it.polimi.expogame.database.ExpoGameDbHelper;
 import it.polimi.expogame.database.MascotsTable;
+import it.polimi.expogame.providers.MascotsProvider;
+import it.polimi.expogame.support.Mascotte;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,8 +53,9 @@ public class ExpoMapFragment extends Fragment implements OnMapReadyCallback, Goo
     private static final String TAG = "ExpoMapFragment";
     private View view;
 
+
     //Map Settings
-    private float minZoom = 15;
+    private float minZoom = 0;
     private final LatLng INIT_POSITION = new LatLng(45.519899, 9.101893);
     //Cisano Bergamasco
     //private final LatLng INIT_POSITION = new LatLng(45.738317, 9.476013);
@@ -91,13 +95,15 @@ public class ExpoMapFragment extends Fragment implements OnMapReadyCallback, Goo
                 .isProviderEnabled(LocationManager.GPS_PROVIDER);
 
         // check if enabled and if not send user to the GSP settings
-        // Better solution would be to display a dialog and suggesting to
-        // go to the settings
+
         if (!enabled) {
             buildAlertMessageNoGps();
         }
     }
 
+    /**
+     * Message box to ask for GPS
+     */
     private void buildAlertMessageNoGps() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
@@ -254,10 +260,29 @@ public class ExpoMapFragment extends Fragment implements OnMapReadyCallback, Goo
     }
 
     private void addMarkers(GoogleMap googleMap) {
+
+        ContentResolver cr = getActivity().getContentResolver();
+        Cursor cursor = cr.query(MascotsProvider.CONTENT_URI,
+                new String[]{MascotsTable.COLUMN_NAME,MascotsTable.COLUMN_CATEGORY,MascotsTable.COLUMN_LATITUDE,MascotsTable.COLUMN_LONGITUDE},
+                null,null,null);
+        //adding the markers loaded from the content provider
+        while(cursor.moveToNext()){
+            float lat = cursor.getFloat(cursor.getColumnIndexOrThrow(MascotsTable.COLUMN_LATITUDE));
+            float lng = cursor.getFloat(cursor.getColumnIndexOrThrow(MascotsTable.COLUMN_LONGITUDE));
+
+            googleMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(lat, lng))
+                    .title(cursor.getString(cursor.getColumnIndexOrThrow(MascotsTable.COLUMN_NAME)))
+                    .snippet(cursor.getString(cursor.getColumnIndexOrThrow(MascotsTable.COLUMN_CATEGORY))));
+            
+        }
+
+        //Stub to position a mascot on the expo area
         googleMap.addMarker(new MarkerOptions()
                 .position(new LatLng(45.518824, 9.106110))
                 .title("Tommy Tomato")
                 .snippet("Verdura"));
+
     }
 
 
