@@ -102,7 +102,9 @@ public class WorldFragment extends Fragment  {
         super.onDetach();
     }
 
-
+    /**
+     * load zone with the content provider and set the list adapter of the listview
+     */
     private void loadZones() {
 
         ArrayList<String> zoneList = new ArrayList<String>();
@@ -129,6 +131,9 @@ public class WorldFragment extends Fragment  {
         listItems.setAdapter(listAdapterZones);
     }
 
+    /**
+     * Start the activity to show the dishes of one zone. The name of zone is passde with and intent extra
+     */
     private void loadDishesByZone(String zone){
 
         Intent intent = new Intent(getActivity().getApplicationContext(), ZoneActivity.class);

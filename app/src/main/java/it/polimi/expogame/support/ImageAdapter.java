@@ -21,9 +21,8 @@ import it.polimi.expogame.providers.IngredientsProvider;
 import it.polimi.expogame.support.Ingredient;
 
 /**
- * Created by Lorenzo on 19/01/15.
+ * Adapter for load image in the grid view
  */
-
 public class ImageAdapter extends BaseAdapter {
     private Context mContext;
 
@@ -31,6 +30,7 @@ public class ImageAdapter extends BaseAdapter {
     // references to our images
     private ArrayList<Integer> mThumbIds;
     private ArrayList<Ingredient> ingredients;
+
 
     public ImageAdapter(Context c) {
         mContext = c;
