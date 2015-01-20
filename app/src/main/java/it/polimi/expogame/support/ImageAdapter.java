@@ -1,4 +1,4 @@
-package it.polimi.expogame;
+package it.polimi.expogame.support;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -15,6 +15,7 @@ import android.widget.ListAdapter;
 
 import java.util.ArrayList;
 
+import it.polimi.expogame.R;
 import it.polimi.expogame.database.IngredientTable;
 import it.polimi.expogame.providers.IngredientsProvider;
 import it.polimi.expogame.support.Ingredient;

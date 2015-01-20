@@ -1,7 +1,5 @@
-package it.polimi.expogame;
+package it.polimi.expogame.activities;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -18,21 +16,18 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-import it.polimi.expogame.database.ExpoGameDbHelper;
-import it.polimi.expogame.database.MascotsTable;
+import it.polimi.expogame.R;
 import it.polimi.expogame.fragments.ar.ARFragment;
-import it.polimi.expogame.fragments.cook.CookFragment;
 import it.polimi.expogame.fragments.cook.CookManagerFragment;
-import it.polimi.expogame.fragments.info.ZoneFragment;
 import it.polimi.expogame.fragments.map.ExpoMapFragment;
 import it.polimi.expogame.fragments.info.RootFragment;
+import it.polimi.expogame.support.ImageAdapter;
 import it.polimi.expogame.support.Ingredient;
 
 
@@ -61,7 +56,7 @@ public class MainActivity extends ActionBarActivity {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-              
+
                 Ingredient ingredient = (Ingredient)gridview.getAdapter().getItem(position);
                 if(!listIngredientsSelected.contains(ingredient)){
                     view.setBackgroundColor(Color.GREEN);

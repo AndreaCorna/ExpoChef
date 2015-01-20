@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -30,6 +29,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
+import it.polimi.expogame.activities.MainActivity;
 import it.polimi.expogame.database.MascotsTable;
 import it.polimi.expogame.providers.MascotsProvider;
 import it.polimi.expogame.support.Mascotte;

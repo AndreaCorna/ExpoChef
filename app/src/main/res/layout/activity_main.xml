@@ -35,12 +35,12 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="@dimen/abc_action_bar_default_height_material"
-            android:background="@color/com_facebook_blue">
+            android:layout_height="wrap_content"
+            android:background="#303030">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/abc_action_bar_default_height_material"
+                android:layout_height="wrap_content"
                 android:text="Ingredientst"
                 android:id="@+id/label_text_slider_ingredients"
                 android:layout_weight="0.75"
@@ -51,7 +51,7 @@
 
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/abc_action_bar_default_height_material"
+                android:layout_height="wrap_content"
                 android:text="Done"
                 android:id="@+id/done_button"
                 android:layout_weight="0.25"
