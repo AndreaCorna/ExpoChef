@@ -393,41 +393,6 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
               }
             continue;
         }
-
-        //-------Debug--------------------
-        /*
-        Cursor c = cr.query(IngredientsProvider.CONTENT_URI,
-                new String[]{IngredientTable.COLUMN_NAME,IngredientTable.COLUMN_UNLOCKED},
-                null,
-                null,
-                null);
-
-        while (c.moveToNext())
-        {
-            Log.w("MetaioACTIVITy",""+c.getString(0)+c.getString(1));
-        }
-
-        c.close();
-        ----------------------------------*/
-
-
-
-        //-------Debug--------------------
-        /*
-        c = cr.query(IngredientsProvider.CONTENT_URI,
-                new String[]{IngredientTable.COLUMN_NAME,IngredientTable.COLUMN_UNLOCKED},
-                null,
-                null,
-                null);
-
-        while (c.moveToNext())
-        {
-            Log.w("MetaioACTIVITy",""+c.getString(0)+c.getString(1));
-        }
-
-        c.close();
-        -------------------------------*/
-
     }
 
     /**
