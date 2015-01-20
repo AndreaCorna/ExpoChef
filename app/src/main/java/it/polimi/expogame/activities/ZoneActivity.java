@@ -8,6 +8,9 @@ import android.view.MenuItem;
 import it.polimi.expogame.R;
 import it.polimi.expogame.fragments.info.ZoneFragment;
 
+/**
+ * Activity used to show the list of dishes related to a zone
+ */
 public class ZoneActivity extends ActionBarActivity {
 
     @Override

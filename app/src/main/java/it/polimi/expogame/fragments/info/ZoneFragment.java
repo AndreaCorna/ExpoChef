@@ -22,13 +22,8 @@ import it.polimi.expogame.database.DishesTable;
 import it.polimi.expogame.providers.DishesProvider;
 import it.polimi.expogame.support.Dish;
 
-
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * to handle interaction events.
- * Use the {@link ZoneFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Fragment in order to show dishes of a specific zone
  */
 public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickListener{
 
@@ -98,7 +93,10 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
         loadDishClicked(id);
     }
 
-
+    /**
+     * Load dishes of the zone passed as parameter and set up of adapter for the list view
+     * @param zone
+     */
     private void loadDishesByZone(String zone){
         String selection = DishesTable.COLUMN_ZONE + " = ?";
 
@@ -146,6 +144,11 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
 
     }
 
+    /**
+     * load all information of the dish indicated with id and put all in the intent extras in order to open the activity
+     * with all details
+     * @param id
+     */
     private void loadDishClicked(long id){
         Uri uri = Uri.parse(DishesProvider.CONTENT_URI+"/"+id);
         String[] projection = new String[]{};
