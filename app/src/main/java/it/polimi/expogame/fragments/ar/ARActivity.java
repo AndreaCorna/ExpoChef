@@ -230,7 +230,7 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
                     Float.parseFloat(mascotte.getLongi()),
                     0, 0),mascotte.getModel());
 
-
+            Log.d("fdsafd",NewMascot.toString());
             //MascotList contains all the IGeometries generated from the mascots java objects
             //retreived from the MascotsProvider
             MascotsList.add(NewMascot);

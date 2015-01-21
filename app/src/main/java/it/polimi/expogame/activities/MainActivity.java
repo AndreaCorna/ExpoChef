@@ -199,6 +199,13 @@ public class MainActivity extends ActionBarActivity {
         mDrawerLayout.closeDrawers();
     }
 
+    public void resetSelection(View view){
+        int elementsCount = gridview.getAdapter().getCount();
+        for(int i=0; i< elementsCount; i++){
+            gridview.getChildAt(i).setBackgroundColor(303030);
+        }
+        
+    }
 
 
 
