@@ -1,6 +1,7 @@
 package it.polimi.expogame.fragments.info;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import it.polimi.expogame.R;
@@ -47,7 +49,7 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
     }
 
     public ZoneFragment(String zone) {
-        this.zone = zone;
+        this.zone = zone.toLowerCase();
     }
 
     @Override
@@ -104,9 +106,9 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
         Log.d(TAG, selectionArgs[0].toString());
         Cursor cursor = getActivity().getContentResolver().query(DishesProvider.CONTENT_URI,null,selection,selectionArgs,null);
 
-        String[] columns = new String[] { DishesTable.COLUMN_NAME, DishesTable.COLUMN_NATIONALITY };
+        String[] columns = new String[] { DishesTable.COLUMN_NAME, DishesTable.COLUMN_NATIONALITY ,DishesTable.COLUMN_IMAGE};
 
-        int[] to = new int[] { R.id.name_dish, R.id.country_dish };
+        int[] to = new int[] { R.id.name_dish };
 
         listAdapter = new SimpleCursorAdapter(getActivity().getApplicationContext(),R.layout.list_dishes_item,cursor,columns,to){
             //Override of method in order to disable dishes that are not created yet
@@ -128,13 +130,29 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
                 final View row = super.getView(position, convertView, parent);
                 Cursor cursor = this.getCursor();
                 cursor.moveToPosition(position);
+                //check is dish is unlocked
                 int created = cursor.getInt(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_CREATED));
                 if (created == 0){
                     row.setBackgroundResource(android.R.color.darker_gray);
                 }
-                else{
-                    row.setBackgroundResource(android.R.color.background_light);
+
+                //load image of dish
+                Context context = getActivity().getApplicationContext();
+
+                String image = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_IMAGE));
+                int index = image.indexOf(".");
+                String imageUrl = null;
+                //delete extension of file from name if exist
+                if (index > 0)
+                    imageUrl = image.substring(0, index);
+                //get the id
+                int id = context.getResources().getIdentifier(imageUrl, "drawable", context.getPackageName());
+                if(id==0){
+                    id = -1;
                 }
+                //load image id
+                ImageView imageView = (ImageView)row.findViewById(R.id.image_dish);
+                imageView.setImageResource(id);
                 return row;
             }
 
