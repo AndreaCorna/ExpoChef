@@ -117,6 +117,9 @@ public class WorldFragment extends Fragment  {
             Log.d(TAG,"cursor load zones world fragment is null");
 
         }
+
+        cursor.close();
+
         listAdapterZones = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.zone_item, zoneList);
         listItems.setAdapter(listAdapterZones);
     }

@@ -1,24 +1,14 @@
 package it.polimi.expogame.support;
 
-import android.content.ContentResolver;
 import android.content.Context;
-import android.content.Intent;
-import android.database.Cursor;
-import android.database.DataSetObserver;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
-
 import java.util.ArrayList;
-
 import it.polimi.expogame.R;
-import it.polimi.expogame.database.IngredientTable;
-import it.polimi.expogame.providers.IngredientsProvider;
-import it.polimi.expogame.support.Ingredient;
+
 
 /**
  * Adapter for load image in the grid view

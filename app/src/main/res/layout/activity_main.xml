@@ -37,7 +37,7 @@
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="#303030">
+            android:background="#874613">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -72,7 +72,7 @@
             android:horizontalSpacing="10dp"
             android:stretchMode="columnWidth"
             android:gravity="center"
-            android:background="#303030"
+            android:background="@drawable/ricettario"
             />
 
 
