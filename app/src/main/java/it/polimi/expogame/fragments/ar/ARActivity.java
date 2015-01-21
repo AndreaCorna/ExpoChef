@@ -235,7 +235,7 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
             //retreived from the MascotsProvider
             MascotsList.add(NewMascot);
 
-            //Add the IGeomtry created on the radar ( it will be displayed or not due to
+            //Add the IGeometry created on the radar ( it will be displayed or not due to
             //the createPoiGeometry functions that check the distance between the mascot's coord
             //and the player position )
             mRadar.add(NewMascot);
