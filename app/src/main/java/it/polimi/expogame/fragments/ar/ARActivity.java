@@ -230,7 +230,7 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
                     Float.parseFloat(mascotte.getLongi()),
                     0, 0),mascotte.getModel());
 
-
+            Log.d("fdsafd",NewMascot.toString());
             //MascotList contains all the IGeometries generated from the mascots java objects
             //retreived from the MascotsProvider
             MascotsList.add(NewMascot);
@@ -393,41 +393,6 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
               }
             continue;
         }
-
-        //-------Debug--------------------
-        /*
-        Cursor c = cr.query(IngredientsProvider.CONTENT_URI,
-                new String[]{IngredientTable.COLUMN_NAME,IngredientTable.COLUMN_UNLOCKED},
-                null,
-                null,
-                null);
-
-        while (c.moveToNext())
-        {
-            Log.w("MetaioACTIVITy",""+c.getString(0)+c.getString(1));
-        }
-
-        c.close();
-        ----------------------------------*/
-
-
-
-        //-------Debug--------------------
-        /*
-        c = cr.query(IngredientsProvider.CONTENT_URI,
-                new String[]{IngredientTable.COLUMN_NAME,IngredientTable.COLUMN_UNLOCKED},
-                null,
-                null,
-                null);
-
-        while (c.moveToNext())
-        {
-            Log.w("MetaioACTIVITy",""+c.getString(0)+c.getString(1));
-        }
-
-        c.close();
-        -------------------------------*/
-
     }
 
     /**
