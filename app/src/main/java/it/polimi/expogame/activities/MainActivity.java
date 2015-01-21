@@ -1,5 +1,7 @@
 package it.polimi.expogame.activities;
 
+import android.content.ContentResolver;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -23,10 +25,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.polimi.expogame.R;
+import it.polimi.expogame.database.IngredientTable;
 import it.polimi.expogame.fragments.ar.ARFragment;
 import it.polimi.expogame.fragments.cook.CookManagerFragment;
 import it.polimi.expogame.fragments.map.ExpoMapFragment;
 import it.polimi.expogame.fragments.info.RootFragment;
+import it.polimi.expogame.providers.IngredientsProvider;
 import it.polimi.expogame.support.ImageAdapter;
 import it.polimi.expogame.support.Ingredient;
 
@@ -44,14 +48,19 @@ public class MainActivity extends ActionBarActivity {
     private ArrayList<Ingredient> listIngredientsSelected;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //getting reference of the ViewPager element in the view
         linearLayout = (LinearLayout)findViewById(R.id.ingredients_layout);
+
+         //loading unlocked ingredients in the Cook option Fragment
+        ArrayList<Ingredient> ingredients_unlocked = loadUnlockedIngredients();
         gridview = (GridView) findViewById(R.id.gridview);
-        gridview.setAdapter(new ImageAdapter(this));
+        gridview.setAdapter(new ImageAdapter(this,ingredients_unlocked));
+
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             //override in order to change background of an item when is selected and add/remove it from the
@@ -135,6 +144,35 @@ public class MainActivity extends ActionBarActivity {
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         mDrawerLayout.setDrawerListener(actionBarDrawerToggle);
         listIngredientsSelected = new ArrayList<Ingredient>();
+    }
+
+    private ArrayList<Ingredient> loadUnlockedIngredients() {
+        ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+        ContentResolver cr = this.getContentResolver();
+        Cursor cursor = cr.query(IngredientsProvider.CONTENT_URI,
+                new String[]{},
+                null,
+                null,
+                null);
+
+        while (cursor.moveToNext()) {
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(IngredientTable.COLUMN_NAME));
+            String imageUrl = cursor.getString(cursor.getColumnIndexOrThrow(IngredientTable.COLUMN_IMAGEURL));
+            String category = cursor.getString(cursor.getColumnIndexOrThrow(IngredientTable.COLUMN_CATEGORY));
+            int unlocked = cursor.getInt(cursor.getColumnIndexOrThrow(IngredientTable.COLUMN_UNLOCKED));
+            boolean unblocked;
+            if (unlocked == 0) {
+                unblocked = false;
+            } else {
+                unblocked = true;
+            }
+            Ingredient ingredient = new Ingredient(name, imageUrl, category, unblocked);
+            ingredients.add(ingredient);
+
+
+
+        }
+        return ingredients;
     }
 
     @Override
