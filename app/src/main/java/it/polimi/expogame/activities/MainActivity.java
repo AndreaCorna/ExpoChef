@@ -204,7 +204,7 @@ public class MainActivity extends ActionBarActivity {
         for(int i=0; i< elementsCount; i++){
             gridview.getChildAt(i).setBackgroundColor(303030);
         }
-        
+        listIngredientsSelected.clear();
     }
 
 
