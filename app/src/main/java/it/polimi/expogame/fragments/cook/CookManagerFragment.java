@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.TextView;
 
 import java.lang.annotation.Inherited;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 
 import it.polimi.expogame.R;
 import it.polimi.expogame.support.Dish;
+import it.polimi.expogame.support.ImageAdapter;
 import it.polimi.expogame.support.Ingredient;
 
 
@@ -35,6 +37,9 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     private String mParam2;
 
     private ArrayList<Ingredient> ingredientsSelected;
+    private GridView gridView;
+    private ImageAdapter imageAdapter;
+
 
     /**
      * Use this factory method to create a new instance of
@@ -61,6 +66,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -70,8 +76,13 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        View currentView = inflater.inflate(R.layout.fragment_cook_manager, container, false);
+        gridView = (GridView) currentView.findViewById(R.id.ingredient_table);
+        imageAdapter = new ImageAdapter(getActivity(),ingredientsSelected);
+        gridView.setAdapter(imageAdapter);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cook_manager, container, false);
+        return currentView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -103,16 +114,17 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
     public void addIngredientSelected(Ingredient ingredient){
         this.ingredientsSelected.add(ingredient);
-        TextView text = (TextView)getView().findViewById(R.id.cookFragmentLabel);
-        text.setText(ingredientsSelected.toString());
+
+        imageAdapter.notifyDataSetChanged();
         getView().invalidate();
+
 
     }
 
     public void removeIngredient(Ingredient ingredient){
         this.ingredientsSelected.remove(ingredient);
-        TextView text = (TextView)getView().findViewById(R.id.cookFragmentLabel);
-        text.setText(ingredientsSelected.toString());
+
+        imageAdapter.notifyDataSetChanged();
         getView().invalidate();
 
     }

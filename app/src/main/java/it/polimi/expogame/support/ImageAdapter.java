@@ -61,6 +61,34 @@ public class ImageAdapter extends BaseAdapter {
 
     }
 
+    @Override
+    public void notifyDataSetChanged (){
+        mThumbIds.clear();
+        for (Ingredient ingredient : ingredients) {
+
+            String imageUrl = ingredient.getImageUrl();
+            //Retreive the image of the ingredient and add their id
+            //to the mThumbIds array
+
+            int index = imageUrl.indexOf(".");
+            String urlImage = null;
+            //delete extension of file from name if exist
+            if (index > 0)
+                urlImage = imageUrl.substring(0, index);
+            //get the id
+            int id = mContext.getResources().getIdentifier(urlImage, "drawable", mContext.getPackageName());
+            if (id == 0){
+                id = R.drawable.ic_launcher;
+            }
+            mThumbIds.add(id);
+
+
+        }
+
+        super.notifyDataSetChanged();
+
+    }
+
     public int getCount() {
         return ingredients.size();
     }
@@ -78,7 +106,7 @@ public class ImageAdapter extends BaseAdapter {
         ImageView imageView;
         if (convertView == null) {  // if it's not recycled, initialize some attributes
             imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
+            imageView.setLayoutParams(new GridView.LayoutParams(120, 120));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setPadding(15, 15, 15, 15);
         } else {

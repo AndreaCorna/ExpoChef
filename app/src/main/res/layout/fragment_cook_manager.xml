@@ -3,9 +3,34 @@
     android:layout_height="match_parent" tools:context="it.polimi.expogame.fragments.cook.CookManagerFragment"
     android:id="@+id/cook_manager_fragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="CookManager"
-        android:id="@+id/cookFragmentLabel" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:src="@drawable/kitchen_table"
+            android:layout_weight="1"/>
+
+        <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/ingredient_table"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:columnWidth="90dp"
+            android:numColumns="auto_fit"
+            android:verticalSpacing="10dp"
+            android:horizontalSpacing="10dp"
+            android:stretchMode="columnWidth"
+            android:gravity="center"
+            android:background="#303030"
+            android:layout_weight="1"
+            />
+
+
+
+    </LinearLayout>
 
 </FrameLayout>
