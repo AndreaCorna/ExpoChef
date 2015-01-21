@@ -18,6 +18,7 @@
     <string name="title_activity_zone">ZoneActivity</string>
     <string name="list_zone_activity">List dishes</string>
     <string name="label_list_zones">List zones</string>
+    <string name="label_slider">Ingredients</string>
 
 
     <!--Facebook share intent Strings-->
