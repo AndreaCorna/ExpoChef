@@ -32,32 +32,13 @@ public class ImageAdapter extends BaseAdapter {
     private ArrayList<Ingredient> ingredients;
 
 
-    public ImageAdapter(Context c) {
+    public ImageAdapter(Context c, ArrayList<Ingredient> ingredients) {
         mContext = c;
         mThumbIds = new ArrayList<Integer>();
-        ingredients = new ArrayList<Ingredient>();
-        ContentResolver cr = mContext.getContentResolver();
-        Cursor cursor = cr.query(IngredientsProvider.CONTENT_URI,
-                new String[]{},
-                null,
-                null,
-                null);
+        this.ingredients = ingredients;
+        for (Ingredient ingredient : ingredients) {
 
-        while (cursor.moveToNext())
-        {
-            String name = cursor.getString(cursor.getColumnIndexOrThrow(IngredientTable.COLUMN_NAME));
-            String imageUrl = cursor.getString(cursor.getColumnIndexOrThrow(IngredientTable.COLUMN_IMAGEURL));
-            String category = cursor.getString(cursor.getColumnIndexOrThrow(IngredientTable.COLUMN_CATEGORY));
-            int unlocked = cursor.getInt(cursor.getColumnIndexOrThrow(IngredientTable.COLUMN_UNLOCKED));
-            boolean unblocked;
-            if(unlocked == 0){
-                unblocked = false;
-            }else{
-                unblocked = true;
-            }
-            Ingredient ingredient = new Ingredient(name,imageUrl,category,unblocked);
-            ingredients.add(ingredient);
-
+            String imageUrl = ingredient.getImageUrl();
             //Retreive the image of the ingredient and add their id
             //to the mThumbIds array
 
@@ -76,12 +57,40 @@ public class ImageAdapter extends BaseAdapter {
 
         }
 
-        cursor.close();
+
+
+    }
+
+    @Override
+    public void notifyDataSetChanged (){
+        mThumbIds.clear();
+        for (Ingredient ingredient : ingredients) {
+
+            String imageUrl = ingredient.getImageUrl();
+            //Retreive the image of the ingredient and add their id
+            //to the mThumbIds array
+
+            int index = imageUrl.indexOf(".");
+            String urlImage = null;
+            //delete extension of file from name if exist
+            if (index > 0)
+                urlImage = imageUrl.substring(0, index);
+            //get the id
+            int id = mContext.getResources().getIdentifier(urlImage, "drawable", mContext.getPackageName());
+            if (id == 0){
+                id = R.drawable.ic_launcher;
+            }
+            mThumbIds.add(id);
+
+
+        }
+
+        super.notifyDataSetChanged();
 
     }
 
     public int getCount() {
-        return mThumbIds.size();
+        return ingredients.size();
     }
 
     public Object getItem(int position) {
@@ -97,7 +106,7 @@ public class ImageAdapter extends BaseAdapter {
         ImageView imageView;
         if (convertView == null) {  // if it's not recycled, initialize some attributes
             imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
+            imageView.setLayoutParams(new GridView.LayoutParams(120, 120));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setPadding(15, 15, 15, 15);
         } else {
