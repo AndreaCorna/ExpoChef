@@ -1,17 +1,23 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="it.polimi.expogame.fragments.cook.CookManagerFragment"
-    android:id="@+id/cook_manager_fragment">
+    android:id="@+id/cook_manager_fragment"
+    android:background="@drawable/tovaglia">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+       >
 
         <ImageView
+
             android:id="@+id/imageView1"
+
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:scaleType="fitXY"
+
             android:src="@drawable/kitchen_table"
             android:layout_weight="1"/>
 
@@ -25,7 +31,6 @@
             android:horizontalSpacing="10dp"
             android:stretchMode="columnWidth"
             android:gravity="center"
-            android:background="#303030"
             android:layout_weight="1"
             />
 
