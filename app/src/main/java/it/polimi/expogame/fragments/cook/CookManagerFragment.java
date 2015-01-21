@@ -55,7 +55,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     }
 
     public CookManagerFragment() {
-        // Required empty public constructor
+        ingredientsSelected = new ArrayList<Ingredient>();
     }
 
     @Override
@@ -105,6 +105,22 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
         //call in order to refresh the view in the fragment
         getView().invalidate();
+    }
+
+    public void addIngredientSelected(Ingredient ingredient){
+        this.ingredientsSelected.add(ingredient);
+        TextView text = (TextView)getView().findViewById(R.id.cookFragmentLabel);
+        text.setText(ingredientsSelected.toString());
+        getView().invalidate();
+
+    }
+
+    public void removeIngredient(Ingredient ingredient){
+        this.ingredientsSelected.remove(ingredient);
+        TextView text = (TextView)getView().findViewById(R.id.cookFragmentLabel);
+        text.setText(ingredientsSelected.toString());
+        getView().invalidate();
+
     }
 
 }

@@ -63,9 +63,10 @@ public class MainActivity extends ActionBarActivity {
                 if(!listIngredientsSelected.contains(ingredient)){
                     view.setBackgroundColor(Color.GREEN);
                     listIngredientsSelected.add(ingredient);
+                    getCookManagerFragmentIstance().addIngredientSelected(ingredient);
                 }else{
                     view.setBackgroundColor(303030);
-
+                    getCookManagerFragmentIstance().removeIngredient(ingredient);
                     listIngredientsSelected.remove(ingredient);
                 }
             }
@@ -188,23 +189,21 @@ public class MainActivity extends ActionBarActivity {
 
     /*method called with done button slider in order to load ingredients selected n fragment cook*/
     public void chooseDone(View view){
+
+        CookManagerFragment fragment = getCookManagerFragmentIstance();
+        fragment.setSelectedIngredients(listIngredientsSelected);
+        mDrawerLayout.closeDrawers();
+        listIngredientsSelected.clear();
+    }
+
+    private CookManagerFragment getCookManagerFragmentIstance(){
         List<Fragment> list = getSupportFragmentManager().getFragments();
         for(Fragment fragment:list){
             if(fragment.getClass().equals(CookManagerFragment.class)){
-                Log.d(TAG,listIngredientsSelected.toString());
-                CookManagerFragment istance = (CookManagerFragment)fragment;
-                istance.setSelectedIngredients(listIngredientsSelected);
+                return (CookManagerFragment)fragment;
             }
         }
-        mDrawerLayout.closeDrawers();
-    }
-
-    public void resetSelection(View view){
-        int elementsCount = gridview.getAdapter().getCount();
-        for(int i=0; i< elementsCount; i++){
-            gridview.getChildAt(i).setBackgroundColor(303030);
-        }
-        listIngredientsSelected.clear();
+        return null;
     }
 
 
