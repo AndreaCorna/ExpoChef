@@ -123,6 +123,8 @@ public class MainActivity extends ActionBarActivity {
                 getSupportActionBar().setTitle(getString(R.string.app_name));
                 // calling onPrepareOptionsMenu() to show action bar icons
                 invalidateOptionsMenu();
+                resetSliderView();
+                listIngredientsSelected.clear();
             }
 
             public void onDrawerOpened(View drawerView) {
@@ -190,9 +192,8 @@ public class MainActivity extends ActionBarActivity {
     /*method called with done button slider in order to load ingredients selected n fragment cook*/
     public void chooseDone(View view){
 
-        CookManagerFragment fragment = getCookManagerFragmentIstance();
-        fragment.setSelectedIngredients(listIngredientsSelected);
         mDrawerLayout.closeDrawers();
+        resetSliderView();
         listIngredientsSelected.clear();
     }
 
@@ -206,6 +207,11 @@ public class MainActivity extends ActionBarActivity {
         return null;
     }
 
+    private void resetSliderView(){
+        for(int i=0; i< gridview.getCount();i++){
+            gridview.getChildAt(i).setBackgroundColor(303030);
+        }
+    }
 
 
 }

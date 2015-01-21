@@ -100,12 +100,6 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
     }
 
-    public void setSelectedIngredients(ArrayList<Ingredient> ingredients){
-        this.ingredientsSelected = ingredients;
-
-        //call in order to refresh the view in the fragment
-        getView().invalidate();
-    }
 
     public void addIngredientSelected(Ingredient ingredient){
         this.ingredientsSelected.add(ingredient);
