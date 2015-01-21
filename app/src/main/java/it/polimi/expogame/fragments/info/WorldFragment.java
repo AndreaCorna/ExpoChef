@@ -6,30 +6,20 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SimpleCursorAdapter;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import it.polimi.expogame.R;
-import it.polimi.expogame.activities.DetailsActivity;
 import it.polimi.expogame.activities.ZoneActivity;
 import it.polimi.expogame.database.DishesTable;
 import it.polimi.expogame.providers.DishesProvider;
-import it.polimi.expogame.support.Dish;
-
 
 
 /**
@@ -118,7 +108,7 @@ public class WorldFragment extends Fragment  {
             cursor.moveToFirst();
             while (cursor.isAfterLast() == false){
                 String zone = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_ZONE));
-                zoneList.add(zone);
+                zoneList.add(Character.toString(zone.charAt(0)).toUpperCase()+zone.substring(1));
                 Log.d(TAG,zone);
                 cursor.moveToNext();
             }
@@ -127,7 +117,7 @@ public class WorldFragment extends Fragment  {
             Log.d(TAG,"cursor load zones world fragment is null");
 
         }
-        listAdapterZones = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.simplerow, zoneList);
+        listAdapterZones = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.zone_item, zoneList);
         listItems.setAdapter(listAdapterZones);
     }
 
