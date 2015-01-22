@@ -1,11 +1,14 @@
 package it.polimi.expogame.support;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 import it.polimi.expogame.R;
 
@@ -15,6 +18,7 @@ import it.polimi.expogame.R;
  */
 public class ImageAdapter extends BaseAdapter {
     private Context mContext;
+    private LayoutInflater inflater;
 
 
     // references to our images
@@ -23,6 +27,7 @@ public class ImageAdapter extends BaseAdapter {
 
 
     public ImageAdapter(Context c, ArrayList<Ingredient> ingredients) {
+        inflater = LayoutInflater.from(c);
         mContext = c;
         mThumbIds = new ArrayList<Integer>();
         this.ingredients = ingredients;
@@ -94,18 +99,27 @@ public class ImageAdapter extends BaseAdapter {
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView;
-        if (convertView == null) {  // if it's not recycled, initialize some attributes
-            imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(120, 120));
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(15, 15, 15, 15);
-        } else {
-            imageView = (ImageView) convertView;
+        View v = convertView;
+        ImageView picture;
+        TextView name;
+
+        if (v == null) {  // if it's not recycled, initialize some attributes
+            v = inflater.inflate(R.layout.grid_item, parent, false);
+            v.setTag(R.id.picture, v.findViewById(R.id.picture));
+            v.setTag(R.id.text, v.findViewById(R.id.text));
         }
+        picture = (ImageView)v.getTag(R.id.picture);
+        name = (TextView)v.getTag(R.id.text);
 
-        imageView.setImageResource(mThumbIds.get(position).intValue());
+        Ingredient ingredient = ingredients.get(position);
+        int  image = mThumbIds.get(position);
 
-        return imageView;
+        picture.setImageResource(image);
+        name.setText(ingredient.getName());
+
+      //  imageView.setImageResource(mThumbIds.get(position).intValue());
+
+        return v;
     }
 
 
