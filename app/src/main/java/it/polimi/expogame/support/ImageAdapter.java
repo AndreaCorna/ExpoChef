@@ -21,68 +21,20 @@ public class ImageAdapter extends BaseAdapter {
     private LayoutInflater inflater;
 
 
-    // references to our images
-    private ArrayList<Integer> mThumbIds;
+    // references to our ingredients
     private ArrayList<Ingredient> ingredients;
 
 
     public ImageAdapter(Context c, ArrayList<Ingredient> ingredients) {
         inflater = LayoutInflater.from(c);
         mContext = c;
-        mThumbIds = new ArrayList<Integer>();
         this.ingredients = ingredients;
-        for (Ingredient ingredient : ingredients) {
 
-            String imageUrl = ingredient.getImageUrl();
-            //Retreive the image of the ingredient and add their id
-            //to the mThumbIds array
-
-            int index = imageUrl.indexOf(".");
-            String urlImage = null;
-            //delete extension of file from name if exist
-            if (index > 0)
-                urlImage = imageUrl.substring(0, index);
-            //get the id
-            int id = mContext.getResources().getIdentifier(urlImage, "drawable", mContext.getPackageName());
-            if (id == 0){
-                id = R.drawable.ic_launcher;
-            }
-            mThumbIds.add(id);
-
-
-        }
 
 
 
     }
 
-    @Override
-    public void notifyDataSetChanged (){
-        mThumbIds.clear();
-        for (Ingredient ingredient : ingredients) {
-
-            String imageUrl = ingredient.getImageUrl();
-            //Retreive the image of the ingredient and add their id
-            //to the mThumbIds array
-
-            int index = imageUrl.indexOf(".");
-            String urlImage = null;
-            //delete extension of file from name if exist
-            if (index > 0)
-                urlImage = imageUrl.substring(0, index);
-            //get the id
-            int id = mContext.getResources().getIdentifier(urlImage, "drawable", mContext.getPackageName());
-            if (id == 0){
-                id = R.drawable.ic_launcher;
-            }
-            mThumbIds.add(id);
-
-
-        }
-
-        super.notifyDataSetChanged();
-
-    }
 
     public int getCount() {
         return ingredients.size();
@@ -105,19 +57,18 @@ public class ImageAdapter extends BaseAdapter {
 
         if (v == null) {  // if it's not recycled, initialize some attributes
             v = inflater.inflate(R.layout.grid_item, parent, false);
-            v.setTag(R.id.picture, v.findViewById(R.id.picture));
+            v.setTag(R.id.picture, v.findViewById(R.id.picture));  //adding tag to the view elements
             v.setTag(R.id.text, v.findViewById(R.id.text));
         }
         picture = (ImageView)v.getTag(R.id.picture);
         name = (TextView)v.getTag(R.id.text);
 
         Ingredient ingredient = ingredients.get(position);
-        int  image = mThumbIds.get(position);
 
-        picture.setImageResource(image);
+        //setting the view elements with the actual content on the ingredient at position: "position"
+        picture.setImageResource(ingredient.getDrawableImage());
         name.setText(ingredient.getName());
 
-      //  imageView.setImageResource(mThumbIds.get(position).intValue());
 
         return v;
     }

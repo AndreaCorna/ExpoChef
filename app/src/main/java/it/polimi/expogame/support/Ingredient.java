@@ -1,22 +1,50 @@
 package it.polimi.expogame.support;
 
+import android.content.Context;
+
+import it.polimi.expogame.R;
+
 /**
  * Created by Lorenzo on 22/12/14.
  */
 public class Ingredient {
 
     private String name;
-    private String imageUrl;
+    private int drawableImage;
     private String category;
     private boolean unlocked;
+    private Context mContext;
 
     public Ingredient(){}
 
-    public Ingredient(String name, String imageUrl, String category, boolean unlocked){
+    /*
+    Context is needed to be able to convert String represeting the name of the image file to the R.id drawable used in android to get the image
+      */
+    public Ingredient(Context mContext,String name, String imageUrl, String category, boolean unlocked){
+        this.mContext = mContext;
         this.name = name;
-        this.imageUrl = imageUrl;
+        this.drawableImage = convertImageNameToDrawable(imageUrl);
         this.category = category;
         this.unlocked = unlocked;
+    }
+    //Convert the image String into the int representing the R.id drawable
+    private int convertImageNameToDrawable(String imageUrl){
+
+        //Retreive the image of the ingredient and add their id
+        //to the mThumbIds array
+
+        int index = imageUrl.indexOf(".");
+        String urlImage = null;
+        //delete extension of file from name if exist
+        if (index > 0)
+            urlImage = imageUrl.substring(0, index);
+        //get the id
+        int id = mContext.getResources().getIdentifier(urlImage, "drawable", mContext.getPackageName());
+        if (id == 0){
+            id = R.drawable.ic_launcher;
+        }
+
+        return id;
     }
 
     public String getName() {
@@ -27,8 +55,8 @@ public class Ingredient {
         return category;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public int getDrawableImage() {
+        return drawableImage;
     }
 
     public boolean isUnlocked() {

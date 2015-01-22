@@ -56,7 +56,7 @@ public class MainActivity extends ActionBarActivity {
         //getting reference of the ViewPager element in the view
         linearLayout = (LinearLayout)findViewById(R.id.ingredients_layout);
 
-         //loading unlocked ingredients in the Cook option Fragment
+         //loading unlocked ingredients in the Cook Options Fragment
         ArrayList<Ingredient> ingredients_unlocked = loadUnlockedIngredients();
         gridview = (GridView) findViewById(R.id.gridview);
         gridview.setAdapter(new ImageAdapter(this,ingredients_unlocked));
@@ -150,6 +150,10 @@ public class MainActivity extends ActionBarActivity {
         listIngredientsSelected = new ArrayList<Ingredient>();
     }
 
+    /**
+     * Method which provide the list of unlocked ingredients by calling the content provider
+     * @return the list of ingredient unlocked so far
+     */
     private ArrayList<Ingredient> loadUnlockedIngredients() {
         ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
         ContentResolver cr = this.getContentResolver();
@@ -170,7 +174,7 @@ public class MainActivity extends ActionBarActivity {
             } else {
                 unblocked = true;
             }
-            Ingredient ingredient = new Ingredient(name, imageUrl, category, unblocked);
+            Ingredient ingredient = new Ingredient(this,name, imageUrl, category, unblocked);
             ingredients.add(ingredient);
 
 
