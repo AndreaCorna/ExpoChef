@@ -121,6 +121,7 @@ public class MainActivity extends ActionBarActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(false);
+        getSupportActionBar().setHomeAsUpIndicator(getResources().getDrawable(R.drawable.abc_ic_menu_moreoverflow_mtrl_alpha));
 
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.drawable.ic_launcher, //nav menu toggle icon
