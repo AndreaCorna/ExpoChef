@@ -12,10 +12,11 @@ public class Dish {
     private String description;
     private String zone;
     private boolean created;
+    private String hashIngredients;
 
     public Dish(){}
 
-    public Dish(long id, String name, String nationality, String imageUrl, String description, String zone, boolean created){
+    public Dish(long id, String name, String nationality, String imageUrl, String description, String zone, boolean created, String hashIngredients){
         this.id = id;
         this.name = name;
         this.nationality = nationality;
@@ -23,6 +24,7 @@ public class Dish {
         this.description = description;
         this.zone = zone;
         this.created = created;
+        this.hashIngredients = hashIngredients;
     }
 
     public long getId() {
