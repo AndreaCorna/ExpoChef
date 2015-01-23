@@ -157,8 +157,14 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                     Log.d("try",event.getLocalState() + " "+ v);
                     View view1 = (View) event.getLocalState();
                     if(view1.getParent() == v){
-                        Log.d("drag","saome");
-                        return false;
+                        float X = event.getX();
+                        float Y = event.getY();
+
+                        View view = (View) event.getLocalState();
+                        view.setX(X);
+                        view.setY(Y);
+                        view.setVisibility(View.VISIBLE);
+                        return true;
                     }else{
 
                         // Dropped, reassign View to ViewGroup
@@ -170,8 +176,9 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                         Log.d("parent", view.getParent().toString());
                         if(view.getParent().getClass().equals(GridView.class)){
                             Log.d("ingridview","sono in grid view");
+                            gridView.removeViewInLayout(view);
                             ingredientsSelected.remove(ingredient);
-                            FrameLayout container = (FrameLayout) v;
+                            ViewGroup container = (ViewGroup) v;
                             container.addView(view);
                             view.setVisibility(View.VISIBLE);
                         }else{
