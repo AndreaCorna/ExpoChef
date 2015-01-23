@@ -38,6 +38,7 @@ public class ImageAdapterDraggable extends ImageAdapter{
             v = inflater.inflate(R.layout.grid_item, parent, false);
             v.setTag(R.id.picture, v.findViewById(R.id.picture));  //adding tag to the view elements
             v.setTag(R.id.text, v.findViewById(R.id.text));
+            v.setTag(R.id.tag_object,ingredients.get(position));
         }
         picture = (ImageView)v.getTag(R.id.picture);
         name = (TextView)v.getTag(R.id.text);

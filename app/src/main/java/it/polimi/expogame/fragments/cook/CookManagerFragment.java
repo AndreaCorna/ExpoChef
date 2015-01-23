@@ -146,6 +146,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
             int action = event.getAction();
             Log.d("drag", v.getClass().toString());
             switch (event.getAction()) {
+
                 case DragEvent.ACTION_DRAG_STARTED:
                     break;
                 case DragEvent.ACTION_DRAG_ENTERED:
@@ -153,16 +154,40 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                 case DragEvent.ACTION_DRAG_EXITED:
                     break;
                 case DragEvent.ACTION_DROP:
-                    // Dropped, reassign View to ViewGroup
-                    View view = (View) event.getLocalState();
-                    Log.d("drag",event.getLocalState().toString());
-                    GridView owner = (GridView) view.getParent();
-                    Log.d("drag",view.getParent().toString());
-                    owner.removeViewInLayout(view);
-                    FrameLayout container = (FrameLayout) v;
-                    container.addView(view);
-                    view.setVisibility(View.VISIBLE);
-                    break;
+                    Log.d("try",event.getLocalState() + " "+ v);
+                    View view1 = (View) event.getLocalState();
+                    if(view1.getParent() == v){
+                        Log.d("drag","saome");
+                        return false;
+                    }else{
+
+                        // Dropped, reassign View to ViewGroup
+                        View view = (View) event.getLocalState();
+                        Log.d("prima di if",event.getLocalState().toString());
+
+                        Ingredient ingredient = (Ingredient)view.getTag(R.id.tag_object);
+                        Log.d("ingredient",ingredient.toString());
+                        Log.d("parent", view.getParent().toString());
+                        if(view.getParent().getClass().equals(GridView.class)){
+                            Log.d("ingridview","sono in grid view");
+                            ingredientsSelected.remove(ingredient);
+                            FrameLayout container = (FrameLayout) v;
+                            container.addView(view);
+                            view.setVisibility(View.VISIBLE);
+                        }else{
+                            //metodo di dio
+                            ViewGroup owner = (ViewGroup) view.getParent();
+                            Log.d("mi sposto dal framelayout",view.getParent().toString());
+                            owner.removeViewInLayout(view);
+                            ingredientsSelected.add(ingredient);
+                        }
+
+                        imageAdapter.notifyDataSetChanged();
+                        getView().invalidate();
+                        break;
+
+                    }
+
                 case DragEvent.ACTION_DRAG_ENDED:
                 default:
                     break;
