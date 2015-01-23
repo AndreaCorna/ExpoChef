@@ -17,12 +17,12 @@ import it.polimi.expogame.R;
  * Adapter for load image in the grid view
  */
 public class ImageAdapter extends BaseAdapter {
-    private Context mContext;
-    private LayoutInflater inflater;
+    protected Context mContext;
+    protected LayoutInflater inflater;
 
 
     // references to our ingredients
-    private ArrayList<Ingredient> ingredients;
+    protected ArrayList<Ingredient> ingredients;
 
 
     public ImageAdapter(Context c, ArrayList<Ingredient> ingredients) {

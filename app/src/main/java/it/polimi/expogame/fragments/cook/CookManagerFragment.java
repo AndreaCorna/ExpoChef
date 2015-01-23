@@ -3,10 +3,14 @@ package it.polimi.expogame.fragments.cook;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -18,6 +22,7 @@ import java.util.Comparator;
 import it.polimi.expogame.R;
 import it.polimi.expogame.support.Dish;
 import it.polimi.expogame.support.ImageAdapter;
+import it.polimi.expogame.support.ImageAdapterDraggable;
 import it.polimi.expogame.support.Ingredient;
 
 
@@ -53,9 +58,12 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
         View currentView = inflater.inflate(R.layout.fragment_cook_manager, container, false);
         gridView = (GridView) currentView.findViewById(R.id.ingredient_table);
-        imageAdapter = new ImageAdapter(getActivity(),ingredientsSelected);
+        imageAdapter = new ImageAdapterDraggable(getActivity(),ingredientsSelected);
         gridView.setAdapter(imageAdapter);
         // Inflate the layout for this fragment
+        gridView.setOnDragListener(new MyDragListener());
+        FrameLayout l = (FrameLayout)currentView.findViewById(R.id.external);
+        l.setOnDragListener(new MyDragListener());
         return currentView;
     }
 
@@ -131,5 +139,36 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     }
 
 
+    private class MyDragListener implements View.OnDragListener {
+
+        @Override
+        public boolean onDrag(View v, DragEvent event) {
+            int action = event.getAction();
+            Log.d("drag", v.getClass().toString());
+            switch (event.getAction()) {
+                case DragEvent.ACTION_DRAG_STARTED:
+                    break;
+                case DragEvent.ACTION_DRAG_ENTERED:
+                    break;
+                case DragEvent.ACTION_DRAG_EXITED:
+                    break;
+                case DragEvent.ACTION_DROP:
+                    // Dropped, reassign View to ViewGroup
+                    View view = (View) event.getLocalState();
+                    Log.d("drag",event.getLocalState().toString());
+                    GridView owner = (GridView) view.getParent();
+                    Log.d("drag",view.getParent().toString());
+                    owner.removeViewInLayout(view);
+                    FrameLayout container = (FrameLayout) v;
+                    container.addView(view);
+                    view.setVisibility(View.VISIBLE);
+                    break;
+                case DragEvent.ACTION_DRAG_ENDED:
+                default:
+                    break;
+            }
+            return true;
+        }
+    }
 
 }
