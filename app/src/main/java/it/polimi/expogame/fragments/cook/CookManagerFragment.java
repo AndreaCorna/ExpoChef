@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.GridView;
-import android.widget.LinearLayout;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -21,9 +20,9 @@ import java.util.Comparator;
 
 import it.polimi.expogame.R;
 import it.polimi.expogame.support.Dish;
-import it.polimi.expogame.support.ImageAdapter;
 import it.polimi.expogame.support.ImageAdapterDraggable;
 import it.polimi.expogame.support.Ingredient;
+import it.polimi.expogame.support.ViewHolder;
 
 
 public class CookManagerFragment extends Fragment implements  CookFragment.OnDishCreatedListener, IngredientFragment.OnIngredientSelectedListener{
@@ -31,7 +30,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
     private ArrayList<Ingredient> ingredientsSelected;
     private GridView gridView;
-    private ImageAdapter imageAdapter;
+    private ImageAdapterDraggable imageAdapter;
     private ArrayList<String> ingredientsToCombine;
 
 
@@ -93,17 +92,20 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     public void addIngredientSelected(Ingredient ingredient){
         this.ingredientsSelected.add(ingredient);
 
-        imageAdapter.notifyDataSetChanged();
-        getView().invalidate();
+        gridView.setAdapter(null);
+        gridView.setAdapter(new ImageAdapterDraggable(getActivity(),ingredientsSelected));
 
+        gridView.invalidateViews();
+        Log.d("NUMBER",""+gridView.getAdapter().getViewTypeCount()+ " "+imageAdapter.getCount());
 
     }
 
     public void removeIngredient(Ingredient ingredient){
         this.ingredientsSelected.remove(ingredient);
 
-        imageAdapter.notifyDataSetChanged();
-        getView().invalidate();
+        gridView.setAdapter(null);
+        gridView.setAdapter(new ImageAdapterDraggable(getActivity(),ingredientsSelected));
+        gridView.invalidateViews();
 
     }
 
@@ -139,12 +141,13 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     }
 
 
+
     private class MyDragListener implements View.OnDragListener {
 
         @Override
         public boolean onDrag(View v, DragEvent event) {
             int action = event.getAction();
-            Log.d("drag", v.getClass().toString());
+            //Log.d("drag", v.getClass().toString());
             switch (event.getAction()) {
 
                 case DragEvent.ACTION_DRAG_STARTED:
@@ -166,31 +169,41 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                         view.setVisibility(View.VISIBLE);
                         return true;
                     }else{
-
                         // Dropped, reassign View to ViewGroup
                         View view = (View) event.getLocalState();
-                        Log.d("prima di if",event.getLocalState().toString());
 
-                        Ingredient ingredient = (Ingredient)view.getTag(R.id.tag_object);
-                        Log.d("ingredient",ingredient.toString());
-                        Log.d("parent", view.getParent().toString());
+                        ViewHolder holder = (ViewHolder)view.getTag();
+                        Ingredient ingredient = holder.ingredient;
+                        Log.d("COOKMANAGER","NAME INGREDIENT "+ingredient.getName().toString()+" ");
                         if(view.getParent().getClass().equals(GridView.class)){
                             Log.d("ingridview","sono in grid view");
-                            gridView.removeViewInLayout(view);
+
+
+                            ingredientsToCombine.add(holder.text.getText().toString());
+                            Log.d("NAME",ingredientsToCombine.toString());
+                            imageAdapter.removeIngredient(ingredient);
                             ingredientsSelected.remove(ingredient);
+                            Log.d("REVOME",ingredientsSelected.toString());
+                            gridView.setAdapter(null);
+                            gridView.setAdapter(new ImageAdapterDraggable(getActivity(),ingredientsSelected));
+
                             ViewGroup container = (ViewGroup) v;
                             container.addView(view);
                             view.setVisibility(View.VISIBLE);
                         }else{
-                            //metodo di dio
                             ViewGroup owner = (ViewGroup) view.getParent();
                             Log.d("mi sposto dal framelayout",view.getParent().toString());
                             owner.removeViewInLayout(view);
+                            ingredientsToCombine.remove(ingredient.getName());
                             ingredientsSelected.add(ingredient);
+
+
+                            gridView.setAdapter(null);
+                            gridView.setAdapter(new ImageAdapterDraggable(getActivity(),ingredientsSelected));
+
                         }
 
-                        imageAdapter.notifyDataSetChanged();
-                        getView().invalidate();
+                        gridView.invalidateViews();
                         break;
 
                     }

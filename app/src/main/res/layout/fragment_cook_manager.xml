@@ -12,7 +12,7 @@
        >
 
         <FrameLayout
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:id="@+id/external">
@@ -30,7 +30,7 @@
         </FrameLayout>
         <GridView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/ingredient_table"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:columnWidth="90dp"
             android:numColumns="5"

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,13 +20,47 @@ import it.polimi.expogame.R;
 /**
  * Created by andrea on 23/01/15.
  */
-public class ImageAdapterDraggable extends ImageAdapter{
+public class ImageAdapterDraggable extends BaseAdapter {
 
     public ImageAdapterDraggable(Context c, ArrayList<Ingredient> ingredients) {
 
-        super(c, ingredients);
+        inflater = LayoutInflater.from(c);
+        mContext = c;
+        this.ingredients = ingredients;
 
     }
+
+    protected Context mContext;
+    protected LayoutInflater inflater;
+
+
+    // references to our ingredients
+    protected ArrayList<Ingredient> ingredients;
+
+
+    public void addIngredient(Ingredient ingredient){
+        ingredients.add(ingredient);
+        notifyDataSetChanged();
+    }
+
+    public void removeIngredient(Ingredient ingredient){
+        ingredients.remove(ingredient);
+        notifyDataSetChanged();
+    }
+
+    public int getCount() {
+        return ingredients.size();
+    }
+
+    public Object getItem(int position) {
+        return ingredients.get(position);
+    }
+
+    public long getItemId(int position) {
+        return (long)position;
+    }
+
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -33,64 +68,42 @@ public class ImageAdapterDraggable extends ImageAdapter{
         View v = convertView;
         ImageView picture;
         TextView name;
-
+        ViewHolder vh = null;
         if (v == null) {  // if it's not recycled, initialize some attributes
             v = inflater.inflate(R.layout.grid_item, parent, false);
-            v.setTag(R.id.picture, v.findViewById(R.id.picture));  //adding tag to the view elements
-            v.setTag(R.id.text, v.findViewById(R.id.text));
-            v.setTag(R.id.tag_object,ingredients.get(position));
-        }
-        picture = (ImageView)v.getTag(R.id.picture);
-        name = (TextView)v.getTag(R.id.text);
+            Log.d("GETVIEW",ingredients.get(position).getName()+ " "+position);
 
-        Ingredient ingredient = ingredients.get(position);
+            vh = new ViewHolder();
+            vh.picture = (SquareImageView)v.findViewById(R.id.picture);
+            vh.text = (TextView)v.findViewById(R.id.text);
+            vh.ingredient = ingredients.get(position);
+            v.setTag(vh);
+        }
+        else{
+            Log.d("GEEEE","view is not null");
+            vh = (ViewHolder)v.getTag();
+        }
+        picture = (ImageView)v.findViewById(R.id.picture);
+        name = (TextView)v.findViewById(R.id.text);
+
 
         //setting the view elements with the actual content on the ingredient at position: "position"
-        picture.setImageResource(ingredient.getDrawableImage());
-        name.setText(ingredient.getName());
+        picture.setImageResource(vh.ingredient.getDrawableImage());
+        name.setText(vh.ingredient.getName());
         v.setOnTouchListener(new MyTouchListener());
-        //v.setOnDragListener(new MyDragListener());
 
         return v;
     }
 
 
-    private class MyDragListener implements View.OnDragListener {
 
-        @Override
-        public boolean onDrag(View v, DragEvent event) {
-            int action = event.getAction();
-            Log.d("drag", v.getClass().toString());
-            switch (event.getAction()) {
-                case DragEvent.ACTION_DRAG_STARTED:
-                    break;
-                case DragEvent.ACTION_DRAG_ENTERED:
-                    break;
-                case DragEvent.ACTION_DRAG_EXITED:
-                    break;
-                case DragEvent.ACTION_DROP:
-                    // Dropped, reassign View to ViewGroup
-                    View view = (View) event.getLocalState();
-                    ViewGroup owner = (ViewGroup) view.getParent();
-                    owner.removeView(view);
-                    FrameLayout container = (FrameLayout) v;
-                    container.addView(view);
-                    view.setVisibility(View.VISIBLE);
-                    break;
-                case DragEvent.ACTION_DRAG_ENDED:
-                default:
-                    break;
-            }
-            return true;
-        }
-    }
 
     private final class MyTouchListener implements View.OnTouchListener {
         public boolean onTouch(View view, MotionEvent motionEvent) {
             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                 ClipData data = ClipData.newPlainText("", "");
                 View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
-                view.startDrag(data, shadowBuilder, view, 0);
+                view.startDrag(data, shadowBuilder, view,0);
                 view.setVisibility(View.INVISIBLE);
                 return true;
             } else {
