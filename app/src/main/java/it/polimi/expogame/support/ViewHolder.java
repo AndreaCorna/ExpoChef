@@ -7,8 +7,31 @@ import android.widget.TextView;
  */
 public  class ViewHolder {
 
-    public  SquareImageView picture;
-    public   TextView text;
-    public    Ingredient ingredient;
+    private  SquareImageView picture;
+    private  TextView text;
+    private  Ingredient ingredient;
 
+    public SquareImageView getPicture() {
+        return picture;
+    }
+
+    public void setPicture(SquareImageView picture) {
+        this.picture = picture;
+    }
+
+    public Ingredient getIngredient() {
+        return ingredient;
+    }
+
+    public void setIngredient(Ingredient ingredient) {
+        this.ingredient = ingredient;
+    }
+
+    public TextView getText() {
+        return text;
+    }
+
+    public void setText(TextView text) {
+        this.text = text;
+    }
 }

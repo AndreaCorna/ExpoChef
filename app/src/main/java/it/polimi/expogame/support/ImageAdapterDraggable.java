@@ -73,23 +73,25 @@ public class ImageAdapterDraggable extends BaseAdapter {
             v = inflater.inflate(R.layout.grid_item, parent, false);
             Log.d("GETVIEW",ingredients.get(position).getName()+ " "+position);
 
+            //object tag in order to keep track of all information of item view
             vh = new ViewHolder();
-            vh.picture = (SquareImageView)v.findViewById(R.id.picture);
-            vh.text = (TextView)v.findViewById(R.id.text);
-            vh.ingredient = ingredients.get(position);
+            vh.setPicture((SquareImageView)v.findViewById(R.id.picture));
+            vh.setText((TextView)v.findViewById(R.id.text));
+            vh.setIngredient(ingredients.get(position));
             v.setTag(vh);
         }
         else{
-            Log.d("GEEEE","view is not null");
+            //set holder information with previous setted
             vh = (ViewHolder)v.getTag();
         }
         picture = (ImageView)v.findViewById(R.id.picture);
         name = (TextView)v.findViewById(R.id.text);
 
 
-        //setting the view elements with the actual content on the ingredient at position: "position"
-        picture.setImageResource(vh.ingredient.getDrawableImage());
-        name.setText(vh.ingredient.getName());
+        //setting the view elements with the actual content on the ingredient in holder object
+        //in this way not a problem if change order of arraylist
+        picture.setImageResource(vh.getIngredient().getDrawableImage());
+        name.setText(vh.getIngredient().getName());
         v.setOnTouchListener(new MyTouchListener());
 
         return v;

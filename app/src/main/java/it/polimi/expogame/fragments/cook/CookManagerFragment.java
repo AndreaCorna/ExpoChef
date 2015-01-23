@@ -146,8 +146,6 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
         @Override
         public boolean onDrag(View v, DragEvent event) {
-            int action = event.getAction();
-            //Log.d("drag", v.getClass().toString());
             switch (event.getAction()) {
 
                 case DragEvent.ACTION_DRAG_STARTED:
@@ -169,35 +167,45 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                         view.setVisibility(View.VISIBLE);
                         return true;
                     }else{
-                        // Dropped, reassign View to ViewGroup
                         View view = (View) event.getLocalState();
 
+                        //get the object tag that have all the information like ingredient
+                        //object, name and picture of ingredient(definition in getView ImageAdapterDraggable)
                         ViewHolder holder = (ViewHolder)view.getTag();
-                        Ingredient ingredient = holder.ingredient;
+                        Ingredient ingredient = holder.getIngredient();
+
                         Log.d("COOKMANAGER","NAME INGREDIENT "+ingredient.getName().toString()+" ");
                         if(view.getParent().getClass().equals(GridView.class)){
                             Log.d("ingridview","sono in grid view");
-
-
-                            ingredientsToCombine.add(holder.text.getText().toString());
+                            //add name of ingredient to ingredients selected to cook together
+                            ingredientsToCombine.add(holder.getText().getText().toString());
                             Log.d("NAME",ingredientsToCombine.toString());
+                            //remove ingredient from the adapter in order to change view and remove
+                            //view from the grip
                             imageAdapter.removeIngredient(ingredient);
+                            //remove ingredient from selected list in order to pass the correct
+                            //llist to the new adapter
                             ingredientsSelected.remove(ingredient);
                             Log.d("REVOME",ingredientsSelected.toString());
+                            //recreate adapter
                             gridView.setAdapter(null);
                             gridView.setAdapter(new ImageAdapterDraggable(getActivity(),ingredientsSelected));
 
+                            //insert view item in cook zone
                             ViewGroup container = (ViewGroup) v;
                             container.addView(view);
                             view.setVisibility(View.VISIBLE);
                         }else{
+                            //remove item from cook zone
                             ViewGroup owner = (ViewGroup) view.getParent();
                             Log.d("mi sposto dal framelayout",view.getParent().toString());
                             owner.removeViewInLayout(view);
+                            //remove name from ingredient to cook
                             ingredientsToCombine.remove(ingredient.getName());
+                            //add ingredient to selected
                             ingredientsSelected.add(ingredient);
 
-
+                            //recreate adapter
                             gridView.setAdapter(null);
                             gridView.setAdapter(new ImageAdapterDraggable(getActivity(),ingredientsSelected));
 
