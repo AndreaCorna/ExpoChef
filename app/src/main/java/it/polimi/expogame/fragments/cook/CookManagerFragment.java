@@ -8,8 +8,10 @@ import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsoluteLayout;
 import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.RelativeLayout;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -168,7 +170,8 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                         return true;
                     }else{
                         View view = (View) event.getLocalState();
-
+                        int width = view.getWidth();
+                        int height = view.getHeight();
                         //get the object tag that have all the information like ingredient
                         //object, name and picture of ingredient(definition in getView ImageAdapterDraggable)
                         ViewHolder holder = (ViewHolder)view.getTag();
@@ -179,14 +182,14 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                             Log.d("ingridview","sono in grid view");
                             //add name of ingredient to ingredients selected to cook together
                             ingredientsToCombine.add(holder.getText().getText().toString());
-                            Log.d("NAME",ingredientsToCombine.toString());
+                            Log.d("NAME", ingredientsToCombine.toString());
                             //remove ingredient from the adapter in order to change view and remove
                             //view from the grip
                             imageAdapter.removeIngredient(ingredient);
                             //remove ingredient from selected list in order to pass the correct
                             //llist to the new adapter
                             ingredientsSelected.remove(ingredient);
-                            Log.d("REVOME",ingredientsSelected.toString());
+                            Log.d("REVOME", ingredientsSelected.toString());
                             //recreate adapter
                             gridView.setAdapter(null);
                             gridView.setAdapter(new ImageAdapterDraggable(getActivity(),ingredientsSelected));
@@ -195,6 +198,14 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                             ViewGroup container = (ViewGroup) v;
                             container.addView(view);
                             view.setVisibility(View.VISIBLE);
+                            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)view.getLayoutParams();
+                            params.height = height;
+                            params.width = width;
+                            float X = event.getX();
+                            float Y = event.getY();
+                            view.setX(X);
+                            view.setY(Y);
+                            view.setLayoutParams(params);
                         }else{
                             //remove item from cook zone
                             ViewGroup owner = (ViewGroup) view.getParent();
