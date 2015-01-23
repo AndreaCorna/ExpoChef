@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -96,7 +99,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
     }
 
-    
+
 
     //method used to sort the arraylist of name of ingredients
     private void reorderListIngredientsToCombine(){
@@ -107,5 +110,26 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
             }
         });
     }
+
+    private String hashListIngredientsToCombine(){
+        String stringToHash = "";
+        for(String ingredient:ingredientsToCombine){
+            stringToHash +=ingredient;
+        }
+        MessageDigest m = null;
+        try {
+            m = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        m.reset();
+        m.update(stringToHash.getBytes());
+        byte[] digest = m.digest();
+        BigInteger bigInt = new BigInteger(1,digest);
+        String hashtext = bigInt.toString(16);
+        return hashtext;
+    }
+
+
 
 }
