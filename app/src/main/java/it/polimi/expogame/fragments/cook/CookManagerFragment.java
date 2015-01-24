@@ -150,119 +150,119 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 //TODO from down to up you lose also the other fish down
     private class MyDragListener implements View.OnDragListener {
 
-        @Override
-        public boolean onDrag(View v, DragEvent event) {
-            switch (event.getAction()) {
+    @Override
+    public boolean onDrag(View v, DragEvent event) {
+        switch (event.getAction()) {
 
-                case DragEvent.ACTION_DRAG_STARTED:
-                    break;
-                case DragEvent.ACTION_DRAG_ENTERED:
-                    break;
-                case DragEvent.ACTION_DRAG_EXITED:{
+            case DragEvent.ACTION_DRAG_STARTED:
+                break;
+            case DragEvent.ACTION_DRAG_ENTERED:
+                break;
+            case DragEvent.ACTION_DRAG_EXITED: {
 
-                    float X = 200;
-                    float Y = 200;
+                float X = 200;
+                float Y = 200;
+
+                View view = (View) event.getLocalState();
+                view.setX(X);
+                view.setY(Y);
+                view.setVisibility(View.VISIBLE);
+
+            }
+            break;
+            case DragEvent.ACTION_DROP:
+                Log.d("try", event.getLocalState() + " " + v);
+                View view1 = (View) event.getLocalState();
+                if (view1.getParent() == v) {
+                    float X = event.getX();
+                    float Y = event.getY();
+
+                    if (Y < 100 || Y > 600) Y = 150;
+                    if (X > 900 || X < 40) X = 150;
 
                     View view = (View) event.getLocalState();
                     view.setX(X);
                     view.setY(Y);
                     view.setVisibility(View.VISIBLE);
 
-                }
-                    break;
-                case DragEvent.ACTION_DROP:
-                    Log.d("try",event.getLocalState() + " "+ v);
-                    View view1 = (View) event.getLocalState();
-                    if(view1.getParent() == v){
+                    Log.w("DEBUGGING", " x is " + X + " and y is " + Y);
+                    return true;
+                } else {
+                    View view = (View) event.getLocalState();
+                    int width = view.getWidth();
+                    int height = view.getHeight();
+                    //get the object tag that have all the information like ingredient
+                    //object, name and picture of ingredient(definition in getView ImageAdapterDraggable)
+                    ViewHolder holder = (ViewHolder) view.getTag();
+                    Ingredient ingredient = holder.getIngredient();
+
+                    Log.d("COOKMANAGER", "NAME INGREDIENT " + ingredient.getName().toString() + " ");
+                    if (view.getParent().getClass().equals(GridView.class)) {
+                        Log.d("ingridview", "sono in grid view");
+                        //add name of ingredient to ingredients selected to cook together
+                        ingredientsToCombine.add(holder.getText().getText().toString());
+                        Log.d("NAME", ingredientsToCombine.toString());
+                        //remove ingredient from selected list in order to pass the correct
+                        //llist to the new adapter
+                        ingredientsSelected.remove(ingredient);
+                        Log.d("REVOME", ingredientsSelected.toString());
+
+                        //refresh adapter
+                        gridView.setAdapter(null);
+                        imageAdapter.setIngredients(ingredientsSelected);
+                        gridView.setAdapter(imageAdapter);
+
+                        //insert view item in cook zone
+                        ViewGroup container = (ViewGroup) v;
+                        container.addView(view);
+                        view.setVisibility(View.VISIBLE);
+                        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) view.getLayoutParams();
+                        params.height = height;
+                        params.width = width;
                         float X = event.getX();
                         float Y = event.getY();
 
-                        if(Y<100 || Y>600) Y=150;
-                        if(X>900 || X<40 ) X=150;
+                        if (Y < 100 || Y > 600) Y = 150;
+                        if (X > 900 || X < 40) X = 150;
 
-                        View view = (View) event.getLocalState();
                         view.setX(X);
                         view.setY(Y);
-                        view.setVisibility(View.VISIBLE);
-
-                        Log.w("DEBUGGING"," x is "+X + " and y is " + Y);
-                        return true;
-                    }else{
-                        View view = (View) event.getLocalState();
-                        int width = view.getWidth();
-                        int height = view.getHeight();
-                        //get the object tag that have all the information like ingredient
-                        //object, name and picture of ingredient(definition in getView ImageAdapterDraggable)
-                        ViewHolder holder = (ViewHolder)view.getTag();
-                        Ingredient ingredient = holder.getIngredient();
-
-                        Log.d("COOKMANAGER","NAME INGREDIENT "+ingredient.getName().toString()+" ");
-                        if(view.getParent().getClass().equals(GridView.class)){
-                            Log.d("ingridview","sono in grid view");
-                            //add name of ingredient to ingredients selected to cook together
-                            ingredientsToCombine.add(holder.getText().getText().toString());
-                            Log.d("NAME", ingredientsToCombine.toString());
-                            //remove ingredient from selected list in order to pass the correct
-                            //llist to the new adapter
-                            ingredientsSelected.remove(ingredient);
-                            Log.d("REVOME", ingredientsSelected.toString());
-
-                            //refresh adapter
-                            gridView.setAdapter(null);
-                            imageAdapter.setIngredients(ingredientsSelected);
-                            gridView.setAdapter(imageAdapter);
-
-                            //insert view item in cook zone
-                            ViewGroup container = (ViewGroup) v;
-                            container.addView(view);
-                            view.setVisibility(View.VISIBLE);
-                            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)view.getLayoutParams();
-                            params.height = height;
-                            params.width = width;
-                            float X = event.getX();
-                            float Y = event.getY();
-
-                            if(Y<100 || Y>600) Y=150;
-                            if(X>900 || X<40 ) X=150;
-
-                            view.setX(X);
-                            view.setY(Y);
-                            view.setLayoutParams(params);
-                            Log.w("DEBUGGING"," x is "+X + " and y is " + Y);
+                        view.setLayoutParams(params);
+                        Log.w("DEBUGGING", " x is " + X + " and y is " + Y);
 
 
-                        }else{
-                            //remove item from cook zone
-                            ViewGroup owner = (ViewGroup) view.getParent();
-                            Log.d("mi sposto dal framelayout",view.getParent().toString());
-                            owner.removeViewInLayout(view);
-                            //remove name from ingredient to cook
-                            ingredientsToCombine.remove(ingredient.getName());
-                            Log.d("NAME", ingredientsToCombine.toString());
+                    } else {
+                        //remove item from cook zone
+                        ViewGroup owner = (ViewGroup) view.getParent();
+                        Log.d("mi sposto dal framelayout", view.getParent().toString());
+                        owner.removeViewInLayout(view);
+                        //remove name from ingredient to cook
+                        ingredientsToCombine.remove(ingredient.getName());
+                        Log.d("NAME", ingredientsToCombine.toString());
 
-                            //add ingredient to selected
-                            ingredientsSelected.add(ingredient);
+                        //add ingredient to selected
+                        ingredientsSelected.add(ingredient);
 
-                            //refresh adapter
-                            gridView.setAdapter(null);
-                            imageAdapter.setIngredients(ingredientsSelected);
-                            gridView.setAdapter(imageAdapter);
-
-                        }
-
-
-                        gridView.invalidateViews();
-                        break;
+                        //refresh adapter
+                        gridView.setAdapter(null);
+                        imageAdapter.setIngredients(ingredientsSelected);
+                        gridView.setAdapter(imageAdapter);
 
                     }
 
-                case DragEvent.ACTION_DRAG_ENDED:
 
-                default:
+                    gridView.invalidateViews();
                     break;
-            }
-            return true;
+
+                }
+
+            case DragEvent.ACTION_DRAG_ENDED:
+
+            default:
+                break;
         }
+        return true;
+    }
 
-
+    }
 }
