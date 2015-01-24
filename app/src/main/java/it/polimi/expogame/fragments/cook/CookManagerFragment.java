@@ -154,7 +154,17 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                     break;
                 case DragEvent.ACTION_DRAG_ENTERED:
                     break;
-                case DragEvent.ACTION_DRAG_EXITED:
+                case DragEvent.ACTION_DRAG_EXITED:{
+
+                    float X = 200;
+                    float Y = 200;
+
+                    View view = (View) event.getLocalState();
+                    view.setX(X);
+                    view.setY(Y);
+                    view.setVisibility(View.VISIBLE);
+
+                }
                     break;
                 case DragEvent.ACTION_DROP:
                     Log.d("try",event.getLocalState() + " "+ v);
@@ -163,10 +173,17 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                         float X = event.getX();
                         float Y = event.getY();
 
+                        if(Y<100) Y=150;
+                        if(X>900) X=150;
+
                         View view = (View) event.getLocalState();
                         view.setX(X);
                         view.setY(Y);
                         view.setVisibility(View.VISIBLE);
+
+
+
+                        Log.w("DEBUGGING"," x is "+X + " and y is " + Y);
                         return true;
                     }else{
                         View view = (View) event.getLocalState();
@@ -206,6 +223,9 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                             view.setX(X);
                             view.setY(Y);
                             view.setLayoutParams(params);
+                            Log.w("DEBUGGING"," x is "+X + " and y is " + Y);
+
+
                         }else{
                             //remove item from cook zone
                             ViewGroup owner = (ViewGroup) view.getParent();
@@ -222,12 +242,14 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
                         }
 
+
                         gridView.invalidateViews();
                         break;
 
                     }
 
                 case DragEvent.ACTION_DRAG_ENDED:
+
                 default:
                     break;
             }
