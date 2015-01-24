@@ -190,6 +190,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
                 values.put(DishesTable.COLUMN_CREATED,1);
                 getActivity().getContentResolver().update(DishesProvider.CONTENT_URI,values,where,names);
+                resetSelectionsIngredients();
 
                 //show details
                 Intent intent = new Intent(getActivity().getApplicationContext(), DetailsActivity.class);
@@ -205,6 +206,11 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
             }
         }
 
+    }
+
+    //if a dish is created, refresh ingredients selected and combined
+    private void resetSelectionsIngredients(){
+       //TODO
     }
 
 
