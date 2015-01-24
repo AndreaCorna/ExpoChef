@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.RelativeLayout;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -189,7 +190,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                 ContentValues values = new ContentValues();
 
                 values.put(DishesTable.COLUMN_CREATED,1);
-                getActivity().getContentResolver().update(DishesProvider.CONTENT_URI,values,where,names);
+                getActivity().getContentResolver().update(DishesProvider.CONTENT_URI, values, where, names);
                 resetSelectionsIngredients();
 
                 //show details
@@ -208,9 +209,18 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
     }
 
-    //if a dish is created, refresh ingredients selected and combined
+    //if a dish is created, refresh  combined
     private void resetSelectionsIngredients(){
-       //TODO
+        FrameLayout layout = (FrameLayout)getView().findViewById(R.id.external);
+        for(int i=0;i<layout.getChildCount();){
+            if(layout.getChildAt(i).getClass().equals(RelativeLayout.class)){
+                layout.removeViewAt(i);
+            }else{
+                i++;
+            }
+        }
+        ingredientsToCombine.clear();
+
     }
 
 
