@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -204,6 +205,8 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                 intent.putExtra("createdDish",createdDish);
 
                 startActivity(intent);
+            }else{
+                Toast.makeText(getActivity().getApplicationContext(),getResources().getString(R.string.message_toast_cook),Toast.LENGTH_LONG).show();
             }
         }
 
