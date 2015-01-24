@@ -19,6 +19,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 
 import it.polimi.expogame.R;
 import it.polimi.expogame.support.Dish;
@@ -201,13 +202,11 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                             //add name of ingredient to ingredients selected to cook together
                             ingredientsToCombine.add(holder.getText().getText().toString());
                             Log.d("NAME", ingredientsToCombine.toString());
-                            //remove ingredient from the adapter in order to change view and remove
-                            //view from the grip
-                            imageAdapter.removeIngredient(ingredient);
                             //remove ingredient from selected list in order to pass the correct
                             //llist to the new adapter
                             ingredientsSelected.remove(ingredient);
                             Log.d("REVOME", ingredientsSelected.toString());
+
                             //refresh adapter
                             gridView.setAdapter(null);
                             imageAdapter.setIngredients(ingredientsSelected);
@@ -239,6 +238,8 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                             owner.removeViewInLayout(view);
                             //remove name from ingredient to cook
                             ingredientsToCombine.remove(ingredient.getName());
+                            Log.d("NAME", ingredientsToCombine.toString());
+
                             //add ingredient to selected
                             ingredientsSelected.add(ingredient);
 
@@ -262,6 +263,6 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
             }
             return true;
         }
-    }
+
 
 }
