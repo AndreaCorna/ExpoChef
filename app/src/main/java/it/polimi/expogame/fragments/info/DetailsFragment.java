@@ -65,7 +65,6 @@ public class DetailsFragment extends Fragment{
         if(dish != null) {
             TextView nameDish = (TextView) view.findViewById(R.id.nameDishLabel);
             nameDish.setText(dish.getName().toUpperCase());
-            nameDish.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             TextView descriptionDish = (TextView) view.findViewById(R.id.description_dish);
             descriptionDish.setText(dish.getDescription());
             TextView nationality = (TextView) view.findViewById(R.id.nationality_dish);
