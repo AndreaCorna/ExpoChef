@@ -143,7 +143,8 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     }
 
 
-
+//TODO fix a bug, if there are i.e. two fishes when you drag and drop one of them
+//TODO from down to up you lose also the other fish down
     private class MyDragListener implements View.OnDragListener {
 
         @Override
@@ -174,14 +175,12 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                         float Y = event.getY();
 
                         if(Y<100 || Y>600) Y=150;
-                        if(X>900) X=150;
+                        if(X>900 || X<40 ) X=150;
 
                         View view = (View) event.getLocalState();
                         view.setX(X);
                         view.setY(Y);
                         view.setVisibility(View.VISIBLE);
-
-
 
                         Log.w("DEBUGGING"," x is "+X + " and y is " + Y);
                         return true;
@@ -223,7 +222,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                             float Y = event.getY();
 
                             if(Y<100 || Y>600) Y=150;
-                            if(X>900) X=150;
+                            if(X>900 || X<40 ) X=150;
 
                             view.setX(X);
                             view.setY(Y);
