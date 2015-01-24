@@ -173,7 +173,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                         float X = event.getX();
                         float Y = event.getY();
 
-                        if(Y<100) Y=150;
+                        if(Y<100 || Y>600) Y=150;
                         if(X>900) X=150;
 
                         View view = (View) event.getLocalState();
@@ -208,7 +208,8 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                             ingredientsSelected.remove(ingredient);
                             Log.d("REVOME", ingredientsSelected.toString());
                             //recreate adapter
-                            gridView.setAdapter(null);
+                            gridView.setAdapter(null);//TODO instead of destroy and recreate why not using a
+                                                      //TODO  refresh method that set the new arraylist and then invalidate view?
                             gridView.setAdapter(new ImageAdapterDraggable(getActivity(),ingredientsSelected));
 
                             //insert view item in cook zone
@@ -220,6 +221,10 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                             params.width = width;
                             float X = event.getX();
                             float Y = event.getY();
+
+                            if(Y<100 || Y>600) Y=150;
+                            if(X>900) X=150;
+
                             view.setX(X);
                             view.setY(Y);
                             view.setLayoutParams(params);
