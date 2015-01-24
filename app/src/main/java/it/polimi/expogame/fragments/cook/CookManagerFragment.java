@@ -95,7 +95,8 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
         this.ingredientsSelected.add(ingredient);
 
         gridView.setAdapter(null);
-        gridView.setAdapter(new ImageAdapterDraggable(getActivity(),ingredientsSelected));
+        imageAdapter.setIngredients(ingredientsSelected);
+        gridView.setAdapter(imageAdapter);
 
         gridView.invalidateViews();
         Log.d("NUMBER",""+gridView.getAdapter().getViewTypeCount()+ " "+imageAdapter.getCount());
@@ -106,7 +107,8 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
         this.ingredientsSelected.remove(ingredient);
 
         gridView.setAdapter(null);
-        gridView.setAdapter(new ImageAdapterDraggable(getActivity(),ingredientsSelected));
+        imageAdapter.setIngredients(ingredientsSelected);
+        gridView.setAdapter(imageAdapter);
         gridView.invalidateViews();
 
     }
@@ -206,10 +208,10 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                             //llist to the new adapter
                             ingredientsSelected.remove(ingredient);
                             Log.d("REVOME", ingredientsSelected.toString());
-                            //recreate adapter
-                            gridView.setAdapter(null);//TODO instead of destroy and recreate why not using a
-                                                      //TODO  refresh method that set the new arraylist and then invalidate view?
-                            gridView.setAdapter(new ImageAdapterDraggable(getActivity(),ingredientsSelected));
+                            //refresh adapter
+                            gridView.setAdapter(null);
+                            imageAdapter.setIngredients(ingredientsSelected);
+                            gridView.setAdapter(imageAdapter);
 
                             //insert view item in cook zone
                             ViewGroup container = (ViewGroup) v;
@@ -240,9 +242,10 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                             //add ingredient to selected
                             ingredientsSelected.add(ingredient);
 
-                            //recreate adapter
+                            //refresh adapter
                             gridView.setAdapter(null);
-                            gridView.setAdapter(new ImageAdapterDraggable(getActivity(),ingredientsSelected));
+                            imageAdapter.setIngredients(ingredientsSelected);
+                            gridView.setAdapter(imageAdapter);
 
                         }
 

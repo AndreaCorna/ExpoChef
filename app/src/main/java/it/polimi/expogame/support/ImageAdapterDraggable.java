@@ -48,6 +48,10 @@ public class ImageAdapterDraggable extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void setIngredients(ArrayList<Ingredient> ingredients){
+        this.ingredients = ingredients;
+    }
+
     public int getCount() {
         return ingredients.size();
     }
