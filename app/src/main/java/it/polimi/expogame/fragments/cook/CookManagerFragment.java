@@ -1,6 +1,9 @@
 package it.polimi.expogame.fragments.cook;
 
 import android.app.Activity;
+import android.content.ContentValues;
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -8,10 +11,9 @@ import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsoluteLayout;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.GridView;
-import android.widget.RelativeLayout;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -19,9 +21,11 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Iterator;
 
 import it.polimi.expogame.R;
+import it.polimi.expogame.activities.DetailsActivity;
+import it.polimi.expogame.database.DishesTable;
+import it.polimi.expogame.providers.DishesProvider;
 import it.polimi.expogame.support.Dish;
 import it.polimi.expogame.support.ImageAdapterDraggable;
 import it.polimi.expogame.support.Ingredient;
@@ -66,6 +70,17 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
         gridView.setOnDragListener(new MyDragListener());
         FrameLayout l = (FrameLayout)currentView.findViewById(R.id.external);
         l.setOnDragListener(new MyDragListener());
+
+        Button cookButton = (Button)currentView.findViewById(R.id.cook_button);
+        cookButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            //on click check if a dish will be unlocked
+            public void onClick(View v) {
+                reorderListIngredientsToCombine();
+                String hash = hashListIngredientsToCombine();
+                checkNewDishUnlocked(hash);
+            }
+        });
         return currentView;
     }
 
@@ -126,6 +141,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
         });
     }
 
+    //get the hash of list ingredients to cook
     private String hashListIngredientsToCombine(){
         String stringToHash = "";
         for(String ingredient:ingredientsToCombine){
@@ -142,7 +158,53 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
         byte[] digest = m.digest();
         BigInteger bigInt = new BigInteger(1,digest);
         String hashtext = bigInt.toString(16);
+        Log.d("HASH",hashtext);
         return hashtext;
+    }
+
+    //check if a dish is unlock show details activity and update db
+    private void checkNewDishUnlocked(String hash){
+
+        String selection = DishesTable.COLUMN_HASHINGREDIENTS + " = ?";
+        String[] selectionArgs = new String[]{hash};
+        Cursor cursor = getActivity().getContentResolver().query(DishesProvider.CONTENT_URI,null,selection,selectionArgs,null);
+        if(cursor != null){
+            if(cursor.moveToFirst()){
+                cursor.moveToFirst();
+                long id = cursor.getLong(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_ID));
+                String name = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_NAME));
+                String nationality = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_NATIONALITY));
+                String imageUrl = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_IMAGE));
+                String description = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_DESCRIPTION));
+                String zone = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_ZONE));
+                int created = cursor.getInt(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_CREATED));
+                boolean createdDish = false;
+                if(created == 1){
+                    createdDish = true;
+                }
+                //update db
+                String where = DishesTable.COLUMN_NAME + " = ?";
+                String[] names = new String[]{name};
+
+                ContentValues values = new ContentValues();
+
+                values.put(DishesTable.COLUMN_CREATED,1);
+                getActivity().getContentResolver().update(DishesProvider.CONTENT_URI,values,where,names);
+
+                //show details
+                Intent intent = new Intent(getActivity().getApplicationContext(), DetailsActivity.class);
+                intent.putExtra("idDish",id);
+                intent.putExtra("nameDish",name);
+                intent.putExtra("nationalityDish",nationality);
+                intent.putExtra("imageUrlDish",imageUrl);
+                intent.putExtra("descriptionDish",description);
+                intent.putExtra("zoneDish",zone);
+                intent.putExtra("createdDish",createdDish);
+
+                startActivity(intent);
+            }
+        }
+
     }
 
 

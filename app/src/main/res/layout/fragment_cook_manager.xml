@@ -18,6 +18,7 @@
             android:id="@+id/external"
             android:accessibilityLiveRegion="assertive">
 
+
             <ImageView
 
                 android:id="@+id/imageView1"
@@ -27,8 +28,17 @@
                 android:scaleType="fitXY"
 
                 android:src="@drawable/kitchen_table"
-                android:layout_gravity="right|center_vertical"
+                android:layout_gravity="center_horizontal|right"
                 android:adjustViewBounds="false" />
+
+            <Button
+                android:id="@+id/cook_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_button"
+
+                android:text="@string/cook_button_label"
+                android:layout_gravity="right" />
 
         </FrameLayout>
         <GridView xmlns:android="http://schemas.android.com/apk/res/android"

@@ -19,6 +19,7 @@
     <string name="list_zone_activity">List dishes</string>
     <string name="label_list_zones">List zones</string>
     <string name="label_slider">Ingredients</string>
+    <string name="cook_button_label">Cook!</string>
 
 
     <!--Facebook share intent Strings-->
