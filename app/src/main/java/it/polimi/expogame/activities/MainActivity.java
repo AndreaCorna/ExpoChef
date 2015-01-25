@@ -97,6 +97,7 @@ public class MainActivity extends ActionBarActivity {
                     mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                     getSupportActionBar().setHomeButtonEnabled(true);
+                    getCookManagerFragmentIstance().startAnimation();
                 }else{
                     mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                     getSupportActionBar().setDisplayHomeAsUpEnabled(false);

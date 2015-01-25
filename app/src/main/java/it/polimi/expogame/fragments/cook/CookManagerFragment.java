@@ -2,18 +2,24 @@ package it.polimi.expogame.fragments.cook;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Display;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -41,8 +47,8 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     private GridView gridView;
     private ImageAdapterDraggable imageAdapter;
     private ArrayList<String> ingredientsToCombine;
-
-
+    private ImageView cookerFish;
+    private TranslateAnimation animation;
     public static CookManagerFragment newInstance() {
         CookManagerFragment fragment = new CookManagerFragment();
 
@@ -83,6 +89,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                 checkNewDishUnlocked(hash);
             }
         });
+        animationCooker(currentView);
         return currentView;
     }
 
@@ -344,5 +351,28 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
         return true;
     }
 
+    }
+
+    private void animationCooker(View view){
+        cookerFish = new ImageView(getActivity().getApplicationContext());
+        cookerFish.setImageDrawable(getResources().getDrawable(R.drawable.cooker));
+
+        WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        float to =  ((float)width)/3;
+        animation = new TranslateAnimation(width, to,
+                0.0f, 0.0f);          //  new TranslateAnimation(xFrom,xTo, yFrom,yTo)
+        animation.setDuration(3000);  // animation duration
+        animation.setFillAfter(true);
+
+        FrameLayout layout = (FrameLayout)view.findViewById(R.id.external);
+        layout.addView(cookerFish);
+    }
+
+    public void startAnimation(){
+        cookerFish.startAnimation(animation);
     }
 }
