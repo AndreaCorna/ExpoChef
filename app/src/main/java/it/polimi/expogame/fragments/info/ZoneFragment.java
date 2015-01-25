@@ -15,14 +15,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
+
+import java.util.ArrayList;
 
 import it.polimi.expogame.R;
 import it.polimi.expogame.activities.DetailsActivity;
 import it.polimi.expogame.database.DishesTable;
 import it.polimi.expogame.providers.DishesProvider;
 import it.polimi.expogame.support.Dish;
+import it.polimi.expogame.support.GridDishItem;
+import it.polimi.expogame.support.GridDishesAdapter;
 
 /**
  * Fragment in order to show dishes of a specific zone
@@ -33,9 +38,12 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
 
 
     private String zone;
-    private ListView listItems;
-    private SimpleCursorAdapter listAdapter;
+    //private ListView listItems;
+   // private SimpleCursorAdapter listAdapter;
 
+    private GridDishesAdapter gridAdapter;
+    private ArrayList<GridDishItem> gridDishItems;
+    private GridView gridView;
 
 
     public static ZoneFragment newInstance() {
@@ -45,11 +53,13 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
     }
 
     public ZoneFragment() {
-        // Required empty public constructor
+        gridDishItems = new ArrayList<GridDishItem>();
     }
 
     public ZoneFragment(String zone) {
+
         this.zone = zone.toLowerCase();
+        gridDishItems = new ArrayList<GridDishItem>();
     }
 
     @Override
@@ -62,10 +72,12 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_zone, container, false);
-        listItems = (ListView) view.findViewById(R.id.list_dishes_zone_fragment);
-        listItems.setOnItemClickListener(this);
+        //listItems = (ListView) view.findViewById(R.id.list_dishes_zone_fragment);
+        //listItems.setOnItemClickListener(this);
+        gridView = (GridView)view.findViewById(R.id.grid_dish);
+        gridView.setOnItemClickListener(this);
         loadDishesByZone(zone);
-        listItems.setAdapter(listAdapter);
+        //listItems.setAdapter(listAdapter);
 
         return view;
     }
@@ -92,7 +104,10 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        loadDishClicked(id);
+        if(((GridDishItem)gridView.getAdapter().getItem(position)).isCreated()){
+            loadDishClicked(id);
+
+        }
     }
 
     /**
@@ -106,11 +121,29 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
         Log.d(TAG, selectionArgs[0].toString());
         Cursor cursor = getActivity().getContentResolver().query(DishesProvider.CONTENT_URI,null,selection,selectionArgs,null);
 
-        String[] columns = new String[] { DishesTable.COLUMN_NAME, DishesTable.COLUMN_NATIONALITY ,DishesTable.COLUMN_IMAGE};
+        String[] columns = new String[] { DishesTable.COLUMN_ID,DishesTable.COLUMN_NAME, DishesTable.COLUMN_CREATED ,DishesTable.COLUMN_IMAGE};
 
         int[] to = new int[] { R.id.name_dish };
+        if(cursor != null){
+            cursor.moveToFirst();
+            while (cursor.isAfterLast() == false){
+                String name = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_NAME));
+                String imageUrl = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_IMAGE));
+                int created = cursor.getInt(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_CREATED));
+                long id = cursor.getLong(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_ID));
+                boolean isCreated = false;
+                if(created == 1){
+                    isCreated = true;
+                }
+                Log.d("CREATE",name + " "+ imageUrl);
+                gridDishItems.add(new GridDishItem(getActivity(),id,name,imageUrl,isCreated));
+                cursor.moveToNext();
+            }
+        }
+        gridAdapter = new GridDishesAdapter(getActivity().getApplicationContext(),gridDishItems);
+        gridView.setAdapter(gridAdapter);
 
-        listAdapter = new SimpleCursorAdapter(getActivity().getApplicationContext(),R.layout.list_dishes_item,cursor,columns,to){
+        /*listAdapter = new SimpleCursorAdapter(getActivity().getApplicationContext(),R.layout.list_dishes_item,cursor,columns,to){
             //Override of method in order to disable dishes that are not created yet
             @Override
             public boolean isEnabled(int position){
@@ -125,7 +158,7 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
 
             }
             /*Override this method in order to change color of row of dish*/
-            @Override
+            /*@Override
             public View getView(int position, View convertView, ViewGroup parent){
                 final View row = super.getView(position, convertView, parent);
                 Cursor cursor = this.getCursor();
@@ -157,7 +190,7 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
             }
 
 
-        };
+        };*/
 
 
     }
