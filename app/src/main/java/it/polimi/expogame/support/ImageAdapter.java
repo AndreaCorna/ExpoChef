@@ -35,6 +35,9 @@ public class ImageAdapter extends BaseAdapter {
 
     }
 
+    public void setIngredients(ArrayList<Ingredient> ingredients){
+        this.ingredients = ingredients;
+    }
 
     public int getCount() {
         return ingredients.size();
