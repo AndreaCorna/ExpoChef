@@ -3,7 +3,8 @@ package it.polimi.expogame.support;
 import android.widget.TextView;
 
 /**
- * Created by andrea on 23/01/15.
+ * Object use as tag in image adapter draggable in order to pass information
+ * about the ingredient related to a single view in the grid
  */
 public  class ViewHolder {
 

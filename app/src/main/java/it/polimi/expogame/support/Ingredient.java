@@ -23,29 +23,11 @@ public class Ingredient {
     public Ingredient(Context mContext,String name, String imageUrl, String category, boolean unlocked){
         this.mContext = mContext;
         this.name = name;
-        this.drawableImage = convertImageNameToDrawable(imageUrl);
+        this.drawableImage = ConverterImageNameToDrawableId.convertImageNameToDrawable(mContext,imageUrl);
         this.category = category;
         this.unlocked = unlocked;
     }
-    //Convert the image String into the int representing the R.id drawable
-    private int convertImageNameToDrawable(String imageUrl){
 
-        //Retreive the image of the ingredient and add their id
-        //to the mThumbIds array
-
-        int index = imageUrl.indexOf(".");
-        String urlImage = null;
-        //delete extension of file from name if exist
-        if (index > 0)
-            urlImage = imageUrl.substring(0, index);
-        //get the id
-        int id = mContext.getResources().getIdentifier(urlImage, "drawable", mContext.getPackageName());
-        if (id == 0){
-            id = R.drawable.ic_launcher;
-        }
-
-        return id;
-    }
 
     public String getName() {
         return name;
