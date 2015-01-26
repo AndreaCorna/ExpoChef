@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Display;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,6 +43,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     private GridView gridView;
     private ImageAdapterDraggable imageAdapter;
     private ArrayList<String> ingredientsToCombine;
+    private static final String TAG="CookManagerFragment";
 
 
     public static CookManagerFragment newInstance() {
@@ -230,6 +233,43 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
     private class MyDragListener implements View.OnDragListener {
 
+        private void moveToCenter(View parent,View item){
+            Log.d(TAG,"Moving back to center from  X= "+ item.getX()+"  Y="+item.getY());
+            int X = parent.getWidth()/2;
+            int Y = parent.getHeight()/2;
+            item.setX(200);
+            item.setY(200);
+            item.setVisibility(View.VISIBLE);
+
+        }
+        private boolean checkOutOfBounds(View item ,float current_x, float current_y){
+            Log.d(TAG,"Checking bound");
+            Log.w(TAG, " x is " + item.getX()+ " and y is " + item.getY());
+
+            Display display = getActivity().getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            int screen_max_x = size.x - item.getWidth();
+            int screen_min_x = 0;
+            int screen_max_y = size.y -item.getHeight() ;
+            int screen_min_y = item.getHeight();
+            Log.d(TAG,"screen max x "+screen_max_x);
+            Log.d(TAG,"screen min x "+screen_min_x);
+         //   Log.d(TAG,"screen max y "+screen_max_y);
+         //   Log.d(TAG,"screen min y "+screen_min_y);
+
+
+
+
+            if (current_x<= screen_min_x || current_x>= screen_max_x){
+                return true;
+            }
+            else{
+                return false;
+            }
+
+        }
+
     @Override
     public boolean onDrag(View v, DragEvent event) {
         switch (event.getAction()) {
@@ -240,35 +280,38 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                 break;
             case DragEvent.ACTION_DRAG_EXITED: {
 
-                float X = 200;
+              /*  float X = 200;
                 float Y = 200;
 
                 View view = (View) event.getLocalState();
                 view.setX(X);
                 view.setY(Y);
                 view.setVisibility(View.VISIBLE);
+                */
 
             }
             break;
             case DragEvent.ACTION_DROP:
                 Log.d("try", event.getLocalState() + " " + v);
-                View view1 = (View) event.getLocalState();
-                if (view1.getParent() == v) {
-                    float X = event.getX();
-                    float Y = event.getY();
+                View view = (View) event.getLocalState();
 
-                    if (Y < 100 || Y > 600) Y = 150;
-                    if (X > 900 || X < 40) X = 150;
 
-                    View view = (View) event.getLocalState();
-                    view.setX(X);
-                    view.setY(Y);
-                    view.setVisibility(View.VISIBLE);
+                if (view.getParent() == v) {
+                    if(checkOutOfBounds(view,event.getX(),event.getY())){
+                        moveToCenter(v,view);
+                    }
+                    else {
+                        float X = event.getX();
+                        float Y = event.getY();
 
-                    Log.w("DEBUGGING", " x is " + X + " and y is " + Y);
+
+                        view.setX(X);
+                        view.setY(Y);
+                        view.setVisibility(View.VISIBLE);
+                    }
+
                     return true;
                 } else {
-                    View view = (View) event.getLocalState();
                     int width = view.getWidth();
                     int height = view.getHeight();
                     //get the object tag that have all the information like ingredient
@@ -302,8 +345,6 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                         float X = event.getX();
                         float Y = event.getY();
 
-                        if (Y < 100 || Y > 600) Y = 150;
-                        if (X > 900 || X < 40) X = 150;
 
                         view.setX(X);
                         view.setY(Y);
