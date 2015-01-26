@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import it.polimi.expogame.R;
 
@@ -38,7 +40,7 @@ public class ARFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_ar, container, false);
 
         //Retrieve the button and register this fragment as the listener for him
-        Button upButton = (Button)view.findViewById(R.id.buttonStartMetaio);
+        ImageView upButton = (ImageView)view.findViewById(R.id.buttonStartMetaio);
         upButton.setOnClickListener(this);
 
 
