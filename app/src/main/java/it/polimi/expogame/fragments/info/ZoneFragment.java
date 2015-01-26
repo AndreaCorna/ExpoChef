@@ -130,6 +130,8 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
                 gridDishItems.add(new GridDishItem(getActivity(),id,name,imageUrl,isCreated));
                 cursor.moveToNext();
             }
+
+            cursor.close();
         }
         gridAdapter = new GridDishesAdapter(getActivity().getApplicationContext(),gridDishItems);
         gridView.setAdapter(gridAdapter);

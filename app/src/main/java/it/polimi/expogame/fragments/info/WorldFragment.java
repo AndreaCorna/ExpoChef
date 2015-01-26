@@ -38,8 +38,6 @@ public class WorldFragment extends Fragment  {
     public static final String TAG = "WorldFragment";
 
 
-    //private ListView listItems;
-    //private ArrayAdapter<String> listAdapterZones;
     private GridView gridZones;
     private ArrayList<GridZoneItem> listZones;
     private GridZonesAdapter adapterGridZones;
@@ -66,14 +64,7 @@ public class WorldFragment extends Fragment  {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_world, container, false);
-        /*listItems = (ListView) view.findViewById(R.id.listItem);
-        listItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String zone = listAdapterZones.getItem(position);
-                loadDishesByZone(zone);
-            }
-        });*/
+
 
         gridZones = (GridView)view.findViewById(R.id.grid_zone);
         gridZones.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -124,7 +115,6 @@ public class WorldFragment extends Fragment  {
             cursor.moveToFirst();
             while (cursor.isAfterLast() == false){
                 String zone = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_ZONE));
-                //zoneList.add(Character.toString(zone.charAt(0)).toUpperCase()+zone.substring(1));
                 listZones.add(new GridZoneItem(getActivity(),Character.toString(zone.charAt(0)).toUpperCase()+zone.substring(1),"cancel.png"));
                 Log.d(TAG,zone);
                 cursor.moveToNext();
@@ -137,8 +127,6 @@ public class WorldFragment extends Fragment  {
 
         cursor.close();
 
-        //listAdapterZones = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.zone_item, zoneList);
-        //listItems.setAdapter(listAdapterZones);
         for(String name:zoneList){
             listZones.add(new GridZoneItem(getActivity(),name,"cancel.png"));
         }
