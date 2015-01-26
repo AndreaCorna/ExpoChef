@@ -89,7 +89,7 @@ public class DishesProvider extends ContentProvider {
                 queryBuilder.appendWhere(DishesTable.COLUMN_ID + "=" + uri.getLastPathSegment());
                 break;
             case ZONES:
-                queryBuilder.setDistinct(true);
+                queryBuilder.setTables(ExpoGameDbHelper.TABLE_ZONES);
                 break;
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);

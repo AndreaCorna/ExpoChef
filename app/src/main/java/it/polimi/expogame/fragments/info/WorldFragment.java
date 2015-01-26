@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import it.polimi.expogame.R;
 import it.polimi.expogame.activities.ZoneActivity;
 import it.polimi.expogame.database.DishesTable;
+import it.polimi.expogame.database.ZonesTable;
 import it.polimi.expogame.providers.DishesProvider;
 import it.polimi.expogame.support.GridZonesAdapter;
 import it.polimi.expogame.support.GridZoneItem;
@@ -108,14 +109,15 @@ public class WorldFragment extends Fragment  {
 
 
         Uri uri = Uri.parse(DishesProvider.CONTENT_URI+"/zones");
-        String[] projection = {DishesTable.COLUMN_ZONE};
+        String[] projection = {ZonesTable.COLUMN_ZONE,ZonesTable.COLUMN_IMAGE};
         Cursor cursor = getActivity().getContentResolver().query(uri,projection,null,null,null);
         if(cursor != null){
             Log.d(TAG,""+cursor.getCount());
             cursor.moveToFirst();
             while (cursor.isAfterLast() == false){
-                String zone = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_ZONE));
-                listZones.add(new GridZoneItem(getActivity(),Character.toString(zone.charAt(0)).toUpperCase()+zone.substring(1),"cancel.png"));
+                String zone = cursor.getString(cursor.getColumnIndexOrThrow(ZonesTable.COLUMN_ZONE));
+                String image = cursor.getString(cursor.getColumnIndexOrThrow(ZonesTable.COLUMN_IMAGE));
+                listZones.add(new GridZoneItem(getActivity(),Character.toString(zone.charAt(0)).toUpperCase()+zone.substring(1),image));
                 Log.d(TAG,zone);
                 cursor.moveToNext();
             }
