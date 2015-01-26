@@ -47,7 +47,7 @@ public class MainActivity extends ActionBarActivity {
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private ArrayList<Ingredient> listIngredientsSelected;
     private ImageAdapter imageAdapter;
-    private ArrayList<Ingredient> ingredientsUnlocked = new ArrayList<Ingredient>();
+    private ArrayList<Ingredient> ingredientsUnlocked;
 
 
     @Override
@@ -55,6 +55,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //getting reference of the ViewPager element in the view
+        ingredientsUnlocked = new ArrayList<Ingredient>();
         linearLayout = (LinearLayout)findViewById(R.id.ingredients_layout);
 
          //loading unlocked ingredients in the Cook Options Fragment
@@ -99,6 +100,7 @@ public class MainActivity extends ActionBarActivity {
                     mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                     getSupportActionBar().setHomeButtonEnabled(true);
+                    loadUnlockedIngredients();
                     imageAdapter.setIngredients(ingredientsUnlocked);
                     gridview.setAdapter(null);
                     gridview.setAdapter(imageAdapter);
