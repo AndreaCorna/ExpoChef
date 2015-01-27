@@ -44,5 +44,6 @@
     <string name="photo_post">Photo Post</string>
     <string name="ok">OK</string>
     <string name="error">Error</string>
+    <string name="label_curiosity">Curiosity</string>
 
 </resources>

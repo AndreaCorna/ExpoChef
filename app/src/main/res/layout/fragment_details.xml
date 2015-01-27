@@ -1,8 +1,12 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="it.polimi.expogame.fragments.info.DetailsFragment"
-    android:background="@drawable/pergamena"
-    android:alpha=".65">
+   >
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fillViewport="true"
+        >
 
 
     <LinearLayout
@@ -14,88 +18,180 @@
         android:paddingRight="10dp">
 
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/nameDishLabel"
-            android:layout_gravity="center|top"
-            android:paddingTop="20dp"
-            android:textStyle="bold|italic"
-            android:textColor="@color/secondary_text_default_material_light"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp" />
-
-        <ImageView
+    <LinearLayout
+            android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
-            android:id="@+id/imageDish"
-            android:layout_gravity="center"
-            android:layout_weight="0.30" />
+            android:layout_weight="0.45"
+            style="@style/marginTiles"
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/labelNationality"
-            android:text="@string/label_nationality"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:textColor="@color/secondary_text_default_material_light"
-            />
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/nationality_dish"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:textColor="@color/secondary_text_default_material_light"
-            />
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/labelDescription"
-            android:text="@string/label_description"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:textColor="@color/secondary_text_default_material_light"
-            />
-
-        <ScrollView
-            android:id="@+id/ScrollView01"
-            android:layout_height="0dp"
-            android:layout_width="fill_parent"
-            android:layout_weight="0.60"
-            >
+            android:background="@drawable/background_shadow">
 
             <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/description_dish"
-                android:scrollbarAlwaysDrawHorizontalTrack="true"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="0.15"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="PIZZA MARGHERITA"
+                android:id="@+id/nameDishLabel"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#ffce8e2c"
+                android:textColorHighlight="#ff989898"
                 android:textStyle="bold"
-                android:textSize="20dp"
-                android:textColor="@color/secondary_text_default_material_light"
+                android:textAllCaps="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:text="Italy"
+                android:id="@+id/nationality_dish"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#ff707267"
+                android:textStyle="bold"
                 />
 
-        </ScrollView>
+            <ImageView
+                android:layout_width="fill_parent"
+
+                android:layout_height="0dp"
+                android:layout_weight="0.7"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+
+                android:id="@+id/imageDish"
+                android:src="@drawable/pizza"
+
+                android:layout_gravity="center_horizontal" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.15"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp">
 
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="difficulty"
+                    android:id="@+id/textDifficulty"
+                    android:textAllCaps="true"
+                    android:textSize="12dp"/>
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="13dp"
+                    android:id="@+id/imageDifficulty"
+                    android:src="@drawable/stars1"
+                    android:layout_below="@id/textDifficulty"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignLeft="@+id/textDifficulty"
+                    android:layout_alignRight="@+id/textDifficulty"
+                    android:layout_marginBottom="5dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="healtyness"
+                    android:id="@+id/textHealty"
+                    android:textAllCaps="true"
+                    android:textSize="12dp"/>
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="13dp"
+                    android:id="@+id/imageHealty"
+                    android:src="@drawable/stars4"
+                    android:layout_below="@id/textHealty"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignLeft="@+id/textHealty"
+                    android:layout_alignRight="@+id/textHealty"
+                    android:layout_marginBottom="5dp"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
+        style="@style/marginTiles"
+        android:background="@drawable/background_shadow"
+        android:paddingLeft="5dp">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/labelDescription"
+            android:text="@string/label_description"
+            style="@style/DetailsFragmentsTitles"
+            />
+
+
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="questo e italitalo"
+            android:id="@+id/description_dish"
+            android:textSize="12dp"
+            android:textColor="#ff2b2b2b"
+            />
+
+
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.25"
+        style="@style/marginTiles"
+        android:background="@drawable/background_shadow"
+        android:paddingLeft="5dp">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/labelCuriosity"
+            android:text="@string/label_curiosity"
+            style="@style/DetailsFragmentsTitles"
+            />
+
+
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitaloquesto e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e  questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e  questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e  questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e  questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e  questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e "
+            android:id="@+id/curiosity_dish"
+            android:textSize="12dp"
+            android:textColor="#ff2b2b2b"
+            />
+
+
+
+
+    </LinearLayout>
 
         <Button
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="60dp"
-            android:layout_height="40dp"
+            android:layout_width="3dp"
+            android:layout_height="3dp"
             android:id="@+id/shareButton"
             android:layout_gravity="right|top"
             android:background="@drawable/facebook"
             android:layout_weight="0.05"
             />
     </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>

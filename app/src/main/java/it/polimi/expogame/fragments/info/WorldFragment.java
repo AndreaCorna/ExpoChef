@@ -71,6 +71,7 @@ public class WorldFragment extends Fragment  {
         gridZones.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 String zone = ((GridZoneItem)gridZones.getAdapter().getItem(position)).getName();
                 loadDishesByZone(zone);
             }
