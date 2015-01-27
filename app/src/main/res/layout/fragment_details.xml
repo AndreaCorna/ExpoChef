@@ -1,6 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="it.polimi.expogame.fragments.info.DetailsFragment"
+    android:background="#ffffe4a0"
    >
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
@@ -130,7 +131,7 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="questo e italitalo"
+            android:text="No description available"
             android:id="@+id/description_dish"
             android:textSize="12dp"
             android:textColor="#ff2b2b2b"
@@ -161,7 +162,7 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="t questalo questo e italitalo qo e italo e  questo esto e  questo e italitalo queslo questo e italitalo questo e  questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e  questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e  questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e questo e italitalo questo e italitalo questo e  questo e italitalo questo e italitalo questo e  questo e italitalo questo e italitalo questo e  questo e italitalo questo e italitalo questo e XXXX "
+            android:text="No curiosity available"
             android:id="@+id/curiosity_dish"
             android:textSize="12dp"
             android:textColor="#ff2b2b2b"
