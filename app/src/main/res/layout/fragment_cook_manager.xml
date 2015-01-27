@@ -44,8 +44,8 @@
                 android:layout_height="174dp"
                 android:id="@+id/cooker"
                 android:numColumns="3"
-                android:verticalSpacing="15dp"
-                android:horizontalSpacing="1dp"
+                android:verticalSpacing="0dp"
+                android:horizontalSpacing="0dp"
                 android:stretchMode="columnWidth"
                 android:layout_gravity="center"
                 />
