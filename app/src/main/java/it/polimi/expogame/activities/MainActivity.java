@@ -1,6 +1,7 @@
 package it.polimi.expogame.activities;
 
 import android.content.ContentResolver;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -110,6 +111,15 @@ public class MainActivity extends ActionBarActivity {
                     imageAdapter.setIngredients(ingredientsUnlocked);
                     gridview.setAdapter(null);
                     gridview.setAdapter(imageAdapter);
+                    //check if is the first time
+                    SharedPreferences prefs = getSharedPreferences("expogame", MODE_PRIVATE);
+                    boolean isFirstTime = prefs.getBoolean("firstTime",true);
+                    if(isFirstTime){
+                        //first time start animation and save that no more i have to show it
+                        getCookManagerFragmentIstance().startAnimation();
+                        prefs.edit().putBoolean("firstTime",false).commit();
+
+                    }
 
                 }else{
                     mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);

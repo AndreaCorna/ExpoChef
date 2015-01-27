@@ -40,6 +40,19 @@
                 android:text="@string/cook_button_label"
                 android:layout_gravity="right" />
 
+            <TextView
+                android:layout_width="210dp"
+                android:layout_height="154dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Heila"
+                android:id="@+id/speak"
+                android:layout_gravity="left|top"
+                android:background="@drawable/nuvola"
+                android:layout_margin="5dp"
+                android:gravity="center_horizontal|clip_horizontal|clip_vertical"
+                android:autoText="false"
+                android:paddingTop="15dp" />
+
         </FrameLayout>
         <GridView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/ingredient_table"
