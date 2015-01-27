@@ -49,7 +49,9 @@
                 android:layout_gravity="left|top"
                 android:background="@drawable/nuvola"
                 android:layout_margin="5dp"
-                android:gravity="center_vertical|center_horizontal|clip_horizontal|clip_vertical" />
+                android:gravity="center_horizontal|clip_horizontal|clip_vertical"
+                android:autoText="false"
+                android:paddingTop="15dp" />
 
         </FrameLayout>
         <GridView xmlns:android="http://schemas.android.com/apk/res/android"
