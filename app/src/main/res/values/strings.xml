@@ -20,7 +20,7 @@
     <string name="label_list_zones">List zones</string>
     <string name="label_slider">Ingredients</string>
     <string name="cook_button_label">Cook!</string>
-    <string name="message_toast_cook">Not a good choise...</string>
+    <string name="message_toast_cook">Not a good choice...</string>
 
 
     <!--Facebook share intent Strings-->
