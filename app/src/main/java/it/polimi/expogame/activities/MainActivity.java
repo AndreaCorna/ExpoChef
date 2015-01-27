@@ -200,6 +200,7 @@ public class MainActivity extends ActionBarActivity {
             Log.d("MAIN","Ho caricato "+name);
 
         }
+        cursor.close();
 
     }
 
