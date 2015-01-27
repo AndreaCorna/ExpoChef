@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -52,8 +53,13 @@ public class GridDishesAdapter extends BaseAdapter {
         title.setText(dishesItem.get(position).getName());
         ImageView image = (ImageView)convertView.findViewById(R.id.picture_zone);
         image.setImageResource(dishesItem.get(position).getImageId());
-        if(!dishesItem.get(position).isCreated())
-            image.setBackgroundColor(context.getResources().getColor(R.color.background_material_dark));
+
+        RelativeLayout layout = (RelativeLayout)convertView.findViewById(R.id.grid_zone_item_layout);
+        if(!dishesItem.get(position).isCreated()){
+            layout.setAlpha((float)0.5);
+            layout.setEnabled(false);
+        }
+
 
         return convertView;
     }

@@ -4,12 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/background_light"
-    android:shape="oval">
+    android:shape="oval"
+    android:id="@+id/grid_zone_item_layout"
+    >
     <it.polimi.expogame.support.SquareImageView
         android:id="@+id/picture_zone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
+
         />
     <TextView
         android:id="@+id/text_zone"
