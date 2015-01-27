@@ -19,6 +19,7 @@ import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
@@ -81,6 +82,7 @@ public class ExpoMapFragment extends Fragment implements OnMapReadyCallback, Goo
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
+
         super.onCreate(savedInstanceState);
 
     }
@@ -90,15 +92,8 @@ public class ExpoMapFragment extends Fragment implements OnMapReadyCallback, Goo
     @Override
     public void onResume() {
         super.onResume();
-        LocationManager service = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        boolean enabled = service
-                .isProviderEnabled(LocationManager.GPS_PROVIDER);
 
-        // check if enabled and if not send user to the GSP settings
 
-        if (!enabled) {
-            buildAlertMessageNoGps();
-        }
     }
 
     /**
@@ -129,6 +124,8 @@ public class ExpoMapFragment extends Fragment implements OnMapReadyCallback, Goo
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         super.onCreateView(inflater, container, savedInstanceState);
+        //avoid that the screen turns off
+        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         /* If you place a mapfragment inside a fragment, it crashes when the fragment is
      * loaded a 2nd time. Below solution was found at http://stackoverflow.com/questions/14083950/duplicate-id-tag-null-or-parent-id-with-another-fragment-for-com-google-androi
@@ -148,11 +145,24 @@ public class ExpoMapFragment extends Fragment implements OnMapReadyCallback, Goo
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
+        // check if enabled and if not send user to the GSP settings
+        LocationManager service = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        boolean enabled = service
+                .isProviderEnabled(LocationManager.GPS_PROVIDER);
+        if (!enabled) {
+            buildAlertMessageNoGps();
+        }
         return view;
     }
 
-    public void onButtonPressed(Uri uri) {
 
+
+    @Override
+    public void onDestroyView() {
+
+        super.onDestroyView();
     }
 
     @Override
@@ -162,6 +172,8 @@ public class ExpoMapFragment extends Fragment implements OnMapReadyCallback, Goo
 
     @Override
     public void onDetach() {
+        //avoid that the screen turns off
+        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         super.onDetach();
     }
 

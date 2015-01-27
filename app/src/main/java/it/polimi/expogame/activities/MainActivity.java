@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
@@ -95,6 +96,11 @@ public class MainActivity extends ActionBarActivity {
             //also used to enable and disable back button on actionbar
             @Override
             public void onPageSelected(int position) {
+                if(customPagerAdapter.getItem(position).getClass().equals(ARFragment.class)) {
+                    //screen can turn down
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                }
+
                 if(customPagerAdapter.getItem(position).getClass().equals(CookManagerFragment.class)){
 
                     mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
@@ -279,6 +285,7 @@ class CustomPagerAdapter extends FragmentPagerAdapter {
                 break;
             case 1:
                 fragment = new ARFragment();
+
                 break;
             case 2:
                 fragment = new CookManagerFragment();
