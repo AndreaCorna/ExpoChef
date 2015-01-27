@@ -110,6 +110,7 @@ public class MainActivity extends ActionBarActivity {
                     imageAdapter.setIngredients(ingredientsUnlocked);
                     gridview.setAdapter(null);
                     gridview.setAdapter(imageAdapter);
+                    getCookManagerFragmentIstance().startAnimation();
 
                 }else{
                     mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
