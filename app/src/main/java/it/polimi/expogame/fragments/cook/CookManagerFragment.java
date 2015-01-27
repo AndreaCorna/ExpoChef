@@ -228,15 +228,13 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
     //if a dish is created, refresh  combined
     private void resetSelectionsIngredients(){
-        FrameLayout layout = (FrameLayout)getView().findViewById(R.id.external);
-        for(int i=0;i<layout.getChildCount();){
-            if(layout.getChildAt(i).getClass().equals(RelativeLayout.class)){
-                layout.removeViewAt(i);
-            }else{
-                i++;
-            }
-        }
+
         ingredientsToCombine.clear();
+        ingredientsCombined.clear();
+
+        cookerView.setAdapter(null);
+        imageAdapter2.setIngredients(ingredientsCombined);
+        cookerView.setAdapter(imageAdapter2);
 
     }
 
@@ -270,8 +268,6 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
          //   Log.d(TAG,"screen min y "+screen_min_y);
 
 
-
-
             if (current_x<= screen_min_x || current_x>= screen_max_x){
                 return true;
             }
@@ -298,10 +294,8 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
                 if(parent_id==2131296398)
                   {
-                      float X = cookerView.getWidth()/2;
-                      float Y = cookerView.getHeight()/2;
-                      ingredient_view.setX(X);
-                      ingredient_view.setY(Y);
+                      ingredient_view.setX(((View) event.getLocalState()).getX());
+                      ingredient_view.setY(((View) event.getLocalState()).getY());
                       ingredient_view.setVisibility(View.VISIBLE);
                   }
                 else
@@ -323,10 +317,8 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                 if (parent_id == v.getId()) { // we are moving in the down view
                     if(parent_id==2131296398){
 
-                        float X = event.getX();
-                        float Y = event.getY();
-                        ingredient_view.setX(X);
-                        ingredient_view.setY(Y);
+                        ingredient_view.setX(((View) event.getLocalState()).getX());
+                        ingredient_view.setY(((View) event.getLocalState()).getY());
                         ingredient_view.setVisibility(View.VISIBLE);
 
                     }
