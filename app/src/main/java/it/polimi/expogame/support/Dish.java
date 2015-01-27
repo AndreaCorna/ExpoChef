@@ -13,10 +13,12 @@ public class Dish {
     private String zone;
     private boolean created;
     private String hashIngredients;
+    private String curiosity;
+    private  Integer difficulty;
 
     public Dish(){}
 
-    public Dish(long id, String name, String nationality, String imageUrl, String description, String zone, boolean created, String hashIngredients){
+    public Dish(long id, String name, String nationality, String imageUrl, String description, String zone, boolean created, String hashIngredients,String curiosity,Integer difficulty){
         this.id = id;
         this.name = name;
         this.nationality = nationality;
@@ -25,6 +27,9 @@ public class Dish {
         this.zone = zone;
         this.created = created;
         this.hashIngredients = hashIngredients;
+        this.curiosity =curiosity;
+        this.difficulty = difficulty;
+
     }
 
     public long getId() {
@@ -54,4 +59,17 @@ public class Dish {
     public String getDescription() {
         return description;
     }
+
+    public String getHashIngredients() {
+        return hashIngredients;
+    }
+
+    public String getCuriosity() {
+        return curiosity;
+    }
+
+    public Integer getDifficulty() {
+        return difficulty;
+    }
+
 }

@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.HashMap;
+
 import it.polimi.expogame.R;
 import it.polimi.expogame.activities.FacebookShareActivity;
 import it.polimi.expogame.support.Dish;
@@ -32,6 +34,16 @@ public class DetailsFragment extends Fragment{
     //private OnFragmentInteractionListener mListener;
     public static final String Tag = "DetailsFragment";
     private Dish dish;
+    private static final HashMap<Integer,Integer> difficultyStarsMap;
+    static{
+        difficultyStarsMap = new HashMap<>();
+        difficultyStarsMap.put(1,R.drawable.stars1);
+        difficultyStarsMap.put(2,R.drawable.stars2);
+        difficultyStarsMap.put(3,R.drawable.stars3);
+        difficultyStarsMap.put(4,R.drawable.stars4);
+        difficultyStarsMap.put(5,R.drawable.stars5);
+
+    }
 
 
     public static DetailsFragment newInstance( Dish dish) {
@@ -67,8 +79,12 @@ public class DetailsFragment extends Fragment{
             nameDish.setText(dish.getName().toUpperCase());
             TextView descriptionDish = (TextView) view.findViewById(R.id.description_dish);
             descriptionDish.setText(dish.getDescription());
+            TextView curiosityDish = (TextView) view.findViewById(R.id.curiosity_dish);
+            curiosityDish.setText(dish.getCuriosity());
             TextView nationality = (TextView) view.findViewById(R.id.nationality_dish);
             nationality.setText(dish.getNationality());
+            ImageView difficultyStars = (ImageView) view.findViewById(R.id.imageDifficulty);
+            difficultyStars.setImageResource(difficultyStarsMap.get(dish.getDifficulty()));
             final ImageView imageDish = (ImageView) view.findViewById(R.id.imageDish);
 
             //Start retrieve the drawable id of the dish image using its name

@@ -15,5 +15,8 @@ public class DishesTable {
     public static final String COLUMN_ZONE = "zone";
     public static final String COLUMN_CREATED = "created";
     public static final String COLUMN_HASHINGREDIENTS = "hash";
+    public static final String COLUMN_CURIOSITY = "curiosity";
+    public static final String COLUMN_DIFFICULTY = "difficulty";
+
 
 }

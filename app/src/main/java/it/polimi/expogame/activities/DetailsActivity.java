@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
 
+import java.util.HashMap;
+
 import it.polimi.expogame.R;
 import it.polimi.expogame.fragments.info.DetailsFragment;
 import it.polimi.expogame.support.Dish;
@@ -35,10 +37,13 @@ public class DetailsActivity extends ActionBarActivity {
         String imageUrl = getIntent().getStringExtra("imageUrlDish");
         String description = getIntent().getStringExtra("descriptionDish");
         String zone = getIntent().getStringExtra("zoneDish");
+        String curiosity = getIntent().getStringExtra("curiosityDish");
+        Integer difficulty = getIntent().getIntExtra("difficultyDish", 0);
+
         boolean created = getIntent().getBooleanExtra("createdDish",false);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new DetailsFragment(new Dish(id, name, nationality, imageUrl, description, zone, created,null)))
+                    .add(R.id.container, new DetailsFragment(new Dish(id, name, nationality, imageUrl, description, zone, created,null,curiosity,difficulty)))
                     .commit();
         }
         setTitle(getTitle()+" "+name);

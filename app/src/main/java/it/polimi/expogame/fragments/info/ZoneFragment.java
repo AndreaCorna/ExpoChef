@@ -156,6 +156,8 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
             String imageUrl = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_IMAGE));
             String description = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_DESCRIPTION));
             String zone = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_ZONE));
+            String curiosity = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_CURIOSITY));
+            int difficulty = cursor.getInt(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_DIFFICULTY));
             int created = cursor.getInt(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_CREATED));
             boolean createdDish = false;
             if(created == 1){
@@ -171,6 +173,8 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
             intent.putExtra("descriptionDish",description);
             intent.putExtra("zoneDish",zone);
             intent.putExtra("createdDish",createdDish);
+            intent.putExtra("curiosityDish",curiosity);
+            intent.putExtra("difficultyDish",difficulty);
 
             startActivity(intent);
         }
