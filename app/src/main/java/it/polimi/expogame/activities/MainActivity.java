@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
@@ -46,7 +47,8 @@ public class MainActivity extends ActionBarActivity {
     private LinearLayout linearLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private ArrayList<Ingredient> listIngredientsSelected;
-
+    private ImageAdapter imageAdapter;
+    private ArrayList<Ingredient> ingredientsUnlocked;
 
 
     @Override
@@ -54,12 +56,14 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //getting reference of the ViewPager element in the view
+        ingredientsUnlocked = new ArrayList<Ingredient>();
         linearLayout = (LinearLayout)findViewById(R.id.ingredients_layout);
 
          //loading unlocked ingredients in the Cook Options Fragment
-        ArrayList<Ingredient> ingredients_unlocked = loadUnlockedIngredients();
+        loadUnlockedIngredients();
         gridview = (GridView) findViewById(R.id.gridview);
-        gridview.setAdapter(new ImageAdapter(this,ingredients_unlocked));
+        imageAdapter = new ImageAdapter(this,ingredientsUnlocked);
+        gridview.setAdapter(imageAdapter);
 
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -92,12 +96,21 @@ public class MainActivity extends ActionBarActivity {
             //also used to enable and disable back button on actionbar
             @Override
             public void onPageSelected(int position) {
+                if(customPagerAdapter.getItem(position).getClass().equals(ARFragment.class)) {
+                    //screen can turn down
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                }
+
                 if(customPagerAdapter.getItem(position).getClass().equals(CookManagerFragment.class)){
 
                     mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                     getSupportActionBar().setHomeButtonEnabled(true);
-                    getCookManagerFragmentIstance().startAnimation();
+                    loadUnlockedIngredients();
+                    imageAdapter.setIngredients(ingredientsUnlocked);
+                    gridview.setAdapter(null);
+                    gridview.setAdapter(imageAdapter);
+
                 }else{
                     mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                     getSupportActionBar().setDisplayHomeAsUpEnabled(false);
@@ -154,15 +167,19 @@ public class MainActivity extends ActionBarActivity {
 
     /**
      * Method which provide the list of unlocked ingredients by calling the content provider
-     * @return the list of ingredient unlocked so far
      */
-    private ArrayList<Ingredient> loadUnlockedIngredients() {
-        ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+    private void loadUnlockedIngredients() {
+        ingredientsUnlocked.clear();
+
         ContentResolver cr = this.getContentResolver();
+
+        String selection = IngredientTable.COLUMN_UNLOCKED + " = ?";
+
+        String[] selectionArgs = new String[]{"1"};
         Cursor cursor = cr.query(IngredientsProvider.CONTENT_URI,
                 new String[]{},
-                null,
-                null,
+                selection,
+                selectionArgs,
                 null);
 
         while (cursor.moveToNext()) {
@@ -177,12 +194,12 @@ public class MainActivity extends ActionBarActivity {
                 unblocked = true;
             }
             Ingredient ingredient = new Ingredient(this,name, imageUrl, category, unblocked);
-            ingredients.add(ingredient);
+            ingredientsUnlocked.add(ingredient);
 
-
+            Log.d("MAIN","Ho caricato "+name);
 
         }
-        return ingredients;
+
     }
 
     @Override
@@ -215,24 +232,7 @@ public class MainActivity extends ActionBarActivity {
 
 
 
-    //implementation of interface in order to set dynamically the adapter of zones
-    /*@Override
-    public void setAdapter(ArrayAdapter adapter) {
-        optionsListView.setAdapter(adapter);
-        invalidateOptionsMenu();
-    }*/
 
-    /*Private class in order to manage the click on the slide bar*/
-   /* private class SlideMenuClickListener implements
-            ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position,
-                                long id) {
-            // display view for selected nav drawer item
-            Log.d(TAG, "dididididididiid " + gridview.getAdapter().getItem(position));
-
-        }
-    }*/
 
     /*method called with done button slider in order to load ingredients selected n fragment cook*/
     public void chooseDone(View view){
@@ -285,6 +285,7 @@ class CustomPagerAdapter extends FragmentPagerAdapter {
                 break;
             case 1:
                 fragment = new ARFragment();
+
                 break;
             case 2:
                 fragment = new CookManagerFragment();

@@ -2,18 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="it.polimi.expogame.fragments.info.WorldFragment"
     android:orientation="vertical"
-    android:background="@drawable/world_background">
+    android:background="#ffffe4a0">
 
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/rowTextView"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:textSize="25dp"
         android:textColor="@color/primary_material_dark"
         android:text="@string/label_list_zones"
-        >
+        android:layout_gravity="center">
     </TextView>
 
 
@@ -29,7 +29,8 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
 
-        android:id="@+id/grid_zone">
+        android:id="@+id/grid_zone"
+        >
 
 
     </GridView>

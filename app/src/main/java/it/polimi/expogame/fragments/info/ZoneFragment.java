@@ -38,9 +38,6 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
 
 
     private String zone;
-    //private ListView listItems;
-   // private SimpleCursorAdapter listAdapter;
-
     private GridDishesAdapter gridAdapter;
     private ArrayList<GridDishItem> gridDishItems;
     private GridView gridView;
@@ -72,12 +69,9 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_zone, container, false);
-        //listItems = (ListView) view.findViewById(R.id.list_dishes_zone_fragment);
-        //listItems.setOnItemClickListener(this);
         gridView = (GridView)view.findViewById(R.id.grid_dish);
         gridView.setOnItemClickListener(this);
         loadDishesByZone(zone);
-        //listItems.setAdapter(listAdapter);
 
         return view;
     }
@@ -121,9 +115,6 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
         Log.d(TAG, selectionArgs[0].toString());
         Cursor cursor = getActivity().getContentResolver().query(DishesProvider.CONTENT_URI,null,selection,selectionArgs,null);
 
-        String[] columns = new String[] { DishesTable.COLUMN_ID,DishesTable.COLUMN_NAME, DishesTable.COLUMN_CREATED ,DishesTable.COLUMN_IMAGE};
-
-        int[] to = new int[] { R.id.name_dish };
         if(cursor != null){
             cursor.moveToFirst();
             while (cursor.isAfterLast() == false){
@@ -139,58 +130,12 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
                 gridDishItems.add(new GridDishItem(getActivity(),id,name,imageUrl,isCreated));
                 cursor.moveToNext();
             }
+
+            cursor.close();
         }
         gridAdapter = new GridDishesAdapter(getActivity().getApplicationContext(),gridDishItems);
         gridView.setAdapter(gridAdapter);
 
-        /*listAdapter = new SimpleCursorAdapter(getActivity().getApplicationContext(),R.layout.list_dishes_item,cursor,columns,to){
-            //Override of method in order to disable dishes that are not created yet
-            @Override
-            public boolean isEnabled(int position){
-                Cursor cursor = this.getCursor();
-                cursor.moveToPosition(position);
-                int created = cursor.getInt(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_CREATED));
-                if(created == 1){
-                    return true;
-                }else{
-                    return false;
-                }
-
-            }
-            /*Override this method in order to change color of row of dish*/
-            /*@Override
-            public View getView(int position, View convertView, ViewGroup parent){
-                final View row = super.getView(position, convertView, parent);
-                Cursor cursor = this.getCursor();
-                cursor.moveToPosition(position);
-                //check is dish is unlocked
-                int created = cursor.getInt(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_CREATED));
-                if (created == 0){
-                    row.setBackgroundResource(android.R.color.darker_gray);
-                }
-
-                //load image of dish
-                Context context = getActivity().getApplicationContext();
-
-                String image = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_IMAGE));
-                int index = image.indexOf(".");
-                String imageUrl = null;
-                //delete extension of file from name if exist
-                if (index > 0)
-                    imageUrl = image.substring(0, index);
-                //get the id
-                int id = context.getResources().getIdentifier(imageUrl, "drawable", context.getPackageName());
-                if(id==0){
-                    id = -1;
-                }
-                //load image id
-                ImageView imageView = (ImageView)row.findViewById(R.id.image_dish);
-                imageView.setImageResource(id);
-                return row;
-            }
-
-
-        };*/
 
 
     }
