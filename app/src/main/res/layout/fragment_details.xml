@@ -6,6 +6,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:fillViewport="true"
+
         >
 
 
@@ -22,11 +23,11 @@
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.45"
-            style="@style/marginTiles"
+            android:layout_weight="0.5"
+            style="@style/DetailsFragmentTiles"
 
 
-            android:background="@drawable/background_shadow">
+            >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -40,16 +41,7 @@
                 android:textColorHighlight="#ff989898"
                 android:textStyle="bold"
                 android:textAllCaps="true"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="0.1"
-                android:text="Italy"
-                android:id="@+id/nationality_dish"
-                android:layout_gravity="center_horizontal"
-                android:textColor="#ff707267"
-                android:textStyle="bold"
-                />
+
 
             <ImageView
                 android:layout_width="fill_parent"
@@ -96,20 +88,20 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="healtyness"
-                    android:id="@+id/textHealty"
+                    android:text="italy"
+                    android:id="@+id/nationality_dish"
                     android:textAllCaps="true"
                     android:textSize="12dp"/>
 
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="13dp"
-                    android:id="@+id/imageHealty"
-                    android:src="@drawable/stars4"
-                    android:layout_below="@id/textHealty"
+                    android:id="@+id/imageFlag"
+                    android:src="@drawable/italy"
+                    android:layout_below="@id/nationality_dish"
                     android:layout_alignParentRight="true"
-                    android:layout_alignLeft="@+id/textHealty"
-                    android:layout_alignRight="@+id/textHealty"
+                    android:layout_alignLeft="@+id/nationality_dish"
+                    android:layout_alignRight="@+id/nationality_dish"
                     android:layout_marginBottom="5dp"/>
             </RelativeLayout>
 
@@ -121,10 +113,9 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.3"
-        style="@style/marginTiles"
-        android:background="@drawable/background_shadow"
-        android:paddingLeft="5dp">
+        android:layout_weight="0.25"
+        style="@style/DetailsFragmentTiles"
+        >
 
         <TextView
             android:layout_width="fill_parent"
@@ -154,9 +145,8 @@
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="0.25"
-        style="@style/marginTiles"
-        android:background="@drawable/background_shadow"
-        android:paddingLeft="5dp">
+        style="@style/DetailsFragmentTiles"
+        >
 
         <TextView
             android:layout_width="fill_parent"
@@ -171,7 +161,7 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitaloquesto e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e  questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e  questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e  questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e  questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e  questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e "
+            android:text="t questalo questo e italitalo qo e italo e  questo esto e  questo e italitalo queslo questo e italitalo questo e  questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e  questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e  questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e italitalo questo e questo e italitalo questo e italitalo questo e  questo e italitalo questo e italitalo questo e  questo e italitalo questo e italitalo questo e  questo e italitalo questo e italitalo questo e XXXX "
             android:id="@+id/curiosity_dish"
             android:textSize="12dp"
             android:textColor="#ff2b2b2b"
