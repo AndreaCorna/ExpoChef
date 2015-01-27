@@ -2,19 +2,28 @@ package it.polimi.expogame.fragments.cook;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Display;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.math.BigInteger;
@@ -41,6 +50,14 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     private GridView gridView;
     private ImageAdapterDraggable imageAdapter;
     private ArrayList<String> ingredientsToCombine;
+    private ImageView cookerFish;
+    private TranslateAnimation enterAnimation;
+    private TextView textSpeakMascotte;
+    Handler startHandler = new Handler();
+    Handler nextHandler = new Handler();
+    private ArrayList<String> tutorialStrings;
+
+    private static final long UPDATE_INTERVAL = 2000;
 
 
     public static CookManagerFragment newInstance() {
@@ -83,6 +100,11 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                 checkNewDishUnlocked(hash);
             }
         });
+        //
+        textSpeakMascotte = (TextView)currentView.findViewById(R.id.speak);
+        textSpeakMascotte.setVisibility(View.INVISIBLE);
+        //set animation 
+        animationCooker(currentView);
         return currentView;
     }
 
@@ -345,4 +367,104 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     }
 
     }
+
+    /**
+     * set animation for the mascotte tutorial
+     * @param view
+     */
+    private void animationCooker(View view){
+        cookerFish = new ImageView(getActivity().getApplicationContext());
+        cookerFish.setImageDrawable(getResources().getDrawable(R.drawable.cooker));
+        cookerFish.setVisibility(View.INVISIBLE);
+
+
+        Point size = getDimensionScreen();
+        int width = size.x;
+        float to =  ((float)width)/3;
+        enterAnimation = new TranslateAnimation(width, to,
+                0.0f, 0.0f);          //  new TranslateAnimation(xFrom,xTo, yFrom,yTo)
+        enterAnimation.setDuration(3000);  // animation duration
+        enterAnimation.setFillAfter(true);
+        enterAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                cookerFish.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                loadTutorialStrings();
+                startHandler.postDelayed(new UpdateTextRunnable(tutorialStrings),UPDATE_INTERVAL);
+                textSpeakMascotte.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        FrameLayout layout = (FrameLayout)view.findViewById(R.id.cook_manager_fragment);
+        layout.addView(cookerFish);
+    }
+
+    public void startAnimation(){
+        cookerFish.startAnimation(enterAnimation);
+    }
+
+    /**
+     * Private class in order to update the text for the tutorial
+     */
+    private class UpdateTextRunnable implements Runnable{
+
+        private ArrayList<String> texts;
+
+        public UpdateTextRunnable(ArrayList<String> texts){
+            this.texts = texts;
+        }
+
+        @Override
+        public void run() {
+            //if i have some text to show update
+            if(texts.size() >0) {
+                textSpeakMascotte.setText(texts.remove(0));
+                nextHandler.postDelayed(new UpdateTextRunnable(texts), UPDATE_INTERVAL);
+            }else{
+                //else start animation out
+                textSpeakMascotte.setVisibility(View.INVISIBLE);
+                Point size = getDimensionScreen();
+                int width = size.x;
+                float to =  ((float)width)/3;
+                TranslateAnimation outAnimation = new TranslateAnimation(to, width,
+                        0.0f, 0.0f);          //  new TranslateAnimation(xFrom,xTo, yFrom,yTo)
+                outAnimation.setDuration(3000);  // animation duration
+                outAnimation.setFillAfter(true);
+                cookerFish.startAnimation(outAnimation);
+            }
+        }
+    }
+
+    /**
+     * get the dimension of the scree
+     * @return point with dimension
+     */
+    private Point getDimensionScreen(){
+        WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return size;
+    }
+
+    /**
+     * load text for tutorial
+     */
+    private void loadTutorialStrings(){
+        tutorialStrings = new ArrayList<String>();
+        tutorialStrings.add("ciao");
+        tutorialStrings.add("come");
+        tutorialStrings.add("va");
+    }
+
+
 }
