@@ -15,6 +15,7 @@ import android.widget.TextView;
 import java.util.HashMap;
 
 import it.polimi.expogame.R;
+import it.polimi.expogame.support.ConverterImageNameToDrawableId;
 import it.polimi.expogame.support.Dish;
 
 
@@ -84,28 +85,19 @@ public class DetailsFragment extends Fragment{
             ImageView difficultyStars = (ImageView) view.findViewById(R.id.imageDifficulty);
             Log.d(Tag,"dish "+dish.getName()+"   "+dish.getDifficulty());
             difficultyStars.setImageResource(difficultyStarsMap.get(dish.getDifficulty()));
+            //setting image of the nationality
+            ImageView nationalityImage = (ImageView) view.findViewById(R.id.imageFlag);
+            String nationalityImageFile = dish.getNationality().replaceAll(" ", "_").toLowerCase()+".png";
+            Log.d(Tag,nationalityImageFile);
+
+            int nationalImageId = ConverterImageNameToDrawableId.convertImageNameToDrawable(getActivity(),nationalityImageFile);
+            nationalityImage.setImageDrawable(getResources().getDrawable(nationalImageId));
+
             final ImageView imageDish = (ImageView) view.findViewById(R.id.imageDish);
+            int imageDishId = ConverterImageNameToDrawableId.convertImageNameToDrawable(getActivity(),dish.getImageUrl());
+            imageDish.setImageDrawable(getResources().getDrawable(imageDishId));
+            imageDish.setTag(new Integer(imageDishId));
 
-            //Start retrieve the drawable id of the dish image using its name
-            Context context = getActivity().getApplicationContext();
-            int index = dish.getImageUrl().indexOf(".");
-            String imageUrl = null;
-            //delete extension of file from name if exist
-            if (index > 0)
-                imageUrl = dish.getImageUrl().substring(0, index);
-            //get the id
-            int id = context.getResources().getIdentifier(imageUrl, "drawable", context.getPackageName());
-
-            if(id != 0){
-                //if found, set the image in the details fragment and add tag in order to keep track of the information
-                //it must be used when you want to post image on facebook
-                imageDish.setImageDrawable(getResources().getDrawable(id));
-                imageDish.setTag(new Integer(id));
-            }else{
-                //resource not found, use a default one
-                imageDish.setImageDrawable(getResources().getDrawable(R.drawable.cancel));
-                imageDish.setTag(R.drawable.cancel);
-            }
 
 
         }

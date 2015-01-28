@@ -47,5 +47,6 @@
     <string name="ok">OK</string>
     <string name="error">Error</string>
     <string name="label_curiosity">Curiosity</string>
+    <string name="difficulty">difficulty</string>
 
 </resources>

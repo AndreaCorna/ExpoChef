@@ -6,7 +6,6 @@
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:fillViewport="true"
 
         >
 
@@ -53,7 +52,7 @@
                 android:layout_marginRight="20dp"
 
                 android:id="@+id/imageDish"
-                android:src="@drawable/pizza"
+                android:src="@drawable/dish_pizza"
 
                 android:layout_gravity="center_horizontal" />
 
@@ -69,7 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="difficulty"
+                    android:text="@string/difficulty"
                     android:id="@+id/textDifficulty"
                     android:textAllCaps="true"
                     android:textSize="12dp"/>
@@ -98,7 +97,7 @@
                     android:layout_width="0dp"
                     android:layout_height="13dp"
                     android:id="@+id/imageFlag"
-                    android:src="@drawable/italy"
+                    android:src="@drawable/italia"
                     android:layout_below="@id/nationality_dish"
                     android:layout_alignParentRight="true"
                     android:layout_alignLeft="@+id/nationality_dish"
@@ -162,7 +161,7 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="No curiosity available"
+            android:text="No curiosity available able  available"
             android:id="@+id/curiosity_dish"
             android:textSize="12dp"
             android:textColor="#ff2b2b2b"
