@@ -83,11 +83,14 @@ public class MainActivity extends ActionBarActivity {
                     listIngredientsSelected.add(ingredient);
                     getCookManagerFragmentIstance().addIngredientSelected(ingredient);
                     selectedViews.add(view);
+                    ((ImageAdapter)gridview.getAdapter()).setSelected(ingredient.getName(),true);
                 }else{
                     view.setBackgroundColor(303030);
                     getCookManagerFragmentIstance().removeIngredient(ingredient);
                     listIngredientsSelected.remove(ingredient);
                     selectedViews.remove(view);
+                    ((ImageAdapter)gridview.getAdapter()).setSelected(ingredient.getName(),false);
+
                 }
             }
         });
@@ -273,6 +276,8 @@ public class MainActivity extends ActionBarActivity {
 
         for(View view:selectedViews){
             view.setBackgroundColor(303030);
+            ((ImageAdapter)gridview.getAdapter()).resetAllSelection();
+
         }
         selectedViews.clear();
     }

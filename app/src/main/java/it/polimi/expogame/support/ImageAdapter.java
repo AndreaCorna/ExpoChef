@@ -1,6 +1,7 @@
 package it.polimi.expogame.support;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import it.polimi.expogame.R;
 
 
@@ -23,13 +26,17 @@ public class ImageAdapter extends BaseAdapter {
 
     // references to our ingredients
     protected ArrayList<Ingredient> ingredients;
-
+    //hash table in order to update correctly view of gridview on scrolling
+    private HashMap<String,Boolean> selectedHashTable;
 
     public ImageAdapter(Context c, ArrayList<Ingredient> ingredients) {
         inflater = LayoutInflater.from(c);
         mContext = c;
         this.ingredients = ingredients;
-
+        selectedHashTable = new HashMap<>();
+        for(Ingredient ingredient:ingredients){
+           selectedHashTable.put(ingredient.getName(),new Boolean(false));
+        }
 
 
 
@@ -37,6 +44,16 @@ public class ImageAdapter extends BaseAdapter {
 
     public void setIngredients(ArrayList<Ingredient> ingredients){
         this.ingredients = ingredients;
+    }
+
+    public void setSelected(String name,boolean isSelected){
+        selectedHashTable.put(name,new Boolean(isSelected));
+    }
+
+    public void resetAllSelection(){
+        for(String key:selectedHashTable.keySet()){
+            selectedHashTable.put(key,new Boolean(false));
+        }
     }
 
     public int getCount() {
@@ -71,6 +88,13 @@ public class ImageAdapter extends BaseAdapter {
         //setting the view elements with the actual content on the ingredient at position: "position"
         picture.setImageResource(ingredient.getDrawableImage());
         name.setText(ingredient.getName());
+        if(selectedHashTable.get(ingredient.getName())){
+            v.setBackgroundColor(Color.LTGRAY);
+
+        }else{
+            v.setBackgroundColor(303030);
+
+        }
 
 
         return v;
