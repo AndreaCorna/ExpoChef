@@ -75,7 +75,7 @@ public class MainActivity extends ActionBarActivity {
 
                 Ingredient ingredient = (Ingredient)gridview.getAdapter().getItem(position);
                 if(!listIngredientsSelected.contains(ingredient)){
-                    view.setBackgroundColor(Color.GREEN);
+                    view.setBackgroundColor(Color.LTGRAY);
                     listIngredientsSelected.add(ingredient);
                     getCookManagerFragmentIstance().addIngredientSelected(ingredient);
                 }else{
