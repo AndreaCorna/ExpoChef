@@ -17,10 +17,13 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Base64;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v7.app.ActionBarActivity;
+
 
 import com.facebook.FacebookRequestError;
 import com.facebook.HttpMethod;
@@ -44,7 +47,7 @@ import it.polimi.expogame.R;
 /**
  * Activity that implements method in order to post on facebook
  */
-public class FacebookShareActivity extends Activity {
+public class FacebookShareActivity extends ActionBarActivity {
 
     private static final String PERMISSION = "publish_actions";
     private static final String baseUrl = "android.resource://it.polimi.expogame/";
@@ -75,7 +78,17 @@ public class FacebookShareActivity extends Activity {
         previewImage = (ImageView)findViewById(R.id.imagePreview_container);
         previewImage.setImageURI(Uri.parse(baseUrl + extrasIntent.getInt("image")));
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        onBackPressed();
+        return super.onOptionsItemSelected(item);
     }
 
     private void getHashKey(){
