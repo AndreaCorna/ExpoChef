@@ -110,19 +110,7 @@ public class DetailsFragment extends Fragment{
                 imageDish.setTag(R.drawable.cancel);
             }
 
-            Button button = (Button)view.findViewById(R.id.shareButton);
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                //on click launch the activity to post on facebook passing name and image of a dish
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity().getApplicationContext(),FacebookShareActivity.class);
-                    intent.putExtra("name", dish.getName());
-                    Object tag = imageDish.getTag();
-                    int id = tag == null ? -1 : Integer.parseInt(tag.toString());
-                    intent.putExtra("image",id);
-                    startActivity(intent);
-                }
-            });
+
         }
 
         return view;

@@ -1,5 +1,7 @@
 package it.polimi.expogame.activities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -15,6 +17,7 @@ import java.util.HashMap;
 
 import it.polimi.expogame.R;
 import it.polimi.expogame.fragments.info.DetailsFragment;
+import it.polimi.expogame.support.ConverterImageNameToDrawableId;
 import it.polimi.expogame.support.Dish;
 
 /**
@@ -23,6 +26,7 @@ import it.polimi.expogame.support.Dish;
 public class DetailsActivity extends ActionBarActivity {
 
     public static final String TAG ="Details Activity";
+    private PostObject objectToPost;
 
     @Override
     /**
@@ -47,6 +51,8 @@ public class DetailsActivity extends ActionBarActivity {
                     .commit();
         }
         setTitle(getTitle()+" "+name);
+        objectToPost = new PostObject(getApplicationContext(),name,imageUrl);
+
 
     }
 
@@ -61,9 +67,41 @@ public class DetailsActivity extends ActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        onBackPressed();
+        switch (item.getItemId()) {
+            case R.id.action_facebook:
+                launchPostActivity();
+                return true;
+            default:
+                onBackPressed();
 
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void launchPostActivity(){
+        Intent intent = new Intent(getApplicationContext(),FacebookShareActivity.class);
+        intent.putExtra("name", objectToPost.getName());
+        int id = objectToPost.getImageId();
+        intent.putExtra("image",id);
+        startActivity(intent);
+    }
+
+    private class PostObject{
+        private String name;
+        private int imageId;
+
+        public PostObject(Context context,String name,String imageUrl){
+            this.name = name;
+            this.imageId = ConverterImageNameToDrawableId.convertImageNameToDrawable(context,imageUrl);
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getImageId() {
+            return imageId;
+        }
     }
 
 

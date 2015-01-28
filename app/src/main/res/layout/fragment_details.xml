@@ -173,15 +173,6 @@
 
     </LinearLayout>
 
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="3dp"
-            android:layout_height="3dp"
-            android:id="@+id/shareButton"
-            android:layout_gravity="right|top"
-            android:background="@drawable/facebook"
-            android:layout_weight="0.05"
-            />
     </LinearLayout>
     </ScrollView>
 
