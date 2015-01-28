@@ -39,6 +39,13 @@
                 android:text="@string/cook_button_label"
                 android:layout_gravity="right" />
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/wasterbin"
+                android:layout_gravity="left|top"
+                android:src="@drawable/wasterbin" />
+
             <TextView
                 android:layout_width="210dp"
                 android:layout_height="154dp"
@@ -51,6 +58,8 @@
                 android:gravity="center_horizontal|clip_horizontal|clip_vertical"
                 android:autoText="false"
                 android:paddingTop="30dp" />
+
+
             <GridView
                 android:layout_width="159dp"
                 android:layout_height="150dp"
@@ -62,7 +71,8 @@
                 android:stretchMode="spacingWidthUniform"
                 android:layout_gravity="center"
                 />
-                android:paddingTop="30dp" />
+
+
 
         </FrameLayout>
         <GridView xmlns:android="http://schemas.android.com/apk/res/android"

@@ -56,6 +56,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     private TranslateAnimation enterAnimation;
     private TextView textSpeakMascotte;
     private ImageAdapterDraggable tagliereAdapter;
+    private ImageView wasterBinImage;
 
     private static final String TAG="CookManagerFragment";
     Handler startHandler = new Handler();
@@ -96,6 +97,9 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
         cookerView = (GridView) currentView.findViewById(R.id.cooker);
         tagliereAdapter = new ImageAdapterDraggable(getActivity(),ingredientsCombined);
         cookerView.setOnDragListener(new MyDragListener());
+
+        wasterBinImage = (ImageView)currentView.findViewById(R.id.wasterbin);
+        wasterBinImage.setOnDragListener(new MyDragListener());
 
         Log.w(TAG,"grdiviewtag is "+ gridView.getId()); // id = 2131296399
         Log.w(TAG,"cookerView tag is " + cookerView.getId()); // if = 2131296398
@@ -364,7 +368,24 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                     }
                     return true;
 
-                } else { //we are moving from down to up or viceversa
+                } else if(v.getId() == R.id.wasterbin){
+                    ViewHolder holder = (ViewHolder) ingredient_view.getTag();
+                    Ingredient ingredient = holder.getIngredient();
+                    if(parent_id == R.id.ingredient_table){
+                        ingredientsSelected.remove(ingredient);
+
+                        //refresh adapters of both the grid
+                        gridView.setAdapter(null);
+                        tovagliaAdapter.setIngredients(ingredientsSelected);
+                        gridView.setAdapter(tovagliaAdapter);
+                    }else{
+                        ingredientsCombined.remove(ingredient);
+                        cookerView.setAdapter(null);
+                        tagliereAdapter.setIngredients(ingredientsCombined);
+                        cookerView.setAdapter(tagliereAdapter);
+                    }
+
+                }else { //we are moving from down to up or viceversa
 
                     int width = ingredient_view.getWidth();
                     int height = ingredient_view.getHeight();
