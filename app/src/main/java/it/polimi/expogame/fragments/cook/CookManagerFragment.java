@@ -57,7 +57,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     Handler nextHandler = new Handler();
     private ArrayList<String> tutorialStrings;
 
-    private static final long UPDATE_INTERVAL = 2000;
+    private static final long UPDATE_INTERVAL = 2500;
 
 
     public static CookManagerFragment newInstance() {
@@ -464,10 +464,15 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
      * load text for tutorial
      */
     private void loadTutorialStrings(){
+        String tutorialText = getString(R.string.tutorial_text);
         tutorialStrings = new ArrayList<String>();
-        tutorialStrings.add("ciao");
-        tutorialStrings.add("come");
-        tutorialStrings.add("va");
+
+        String[] parts = tutorialText.split(":");
+        for(String item:parts){
+                tutorialStrings.add(item);
+        }
+
+
     }
 
 

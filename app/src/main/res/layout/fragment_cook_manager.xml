@@ -51,7 +51,7 @@
                 android:layout_margin="5dp"
                 android:gravity="center_horizontal|clip_horizontal|clip_vertical"
                 android:autoText="false"
-                android:paddingTop="15dp" />
+                android:paddingTop="30dp" />
 
         </FrameLayout>
         <GridView xmlns:android="http://schemas.android.com/apk/res/android"
