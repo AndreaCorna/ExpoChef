@@ -36,7 +36,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/round_button"
-
                 android:text="@string/cook_button_label"
                 android:layout_gravity="right" />
 
@@ -51,6 +50,18 @@
                 android:layout_margin="5dp"
                 android:gravity="center_horizontal|clip_horizontal|clip_vertical"
                 android:autoText="false"
+                android:paddingTop="30dp" />
+            <GridView
+                android:layout_width="159dp"
+                android:layout_height="150dp"
+                android:id="@+id/cooker"
+                android:numColumns="2"
+                android:columnWidth="50dp"
+                android:verticalSpacing="0dp"
+                android:horizontalSpacing="0dp"
+                android:stretchMode="spacingWidthUniform"
+                android:layout_gravity="center"
+                />
                 android:paddingTop="30dp" />
 
         </FrameLayout>
