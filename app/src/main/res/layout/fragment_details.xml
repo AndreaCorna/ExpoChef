@@ -53,7 +53,7 @@
                 android:layout_marginRight="20dp"
 
                 android:id="@+id/imageDish"
-                android:src="@drawable/pizza"
+                android:src="@drawable/dish_pizza"
 
                 android:layout_gravity="center_horizontal" />
 
