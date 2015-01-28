@@ -21,6 +21,8 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 
 import java.util.ArrayList;
@@ -50,6 +52,7 @@ public class MainActivity extends ActionBarActivity {
     private ArrayList<Ingredient> listIngredientsSelected;
     private ImageAdapter imageAdapter;
     private ArrayList<Ingredient> ingredientsUnlocked;
+    private ArrayList<View> selectedViews;
 
 
     @Override
@@ -59,6 +62,7 @@ public class MainActivity extends ActionBarActivity {
         //getting reference of the ViewPager element in the view
         ingredientsUnlocked = new ArrayList<Ingredient>();
         linearLayout = (LinearLayout)findViewById(R.id.ingredients_layout);
+        selectedViews = new ArrayList<View>();
 
          //loading unlocked ingredients in the Cook Options Fragment
         loadUnlockedIngredients();
@@ -78,10 +82,12 @@ public class MainActivity extends ActionBarActivity {
                     view.setBackgroundColor(Color.LTGRAY);
                     listIngredientsSelected.add(ingredient);
                     getCookManagerFragmentIstance().addIngredientSelected(ingredient);
+                    selectedViews.add(view);
                 }else{
                     view.setBackgroundColor(303030);
                     getCookManagerFragmentIstance().removeIngredient(ingredient);
                     listIngredientsSelected.remove(ingredient);
+                    selectedViews.remove(view);
                 }
             }
         });
@@ -264,9 +270,11 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void resetSliderView(){
-        for(int i=0; i< gridview.getCount();i++){
-            gridview.getChildAt(i).setBackgroundColor(303030);
+
+        for(View view:selectedViews){
+            view.setBackgroundColor(303030);
         }
+        selectedViews.clear();
     }
 
 
