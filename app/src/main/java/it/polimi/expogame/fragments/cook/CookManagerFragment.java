@@ -14,9 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.GridView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.math.BigInteger;
@@ -31,7 +29,6 @@ import it.polimi.expogame.activities.DetailsActivity;
 import it.polimi.expogame.database.DishesTable;
 import it.polimi.expogame.providers.DishesProvider;
 import it.polimi.expogame.support.Dish;
-import it.polimi.expogame.support.ImageAdapter;
 import it.polimi.expogame.support.ImageAdapterDraggable;
 import it.polimi.expogame.support.Ingredient;
 import it.polimi.expogame.support.ViewHolder;
@@ -44,10 +41,9 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     private ArrayList<Ingredient> ingredientsCombined;
     private GridView gridView;
     private GridView cookerView;
-    private ImageAdapterDraggable imageAdapter;
-    private ImageAdapterDraggable imageAdapter2;
+    private ImageAdapterDraggable tovagliaAdapter;
+    private ImageAdapterDraggable tagliereAdapter;
 
-    private ArrayList<String> ingredientsToCombine;
     private static final String TAG="CookManagerFragment";
 
 
@@ -61,7 +57,6 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
         ingredientsSelected = new ArrayList<Ingredient>();
         ingredientsCombined = new ArrayList<Ingredient>();
-        ingredientsToCombine = new ArrayList<String>();
     }
 
     @Override
@@ -75,13 +70,13 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
         View currentView = inflater.inflate(R.layout.fragment_cook_manager, container, false);
         gridView = (GridView) currentView.findViewById(R.id.ingredient_table);
-        imageAdapter = new ImageAdapterDraggable(getActivity(),ingredientsSelected);
-        gridView.setAdapter(imageAdapter);
+        tovagliaAdapter = new ImageAdapterDraggable(getActivity(),ingredientsSelected);
+        gridView.setAdapter(tovagliaAdapter);
         // Inflate the layout for this fragment
         gridView.setOnDragListener(new MyDragListener());
 
         cookerView = (GridView) currentView.findViewById(R.id.cooker);
-        imageAdapter2 = new ImageAdapterDraggable(getActivity(),ingredientsCombined);
+        tagliereAdapter = new ImageAdapterDraggable(getActivity(),ingredientsCombined);
         cookerView.setOnDragListener(new MyDragListener());
 
         Log.w(TAG,"grdiviewtag is "+ gridView.getId()); // id = 2131296399
@@ -92,8 +87,8 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
             @Override
             //on click check if a dish will be unlocked
             public void onClick(View v) {
-                reorderListIngredientsToCombine();
-                String hash = hashListIngredientsToCombine();
+                ArrayList<String> nameIngredients = reorderListIngredientsToCombine();
+                String hash = hashListIngredientsToCombine(nameIngredients);
                 checkNewDishUnlocked(hash);
             }
         });
@@ -127,11 +122,11 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
         this.ingredientsSelected.add(ingredient);
 
         gridView.setAdapter(null);
-        imageAdapter.setIngredients(ingredientsSelected);
-        gridView.setAdapter(imageAdapter);
+        tovagliaAdapter.setIngredients(ingredientsSelected);
+        gridView.setAdapter(tovagliaAdapter);
 
         gridView.invalidateViews();
-        Log.d("NUMBER",""+gridView.getAdapter().getViewTypeCount()+ " "+imageAdapter.getCount());
+        Log.d("NUMBER", "" + gridView.getAdapter().getViewTypeCount() + " " + tovagliaAdapter.getCount());
 
     }
 
@@ -139,8 +134,8 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
         this.ingredientsSelected.remove(ingredient);
 
         gridView.setAdapter(null);
-        imageAdapter.setIngredients(ingredientsSelected);
-        gridView.setAdapter(imageAdapter);
+        tovagliaAdapter.setIngredients(ingredientsSelected);
+        gridView.setAdapter(tovagliaAdapter);
         gridView.invalidateViews();
 
     }
@@ -148,17 +143,22 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
 
     //method used to sort the arraylist of name of ingredients
-    private void reorderListIngredientsToCombine(){
-        Collections.sort(ingredientsToCombine, new Comparator<String>() {
+    private ArrayList<String> reorderListIngredientsToCombine(){
+        ArrayList<String> nameIngredients = new ArrayList<String>();
+        for(Ingredient ingredient:ingredientsCombined){
+            nameIngredients.add(ingredient.getName());
+        }
+        Collections.sort(nameIngredients, new Comparator<String>() {
             @Override
             public int compare(String s1, String s2) {
                 return s1.compareToIgnoreCase(s2);
             }
         });
+        return nameIngredients;
     }
 
     //get the hash of list ingredients to cook
-    private String hashListIngredientsToCombine(){
+    private String hashListIngredientsToCombine(ArrayList<String> ingredientsToCombine){
         String stringToHash = "";
         for(String ingredient:ingredientsToCombine){
             stringToHash +=ingredient;
@@ -229,12 +229,11 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     //if a dish is created, refresh  combined
     private void resetSelectionsIngredients(){
 
-        ingredientsToCombine.clear();
         ingredientsCombined.clear();
 
         cookerView.setAdapter(null);
-        imageAdapter2.setIngredients(ingredientsCombined);
-        cookerView.setAdapter(imageAdapter2);
+        tagliereAdapter.setIngredients(ingredientsCombined);
+        cookerView.setAdapter(tagliereAdapter);
 
     }
 
@@ -292,7 +291,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                 View parent = (View)ingredient_view.getParent();
                 int parent_id  = parent.getId();
 
-                if(parent_id==2131296398)
+                if(parent_id==R.id.cooker)
                   {
                       ingredient_view.setX(((View) event.getLocalState()).getX());
                       ingredient_view.setY(((View) event.getLocalState()).getY());
@@ -315,7 +314,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                 int parent_id  = parent.getId();
 
                 if (parent_id == v.getId()) { // we are moving in the down view
-                    if(parent_id==2131296398){
+                    if(parent_id==R.id.cooker){
 
                         ingredient_view.setX(((View) event.getLocalState()).getX());
                         ingredient_view.setY(((View) event.getLocalState()).getY());
@@ -348,32 +347,34 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
                     Log.d("COOKMANAGER", "NAME INGREDIENT " + ingredient.getName().toString() + " ");
 
-                    if (parent_id==2131296399) { //from down to up ( parent_id is the id of the gridview below )
+                    if (parent_id==R.id.ingredient_table) { //from down to up ( parent_id is the id of the gridview below )
 
-                        //add name of ingredient to ingredients selected to cook together
-                        ingredientsToCombine.add(holder.getText().getText().toString());
-                        ingredientsCombined.add(ingredient);
+                        if(ingredientsCombined.size()<4){
+                            //add name of ingredient to ingredients selected to cook together
+                            ingredientsCombined.add(ingredient);
 
-                        //remove ingredient from selected list in order to pass the correct
-                        //list to the new adapter
-                        ingredientsSelected.remove(ingredient);
+                            //remove ingredient from selected list in order to pass the correct
+                            //list to the new adapter
+                            ingredientsSelected.remove(ingredient);
 
-                        //refresh adapters of both the grid
-                        gridView.setAdapter(null);
-                        imageAdapter.setIngredients(ingredientsSelected);
-                        gridView.setAdapter(imageAdapter);
+                            //refresh adapters of both the grid
+                            gridView.setAdapter(null);
+                            tovagliaAdapter.setIngredients(ingredientsSelected);
+                            gridView.setAdapter(tovagliaAdapter);
 
 
 
-                        cookerView.setAdapter(null);
-                        imageAdapter2.setIngredients(ingredientsCombined);
-                        cookerView.setAdapter(imageAdapter2);
+                            cookerView.setAdapter(null);
+                            tagliereAdapter.setIngredients(ingredientsCombined);
+                            cookerView.setAdapter(tagliereAdapter);
+                        }else{
+
+                        }
 
 
                     } else { //from up to down
 
 
-                        ingredientsToCombine.remove(ingredient.getName());
                         ingredientsCombined.remove(ingredient);
 
                         //add ingredient to selected
@@ -381,12 +382,12 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
                         //refresh adapter
                         gridView.setAdapter(null);
-                        imageAdapter.setIngredients(ingredientsSelected);
-                        gridView.setAdapter(imageAdapter);
+                        tovagliaAdapter.setIngredients(ingredientsSelected);
+                        gridView.setAdapter(tovagliaAdapter);
 
                         cookerView.setAdapter(null);
-                        imageAdapter2.setIngredients(ingredientsCombined);
-                        cookerView.setAdapter(imageAdapter2);
+                        tagliereAdapter.setIngredients(ingredientsCombined);
+                        cookerView.setAdapter(tagliereAdapter);
 
                     }
 
@@ -399,6 +400,13 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                 }
 
             case DragEvent.ACTION_DRAG_ENDED:
+                /*View view = (View) event.getLocalState();
+                Log.d
+                View parentView = (View)view.getParent();
+                int parentId  = parentView.getId();
+                if (parentId==R.id.ingredient_table){
+                    view.findViewById(R.id.text).setVisibility(View.INVISIBLE);
+                }*/
 
             default:
                 break;

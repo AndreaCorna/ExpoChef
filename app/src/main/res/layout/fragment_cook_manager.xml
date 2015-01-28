@@ -40,13 +40,14 @@
                 android:layout_gravity="right" />
 
             <GridView
-                android:layout_width="188dp"
-                android:layout_height="174dp"
+                android:layout_width="159dp"
+                android:layout_height="150dp"
                 android:id="@+id/cooker"
-                android:numColumns="3"
+                android:numColumns="2"
+                android:columnWidth="50dp"
                 android:verticalSpacing="0dp"
                 android:horizontalSpacing="0dp"
-                android:stretchMode="columnWidth"
+                android:stretchMode="spacingWidthUniform"
                 android:layout_gravity="center"
                 />
 
