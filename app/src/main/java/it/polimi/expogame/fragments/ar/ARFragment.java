@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import it.polimi.expogame.R;
 
@@ -22,6 +23,8 @@ import it.polimi.expogame.R;
  *
  */
 public class ARFragment extends Fragment implements View.OnClickListener {
+
+    private ProgressBar spinner;
 
     public ARFragment() {
         // Required empty public constructor
@@ -38,6 +41,7 @@ public class ARFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_ar, container, false);
+        spinner = (ProgressBar)view.findViewById(R.id.loading_spinner);
 
         //Retrieve the button and register this fragment as the listener for him
         ImageView upButton = (ImageView)view.findViewById(R.id.buttonStartMetaio);
@@ -68,6 +72,7 @@ public class ARFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
+        spinner.setVisibility(View.VISIBLE);
         Intent i = new Intent(this.getActivity(),ARActivity.class);
         startActivity(i);
 
@@ -75,7 +80,9 @@ public class ARFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onResume(){
+
         super.onResume();
+        spinner.setVisibility(View.INVISIBLE);
 
     }
 }
