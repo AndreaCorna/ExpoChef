@@ -331,10 +331,8 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                   }
                 else
                  {
-                     float X = gridView.getWidth()/2;
-                     float Y = gridView.getHeight()/2;
-                     ingredient_view.setX(X);
-                     ingredient_view.setY(Y);
+                     ingredient_view.setX(((View) event.getLocalState()).getX());
+                     ingredient_view.setY(((View) event.getLocalState()).getY());
                      ingredient_view.setVisibility(View.VISIBLE);
                  }
             }
