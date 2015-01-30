@@ -1,5 +1,8 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+ >
 
-
-
+    <item android:id="@+id/action_start_map" android:title="Start map"
+         android:icon="@drawable/beef_icon"/>
+    <item android:id="@+id/action_start_capture" android:title="Start capture"
+          android:icon="@drawable/ic_launcher"/>
 </menu>

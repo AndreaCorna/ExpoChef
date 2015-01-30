@@ -1,6 +1,7 @@
 package it.polimi.expogame.activities;
 
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -30,6 +31,7 @@ import java.util.List;
 
 import it.polimi.expogame.R;
 import it.polimi.expogame.database.IngredientTable;
+import it.polimi.expogame.fragments.ar.ARActivity;
 import it.polimi.expogame.fragments.ar.ARFragment;
 import it.polimi.expogame.fragments.cook.CookManagerFragment;
 import it.polimi.expogame.fragments.map.ExpoMapFragment;
@@ -153,8 +155,8 @@ public class MainActivity extends ActionBarActivity {
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
 
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setHomeButtonEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(getResources().getDrawable(R.drawable.icon_ingredients));
 
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
@@ -237,10 +239,17 @@ public class MainActivity extends ActionBarActivity {
         }
         // Handle action bar actions click
         switch (item.getItemId()) {
+            case R.id.action_start_map:
+                //launchMapActivity();
+                break;
+            case R.id.action_start_capture:
+                launchCaptureActivity();
+                break;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
+        return true;
     }
 
     @Override
@@ -282,13 +291,18 @@ public class MainActivity extends ActionBarActivity {
         selectedViews.clear();
     }
 
+    private void launchCaptureActivity(){
+        Intent i = new Intent(this,ARActivity.class);
+        startActivity(i);
+    }
+
 
 }
 
 
 class CustomPagerAdapter extends FragmentPagerAdapter {
 
-    private static final int TAB_NUMBER = 4;
+    private static final int TAB_NUMBER = 2;
 
 
     public CustomPagerAdapter(FragmentManager fm) {
@@ -304,17 +318,17 @@ class CustomPagerAdapter extends FragmentPagerAdapter {
         //better way to implement but other problems because: 'never hold a reference to a Fragment outside of the Adapter'
         //switch link the tab number with the fragment which has to be used
         switch (position) {
-            case 0:
+            /*case 0:
                 fragment = new ExpoMapFragment();
                 break;
             case 1:
                 fragment = new ARFragment();
 
-                break;
-            case 2:
+                break;*/
+            case 0:
                 fragment = new CookManagerFragment();
                 break;
-            case 3:
+            case 1:
                 fragment = new RootFragment();
 
 
@@ -335,17 +349,17 @@ class CustomPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         String title = new String();
         switch (position) {
-            case 0:
+           /* case 0:
                 title = "MAP";
                 break;
             case 1:
                 title = "CATCH";
 
-                break;
-            case 2:
+                break;*/
+            case 0:
                 title = "COOK";
                 break;
-            case 3:
+            case 1:
                 title = "INFO";
 
 
