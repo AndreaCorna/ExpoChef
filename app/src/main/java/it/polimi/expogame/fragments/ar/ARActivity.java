@@ -55,7 +55,7 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
     //----MASCOTS MODELS OBJECT--------------
     private ArrayList<IGeometry> MascotsList;
     private ArrayList<Mascotte> Mascots;
-    private final int range = 50; //this is the range in which you can see a mascot
+    private final int range = 500; //this is the range in which you can see a mascot
 
     //----------------------------------------
 
@@ -161,7 +161,7 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
                 geos[i] = MascotsList.get(i);
             }
 
-            Rotation rot = new Rotation((float) (Math.PI / 2.0), 0.0f, -heading);
+            Rotation rot = new Rotation((float) (Math.PI / 2.0), 0.0f, (float) (Math.PI ));
             for (IGeometry geo : geos) {
                 if (geo != null) {
                     geo.setRotation(rot);
