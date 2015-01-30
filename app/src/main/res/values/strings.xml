@@ -41,7 +41,7 @@
     <string name="facebook_post_content_desc">Image to share</string>
     <string name="app_package_name">it.polimi.expogame</string>
 
-    <string name="success">ExpoGame</string>
+    <string name="success">ExpoChef</string>
     <string name="successfully_posted_post">Successfully post on Facebook</string>
     <string name="photo_post">Photo Post</string>
     <string name="ok">OK</string>
