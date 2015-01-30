@@ -174,9 +174,14 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
              **/
 
             for (IGeometry geo : geos) {
+                Log.d("ROTATION",""+geo.getRotation().getAxisAngle().getX());
                 if (geo != null) {
                     Rotation rot;
-                    rot = new Rotation((float) (Math.PI / 2.0), 0.0f,  (float) (Math.PI/2 ));
+                    Vector3d vector = new Vector3d();
+                    //geo.getRotation().setFromEulerAngleDegrees(new Vector3d(90,0,90));
+                    //rot = new Rotation((float) (Math.PI / 2), 0.0f,  (float) (Math.PI / 2));
+
+                    rot = new Rotation((float) (Math.PI / 2), 0.0f,  0);
 
                     geo.setRotation(rot);
                 }
