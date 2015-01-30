@@ -2,6 +2,7 @@ package it.polimi.expogame.fragments.ar;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -71,11 +72,7 @@ public class ARFragment extends Fragment implements View.OnClickListener {
      */
     @Override
     public void onClick(View v) {
-
-        spinner.setVisibility(View.VISIBLE);
-        Intent i = new Intent(this.getActivity(),ARActivity.class);
-        startActivity(i);
-
+        new launchMetaio().execute(this.getActivity());
     }
 
     @Override
@@ -85,4 +82,29 @@ public class ARFragment extends Fragment implements View.OnClickListener {
         spinner.setVisibility(View.INVISIBLE);
 
     }
-}
+
+
+    private class launchMetaio extends AsyncTask<Activity,Void,Void> {
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            spinner.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected Void doInBackground(Activity... params) {
+
+            Intent i = new Intent(params[0],ARActivity.class);
+            startActivity(i);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+        }
+    }
+
+    }
