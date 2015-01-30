@@ -46,6 +46,7 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
 
 {
     private ContentResolver cr;
+    private static final String TAG="ARActivity";
 
     //----GPS and LOCATION SERVICE OBJ-------------
     private GoogleApiClient mGoogleApiClient;
@@ -161,9 +162,22 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
             for (int i = 0; i < MascotsList.size(); i++) {
                 geos[i] = MascotsList.get(i);
             }
+            /**
             Rotation rot = new Rotation((float) (Math.PI / 2.0), 0.0f, (float) (Math.PI ));
+            
+            
             for (IGeometry geo : geos) {
                 if (geo != null) {
+                    geo.setRotation(rot);
+                }
+            }
+             **/
+
+            for (IGeometry geo : geos) {
+                if (geo != null) {
+                    Rotation rot;
+                    rot = new Rotation((float) (Math.PI / 2.0), 0.0f,  (float) (Math.PI/2 ));
+
                     geo.setRotation(rot);
                 }
             }
