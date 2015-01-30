@@ -200,9 +200,10 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
         m.reset();
         m.update(stringToHash.getBytes());
         byte[] digest = m.digest();
-        BigInteger bigInt = new BigInteger(1,digest);
-        String hashtext = bigInt.toString(16);
+        BigInteger bi = new BigInteger(1, digest);
+        String hashtext =  String.format("%0" + (digest.length << 1) + "x", bi);
         Log.d("HASH",hashtext);
+
         return hashtext;
     }
 
