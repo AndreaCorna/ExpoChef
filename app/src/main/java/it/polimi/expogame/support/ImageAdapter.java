@@ -44,6 +44,10 @@ public class ImageAdapter extends BaseAdapter {
 
     public void setIngredients(ArrayList<Ingredient> ingredients){
         this.ingredients = ingredients;
+        selectedHashTable.clear();
+        for(Ingredient ingredient:ingredients){
+            selectedHashTable.put(ingredient.getName(),new Boolean(false));
+        }
     }
 
     public void setSelected(String name,boolean isSelected){
