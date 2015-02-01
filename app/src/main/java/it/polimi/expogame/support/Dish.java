@@ -27,11 +27,11 @@ public class Dish {
         this.name = name;
         this.nationality = nationality;
         this.imageUrl = imageUrl;
-        this.description = description;
+        this.description = ConverterStringToStringXml.getStringFromXml(context,name.replaceAll(" ", "_").toLowerCase()+"_descr");
         this.zone = zone;
         this.created = created;
         this.hashIngredients = hashIngredients;
-        this.curiosity =curiosity;
+        this.curiosity = ConverterStringToStringXml.getStringFromXml(context,name.replaceAll(" ", "_").toLowerCase()+"_curiosity");
         this.difficulty = difficulty;
 
     }
@@ -80,11 +80,5 @@ public class Dish {
         return ConverterStringToStringXml.getStringFromXml(context.getApplicationContext(), nationality);
     }
 
-    /*public String getDescriptionTranslation(Context context){
-        return description;
-    }
 
-    public String getCuriosityTranslation(Context context){
-        return curiosity;
-    }*/
 }
