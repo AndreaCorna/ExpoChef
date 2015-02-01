@@ -44,4 +44,8 @@ public class Ingredient {
     public boolean isUnlocked() {
         return unlocked;
     }
+
+    public String getNameTranslation(){
+        return ConverterStringToStringXml.getStringFromXml(mContext,name.replaceAll(" ", "_").toLowerCase());
+    }
 }

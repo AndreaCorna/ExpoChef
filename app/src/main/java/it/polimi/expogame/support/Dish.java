@@ -1,5 +1,7 @@
 package it.polimi.expogame.support;
 
+import android.content.Context;
+
 /**
  * Created by Lorenzo on 22/12/14.
  */
@@ -15,10 +17,12 @@ public class Dish {
     private String hashIngredients;
     private String curiosity;
     private  Integer difficulty;
+    private Context context;
 
     public Dish(){}
 
-    public Dish(long id, String name, String nationality, String imageUrl, String description, String zone, boolean created, String hashIngredients,String curiosity,Integer difficulty){
+    public Dish(Context context,long id, String name, String nationality, String imageUrl, String description, String zone, boolean created, String hashIngredients,String curiosity,Integer difficulty){
+        this.context = context;
         this.id = id;
         this.name = name;
         this.nationality = nationality;
@@ -72,4 +76,15 @@ public class Dish {
         return difficulty;
     }
 
+    public String getTranslationNationality(){
+        return ConverterStringToStringXml.getStringFromXml(context.getApplicationContext(), nationality);
+    }
+
+    /*public String getDescriptionTranslation(Context context){
+        return description;
+    }
+
+    public String getCuriosityTranslation(Context context){
+        return curiosity;
+    }*/
 }

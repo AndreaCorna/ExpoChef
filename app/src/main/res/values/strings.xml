@@ -49,4 +49,75 @@
     <string name="label_curiosity">Curiosity</string>
     <string name="difficulty">difficulty</string>
 
+
+    <string name="not_found">not found</string>
+
+    <!--NATIONALITY NAME -->
+    <string name="italia">italy</string>
+    <string name="francia">france</string>
+    <string name="giappone">japan</string>
+    <string name="libia">libya</string>
+    <string name="nuova_zelanda">new zealand</string>
+    <string name="regno_unito">united kingdom</string>
+    <string name="russia">russia</string>
+    <string name="stati_uniti">US</string>
+    <string name="ucraina">ukraine</string>
+
+    <!-- ZONE NAME -->
+    <string name="sud_america">south america</string>
+    <string name="nord_america">north america</string>
+    <string name="africa">africa</string>
+    <string name="america_centrale">central america</string>
+    <string name="estremo_oriente">far east</string>
+    <string name="oceania">oceania</string>
+    <string name="medio_oriente">middle east</string>
+    <string name="ovest_europa">west europe</string>
+    <string name="est_europa">east europe</string>
+
+    <!-- INGREDIENTS NAME -->
+    <string name="kiwi">kiwi</string>
+    <string name="fragola">strawberry</string>
+    <string name="crostaceo">crustacean</string>
+    <string name="tonno">tuna</string>
+    <string name="merluzzo">cod</string>
+    <string name="spezie">spices</string>
+    <string name="piselli">peas</string>
+    <string name="aglio">garlic</string>
+    <string name="prezzemolo">parsley</string>
+    <string name="vine_leaf">vine leaf</string>
+    <string name="caprone">goat</string>
+    <string name="mucca">cow</string>
+    <string name="pomodoro">tomato</string>
+    <string name="riso">rice</string>
+    <string name="patate">potatoes</string>
+    <string name="poblano">poblano</string>
+    <string name="maiale">pork</string>
+    <string name="peperoncino">pepper</string>
+    <string name="origano">oregano</string>
+    <string name="cipolla">onion</string>
+    <string name="funghi">mushrooms</string>
+    <string name="latte">milk</string>
+    <string name="farina">flour</string>
+    <string name="uova">eggs</string>
+    <string name="anatra">duck</string>
+    <string name="pollo">chicken</string>
+    <string name="cavolo">cabbage</string>
+    <string name="pane">bread</string>
+    <string name="fagioli">beans</string>
+    <string name="mozzarella">mozzarella</string>
+    <string name="formaggio">cheese</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </resources>

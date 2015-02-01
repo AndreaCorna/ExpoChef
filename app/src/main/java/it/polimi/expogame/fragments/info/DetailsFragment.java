@@ -1,7 +1,6 @@
 package it.polimi.expogame.fragments.info;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import  android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -16,6 +15,7 @@ import java.util.HashMap;
 
 import it.polimi.expogame.R;
 import it.polimi.expogame.support.ConverterImageNameToDrawableId;
+import it.polimi.expogame.support.ConverterStringToStringXml;
 import it.polimi.expogame.support.Dish;
 
 
@@ -81,7 +81,7 @@ public class DetailsFragment extends Fragment{
             TextView curiosityDish = (TextView) view.findViewById(R.id.curiosity_dish);
             curiosityDish.setText(dish.getCuriosity());
             TextView nationality = (TextView) view.findViewById(R.id.nationality_dish);
-            nationality.setText(dish.getNationality());
+            nationality.setText(dish.getTranslationNationality());
             ImageView difficultyStars = (ImageView) view.findViewById(R.id.imageDifficulty);
             Log.d(Tag,"dish "+dish.getName()+"   "+dish.getDifficulty());
             difficultyStars.setImageResource(difficultyStarsMap.get(dish.getDifficulty()));

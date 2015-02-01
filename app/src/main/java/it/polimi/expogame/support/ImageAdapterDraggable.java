@@ -95,7 +95,7 @@ public class ImageAdapterDraggable extends BaseAdapter {
         //setting the view elements with the actual content on the ingredient in holder object
         //in this way not a problem if change order of arraylist
         picture.setImageResource(vh.getIngredient().getDrawableImage());
-        name.setText(vh.getIngredient().getName());
+        name.setText(vh.getIngredient().getNameTranslation());
         v.setOnTouchListener(new MyTouchListener());
 
         return v;
