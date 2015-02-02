@@ -63,15 +63,6 @@
     <string name="stati_uniti">US</string>
     <string name="ucraina">ukraine</string>
 
-    <!-- MASCOT CATEGORY -->
-    <string name="frutta">fruit</string>
-    <string name="fish">fish</string>
-    <string name="latticini">dairy</string>
-    <string name="basic">basic</string>
-    <string name="verdura_hot">hot vegetables</string>
-    <string name="carne">meat</string>
-    <string name="verdura">vegetables</string>
-
 
     <!-- ZONE NAME -->
     <string name="sud_america">south america</string>
@@ -146,9 +137,14 @@
     <string name="pabellón_criollo_curiosity">Venezuelan history goes into this dish, since its inception has fed his people, has always been associated to the battles for independence carried out by simon bolivar said "El Libertador", the "Garibaldi" Venezuelan</string>
 
 
-
-
-
+    <!-- MASCOT CATEGORY -->
+    <string name="frutta">fruit</string>
+    <string name="fish">fish</string>
+    <string name="latticini">dairy</string>
+    <string name="basic">basic</string>
+    <string name="verdura_hot">hot vegetables</string>
+    <string name="carne">meat</string>
+    <string name="verdura">vegetables</string>
 
 
 
