@@ -47,7 +47,7 @@ public class DetailsActivity extends ActionBarActivity {
         boolean created = getIntent().getBooleanExtra("createdDish",false);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new DetailsFragment(new Dish(id, name, nationality, imageUrl, description, zone, created,null,curiosity,difficulty)))
+                    .add(R.id.container, new DetailsFragment(new Dish(getApplicationContext(),id, name, nationality, imageUrl, description, zone, created,null,curiosity,difficulty)))
                     .commit();
         }
         setTitle(getTitle()+" "+name);

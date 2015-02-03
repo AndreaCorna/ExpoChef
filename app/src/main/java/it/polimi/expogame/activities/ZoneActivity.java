@@ -17,6 +17,7 @@ public class ZoneActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String zone = getIntent().getStringExtra("zone");
+        String translation = getIntent().getStringExtra("translation");
         setContentView(R.layout.activity_zone);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -24,7 +25,7 @@ public class ZoneActivity extends ActionBarActivity {
                     .commit();
         }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setTitle(Character.toString(zone.charAt(0)).toUpperCase()+zone.substring(1));
+        setTitle(Character.toString(translation.charAt(0)).toUpperCase()+translation.substring(1));
     }
 
 

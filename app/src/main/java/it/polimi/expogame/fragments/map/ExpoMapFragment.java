@@ -39,6 +39,7 @@ import it.polimi.expogame.R;
 import it.polimi.expogame.database.ExpoGameDbHelper;
 import it.polimi.expogame.database.MascotsTable;
 import it.polimi.expogame.providers.MascotsProvider;
+import it.polimi.expogame.support.ConverterStringToStringXml;
 import it.polimi.expogame.support.Mascotte;
 
 /**
@@ -281,11 +282,11 @@ public class ExpoMapFragment extends Fragment implements OnMapReadyCallback, Goo
         while(cursor.moveToNext()){
             float lat = cursor.getFloat(cursor.getColumnIndexOrThrow(MascotsTable.COLUMN_LATITUDE));
             float lng = cursor.getFloat(cursor.getColumnIndexOrThrow(MascotsTable.COLUMN_LONGITUDE));
-
+            String category = cursor.getString(cursor.getColumnIndexOrThrow(MascotsTable.COLUMN_CATEGORY));
             googleMap.addMarker(new MarkerOptions()
                     .position(new LatLng(lat, lng))
                     .title(cursor.getString(cursor.getColumnIndexOrThrow(MascotsTable.COLUMN_NAME)))
-                    .snippet(cursor.getString(cursor.getColumnIndexOrThrow(MascotsTable.COLUMN_CATEGORY))));
+                    .snippet(ConverterStringToStringXml.getStringFromXml(getActivity().getApplicationContext(),category)));
 
         }
 

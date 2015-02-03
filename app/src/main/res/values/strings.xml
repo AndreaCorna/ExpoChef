@@ -49,4 +49,115 @@
     <string name="label_curiosity">Curiosity</string>
     <string name="difficulty">difficulty</string>
 
+
+    <string name="not_found">not found</string>
+
+    <!--NATIONALITY NAME -->
+    <string name="italia">italy</string>
+    <string name="francia">france</string>
+    <string name="giappone">japan</string>
+    <string name="libia">libya</string>
+    <string name="nuova_zelanda">new zealand</string>
+    <string name="regno_unito">united kingdom</string>
+    <string name="russia">russia</string>
+    <string name="stati_uniti">US</string>
+    <string name="ucraina">ukraine</string>
+
+
+    <!-- ZONE NAME -->
+    <string name="sud_america">south america</string>
+    <string name="nord_america">north america</string>
+    <string name="africa">africa</string>
+    <string name="america_centrale">central america</string>
+    <string name="estremo_oriente">far east</string>
+    <string name="oceania">oceania</string>
+    <string name="medio_oriente">middle east</string>
+    <string name="ovest_europa">west europe</string>
+    <string name="est_europa">east europe</string>
+
+    <!-- INGREDIENTS NAME -->
+    <string name="kiwi">kiwi</string>
+    <string name="fragola">strawberry</string>
+    <string name="crostaceo">crustacean</string>
+    <string name="tonno">tuna</string>
+    <string name="merluzzo">cod</string>
+    <string name="spezie">spices</string>
+    <string name="piselli">peas</string>
+    <string name="aglio">garlic</string>
+    <string name="prezzemolo">parsley</string>
+    <string name="vine_leaf">vine leaf</string>
+    <string name="caprone">goat</string>
+    <string name="mucca">cow</string>
+    <string name="pomodoro">tomato</string>
+    <string name="riso">rice</string>
+    <string name="patate">potatoes</string>
+    <string name="poblano">poblano</string>
+    <string name="maiale">pork</string>
+    <string name="peperoncino">chili pepper</string>
+    <string name="origano">oregano</string>
+    <string name="cipolla">onion</string>
+    <string name="funghi">mushrooms</string>
+    <string name="latte">milk</string>
+    <string name="farina">flour</string>
+    <string name="uova">eggs</string>
+    <string name="anatra">duck</string>
+    <string name="pollo">chicken</string>
+    <string name="cavolo">cabbage</string>
+    <string name="pane">bread</string>
+    <string name="fagioli">beans</string>
+    <string name="mozzarella">mozzarella</string>
+    <string name="formaggio">cheese</string>
+
+    <!-- DESCRIPTIONS DISHES -->
+    <string name="pizza_descr">the pizza is a delicacy typical of Neapolitan cuisine, today, with the pasta, the best known of Italian gastronomy. with this name, virtually unknown beyond the city walls Neapolitan, even in the nineteenth century, is indicated cakes, almost always sweet. it was not until the early nineteenth century that the pizza assumed, always in Naples, its current connotation, the next global success of the dish, led by extension, to define in the same way any similar preparation.</string>
+    <string name="varenyky_descr">the Varenyky are a traditional dish of pasta stuffed Ukrainian triangular or half moon, with stuffed potato, meat, cheese or soft berries (cherries, blueberries etc.). this dish is considered one of the most traditional dishes of Ukraine.</string>
+    <string name="pelmeni_descr">pelmeni are a traditional dish of Siberia and central-eastern europe product stuffed with mixed meat, wrapped in a thin sheet (made of flour and eggs, sometimes with the addition of milk or water). pork, lamb, beef, or any other type of meat can be used as a filling; mix up the different types is a common custom</string>
+    <string name="pavlova_descr">the pavlova is a sweet summer of Australian origin. the base of the pavlova consists of a meringue covered with whipped cream and decorated with fresh fruits, such as berries, strawberries and kiwi. the difficulty in this dessert is to be able to prepare a meringue golden, crispy on the outside and very soft inside but the end result will definitely tasty. pairing with fresh fruit and cream gives the pavlova a special flavor and makes this cake a sweet very good and tasty.</string>
+    <string name="bazeen_descr">bazeen is one of the most typical dishes of North Africa. it\'s among the most widespread in western Libya, and is often served for lunch on Friday. There are variations of bazeen lamb, containing camel meat, chicken, squid or beans. a variant of winter bazeen is served with a soup hassa made with dried meat.</string>
+    <string name="sushi_descr">in Japanese cuisine sushi is a food made of rice along with other ingredients such as fish, algae, plants or eggs. the filling can be raw, cooked or marinated and can be served resting on rice, rolled in a strip of seaweed, placed in rice rolls or inserted into a small pocket of tofu. in Japan the word sushi literally means "acid" and refers to a wide range of foods made with rice. outside of japan is often understood as raw fish, or as a reference to a restricted kind of Japanese foods, such as maki or nigiri and sashimi.</string>
+    <string name="ajiaco_descr">the ajiaco is a thick soup and particularly popular in Colombia. is one of the most beloved national dishes and there are several variables; the best known is the ajiaco bogotano or ajiaco santafereño, which takes its name from Bogotá (ancient name of bogota), the capital of Colombia, where this dish is a cultural tradition</string>
+    <string name="feijoada_descr">feijoada is one of the typical dishes of Brazilian cuisine, probably the best known and representative. The term comes from feijão that in Portuguese is going to bean, this being one of the typical ingredients.</string>
+    <string name="hamburger_descr">the burger (also called in Italian Swiss or pressed) is a meatball minced meat and pressed - usually beef but also chicken - cooked mostly on the plate. the term, with the spread of international chain of fast food is passed to identify even a sandwich consisting of bread, minced beef (hamburger, in fact), sauces and condiments.</string>
+    <string name="crespella_descr">the pancake, also known by the French term of crepe is a type of wafer thin, soft and supple, cooked on a hot surface round.</string>
+    <string name="fish_and_chips_descr">the fish and chips is a typical dish of British cuisine. consists of white fish fillet (usually Gadidae such as cod or haddock) fried in batter and surrounded by abundant and thick chips, also fried, choices among cultivars floury maris piper, king edward or Desirée. is served with a sprinkle of salt and vinegar</string>
+    <string name="pabellón_criollo_descr">the preparation of this dish stewed gives rise to a very soft and shredded meat, which lends itself well to the filling of many other local foods such as arepas and empanadas. Today this recipe is prepared thanks to a pressure cooker, which leaves the soft flesh without having to tap it in advance and that allows us to achieve the right degree of doneness.</string>
+
+
+    <string name="pizza_curiosity">feltham in London, a new record for the most distant pizza delivery is up to lucy clough. a pizza was cooked on November 17, 2004 and has traveled a distance of 16949 km to be delivered in ramsey street, melbourne, 19 November 2004. pizza louis xiii for two people costs € 8,300.00 pizza royale 007 created in new york costs € 3,000.00</string>
+    <string name="varenyky_curiosity">popular saying "come what may just think there are the vareniki". vareniks are one of the favorite dishes by Ukrainians. vareniks the word means "boiled" and can be compared to Italian ravioli. some versions of this dish can be found in the kitchen Belarusian, Polish, Lithuanian and Russian.</string>
+    <string name="pelmeni_curiosity">pelmeni the word comes from the language komi-permiak, one of the Finno-Ugric peoples who inhabited the northern russia, and means "ears of pasta". this dish, from the Ural region, was already been assimilated by the Russian cuisine in the end of the fourteenth century, but became particularly common at the beginning of the colonization of land transuraliche. pelmeni, whose origins are ancient and are therefore probably derived from the rituals of the peoples of the north-east of Russia (permiaki, Komi, udmurty well as the Tartars of Siberia) were known by other Finno-Ugric peoples, although under other names.</string>
+    <string name="pavlova_curiosity">according to the best hypothesis this cake was created in 1926, by the chef of a hotel in Wellington, in New Zealand, in honor of anna pavlova.</string>
+    <string name="bazeen_curiosity">the origins of this dish can be attributed to the presence in the past of a Jewish community in the country of Libya; Now is slowly disappearing.</string>
+    <string name="sushi_curiosity">to become a sushi chef in Japan, you need a course of study and practice of minimum two years, where you will learn how to cut the fish in a surgical and little secrets like the "massage" of the octopus before serving.</string>
+    <string name="ajiaco_curiosity">the recipe for this simple soup Colombian comes to us from carlo ordoñez, member of the conduct of slow food bogotá. his is an unusual history. carlo, in fact, has covered the entire country in search of traditional recipes and in one year it has collected 2700.</string>
+    <string name="feijoada_curiosity">the long cooking makes the dish more digestible than it seems. in Brazil, because of the preparation time challenging, not all restaurants serve feijoada, and those who have normally in the menu serve on set days, usually on weekends.</string>
+    <string name="hamburger_curiosity">Americans are the largest consumers, with 13 billion hamburgers consumed per year: put side by side, circonderebbero the earth 32 times.</string>
+    <string name="crespella_curiosity">legend says that the crepe was born when Pope Gelasius, to feed a large number of French pilgrims arrived in Rome, he put together by chefs Vatican a significant amount of eggs and flour. everything was cooked on hot plates thus giving rise to the first rudimentary cracks. But setting aside the legends, we can say that in the Middle Ages milk, precious and nutritious element, was often replaced by water or wine and that the modern recipe, which uses mainly wheat flour, was born probably around the ninth century.</string>
+    <string name="fish_and_chips_curiosity">the largest portion of fish and chips ever served weighs 47.75 kg (105 lb 4 oz) and was made from fish and chips @ ltd in London on 30 July 2012. The weight of the raw ingredients were: fish 21.65 kg (47 pounds 11 oz), chip 43.24 kg (95 lb 5 oz) and batter 1.914 g (4 lb 3 oz).</string>
+    <string name="pabellón_criollo_curiosity">Venezuelan history goes into this dish, since its inception has fed his people, has always been associated to the battles for independence carried out by simon bolivar said "El Libertador", the "Garibaldi" Venezuelan</string>
+
+
+    <!-- MASCOT CATEGORY -->
+    <string name="frutta">fruit</string>
+    <string name="fish">fish</string>
+    <string name="latticini">dairy</string>
+    <string name="basic">basic</string>
+    <string name="verdura_hot">hot vegetables</string>
+    <string name="carne">meat</string>
+    <string name="verdura">vegetables</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </resources>

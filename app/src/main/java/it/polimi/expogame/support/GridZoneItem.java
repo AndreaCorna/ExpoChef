@@ -2,8 +2,6 @@ package it.polimi.expogame.support;
 
 import android.content.Context;
 
-import it.polimi.expogame.R;
-
 /**
  * Item for the grid view in the zone list
  */
@@ -18,6 +16,7 @@ public class GridZoneItem {
         this.context = mContext;
         this.name = name;
         this.idDrawable = ConverterImageNameToDrawableId.convertImageNameToDrawable(context,imageUlr);
+
     }
 
     public String getName() {
@@ -26,6 +25,11 @@ public class GridZoneItem {
 
     public int getIdDrawable() {
         return idDrawable;
+    }
+
+    public String getTranslation(){
+        String translation = ConverterStringToStringXml.getStringFromXml(context, name);
+        return Character.toString(translation.charAt(0)).toUpperCase()+translation.substring(1);
     }
 
 

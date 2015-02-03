@@ -73,7 +73,8 @@ public class WorldFragment extends Fragment  {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 String zone = ((GridZoneItem)gridZones.getAdapter().getItem(position)).getName();
-                loadDishesByZone(zone);
+                String translation = ((GridZoneItem)gridZones.getAdapter().getItem(position)).getTranslation();
+                loadDishesByZone(zone,translation);
             }
         });
 
@@ -106,7 +107,7 @@ public class WorldFragment extends Fragment  {
      */
     private void loadZones() {
 
-        ArrayList<String> zoneList = new ArrayList<String>();
+       // ArrayList<String> zoneList = new ArrayList<String>();
 
 
         Uri uri = Uri.parse(DishesProvider.CONTENT_URI+"/zones");
@@ -118,7 +119,7 @@ public class WorldFragment extends Fragment  {
             while (cursor.isAfterLast() == false){
                 String zone = cursor.getString(cursor.getColumnIndexOrThrow(ZonesTable.COLUMN_ZONE));
                 String image = cursor.getString(cursor.getColumnIndexOrThrow(ZonesTable.COLUMN_IMAGE));
-                listZones.add(new GridZoneItem(getActivity(),Character.toString(zone.charAt(0)).toUpperCase()+zone.substring(1),image));
+                listZones.add(new GridZoneItem(getActivity(),zone,image));
                 Log.d(TAG,zone);
                 cursor.moveToNext();
             }
@@ -130,9 +131,9 @@ public class WorldFragment extends Fragment  {
 
         cursor.close();
 
-        for(String name:zoneList){
+        /*for(String name:zoneList){
             listZones.add(new GridZoneItem(getActivity(),name,"cancel.png"));
-        }
+        }*/
         adapterGridZones = new GridZonesAdapter(getActivity(),listZones);
         gridZones.setAdapter(adapterGridZones);
 
@@ -141,10 +142,11 @@ public class WorldFragment extends Fragment  {
     /**
      * Start the activity to show the dishes of one zone. The name of zone is passde with and intent extra
      */
-    private void loadDishesByZone(String zone){
+    private void loadDishesByZone(String zone, String translation){
 
         Intent intent = new Intent(getActivity().getApplicationContext(), ZoneActivity.class);
         intent.putExtra("zone",zone);
+        intent.putExtra("translation",translation);
         startActivity(intent);
 
 

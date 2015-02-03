@@ -91,7 +91,7 @@ public class ImageAdapter extends BaseAdapter {
 
         //setting the view elements with the actual content on the ingredient at position: "position"
         picture.setImageResource(ingredient.getDrawableImage());
-        name.setText(ingredient.getName());
+        name.setText(ingredient.getNameTranslation());
         if(selectedHashTable.get(ingredient.getName())){
             v.setBackgroundColor(Color.LTGRAY);
 

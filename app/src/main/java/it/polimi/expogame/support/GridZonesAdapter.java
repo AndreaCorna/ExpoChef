@@ -49,7 +49,7 @@ public class GridZonesAdapter extends BaseAdapter {
 
         TextView title = (TextView)convertView.findViewById(R.id.text_zone);
 
-        title.setText(gridZoneItems.get(position).getName());
+        title.setText(gridZoneItems.get(position).getTranslation());
         ImageView image = (ImageView)convertView.findViewById(R.id.picture_zone);
         image.setImageResource(gridZoneItems.get(position).getIdDrawable());
 
