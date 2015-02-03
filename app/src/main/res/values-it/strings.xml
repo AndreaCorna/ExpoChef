@@ -29,7 +29,7 @@
     <string name="difficulty">Difficoltà</string>
     <string name="map_pager_label">Mappa</string>
     <string name="catch_pager_label">Cattura</string>
-    <string name="cook_pager_label">Cook</string>
+    <string name="cook_pager_label">Cucina</string>
     <string name="info_pager_label">Info</string>
 
     <!--Facebook share intent Strings-->
