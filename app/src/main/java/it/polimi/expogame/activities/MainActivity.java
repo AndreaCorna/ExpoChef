@@ -1,6 +1,7 @@
 package it.polimi.expogame.activities;
 
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -35,6 +36,7 @@ import it.polimi.expogame.fragments.cook.CookManagerFragment;
 import it.polimi.expogame.fragments.map.ExpoMapFragment;
 import it.polimi.expogame.fragments.info.RootFragment;
 import it.polimi.expogame.providers.IngredientsProvider;
+import it.polimi.expogame.support.ConverterStringToStringXml;
 import it.polimi.expogame.support.ImageAdapter;
 import it.polimi.expogame.support.Ingredient;
 
@@ -145,7 +147,7 @@ public class MainActivity extends ActionBarActivity {
         });
         FragmentManager fragmentManager = getSupportFragmentManager();
         //creating the adapter to attach to the viewPager
-        customPagerAdapter = new CustomPagerAdapter(fragmentManager);
+        customPagerAdapter = new CustomPagerAdapter(fragmentManager,getApplicationContext());
 
         viewPager.setAdapter(customPagerAdapter);
 
@@ -289,12 +291,19 @@ public class MainActivity extends ActionBarActivity {
 class CustomPagerAdapter extends FragmentPagerAdapter {
 
     private static final int TAB_NUMBER = 4;
-
+    private Context context;
 
     public CustomPagerAdapter(FragmentManager fm) {
         super(fm);
 
     }
+
+    public CustomPagerAdapter(FragmentManager fm, Context context) {
+        super(fm);
+        this.context = context;
+
+    }
+
 
     @Override
 
@@ -336,17 +345,17 @@ class CustomPagerAdapter extends FragmentPagerAdapter {
         String title = new String();
         switch (position) {
             case 0:
-                title = "MAP";
+                title = ConverterStringToStringXml.getStringFromXml(context,"map_pager_label");
                 break;
             case 1:
-                title = "CATCH";
+                title = ConverterStringToStringXml.getStringFromXml(context,"catch_pager_label");
 
                 break;
             case 2:
-                title = "COOK";
+                title = ConverterStringToStringXml.getStringFromXml(context,"cook_pager_label");
                 break;
             case 3:
-                title = "INFO";
+                title = ConverterStringToStringXml.getStringFromXml(context,"info_pager_label");
 
 
         }

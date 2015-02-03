@@ -27,6 +27,10 @@
     <string name="tutorial_text">Ti spiegherò\ncome cucinare\ni tuoi piatti:Trova la mascot:Catturala:Clicca in alto per\nscegliere gli ingredienti:trascinali sul tagliere:...e cucina!!!</string>
     <string name="label_curiosity">Curiosità</string>
     <string name="difficulty">Difficoltà</string>
+    <string name="map_pager_label">Mappa</string>
+    <string name="catch_pager_label">Cattura</string>
+    <string name="cook_pager_label">Cook</string>
+    <string name="info_pager_label">Info</string>
 
     <!--Facebook share intent Strings-->
     <string name="facebook_default_text">Inserisci il tuo testo</string>

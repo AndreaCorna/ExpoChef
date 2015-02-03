@@ -27,6 +27,10 @@
     <string name="tutorial_text">I\'ll explain you how\nto cook your dishes:Find the mascot:Capture it:Click on top to select ingredients:Drag them on chopping board:...and cook!!!</string>
     <string name="label_curiosity">Curiosity</string>
     <string name="difficulty">Difficulty</string>
+    <string name="map_pager_label">Map</string>
+    <string name="catch_pager_label">Catch</string>
+    <string name="cook_pager_label">Cook</string>
+    <string name="info_pager_label">Info</string>
 
     <!--Facebook share intent Strings-->
     <string name="facebook_default_text">Please enter your text here</string>
