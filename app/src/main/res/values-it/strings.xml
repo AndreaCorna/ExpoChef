@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- COMMON TO ALL STRINGS -->
+    <string name="app_name">ExpoChef</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_ar">ARActivity</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="catchit">Catturali!</string>
+    <string name="metaioSDKSignature">i3NJrPOwc7AA7giMfmDw356rP555ImvzM4J1W2J8FR0=</string>
+    <string name="title_activity_facebook_share">Facebook</string>
+    <string name="app_id">558852617585267</string>
+    <string name="app_package_name">it.polimi.expogame</string>
+
+    <!-- LABELS -->
+    <string name="label_description">Descrizione</string>
+    <string name="label_nationality">Nazionalità</string>
+    <string name="title_activity_details">Dettagli di</string>
+    <string name="string_options">opzioni</string>
+    <string name="title_activity_zone">ZoneActivity</string>
+    <string name="list_zone_activity">Lista dei piatti</string>
+    <string name="label_list_zones">Lista delle zone</string>
+    <string name="label_slider">Ingredienti</string>
+    <string name="cook_button_label">Cucina!</string>
+    <string name="message_toast_cook">Non una buona scelta...</string>
+    <string name="start_text_tutorial">Ciao!</string>
+    <string name="tutorial_text">Ti spiegherò\ncome cucinare\ni tuoi piatti:Trova la mascot:Catturala:Clicca in alto per\nscegliere gli ingredienti:trascinali sul tagliere:...e cucina!!!</string>
+    <string name="label_curiosity">Curiosità</string>
+    <string name="difficulty">Difficoltà</string>
+
+    <!--Facebook share intent Strings-->
+    <string name="facebook_default_text">Inserisci il tuo testo</string>
+    <string name="title_post_text">Scrivi il Post</string>
+    <string name="post_button_text">Posta</string>
+    <string name="title_facebook_login">Facebook Login</string>
+    <string name="sharing_facebook_toast">Condividendo in facebook...</string>
+    <string name="happy_message_facebook">Sono molto contento. Ho appena creato</string>
+    <string name="sharing_facebook_toast_no_internet">Non connesso a internet</string>
+
+
+    <!--LIVE APP ID-->
+    <string name="facebook_post_content_desc">Immagine da condividere</string>
+
+    <string name="success">ExpoChef</string>
+    <string name="successfully_posted_post">Condivisione avvenuta con successo</string>
+    <string name="photo_post">Posta una foto</string>
+    <string name="ok">OK</string>
+    <string name="error">errore</string>
+
+
+
+    <string name="not_found">non trovato</string>
+
+    <!-- INGREDIENTS NAMES -->
+    <string name="kiwi">kiwi</string>
+    <string name="fragola">fragola</string>
+    <string name="crostaceo">crostaceo</string>
+    <string name="tonno">tonno</string>
+    <string name="merluzzo">merluzzo</string>
+    <string name="spezie">spezie</string>
+    <string name="piselli">piselli</string>
+    <string name="aglio">aglio</string>
+    <string name="prezzemolo">prezzemolo</string>
+    <string name="vine_leaf">vine leaf</string>
+    <string name="caprone">caprone</string>
+    <string name="mucca">mucca</string>
+    <string name="pomodoro">pomodoro</string>
+    <string name="riso">riso</string>
+    <string name="patate">patate</string>
+    <string name="poblano">poblano</string>
+    <string name="maiale">maiale</string>
+    <string name="peperoncino">peperoncino</string>
+    <string name="origano">origano</string>
+    <string name="cipolla">cipolla</string>
+    <string name="funghi">funghi</string>
+    <string name="mozzarella">mozzarella</string>
+    <string name="latte">latte</string>
+    <string name="farina">farina</string>
+    <string name="uova">uova</string>
+    <string name="anatra">anatra</string>
+    <string name="pollo">pollo</string>
+    <string name="formaggio">formaggio</string>
+    <string name="cavolo">cavolo</string>
+    <string name="pane">pane</string>
+    <string name="fagioli">fagioli</string>
+    <!-- ZONES NAMES -->
+    <string name="sud_america">sud america</string>
+    <string name="oceania">oceania</string>
+    <string name="nord_america">nord america</string>
+    <string name="medio_oriente">medio oriente</string>
+    <string name="ovest_europa">ovest europa</string>
+    <string name="est_europa">est europa</string>
+    <string name="estremo_oriente">estremo oriente</string>
+    <string name="america_centrale">america centrale</string>
+    <string name="africa">africa</string>
+    <!-- DISHES NAMES - DESCRIPTIONS - CURIOSITY -->
+    <string name="ucraina">ucraina</string>
+    <string name="varenyky_descr">i varénykisono un piatto tradizionale ucraino di pasta  ripiena di forma triangolare o a mezza luna, con ripieni a base di patate, carne, formaggio fresco molle o bacche (ciliegie, mirtilli ecc.).&#xD;
+        questo piatto è considerato uno dei piatti più tradizionali dell\'ucraina.</string>
+    <string name="varenyky_curiosity">detto popolare “succeda quel che succeda basta che ci siano i vareniki”.&#xD;
+        i vareniki sono uno dei piatti favoriti dagli ucraini. la parola vareniki significa “bollito” e possono essere paragonati ai ravioli italiani. alcune varianti di questo piatto possono essere trovati anche nella cucina bielorussa, polacca, lituana e russa.</string>
+    <string name="russia">russia</string>
+    <string name="pelmeni_descr">i pelmeni sono un piatto tradizionale della siberia e dell\'europa centro-orientale prodotto con ripieno di carni miscelate, avvolto in una sfoglia sottile (composta di farina e uova, talvolta con l\'aggiunta di latte o acqua). maiale, agnello, manzo, oppure qualunque altro tipo di carne può essere usato come ripieno; il mischiarne diversi tipi è un\'usanza comune</string>
+    <string name="pelmeni_curiosity">la parola pelmeni proviene dalla lingua komi-permiak, uno dei popoli ugro-finnici che abitavano la russia settentrionale, e significa “orecchi di pasta”.questo piatto, dalla regione degli urali , era gia’ stato assimilato dalla cucina russa nella fine del xiv secolo, ma divento’ particolarmente diffuso all’inizio della colonizzazione delle terre transuraliche. i pelmeni, le cui origini sono quindi sono antichissime e di probabile derivazione dai rituali di popoli del nord-est della russia (permiaki, komi, udmurty, nonche’ dei tartari della siberia) erano conosciuti da altri popoli ugro-finnici, anche se sotto altri nomi. </string>
+    <string name="italia">italia</string>
+    <string name="pizza_descr">la pizza è un prodotto gastronomico tipico della cucina napoletana, oggi, con le paste alimentari, il più conosciuto della gastronomia italiana. con questo nome, praticamente ignoto al di là della cinta urbana napoletana, ancora nel xix secolo, si indicavano le torte, quasi sempre dolci. fu solo a partire dagli inizi del xix secolo che la pizza assunse, sempre a napoli, la sua attuale connotazione, il successivo successo planetario della pietanza, ha portato per estensione, a definire nello stesso modo qualsiasi preparazione analoga.</string>
+    <string name="pizza_curiosity">a feltham, londra, il nuovo record per la più \r\ndistante consegna di pizza spetta a lucy clough.\r\nuna pizza vegetarianaè stata cotta il 17 novembre\r\n2004 ed ha percorso una distanza di 16949 km\r\nper essere consegnata in ramsey street, a melbourne,\r\nil 19 novembre 2004.\r\nla pizza louis xiii per 2 persone costa € 8.300,00\r\nla pizza royale 007 creata a new york costa € 3.000,00\r\n</string>
+    <string name="nuova_zelanda">nuova zelanda</string>
+    <string name="pavlova_descr">la pavlova è un dolce estivo di origine australiana. la base della pavlova è costituita da una meringa coperta di panna montata e decorata con frutta fresca, come frutti di bosco, fragole e kiwi. &#xD;
+        la difficoltà in questo dessert è quella di riuscire a preparare una meringa dorata, croccante all’esterno e molto soffice all’interno ma il risultato finale sarà sicuramente gustosissimo. l’abbinamento con frutta fresca e panna dona alla pavlova un sapore particolare e rende questa torta un dolce molto buono e goloso.</string>
+    <string name="pavlova_curiosity">secondo l\'ipotesi più accreditata questo dolce è stato creato nel 1926, dallo chef di un hotel a wellington, in nuova zelanda, in onore di anna pavlova.</string>
+    <string name="libia">libia</string>
+    <string name="bazeen_descr">il bazeen  è uno dei piatti più caratteristici del nord africa. è tra i più diffusi nella libia occidentale, e spesso viene servito a pranzo il venerdì. ci sono variazioni del bazeen a base di agnello, che contengono carne di cammello, pollo, calamari o fave. una variante invernale di bazeen viene servito con una zuppa di hassa fatta con carne secca.</string>
+    <string name="bazeen_curiosity">le origini di questo piatto sono da attribuire alla presenza nel passato di una comunità ebraica nel paese libico; ora sta lentamente scomparendo.</string>
+    <string name="giappone">giappone</string>
+    <string name="sushi_descr">nella cucina giapponese il sushi è un cibo a base di riso insieme ad altri ingredienti come pesce, alghe, vegetali o uova. il ripieno può essere crudo, cotto o marinato e può essere servito appoggiato sul riso, arrotolato in una striscia di alga, disposto in rotoli di riso o inserito in una piccola tasca di tofu. in giappone la parola sushi significa letteralmente "acido" e si riferisce ad una vasta gamma di cibi preparati con riso. al di fuori del giappone viene spesso inteso come pesce crudo, o come riferimento ad un ristretto genere di cibi giapponesi, come il maki o anche il nigiri e il sashimi.</string>
+    <string name="sushi_curiosity">per diventare sushi chef in giappone, è necessario un percorso di studi e pratica di minimo due anni, dove si impara come tagliare il pesce in maniera chirurgica e piccoli segreti tipo il "massaggio" del polpo prima di servirlo.</string>
+    <string name="regno_unito">regno unito</string>
+    <string name="fish_and_chips_descr">il fish and chips è un piatto tipico della cucina britannica. consiste in filetto di pesce bianco (solitamente gadidi come il merluzzo o l\'eglefino) fritto in pastella e attorniato da abbondanti e spesse patatine, anch\'esse fritte, scelte tra le cultivar farinose maris piper, king edward o desirée. viene servito con una spruzzata di sale e di aceto</string>
+    <string name="fish_and_chips_curiosity">la più grande porzione di fish and chips mai servita pesa 47,75 kg (105 lb 4 oz) ed è stato realizzato da fish and chips @ ltd a londra, il 30 luglio 2012. il peso degli ingredienti crudi era : pesce 21,65 kg ( 47 £ 11 oz ) , chip 43,24 kg (95 lb 5 oz ) e pastella 1.914 g (4 lb 3 once) .</string>
+    <string name="venezuela">venezuela</string>
+    <string name="pabellón_criollo_descr">la preparazione in umido di questo piatto dà origine ad una carne molto morbida e sminuzzata, che ben si presta alla farcitura di molti altri cibi locali, come le arepas e le empanadas. oggi questa ricetta si prepara grazie alla pentola a pressione, che lascia la carne morbida senza che sia necessario batterla preventivamente e che ci permette di raggiungere il giusto grado di cottura.</string>
+    <string name="pabellón_criollo_curiosity">la storia venezuelana passa dentro questo piatto, dalla sua nascita ha sfamato il suo popolo, è da sempre associato alle battaglie per l’indipendenza portato avanti da simon bolivar detto “el libertador”, il “garibaldi” venezuelano</string>
+    <string name="colombia">colombia</string>
+    <string name="ajiaco_descr">l\'ajiaco è una zuppa densa e particolarmente popolare in colombia. è uno dei più amati piatti nazionali e ne esistono diverse variabili; la più nota è l\'ajiaco bogotano o l\'ajiaco santafereño, che prende il nome da santa fé de bogotá (antico nome di bogotà), capitale della colombia, dove questo piatto è una tradizione culturale.</string>
+    <string name="ajiaco_curiosity">la ricetta di questa semplice zuppa colombiana ci arriva da carlo ordoñez, socio della condotta slow food di bogotá. la sua è una storia singolare. carlo, infatti, ha percorso l\'intero paese alla ricerca di ricette tradizionali e in un solo anno ne ha raccolte ben 2700.</string>
+    <string name="brasile">brasile</string>
+    <string name="feijoada_descr">la feijoada è uno dei piatti tipici della cucina brasiliana, probabilmente quello più noto e rappresentativo. il termine deriva da feijão che in lingua portoghese sta per fagiolo, essendo questo uno degli ingredienti tipici.</string>
+    <string name="feijoada_curiosity">la lunga cottura rende il piatto più digeribile di quanto possa sembrare. in brasile, per via dei tempi di preparazione impegnativi, non tutti i ristoranti servono la feijoada, e quelli che l\'hanno normalmente nel menu la servono in giorni prestabiliti, in genere nel fine settimana.</string>
+    <string name="stati_uniti">stati uniti</string>
+    <string name="hamburger_descr">l\'hamburger (chiamato in italia anche svizzera o pressata) è una polpetta di carne macinata e pressata - solitamente bovina ma anche di pollo - cotta prevalentemente su piastra. il termine, col diffondersi delle catene internazionali di fast food è passato ad identificare anche un panino imbottito composto da pane, carne bovina tritata (un hamburger, appunto), salse e condimenti vari.</string>
+    <string name="hamburger_curiosity">i maggiori consumatori sono gli americani, con 13 miliardi di hamburger consumati all\'anno: messi uno di fianco all\'altro, circonderebbero la terra 32 volte.</string>
+    <string name="francia">francia</string>
+    <string name="crespella_descr">la crespella, conosciuta anche con il termine francese di crêpe, è un tipo di cialda sottile, morbida ed elastica, cotta su una superficie rovente tonda.</string>
+    <string name="crespella_curiosity">la leggenda vuole che la crepe sia nata quando papa gelasio, per sfamare un consistente numero di pellegrini francesi giunti a roma, fece mettere assieme dai cuochi vaticani una notevole quantità di uova e farina. il tutto sarebbe stato cotto su piastre roventi dando dunque vita alle prime rudimentali crepe. accantonando però le leggende, possiamo affermare che nel medioevo il latte, elemento prezioso e nutriente, era spesso sostituito da acqua o vino e che la ricetta moderna, che utilizza principalmente farina di frumento, sia nata con ogni probabilità attorno al ix secolo.</string>
+    <!-- MASCOTS CATEGORIES -->
+    <string name="frutta">frutta</string>
+    <string name="fish">pesce</string>
+    <string name="latticini">latticini</string>
+    <string name="basic">basic</string>
+    <string name="verdura_hot">verdura hot</string>
+    <string name="carne">carne</string>
+    <string name="verdura">verdura</string>
+</resources>
