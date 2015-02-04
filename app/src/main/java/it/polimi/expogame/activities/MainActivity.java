@@ -54,7 +54,6 @@ public class MainActivity extends ActionBarActivity {
     private ArrayList<Ingredient> listIngredientsSelected;
     private ImageAdapter imageAdapter;
     private ArrayList<Ingredient> ingredientsUnlocked;
-    private ArrayList<View> selectedViews;
 
 
     @Override
@@ -64,7 +63,6 @@ public class MainActivity extends ActionBarActivity {
         //getting reference of the ViewPager element in the view
         ingredientsUnlocked = new ArrayList<Ingredient>();
         linearLayout = (LinearLayout)findViewById(R.id.ingredients_layout);
-        selectedViews = new ArrayList<View>();
 
          //loading unlocked ingredients in the Cook Options Fragment
         loadUnlockedIngredients();
@@ -84,13 +82,11 @@ public class MainActivity extends ActionBarActivity {
                     view.setBackgroundColor(Color.LTGRAY);
                     listIngredientsSelected.add(ingredient);
                     getCookManagerFragmentIstance().addIngredientSelected(ingredient);
-                    selectedViews.add(view);
                     ((ImageAdapter)gridview.getAdapter()).setSelected(ingredient.getName(),true);
                 }else{
                     view.setBackgroundColor(303030);
                     getCookManagerFragmentIstance().removeIngredient(ingredient);
                     listIngredientsSelected.remove(ingredient);
-                    selectedViews.remove(view);
                     ((ImageAdapter)gridview.getAdapter()).setSelected(ingredient.getName(),false);
 
                 }
@@ -275,13 +271,10 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void resetSliderView(){
+        ((ImageAdapter)gridview.getAdapter()).resetAllSelection();
+        gridview.invalidateViews();
 
-        for(View view:selectedViews){
-            view.setBackgroundColor(303030);
-            ((ImageAdapter)gridview.getAdapter()).resetAllSelection();
 
-        }
-        selectedViews.clear();
     }
 
 
