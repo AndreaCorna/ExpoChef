@@ -442,6 +442,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
                     gridView.invalidateViews();
                     cookerView.invalidateViews();
+                    ingredient_view.invalidate();
 
                     break;
 

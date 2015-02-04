@@ -2,6 +2,7 @@ package it.polimi.expogame.activities;
 
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -37,6 +38,7 @@ import it.polimi.expogame.fragments.cook.CookManagerFragment;
 import it.polimi.expogame.fragments.map.ExpoMapFragment;
 import it.polimi.expogame.fragments.info.RootFragment;
 import it.polimi.expogame.providers.IngredientsProvider;
+import it.polimi.expogame.support.ConverterStringToStringXml;
 import it.polimi.expogame.support.ImageAdapter;
 import it.polimi.expogame.support.Ingredient;
 
@@ -54,7 +56,6 @@ public class MainActivity extends ActionBarActivity {
     private ArrayList<Ingredient> listIngredientsSelected;
     private ImageAdapter imageAdapter;
     private ArrayList<Ingredient> ingredientsUnlocked;
-    private ArrayList<View> selectedViews;
 
 
     @Override
@@ -64,7 +65,6 @@ public class MainActivity extends ActionBarActivity {
         //getting reference of the ViewPager element in the view
         ingredientsUnlocked = new ArrayList<Ingredient>();
         linearLayout = (LinearLayout)findViewById(R.id.ingredients_layout);
-        selectedViews = new ArrayList<View>();
 
          //loading unlocked ingredients in the Cook Options Fragment
         loadUnlockedIngredients();
@@ -84,13 +84,11 @@ public class MainActivity extends ActionBarActivity {
                     view.setBackgroundColor(Color.LTGRAY);
                     listIngredientsSelected.add(ingredient);
                     getCookManagerFragmentIstance().addIngredientSelected(ingredient);
-                    selectedViews.add(view);
                     ((ImageAdapter)gridview.getAdapter()).setSelected(ingredient.getName(),true);
                 }else{
                     view.setBackgroundColor(303030);
                     getCookManagerFragmentIstance().removeIngredient(ingredient);
                     listIngredientsSelected.remove(ingredient);
-                    selectedViews.remove(view);
                     ((ImageAdapter)gridview.getAdapter()).setSelected(ingredient.getName(),false);
 
                 }
@@ -147,7 +145,7 @@ public class MainActivity extends ActionBarActivity {
         });
         FragmentManager fragmentManager = getSupportFragmentManager();
         //creating the adapter to attach to the viewPager
-        customPagerAdapter = new CustomPagerAdapter(fragmentManager);
+        customPagerAdapter = new CustomPagerAdapter(fragmentManager,getApplicationContext());
 
         viewPager.setAdapter(customPagerAdapter);
 
@@ -240,7 +238,7 @@ public class MainActivity extends ActionBarActivity {
         // Handle action bar actions click
         switch (item.getItemId()) {
             case R.id.action_start_map:
-                //launchMapActivity();
+                launchMapActivity();
                 break;
             case R.id.action_start_capture:
                 launchCaptureActivity();
@@ -282,17 +280,19 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void resetSliderView(){
+        ((ImageAdapter)gridview.getAdapter()).resetAllSelection();
+        gridview.invalidateViews();
 
-        for(View view:selectedViews){
-            view.setBackgroundColor(303030);
-            ((ImageAdapter)gridview.getAdapter()).resetAllSelection();
 
-        }
-        selectedViews.clear();
     }
 
     private void launchCaptureActivity(){
         Intent i = new Intent(this,ARActivity.class);
+        startActivity(i);
+    }
+
+    private void launchMapActivity(){
+        Intent i = new Intent(this,WorldMapActivity.class);
         startActivity(i);
     }
 
@@ -303,12 +303,19 @@ public class MainActivity extends ActionBarActivity {
 class CustomPagerAdapter extends FragmentPagerAdapter {
 
     private static final int TAB_NUMBER = 2;
-
+    private Context context;
 
     public CustomPagerAdapter(FragmentManager fm) {
         super(fm);
 
     }
+
+    public CustomPagerAdapter(FragmentManager fm, Context context) {
+        super(fm);
+        this.context = context;
+
+    }
+
 
     @Override
 
@@ -318,13 +325,7 @@ class CustomPagerAdapter extends FragmentPagerAdapter {
         //better way to implement but other problems because: 'never hold a reference to a Fragment outside of the Adapter'
         //switch link the tab number with the fragment which has to be used
         switch (position) {
-            /*case 0:
-                fragment = new ExpoMapFragment();
-                break;
-            case 1:
-                fragment = new ARFragment();
 
-                break;*/
             case 0:
                 fragment = new CookManagerFragment();
                 break;
@@ -349,18 +350,12 @@ class CustomPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         String title = new String();
         switch (position) {
-           /* case 0:
-                title = "MAP";
-                break;
-            case 1:
-                title = "CATCH";
 
-                break;*/
             case 0:
-                title = "COOK";
+                title = ConverterStringToStringXml.getStringFromXml(context,"cook_pager_label");
                 break;
             case 1:
-                title = "INFO";
+                title = ConverterStringToStringXml.getStringFromXml(context,"info_pager_label");
 
 
         }

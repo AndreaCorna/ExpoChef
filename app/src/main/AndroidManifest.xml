@@ -9,14 +9,14 @@
     <!-- remember to put always the uses-permission above the application tag -->
     <!-- PERMISSION HERE -->
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.PRIORITY_HIGH_ACCURACY"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.PRIORITY_HIGH_ACCURACY" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <!-- END PERMISSION -->
     <application
@@ -26,21 +26,21 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".activities.MainActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".fragments.ar.ARActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_ar"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".SplashActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,9 +51,9 @@
 
         <provider
             android:name=".providers.IngredientsProvider"
+            android:authorities="it.polimi.expogame.ingredientsprovider"
             android:enabled="true"
-            android:exported="false"
-            android:authorities="it.polimi.expogame.ingredientsprovider">
+            android:exported="false" >
         </provider>
         <provider
             android:name=".providers.DishesProvider"
@@ -77,39 +77,49 @@
 
         <activity
             android:name=".activities.DetailsActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_details"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activities.ZoneActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_zone"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize">
+            android:screenOrientation="portrait" >
         </activity>
-
         <activity
-            android:name="it.polimi.expogame.activities.FacebookShareActivity"
-            android:label="@string/title_activity_facebook_share"
+            android:name=".activities.FacebookShareActivity"
+            android:configChanges="orientation|screenSize"
             android:icon="@drawable/icon_facebook_activity"
-            android:theme="@style/AppTheme"
+            android:label="@string/title_activity_facebook_share"
             android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize">
-            <!--Using icon from facebook app as of 23/05/14-->
+            android:theme="@style/AppTheme" >
+
+            <!-- Using icon from facebook app as of 23/05/14 -->
             <intent-filter>
-                <action android:name="android.intent.action.SEND"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <data android:mimeType="text/plain"/>
-                <data android:mimeType="image/*"/>
+                <action android:name="android.intent.action.SEND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="text/plain" />
+                <data android:mimeType="image/*" />
             </intent-filter>
         </activity>
         <activity
             android:name="com.facebook.LoginActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/title_facebook_login"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize">
+            android:screenOrientation="portrait" >
         </activity>
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/app_id"/>
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/app_id" />
+
+        <activity
+            android:name=".activities.WorldMapActivity"
+            android:label="@string/title_activity_world_map" >
+        </activity>
     </application>
 
 </manifest>

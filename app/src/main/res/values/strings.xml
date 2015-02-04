@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- COMMON TO ALL STRINGS -->
     <string name="app_name">ExpoChef</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_ar">ARActivity</string>
     <string name="title_activity_splash">SplashActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="catchit">Catch it!</string>
     <string name="metaioSDKSignature">i3NJrPOwc7AA7giMfmDw356rP555ImvzM4J1W2J8FR0=</string>
+    <string name="title_activity_facebook_share">Facebook</string>
+    <string name="app_id">558852617585267</string>
+    <string name="app_package_name">it.polimi.expogame</string>
+
+    <!-- LABELS -->
     <string name="label_description">Description</string>
     <string name="label_nationality">Nationality</string>
     <string name="title_activity_details">Details of</string>
@@ -23,10 +25,14 @@
     <string name="message_toast_cook">Not a good choice...</string>
     <string name="start_text_tutorial">Hello!</string>
     <string name="tutorial_text">I\'ll explain you how\nto cook your dishes:Find the mascot:Capture it:Click on top to select ingredients:Drag them on chopping board:...and cook!!!</string>
+    <string name="label_curiosity">Curiosity</string>
+    <string name="difficulty">Difficulty</string>
+    <string name="map_pager_label">Map</string>
+    <string name="catch_pager_label">Catch</string>
+    <string name="cook_pager_label">Cook</string>
+    <string name="info_pager_label">Info</string>
 
-
-    <!--Facebook share intent Strings-->
-    <string name="title_activity_facebook_share">Facebook</string>
+    <!-- Facebook share intent Strings -->
     <string name="facebook_default_text">Please enter your text here</string>
     <string name="title_post_text">Write Post</string>
     <string name="post_button_text">Post</string>
@@ -35,24 +41,16 @@
     <string name="happy_message_facebook">I am very happy. I have just created</string>
     <string name="sharing_facebook_toast_no_internet">Not connected to internet</string>
 
-
-    <!--LIVE APP ID-->
-    <string name="app_id">558852617585267</string>
+    <!-- LIVE APP ID -->
     <string name="facebook_post_content_desc">Image to share</string>
-    <string name="app_package_name">it.polimi.expogame</string>
-
     <string name="success">ExpoChef</string>
     <string name="successfully_posted_post">Successfully post on Facebook</string>
     <string name="photo_post">Photo Post</string>
     <string name="ok">OK</string>
     <string name="error">Error</string>
-    <string name="label_curiosity">Curiosity</string>
-    <string name="difficulty">difficulty</string>
-
-
     <string name="not_found">not found</string>
 
-    <!--NATIONALITY NAME -->
+    <!-- NATIONALITY NAME -->
     <string name="italia">italy</string>
     <string name="francia">france</string>
     <string name="giappone">japan</string>
@@ -62,7 +60,6 @@
     <string name="russia">russia</string>
     <string name="stati_uniti">US</string>
     <string name="ucraina">ukraine</string>
-
 
     <!-- ZONE NAME -->
     <string name="sud_america">south america</string>
@@ -121,8 +118,6 @@
     <string name="crespella_descr">the pancake, also known by the French term of crepe is a type of wafer thin, soft and supple, cooked on a hot surface round.</string>
     <string name="fish_and_chips_descr">the fish and chips is a typical dish of British cuisine. consists of white fish fillet (usually Gadidae such as cod or haddock) fried in batter and surrounded by abundant and thick chips, also fried, choices among cultivars floury maris piper, king edward or Desirée. is served with a sprinkle of salt and vinegar</string>
     <string name="pabellón_criollo_descr">the preparation of this dish stewed gives rise to a very soft and shredded meat, which lends itself well to the filling of many other local foods such as arepas and empanadas. Today this recipe is prepared thanks to a pressure cooker, which leaves the soft flesh without having to tap it in advance and that allows us to achieve the right degree of doneness.</string>
-
-
     <string name="pizza_curiosity">feltham in London, a new record for the most distant pizza delivery is up to lucy clough. a pizza was cooked on November 17, 2004 and has traveled a distance of 16949 km to be delivered in ramsey street, melbourne, 19 November 2004. pizza louis xiii for two people costs € 8,300.00 pizza royale 007 created in new york costs € 3,000.00</string>
     <string name="varenyky_curiosity">popular saying "come what may just think there are the vareniki". vareniks are one of the favorite dishes by Ukrainians. vareniks the word means "boiled" and can be compared to Italian ravioli. some versions of this dish can be found in the kitchen Belarusian, Polish, Lithuanian and Russian.</string>
     <string name="pelmeni_curiosity">pelmeni the word comes from the language komi-permiak, one of the Finno-Ugric peoples who inhabited the northern russia, and means "ears of pasta". this dish, from the Ural region, was already been assimilated by the Russian cuisine in the end of the fourteenth century, but became particularly common at the beginning of the colonization of land transuraliche. pelmeni, whose origins are ancient and are therefore probably derived from the rituals of the peoples of the north-east of Russia (permiaki, Komi, udmurty well as the Tartars of Siberia) were known by other Finno-Ugric peoples, although under other names.</string>
@@ -136,7 +131,6 @@
     <string name="fish_and_chips_curiosity">the largest portion of fish and chips ever served weighs 47.75 kg (105 lb 4 oz) and was made from fish and chips @ ltd in London on 30 July 2012. The weight of the raw ingredients were: fish 21.65 kg (47 pounds 11 oz), chip 43.24 kg (95 lb 5 oz) and batter 1.914 g (4 lb 3 oz).</string>
     <string name="pabellón_criollo_curiosity">Venezuelan history goes into this dish, since its inception has fed his people, has always been associated to the battles for independence carried out by simon bolivar said "El Libertador", the "Garibaldi" Venezuelan</string>
 
-
     <!-- MASCOT CATEGORY -->
     <string name="frutta">fruit</string>
     <string name="fish">fish</string>
@@ -145,19 +139,7 @@
     <string name="verdura_hot">hot vegetables</string>
     <string name="carne">meat</string>
     <string name="verdura">vegetables</string>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <string name="title_activity_world_map">WorldMapActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>
