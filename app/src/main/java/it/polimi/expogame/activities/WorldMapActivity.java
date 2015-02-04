@@ -33,7 +33,7 @@ public class WorldMapActivity extends ActionBarActivity {
         getMenuInflater().inflate(R.menu.menu_world_map, menu);
         return true;
     }
-ahahah
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 

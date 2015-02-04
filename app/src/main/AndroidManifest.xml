@@ -34,7 +34,8 @@
             android:name=".fragments.ar.ARActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_ar"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:noHistory="true">
         </activity>
         <activity
             android:name=".SplashActivity"
@@ -79,13 +80,14 @@
             android:name=".activities.DetailsActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_details"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:noHistory="true">
         </activity>
         <activity
             android:name=".activities.ZoneActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_zone"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activities.FacebookShareActivity"
@@ -93,7 +95,8 @@
             android:icon="@drawable/icon_facebook_activity"
             android:label="@string/title_activity_facebook_share"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppTheme"
+            android:noHistory="true">
 
             <!-- Using icon from facebook app as of 23/05/14 -->
             <intent-filter>
@@ -118,7 +121,8 @@
 
         <activity
             android:name=".activities.WorldMapActivity"
-            android:label="@string/title_activity_world_map" >
+            android:label="@string/title_activity_world_map"
+            android:noHistory="true">
         </activity>
     </application>
 
