@@ -96,7 +96,7 @@ public class MainActivity extends ActionBarActivity {
         });
 
         viewPager = (ViewPager) findViewById(R.id.pager);
-        viewPager.setOffscreenPageLimit(2);
+        viewPager.setOffscreenPageLimit(1);
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -120,15 +120,8 @@ public class MainActivity extends ActionBarActivity {
                     imageAdapter.setIngredients(ingredientsUnlocked);
                     gridview.setAdapter(null);
                     gridview.setAdapter(imageAdapter);
-                    //check if is the first time
-                    SharedPreferences prefs = getSharedPreferences("expogame", MODE_PRIVATE);
-                    boolean isFirstTime = prefs.getBoolean("firstTime",true);
-                    if(isFirstTime){
-                        //first time start animation and save that no more i have to show it
-                        getCookManagerFragmentIstance().startAnimation();
-                        prefs.edit().putBoolean("firstTime",false).commit();
 
-                    }
+
 
                 }else{
                     mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
@@ -182,6 +175,7 @@ public class MainActivity extends ActionBarActivity {
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         mDrawerLayout.setDrawerListener(actionBarDrawerToggle);
         listIngredientsSelected = new ArrayList<Ingredient>();
+        //startTutorial();
     }
 
     /**
@@ -295,6 +289,7 @@ public class MainActivity extends ActionBarActivity {
         Intent i = new Intent(this,WorldMapActivity.class);
         startActivity(i);
     }
+
 
 
 }

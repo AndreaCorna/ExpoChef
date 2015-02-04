@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -120,6 +121,14 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
         textSpeakMascotte.setVisibility(View.INVISIBLE);
         //set animation 
         animationCooker(currentView);
+        SharedPreferences prefs = getActivity().getSharedPreferences("expogame", Context.MODE_PRIVATE);
+        boolean isFirstTime = prefs.getBoolean("firstTime",true);
+        if(isFirstTime){
+
+            startAnimation();
+            prefs.edit().putBoolean("firstTime",false).commit();
+
+        }
         return currentView;
     }
 
