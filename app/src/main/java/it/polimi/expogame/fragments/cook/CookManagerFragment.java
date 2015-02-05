@@ -129,6 +129,8 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
             prefs.edit().putBoolean("firstTime",false).commit();
 
         }
+        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
         return currentView;
     }
 
