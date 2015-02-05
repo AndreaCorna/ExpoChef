@@ -25,7 +25,14 @@
     <string name="cook_button_label">Cucina!</string>
     <string name="message_toast_cook">Non una buona scelta...</string>
     <string name="start_text_tutorial">Ciao!</string>
-    <string name="tutorial_text">Ti spiegherò\ncome cucinare\ni tuoi piatti:Trova la mascot:Catturala:Clicca in alto per\nscegliere gli ingredienti:trascinali sul tagliere:...e cucina!!!</string>
+    <string-array name="tutorial_text">
+        <item>Ti spiegherò\ncome cucinare\ni tuoi piatti</item>
+        <item>Trova la mascot</item>
+        <item>Catturala</item>
+        <item>Clicca in alto per\nscegliere gli ingredienti</item>
+        <item>trascinali sul tagliere</item>
+        <item>...e cucina!!!</item>
+    </string-array>
     <string name="label_curiosity">Curiosità</string>
     <string name="difficulty">Difficoltà</string>
     <string name="map_pager_label">Mappa</string>

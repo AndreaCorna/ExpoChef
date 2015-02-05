@@ -566,10 +566,9 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
      * load text for tutorial
      */
     private void loadTutorialStrings(){
-        String tutorialText = getString(R.string.tutorial_text);
-        tutorialStrings = new ArrayList<String>();
 
-        String[] parts = tutorialText.split(":");
+        tutorialStrings = new ArrayList<String>();
+        String[] parts = getActivity().getResources().getStringArray(R.array.tutorial_text);
         for(String item:parts){
                 tutorialStrings.add(item);
         }
