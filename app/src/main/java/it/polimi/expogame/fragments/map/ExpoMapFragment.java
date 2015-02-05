@@ -58,9 +58,12 @@ public class ExpoMapFragment extends Fragment implements OnMapReadyCallback, Goo
 
     //Map Settings
     private float minZoom = 15;
-    private final LatLng INIT_POSITION = new LatLng(45.477493, 9.228400);
+    //Polimi
+    //private final LatLng INIT_POSITION = new LatLng(45.477493, 9.228400);
+    //EXPO
+    //private final LatLng INIT_POSITION = new LatLng(45.519899, 9.101893);
     //Cisano Bergamasco
-    //private final LatLng INIT_POSITION = new LatLng(45.738317, 9.476013);
+    private final LatLng INIT_POSITION = new LatLng(45.738317, 9.476013);
 
     private GoogleMap googleMap;
 
@@ -291,12 +294,7 @@ public class ExpoMapFragment extends Fragment implements OnMapReadyCallback, Goo
 
         }
 
-        //Stub to position a mascot on the expo area
-        googleMap.addMarker(new MarkerOptions()
-                .position(new LatLng(45.518824, 9.106110))
-                .title("Tommy Tomato")
-                .snippet("Verdura"));
-
+        cursor.close();
     }
 
 
