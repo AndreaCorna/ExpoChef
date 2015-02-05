@@ -122,7 +122,7 @@
         <activity
             android:name=".activities.WorldMapActivity"
             android:label="@string/title_activity_world_map"
-            android:noHistory="true">
+            >
         </activity>
     </application>
 

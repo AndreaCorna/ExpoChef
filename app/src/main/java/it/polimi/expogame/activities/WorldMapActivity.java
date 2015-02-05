@@ -41,4 +41,14 @@ public class WorldMapActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    /*Override of the method in order to call finish and so release all
+    * activity resources
+    * */
+    public void onBackPressed(){
+        super.onBackPressed();
+        finish();
+    }
+
 }
