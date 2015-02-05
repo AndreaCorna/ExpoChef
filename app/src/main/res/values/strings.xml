@@ -79,7 +79,9 @@
     <string name="stati_uniti">US</string>
     <string name="ucraina">ukraine</string>
     <string name="cina">china</string>
-
+    <string name="brasile">brazil</string>
+    <string name="colombia">colombia</string>
+    <string name="venezuela">venezuela</string>
 
     <!-- ZONE NAME -->
     <string name="sud_america">south america</string>

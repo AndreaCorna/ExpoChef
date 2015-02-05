@@ -35,7 +35,7 @@
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_ar"
             android:screenOrientation="portrait"
-            android:noHistory="true">
+            >
         </activity>
         <activity
             android:name=".SplashActivity"

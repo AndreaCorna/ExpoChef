@@ -1,11 +1,15 @@
 package it.polimi.expogame.fragments.ar;
 
 
+import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.BuildConfig;
 import android.util.Log;
@@ -39,6 +43,7 @@ import it.polimi.expogame.database.IngredientTable;
 import it.polimi.expogame.database.MascotsTable;
 import it.polimi.expogame.providers.IngredientsProvider;
 import it.polimi.expogame.providers.MascotsProvider;
+import it.polimi.expogame.support.ConverterStringToStringXml;
 import it.polimi.expogame.support.Mascotte;
 
 public class ARActivity extends ARViewActivity implements LocationListener, GoogleApiClient.ConnectionCallbacks,
@@ -100,6 +105,13 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
             Mascots.add(m);
         }
 
+        LocationManager service = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        boolean enabled = service
+                .isProviderEnabled(LocationManager.GPS_PROVIDER);
+        if (!enabled) {
+            buildAlertMessageNoGps();
+        }
+
         c.close();
 
     }
@@ -140,7 +152,35 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
 
         mGoogleApiClient.disconnect();
         super.onDestroy();
+
+
+            finish();
+
     }
+
+    /**
+     * Message box to ask for GPS
+     */
+    private void buildAlertMessageNoGps() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(ConverterStringToStringXml.getStringFromXml(getApplicationContext(), "message_gps_activation"))
+                .setCancelable(false)
+                .setPositiveButton(ConverterStringToStringXml.getStringFromXml(getApplicationContext(),"yes_answer"), new DialogInterface.OnClickListener() {
+                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+
+                    }
+                })
+                .setNegativeButton(ConverterStringToStringXml.getStringFromXml(getApplicationContext(), "no_answer"), new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+
 
     @Override
     public void onDrawFrame() {
