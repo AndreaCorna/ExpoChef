@@ -21,6 +21,7 @@
     <string name="list_zone_activity">Lista dei piatti</string>
     <string name="label_list_zones">Lista delle zone</string>
     <string name="label_slider">Ingredienti</string>
+    <string name="button_done_slider">Fatto</string>
     <string name="cook_button_label">Cucina!</string>
     <string name="message_toast_cook">Non una buona scelta...</string>
     <string name="start_text_tutorial">Ciao!</string>
@@ -31,6 +32,9 @@
     <string name="catch_pager_label">Cattura</string>
     <string name="cook_pager_label">Cucina</string>
     <string name="info_pager_label">Info</string>
+    <string name="message_gps_activation">Il tuo gps è disattivato, vuoi attivarlo?</string>
+    <string name="yes_answer">si</string>
+    <string name="no_answer">no</string>
 
     <!--Facebook share intent Strings-->
     <string name="facebook_default_text">Inserisci il tuo testo</string>

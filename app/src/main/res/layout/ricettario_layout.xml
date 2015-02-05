@@ -32,7 +32,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Done"
+                android:text="@string/button_done_slider"
                 android:id="@+id/done_button"
                 android:onClick="chooseDone"
                 android:layout_weight="0.25" />

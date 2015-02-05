@@ -102,14 +102,15 @@ public class ExpoMapFragment extends Fragment implements OnMapReadyCallback, Goo
      */
     private void buildAlertMessageNoGps() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
+        builder.setMessage(ConverterStringToStringXml.getStringFromXml(getActivity().getApplicationContext(),"message_gps_activation"))
                 .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton(ConverterStringToStringXml.getStringFromXml(getActivity().getApplicationContext(),"yes_answer"), new DialogInterface.OnClickListener() {
                     public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
                         startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton(ConverterStringToStringXml.getStringFromXml(getActivity().getApplicationContext(),"no_answer"), new DialogInterface.OnClickListener() {
                     public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
                         dialog.cancel();
                     }
