@@ -27,11 +27,17 @@
     <string name="start_text_tutorial">Ciao!</string>
     <string-array name="tutorial_text">
         <item>Ti spiegherò\ncome cucinare\ni tuoi piatti</item>
+        <item>Usa la mappa\nper avvicinarti alle\nmascotte</item>
+        <item>Quando sei vicino\nclicca sul retino</item>
         <item>Trova la mascot</item>
         <item>Catturala</item>
-        <item>Clicca in alto per\nscegliere gli ingredienti</item>
+        <item>Clicca sul cestino\ndella spesa</item>
+        <item>Scegli gli ingredienti</item>
         <item>trascinali sul tagliere</item>
         <item>...e cucina!!!</item>
+        <item>se la combinazione\nè corretta</item>
+        <item>scoprirai curiosità\ne informazioni</item>
+        <item>Buon divertimento!</item>
     </string-array>
     <string name="label_curiosity">Curiosità</string>
     <string name="difficulty">Difficoltà</string>

@@ -27,11 +27,17 @@
     <string name="start_text_tutorial">Hello!</string>
     <string-array name="tutorial_text">
         <item>I\'ll explain you how\nto cook your dishes</item>
+        <item>Use the map\nto come closer\nto the mascot</item>
+        <item>When you are near\nclick on screen</item>
         <item>Find the mascot</item>
         <item>Capture it</item>
-        <item>Click on top to select ingredients</item>
+        <item>Click on shopping\nbasket</item>
+        <item>Choose the ingredients</item>
         <item>Drag them on chopping board</item>
         <item>...and cook!!!</item>
+        <item>if your choice\nis correct</item>
+        <item>you\'ll discover\ninteresting information</item>
+        <item>Good fun!!!</item>
     </string-array>
     <string name="label_curiosity">Curiosity</string>
     <string name="difficulty">Difficulty</string>
