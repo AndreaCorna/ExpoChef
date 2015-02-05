@@ -175,7 +175,6 @@ public class MainActivity extends ActionBarActivity {
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         mDrawerLayout.setDrawerListener(actionBarDrawerToggle);
         listIngredientsSelected = new ArrayList<Ingredient>();
-        //startTutorial();
     }
 
     /**
