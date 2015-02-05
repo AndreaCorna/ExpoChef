@@ -56,7 +56,7 @@ public class MainActivity extends ActionBarActivity {
     private ArrayList<Ingredient> listIngredientsSelected;
     private ImageAdapter imageAdapter;
     private ArrayList<Ingredient> ingredientsUnlocked;
-
+    private static final int CAPTURE_ACTIVITY = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,10 +116,6 @@ public class MainActivity extends ActionBarActivity {
                     mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                     getSupportActionBar().setHomeButtonEnabled(true);
-                    loadUnlockedIngredients();
-                    imageAdapter.setIngredients(ingredientsUnlocked);
-                    gridview.setAdapter(null);
-                    gridview.setAdapter(imageAdapter);
 
 
 
@@ -281,7 +277,7 @@ public class MainActivity extends ActionBarActivity {
 
     private void launchCaptureActivity(){
         Intent i = new Intent(this,ARActivity.class);
-        startActivity(i);
+        startActivityForResult(i,CAPTURE_ACTIVITY);
     }
 
     private void launchMapActivity(){
@@ -289,7 +285,18 @@ public class MainActivity extends ActionBarActivity {
         startActivity(i);
     }
 
-
+    /*use to load ingredients unlocked after user close ar activity*/
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == CAPTURE_ACTIVITY){
+            Log.d("RESULT","after aractivity");
+            loadUnlockedIngredients();
+            imageAdapter.setIngredients(ingredientsUnlocked);
+            gridview.setAdapter(null);
+            gridview.setAdapter(imageAdapter);
+            gridview.invalidateViews();
+        }
+    }
 
 }
 
