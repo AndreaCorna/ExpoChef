@@ -67,6 +67,8 @@
     <string name="not_found">non trovato</string>
 
     <!-- INGREDIENTS NAMES -->
+    <string name="scalogno">scalogno</string>
+    <string name="cetriolo">cetriolo</string>
     <string name="kiwi">kiwi</string>
     <string name="fragola">fragola</string>
     <string name="crostaceo">crostaceo</string>
@@ -109,6 +111,9 @@
     <string name="america_centrale">america centrale</string>
     <string name="africa">africa</string>
     <!-- DISHES NAMES - DESCRIPTIONS - CURIOSITY -->
+    <string name="cina">cina</string>
+    <string name="peking_duck_descr">la peking duck è un famoso piatto a base di anatra proveniente da beijing, preparato sin dall\'era imperiale. la carne è apprezzato per la sua sottile pelle croccante, le versioni autentiche sono caratterizzate dall\'avere molta pelle e poca carne. le anatre vengono allevate appositamente per la preparazione del piatto e vengono macellate dopo 65 giorni. la carne si mangia con scalogno, cetriolo e salsa di fagioli dolce con frittelle laminati.</string>
+    <string name="peking_duck_curiosity">due ristoranti degni di nota a pechino che servono questo piatto sono quanjude e bianyifang, entrambi i locali sono secolari e sono diventati nomi familiari, ognuno con il proprio stile: quanjude è conosciuta con il metodo di tostatura forno hung, mentre bianyifang utilizza la più antica tecnica di chiusura torrefazione forno.</string>
     <string name="ucraina">ucraina</string>
     <string name="varenyky_descr">i varénykisono un piatto tradizionale ucraino di pasta  ripiena di forma triangolare o a mezza luna, con ripieni a base di patate, carne, formaggio fresco molle o bacche (ciliegie, mirtilli ecc.).&#xD;
         questo piatto è considerato uno dei piatti più tradizionali dell\'ucraina.</string>
