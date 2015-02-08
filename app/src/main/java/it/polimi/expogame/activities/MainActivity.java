@@ -312,10 +312,7 @@ public class MainActivity extends ActionBarActivity {
             //return from ar activity: load new ingredient
             case CAPTURE_ACTIVITY_RESULT:
                 //check if a mascotte was unlocked, if true refresh ingredients on slider
-                Log.d("MAIN RETURN",""+data.getExtras().getBoolean("captured"));
                 if(resultCode == RESULT_OK && data.getExtras().getBoolean("captured")){
-
-                    Log.d("RESULT","after aractivity");
                     loadUnlockedIngredients();
                     imageAdapter.setIngredients(ingredientsUnlocked);
                     gridview.setAdapter(null);
@@ -335,8 +332,9 @@ public class MainActivity extends ActionBarActivity {
 
             case CAPTURE_ACTIVITY_LAUNCH:
                 Log.d("RESULT","ar");
-
-                launchCaptureActivity();
+                if(isLocationServiceActive()){
+                    launchCaptureActivity();
+                }
                 break;
         }
 

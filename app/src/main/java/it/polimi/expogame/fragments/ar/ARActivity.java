@@ -166,7 +166,7 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
 
         mGoogleApiClient.disconnect();
         super.onDestroy();
-       
+
         finish();
 
     }
