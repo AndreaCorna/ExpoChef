@@ -231,7 +231,7 @@ public class FacebookShareActivity extends ActionBarActivity {
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.icon_facebook_activity)
+                        .setSmallIcon(R.drawable.ic_launcher)
                         .setContentTitle(title)
                         .setContentText(alertMessage);
 
