@@ -56,7 +56,6 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
     //----GPS and LOCATION SERVICE OBJ-------------
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
-    private static final int GPS_ACTIVATION = 12;
     //---------------------------------------
 
     //----MASCOTS MODELS OBJECT--------------
@@ -70,11 +69,21 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
     //Radar object displayed in the metaio view
     private IRadar mRadar;
 
+    //----------------------------------------
+    //boolean variable in order to force reload of ingredients if  mascotte was captured
+    private boolean oneCaptured = false;
+    private Intent returnIntent;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+        returnIntent = new Intent();
+        Bundle conData = new Bundle();
+        conData.putBoolean("captured", oneCaptured);
+        returnIntent.putExtras(conData);
+        setResult(RESULT_OK,returnIntent);
 
         MascotsList = new ArrayList<IGeometry>();
 
@@ -139,12 +148,17 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
     protected void onStop() {
         mGoogleApiClient.disconnect(); //disconnect from the service
         super.onStop();
+
     }
 
     @Override
     protected void onPause() {
         mGoogleApiClient.disconnect();
         super.onPause();
+
+        //finish();
+
+
     }
 
     @Override
@@ -152,9 +166,8 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
 
         mGoogleApiClient.disconnect();
         super.onDestroy();
-
-
-            finish();
+       
+        finish();
 
     }
 
@@ -425,6 +438,13 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
 
                     cr.update(IngredientsProvider.CONTENT_URI, values, where, name);
                     //-----------------------------------------------------
+
+                    //set true because on mascot was captured. in this way in main activity reload of ingredients
+                    oneCaptured = true;
+
+                      Bundle conData = new Bundle();
+                      conData.putBoolean("captured", oneCaptured);
+                      returnIntent.putExtras(conData);
                   }
                   break;
               }
