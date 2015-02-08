@@ -56,6 +56,7 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
     //----GPS and LOCATION SERVICE OBJ-------------
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
+    private static final int GPS_ACTIVATION = 12;
     //---------------------------------------
 
     //----MASCOTS MODELS OBJECT--------------
@@ -69,12 +70,16 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
     //Radar object displayed in the metaio view
     private IRadar mRadar;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Log.w("ExpoGame", "Spawning ARactivity");
+
         MascotsList = new ArrayList<IGeometry>();
+
+
+        //Log.w("ExpoGame", "Spawning ARactivity");
 
         // Set GPS tracking configuration
         boolean result = metaioSDK.setTrackingConfiguration("GPS", false);
@@ -104,15 +109,10 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
             //Log.w("MetaioACTIVITY", "generated mascotte with lati" + m.getLat());
             Mascots.add(m);
         }
-
-        LocationManager service = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        boolean enabled = service
-                .isProviderEnabled(LocationManager.GPS_PROVIDER);
-        if (!enabled) {
-            buildAlertMessageNoGps();
-        }
-
         c.close();
+
+
+
 
     }
 
@@ -156,28 +156,6 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
 
             finish();
 
-    }
-
-    /**
-     * Message box to ask for GPS
-     */
-    private void buildAlertMessageNoGps() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(ConverterStringToStringXml.getStringFromXml(getApplicationContext(), "message_gps_activation"))
-                .setCancelable(false)
-                .setPositiveButton(ConverterStringToStringXml.getStringFromXml(getApplicationContext(),"yes_answer"), new DialogInterface.OnClickListener() {
-                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-
-                    }
-                })
-                .setNegativeButton(ConverterStringToStringXml.getStringFromXml(getApplicationContext(), "no_answer"), new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                        dialog.cancel();
-                    }
-                });
-        final AlertDialog alert = builder.create();
-        alert.show();
     }
 
 

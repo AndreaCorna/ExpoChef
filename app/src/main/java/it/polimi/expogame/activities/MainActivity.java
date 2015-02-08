@@ -1,11 +1,14 @@
 package it.polimi.expogame.activities;
 
+import android.app.AlertDialog;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.location.LocationManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -56,7 +59,11 @@ public class MainActivity extends ActionBarActivity {
     private ArrayList<Ingredient> listIngredientsSelected;
     private ImageAdapter imageAdapter;
     private ArrayList<Ingredient> ingredientsUnlocked;
-    private static final int CAPTURE_ACTIVITY = 10;
+    private static final int CAPTURE_ACTIVITY_RESULT = 10;
+    private static final int CAPTURE_ACTIVITY_LAUNCH = 20;
+    private static final int MAP_ACTIVITY_LAUNCH = 30;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -227,10 +234,19 @@ public class MainActivity extends ActionBarActivity {
         // Handle action bar actions click
         switch (item.getItemId()) {
             case R.id.action_start_map:
-                launchMapActivity();
+                //check if gps is on, if it is not ask for activation, result check in onactivityresult
+                if(isLocationServiceActive()) {
+                    launchMapActivity();
+                }else {
+                    buildAlertMessageNoGps(R.id.action_start_map);
+                }
                 break;
             case R.id.action_start_capture:
-                launchCaptureActivity();
+                if(isLocationServiceActive()) {
+                    launchCaptureActivity();
+                }else {
+                    buildAlertMessageNoGps(R.id.action_start_capture);
+                }
                 break;
 
             default:
@@ -277,7 +293,7 @@ public class MainActivity extends ActionBarActivity {
 
     private void launchCaptureActivity(){
         Intent i = new Intent(this,ARActivity.class);
-        startActivityForResult(i,CAPTURE_ACTIVITY);
+        startActivityForResult(i,CAPTURE_ACTIVITY_RESULT);
     }
 
     private void launchMapActivity(){
@@ -285,18 +301,81 @@ public class MainActivity extends ActionBarActivity {
         startActivity(i);
     }
 
-    /*use to load ingredients unlocked after user close ar activity*/
+    /**
+     *
+      * Use to control the result of the activities launched by this activity
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == CAPTURE_ACTIVITY){
-            Log.d("RESULT","after aractivity");
-            loadUnlockedIngredients();
-            imageAdapter.setIngredients(ingredientsUnlocked);
-            gridview.setAdapter(null);
-            gridview.setAdapter(imageAdapter);
-            gridview.invalidateViews();
+        super.onActivityResult(requestCode,resultCode,data);
+        switch (requestCode){
+            //return from ar activity: load new ingredient
+            case CAPTURE_ACTIVITY_RESULT:
+                Log.d("RESULT","after aractivity");
+                loadUnlockedIngredients();
+                imageAdapter.setIngredients(ingredientsUnlocked);
+                gridview.setAdapter(null);
+                gridview.setAdapter(imageAdapter);
+                gridview.invalidateViews();
+                break;
+            case MAP_ACTIVITY_LAUNCH:
+                Log.d("RESULT","map");
+
+                if(isLocationServiceActive()){
+                    launchMapActivity();
+                }
+                break;
+
+            case CAPTURE_ACTIVITY_LAUNCH:
+                Log.d("RESULT","ar");
+
+                launchCaptureActivity();
+                break;
         }
+
     }
+
+    private boolean isLocationServiceActive(){
+        LocationManager service = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        return service.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+    }
+
+    /**
+     * Message box to ask for GPS
+     */
+    private void buildAlertMessageNoGps(int requestCode) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(ConverterStringToStringXml.getStringFromXml(getApplicationContext(), "message_gps_activation"))
+                .setCancelable(false)
+                .setNegativeButton(ConverterStringToStringXml.getStringFromXml(getApplicationContext(), "no_answer"), new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        dialog.cancel();
+                    }
+                });
+        switch (requestCode){
+            case R.id.action_start_capture:
+                builder.setPositiveButton(ConverterStringToStringXml.getStringFromXml(getApplicationContext(),"yes_answer"), new DialogInterface.OnClickListener() {
+                    public void onClick( final DialogInterface dialog, final int requestCode) {
+                        startActivityForResult(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS),CAPTURE_ACTIVITY_LAUNCH);
+
+                    }
+                });
+                break;
+            case R.id.action_start_map:
+                builder.setPositiveButton(ConverterStringToStringXml.getStringFromXml(getApplicationContext(),"yes_answer"), new DialogInterface.OnClickListener() {
+                    public void onClick( final DialogInterface dialog, final int requestCode) {
+                        startActivityForResult(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS),MAP_ACTIVITY_LAUNCH);
+
+                    }
+                });
+                break;
+        }
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+
 
 }
 
