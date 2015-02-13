@@ -82,6 +82,15 @@
     <string name="brasile">brazil</string>
     <string name="colombia">colombia</string>
     <string name="venezuela">venezuela</string>
+    <string name="sud_africa">south africa</string>
+    <string name="messico">mexico</string>
+    <string name="canada">canada</string>
+    <string name="romania">romania</string>
+    <string name="ungheria">hungary</string>
+    <string name="marocco">morocco</string>
+
+
+
 
     <!-- ZONE NAME -->
     <string name="sud_america">south america</string>
@@ -128,6 +137,11 @@
     <string name="fagioli">beans</string>
     <string name="mozzarella">mozzarella</string>
     <string name="formaggio">cheese</string>
+    <string name="banana">banana</string>
+    <string name="frutta_secca">dried fruit</string>
+    <string name="semola">semolina</string>
+    <string name="carota">carrot</string>
+
 
     <!-- DESCRIPTIONS DISHES -->
     <string name="pizza_descr">the pizza is a delicacy typical of Neapolitan cuisine, today, with the pasta, the best known of Italian gastronomy. with this name, virtually unknown beyond the city walls Neapolitan, even in the nineteenth century, is indicated cakes, almost always sweet. it was not until the early nineteenth century that the pizza assumed, always in Naples, its current connotation, the next global success of the dish, led by extension, to define in the same way any similar preparation.</string>
@@ -143,6 +157,27 @@
     <string name="fish_and_chips_descr">the fish and chips is a typical dish of British cuisine. consists of white fish fillet (usually Gadidae such as cod or haddock) fried in batter and surrounded by abundant and thick chips, also fried, choices among cultivars floury maris piper, king edward or Desirée. is served with a sprinkle of salt and vinegar</string>
     <string name="pabellón_criollo_descr">the preparation of this dish stewed gives rise to a very soft and shredded meat, which lends itself well to the filling of many other local foods such as arepas and empanadas. Today this recipe is prepared thanks to a pressure cooker, which leaves the soft flesh without having to tap it in advance and that allows us to achieve the right degree of doneness.</string>
     <string name="peking_duck_descr">Peking Duck is a famous duck dish from Beijing that has been prepared since the imperial era. The meat is prized for its thin, crisp skin, with authentic versions of the dish serving mostly the skin and little meat, sliced in front of the diners by the cook. Ducks bred specially for the dish are slaughtered after 65 days and seasoned before being roasted in a closed or hung oven. The meat is eaten with scallion, cucumber and sweet bean sauce with pancakes rolled around the fillings. Sometimes pickled radish is also inside, and other sauces can be used.</string>
+
+    <string name="sarma_descr">The sarma is one of the national dishes of Romanian cuisine , it comes in rolls of leaves of pickled cabbage or grape leaves blanched in salted water , which contain a mixture of ground beef, rice and onion lightly browned . everything is cooked in a pot with water , oil and a pinch of salt .</string>
+    <string name="poutine_descr">The poutine is a delicious dish Canadian originates precisely in the province of Quebec, but sometimes it is also served in the northern states of the usa . consists of chips with cream cheese and gravy (butter , onions and beef broth in addition to other ingredients ) . The poutine is considered a quick meal , but the main one , and can be enjoyed on many occasions</string>
+    <string name="fajita_descr">the fajita are a typical dish of Mexican meat ( chicken breast or beef, or both ) , pepper and onion, with the addition of a spice mix reproducible with cumin , hot pepper , paprika , and oregano</string>
+    <string name="cuscus_descr">couscous (French: couscous ; Arabic Maghreb : كسكس ; Berber : seksu ) is a typical food of North Africa and the western Sicily , consisting of agglomerates or granules of semolina steamed ( the diameter of a millimeter before cooking ) .</string>
+    <string name="bobotie_descr">bobotie is a traditional dish of South African cuisine , it is a tasty meat pie that combines the flavors of sweet than salty : it is , in fact , made ​​with ground meat , spices , raisins and cranberries and can be enriched with other ingredients such as almonds or hazelnuts .</string>
+    <string name="gulasch_descr">goulash is a soup made of meat , bacon , fried onions and carrots , which the herdsmen cooked in a large pot set over a fire fueled by wood outdoors when , for example , carrying the precious gray cattle podolica (race by long-horned cattle ) from the plains of the puszta to markets morovia , vienna , nuremberg and venice .</string>
+
+    <string name="gulasch_curiosity">was at the end of the ' 700 that was born the ' ' invention of the culinary tradition " goulash , flat symbol of the people of Hungary .
+this food , whose term comes from Hungarian " gulyas " ( cowherd ) , indicated in medieovo a preparation made by herdsmen during the work on the pastures . recipe orginale was to dice the meat and then cook it over low heat in open pots and season with salt only ( later also chili ) .
+during the political conflict with austria ( ca. 1780 ) , the Hungarian company was in need of concrete symbols of its independence culturare , and it was for this that were chosen clothing aristocratic old style and the goulash of herdsmen .</string>
+    <string name="sarma_curiosity">Interestingly however the measure because while in serbia and romania are great western , eastern , moldova in Romanian and in the Republic of Moldova will do, however tiny , the size of a walnut ; pride of the hostess ( gospodina ) in Romanian. there is no party or celebration where they are served , from weddings , baptisms to religious and state holidays : even at funerals and facts are served , and after 40 days from the canons death , as is traditional in the Orthodox Church . it should be remembered that , during the "post " the Orthodox Lent , which is very rigid ( not allowing categorically meat consumption ) , are prepared with a filling of rice with vegetables .</string>
+    <string name="poutine_curiosity">according to many the poutine was born by chance in warwick in Quebec in September 1957, then a customer walked into a small restaurant called lutin qui rit owned by Monsieur fernand Lachance and made a request for a bit 'special ... or french fries to stick with the " gravy " , brown sauce made ​​with sauce of roasted meat and nibbles of cheese called "cheese curds ." the dish was so strange that prompted the owner to say: " ça va faire une maudite poutine " ( I'll do a damn casino ) . hence the poutine . another story places the origin of this dish to 1964 : here we are in the roy jucep restaurant owned by jean paul roy . it claims to have prepared for the first sauce to put on chips and to have had bags of "cheese curds " after numerous requests of its customers that they added to the plate to give it more flavor.</string>
+    <string name="fajita_curiosity">It all goes back to the '30s in the rio grande valley , near the Mexican territory when the ranch Texans border taking the cheaper Mexican rancheros for laborers cattle . following the slaughter of animals , spread the habit of giving in to rancheros as partial payment for their work , some cuts scrap as the head, tripe and skirt . as often happens , the need for the mother of invention and the need to make edible fruits of the exchange has actually created the Tex-Mex cuisine , using cooking techniques learned from American employers : the barbecue . the use of the head is born so the barbacoa de cabeza , the tripe the menudo and the skirt , ( lombetti or diaphragm) , our own fajitas . </string>
+    <string name="cuscus_curiosity">the dish was created in morocco . the couscous was also known in the Sultanate of Nasrid Granada . always in the thirteenth century a historian of Aleppo Syrian cites the couscous on four occasions . these quotes so old show that couscous spread rapidly , but in general it was especially common in the West until the Islamic tripolitania , while further east , from Cyrenaica , the kitchen was especially Egyptian type , in which the couscous was only an occasional dish</string>
+    <string name="bobotie_curiosity">over 300 years ago , Dutch ships made ​​a stop in cape town , returning from Asia , before returning to Europe . gradually , however, began to stop and build . and in stop and build left part of the spices brought from java , then slaves , Malaysian , to cook for them .
+    influence between the " kerriekerrie " Asian cuisine native South Africa and that of the " white Europeans " came out the signature dish of this country .
+    for years , with British rule and then the laws of apartheid , the bobotie was deleted from the menu and cooked in secret , at home or at lunch counters Malaysian Cape Town .</string>
+
+
+
     <string name="peking_duck_curiosity">Two notable restaurants in Beijing which serve this dish are Quanjude and Bianyifang, both centuries-old establishments which have become household names, each with their own style: Quanjude is known for using the hung oven roasting method, while Bianyifang uses the oldest technique of closed oven roasting.</string>
     <string name="pizza_curiosity">feltham in London, a new record for the most distant pizza delivery is up to lucy clough. a pizza was cooked on November 17, 2004 and has traveled a distance of 16949 km to be delivered in ramsey street, melbourne, 19 November 2004. pizza louis xiii for two people costs € 8,300.00 pizza royale 007 created in new york costs € 3,000.00</string>
     <string name="varenyky_curiosity">popular saying "come what may just think there are the vareniki". vareniks are one of the favorite dishes by Ukrainians. vareniks the word means "boiled" and can be compared to Italian ravioli. some versions of this dish can be found in the kitchen Belarusian, Polish, Lithuanian and Russian.</string>
