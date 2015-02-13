@@ -1,0 +1,17 @@
+# File produced by 
+
+newmtl Line06
+  Ns 13.7
+  d 1.0
+  illum 2
+  Kd 1.0 0.6667 0
+  Ka 1.0 0.6667 0
+  Ks 0.898 0.898 0.898
+
+newmtl Line06_1
+  Ns 13.7
+  d 1.0
+  illum 2
+  Kd 1.0 0.6667 0
+  Ka 1.0 0.6667 0
+  Ks 0.898 0.898 0.898
