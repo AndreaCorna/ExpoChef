@@ -74,15 +74,16 @@ public class ImageAdapter extends BaseAdapter {
 
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView imageView;
-        View v = convertView;
+        View v;
         ImageView picture;
         TextView name;
 
-        if (v == null) {  // if it's not recycled, initialize some attributes
+        if (convertView == null) {  // if it's not recycled, initialize some attributes
             v = inflater.inflate(R.layout.grid_item, parent, false);
             v.setTag(R.id.picture, v.findViewById(R.id.picture));  //adding tag to the view elements
             v.setTag(R.id.text, v.findViewById(R.id.text));
+        }else{
+            v = convertView;
         }
         picture = (ImageView)v.getTag(R.id.picture);
         name = (TextView)v.getTag(R.id.text);

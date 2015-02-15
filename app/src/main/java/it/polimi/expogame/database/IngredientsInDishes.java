@@ -10,4 +10,5 @@ public class IngredientsInDishes {
     public static final String COLUMN_ID_DISH = "idDish";
     public static final String COLUMN_ID_INGREDIENT = "idIngredient";
     public static final String COLUMN_HINT_GIVEN = "hintGiven";
+
 }

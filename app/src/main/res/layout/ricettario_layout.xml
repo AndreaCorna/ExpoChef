@@ -47,7 +47,7 @@
             android:columnWidth="90dp"
             android:numColumns="4"
             android:verticalSpacing="5dp"
-            android:horizontalSpacing="5dp"
+            android:horizontalSpacing="8dp"
             android:stretchMode="columnWidth"
             android:gravity="center"
             android:background="@drawable/ricettario"
