@@ -1,6 +1,7 @@
 package it.polimi.expogame.fragments.info;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -24,10 +25,14 @@ import java.util.ArrayList;
 import it.polimi.expogame.R;
 import it.polimi.expogame.activities.DetailsActivity;
 import it.polimi.expogame.database.DishesTable;
+import it.polimi.expogame.database.IngredientTable;
+import it.polimi.expogame.database.IngredientsInDishes;
 import it.polimi.expogame.providers.DishesProvider;
+import it.polimi.expogame.providers.IngredientsProvider;
 import it.polimi.expogame.support.Dish;
 import it.polimi.expogame.support.GridDishItem;
 import it.polimi.expogame.support.GridDishesAdapter;
+import it.polimi.expogame.support.Ingredient;
 
 /**
  * Fragment in order to show dishes of a specific zone
@@ -41,6 +46,7 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
     private GridDishesAdapter gridAdapter;
     private ArrayList<GridDishItem> gridDishItems;
     private GridView gridView;
+    private ArrayList<Ingredient> hintIngredients;
 
 
     public static ZoneFragment newInstance() {
@@ -50,13 +56,16 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
     }
 
     public ZoneFragment() {
+
         gridDishItems = new ArrayList<GridDishItem>();
+        hintIngredients = new ArrayList<Ingredient>();
     }
 
     public ZoneFragment(String zone) {
 
         this.zone = zone.toLowerCase();
         gridDishItems = new ArrayList<GridDishItem>();
+        hintIngredients = new ArrayList<Ingredient>();
     }
 
     @Override
@@ -101,6 +110,8 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
         if(((GridDishItem)gridView.getAdapter().getItem(position)).isCreated()){
             loadDishClicked(id);
 
+        }else{
+            showHint(((GridDishItem)gridView.getAdapter().getItem(position)).getName());
         }
     }
 
@@ -179,6 +190,58 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
             startActivity(intent);
         }
 
+    }
+
+    //load ingredients for hint
+    private void showHint(String name){
+
+        Uri uri = Uri.parse(DishesProvider.CONTENT_URI+"/ingredients");
+        String selection = IngredientsInDishes.COLUMN_ID_DISH + " = ?";
+
+        String[] selectionArgs = new String[]{name};
+
+        Cursor cursor = getActivity().getContentResolver().query(uri,null,selection,selectionArgs,null);
+
+        if(cursor != null){
+            cursor.moveToFirst();
+            while(cursor.isAfterLast() == false){
+                String ingredient = cursor.getString(cursor.getColumnIndexOrThrow(IngredientsInDishes.COLUMN_ID_INGREDIENT));
+                loadDetailsIngredient(ingredient);
+                cursor.moveToNext();
+
+            }
+
+            cursor.close();
+        }
+
+    }
+
+    //load details of the single ingredient
+    private void loadDetailsIngredient(String name){
+        String selection = IngredientTable.COLUMN_NAME + " = ?";
+
+        String[] selectionArgs = new String[]{name};
+
+        Cursor cursor = getActivity().getContentResolver().query(IngredientsProvider.CONTENT_URI,null,selection,selectionArgs,null);
+
+        if (cursor != null){
+            cursor.moveToFirst();
+            String imageUrl = cursor.getString(cursor.getColumnIndexOrThrow(IngredientTable.COLUMN_IMAGEURL));
+            String category = cursor.getString(cursor.getColumnIndexOrThrow(IngredientTable.COLUMN_CATEGORY));
+            int unlocked = cursor.getInt(cursor.getColumnIndexOrThrow(IngredientTable.COLUMN_UNLOCKED));
+            boolean unblocked;
+            if (unlocked == 0) {
+                unblocked = false;
+            } else {
+                unblocked = true;
+            }
+            Ingredient ingredient = new Ingredient(getActivity().getApplicationContext(),name, imageUrl, category, unblocked);
+            hintIngredients.add(ingredient);
+
+            Log.d("MAIN","Ho caricato "+name);
+
+        }
+        cursor.close();
     }
 
 

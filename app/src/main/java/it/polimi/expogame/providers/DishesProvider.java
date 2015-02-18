@@ -24,18 +24,24 @@ public class DishesProvider extends ContentProvider {
     private static final int DISHES = 10;
     private static final int DISH_ID = 20;
     private static final int ZONES = 30;
+    private static final int INGREDIENTS = 40;
+
 
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + BASE_PATH);
 
     public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/dishes";
     public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/dish";
     public static final String CONTENT_ZONES = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/zones";
+    public static final String CONTENT_INGREDIENTS = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/ingredients";
+
 
     private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     static {
         sURIMatcher.addURI(AUTHORITY, BASE_PATH, DISHES);
         sURIMatcher.addURI(AUTHORITY, BASE_PATH + "/#", DISH_ID);
+        sURIMatcher.addURI(AUTHORITY, BASE_PATH + "/ingredients", INGREDIENTS);
         sURIMatcher.addURI(AUTHORITY, BASE_PATH + "/zones", ZONES);
+
     }
 
     private ExpoGameDbHelper database;
@@ -56,6 +62,8 @@ public class DishesProvider extends ContentProvider {
                 return CONTENT_ITEM_TYPE;
             case ZONES:
                 return CONTENT_ZONES;
+            case INGREDIENTS:
+                return CONTENT_INGREDIENTS;
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);
         }
@@ -90,6 +98,9 @@ public class DishesProvider extends ContentProvider {
                 break;
             case ZONES:
                 queryBuilder.setTables(ExpoGameDbHelper.TABLE_ZONES);
+                break;
+            case INGREDIENTS:
+                queryBuilder.setTables(ExpoGameDbHelper.TABLE_INGREDIENTS_IN_DISHES);
                 break;
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);
