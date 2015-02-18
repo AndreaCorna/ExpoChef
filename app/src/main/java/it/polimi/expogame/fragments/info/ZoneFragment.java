@@ -196,9 +196,9 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
     private void showHint(String name){
 
         Uri uri = Uri.parse(DishesProvider.CONTENT_URI+"/ingredients");
-        String selection = IngredientsInDishes.COLUMN_ID_DISH + " = ?";
+        String selection = IngredientsInDishes.COLUMN_ID_DISH + " = ? AND "+IngredientsInDishes.COLUMN_HINT_GIVEN + " = ?";
 
-        String[] selectionArgs = new String[]{name};
+        String[] selectionArgs = new String[]{name,"0"};
 
         Cursor cursor = getActivity().getContentResolver().query(uri,null,selection,selectionArgs,null);
 

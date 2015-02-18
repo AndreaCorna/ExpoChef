@@ -88,6 +88,8 @@
     <string name="romania">romania</string>
     <string name="ungheria">hungary</string>
     <string name="marocco">morocco</string>
+    <string name="norvegia">norway</string>
+    <string name="germania">germany</string>
 
 
 
@@ -164,6 +166,9 @@
     <string name="cuscus_descr">couscous (French: couscous ; Arabic Maghreb : كسكس ; Berber : seksu ) is a typical food of North Africa and the western Sicily , consisting of agglomerates or granules of semolina steamed ( the diameter of a millimeter before cooking ) .</string>
     <string name="bobotie_descr">bobotie is a traditional dish of South African cuisine , it is a tasty meat pie that combines the flavors of sweet than salty : it is , in fact , made ​​with ground meat , spices , raisins and cranberries and can be enriched with other ingredients such as almonds or hazelnuts .</string>
     <string name="gulasch_descr">goulash is a soup made of meat , bacon , fried onions and carrots , which the herdsmen cooked in a large pot set over a fire fueled by wood outdoors when , for example , carrying the precious gray cattle podolica (race by long-horned cattle ) from the plains of the puszta to markets morovia , vienna , nuremberg and venice .</string>
+    <string name="currywurst_descr">the currywurst is a typical street food born in Germany, but also widespread in Austria and South Tyrol. it is a grilled sausage (or, in other variants, boiled) and cut into slices, seasoned with a sauce made of tomato paste, sprinkle of curry, and accompanied by white bread or fries.</string>
+    <string name="farikal_descr">the farikal is a typical autumn dish Norwegian lamb boiled with cabbage and pepper.</string>
+
 
     <string name="gulasch_curiosity">was at the end of th 700 that was born the invention of the culinary tradition goulash , flat symbol of the people of Hungary .
 this food , whose term comes from Hungarian " gulyas " ( cowherd ) , indicated in medieovo a preparation made by herdsmen during the work on the pastures . recipe orginale was to dice the meat and then cook it over low heat in open pots and season with salt only ( later also chili ) .
@@ -191,6 +196,8 @@ during the political conflict with austria ( ca. 1780 ) , the Hungarian company 
     <string name="crespella_curiosity">legend says that the crepe was born when Pope Gelasius, to feed a large number of French pilgrims arrived in Rome, he put together by chefs Vatican a significant amount of eggs and flour. everything was cooked on hot plates thus giving rise to the first rudimentary cracks. But setting aside the legends, we can say that in the Middle Ages milk, precious and nutritious element, was often replaced by water or wine and that the modern recipe, which uses mainly wheat flour, was born probably around the ninth century.</string>
     <string name="fish_and_chips_curiosity">the largest portion of fish and chips ever served weighs 47.75 kg (105 lb 4 oz) and was made from fish and chips @ ltd in London on 30 July 2012. The weight of the raw ingredients were: fish 21.65 kg (47 pounds 11 oz), chip 43.24 kg (95 lb 5 oz) and batter 1.914 g (4 lb 3 oz).</string>
     <string name="pabellón_criollo_curiosity">Venezuelan history goes into this dish, since its inception has fed his people, has always been associated to the battles for independence carried out by simon bolivar said "El Libertador", the "Garibaldi" Venezuelan</string>
+    <string name="currywurst_curiosity">maximilian meat specialties prepared and served the longest in the world currywurst 40 meters (about 122 feet) is more than double the previous record</string>
+    <string name="farikal_curiosity" formatted="false">the 29th 2012, Guinness World Records has awarded the prize for the largest portion of farikal cooked. the result were 594.2 kg of farikal, which consisted of 60% lamb and 40% of cabbage. the event was held in Spikersuppa, oslo, norway, attended by 10,000 participants.</string>
 
     <!-- MASCOT CATEGORY -->
     <string name="frutta">fruit</string>
