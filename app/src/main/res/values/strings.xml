@@ -90,6 +90,7 @@
     <string name="marocco">morocco</string>
     <string name="norvegia">norway</string>
     <string name="germania">germany</string>
+    <string name="honduras">honduras</string>
 
 
 
@@ -143,6 +144,7 @@
     <string name="frutta_secca">dried fruit</string>
     <string name="semola">semolina</string>
     <string name="carota">carrot</string>
+    <string name="crema">cream</string>
 
 
     <!-- DESCRIPTIONS DISHES -->
@@ -168,6 +170,7 @@
     <string name="gulasch_descr">goulash is a soup made of meat , bacon , fried onions and carrots , which the herdsmen cooked in a large pot set over a fire fueled by wood outdoors when , for example , carrying the precious gray cattle podolica (race by long-horned cattle ) from the plains of the puszta to markets morovia , vienna , nuremberg and venice .</string>
     <string name="currywurst_descr">the currywurst is a typical street food born in Germany, but also widespread in Austria and South Tyrol. it is a grilled sausage (or, in other variants, boiled) and cut into slices, seasoned with a sauce made of tomato paste, sprinkle of curry, and accompanied by white bread or fries.</string>
     <string name="farikal_descr">the farikal is a typical autumn dish Norwegian lamb boiled with cabbage and pepper.</string>
+    <string name="baleada_descr">A Baleada is a traditional Honduran dish composed of a flour tortilla, often quite thick, folded in half and filled with mashed fried beans. It originates from La Ceiba. Aside from beans, there is a whole variety of ingredients that can be added to the Baleada. The most common types of baleadas are the baleadas sencillas (simple baleada) which has crumbled cheese and crema. Other common variety of baleada is the baleada mixta (mixed baleada) which has the same as the baleada simple but with an addition of scrambled eggs. Many other people add sausage, plantain, hot sauce, avocado, chicken, pork and chismol which is diced tomato, onion and bell pepper. The big Honduran towns often have more than one restaurant that sells baleadas.</string>
 
 
     <string name="gulasch_curiosity">was at the end of th 700 that was born the invention of the culinary tradition goulash , flat symbol of the people of Hungary .
@@ -198,7 +201,7 @@ during the political conflict with austria ( ca. 1780 ) , the Hungarian company 
     <string name="pabellón_criollo_curiosity">Venezuelan history goes into this dish, since its inception has fed his people, has always been associated to the battles for independence carried out by simon bolivar said "El Libertador", the "Garibaldi" Venezuelan</string>
     <string name="currywurst_curiosity">maximilian meat specialties prepared and served the longest in the world currywurst 40 meters (about 122 feet) is more than double the previous record</string>
     <string name="farikal_curiosity" formatted="false">the 29th 2012, Guinness World Records has awarded the prize for the largest portion of farikal cooked. the result were 594.2 kg of farikal, which consisted of 60% lamb and 40% of cabbage. the event was held in Spikersuppa, oslo, norway, attended by 10,000 participants.</string>
-
+    <string name="baleada_curiosity">There are several stories about the origins of this dish. One of the most well-known stories dates back to when the banana companies were booming in La Ceiba, northern Honduras. By all accounts, a woman known as “Doña Tere” was supposed to have created dish, where she had a small food stand near one of these banana companies.</string>
     <!-- MASCOT CATEGORY -->
     <string name="frutta">fruit</string>
     <string name="fish">fish</string>

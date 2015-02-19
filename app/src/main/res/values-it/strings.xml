@@ -107,6 +107,8 @@
     <string name="cavolo">cavolo</string>
     <string name="pane">pane</string>
     <string name="fagioli">fagioli</string>
+    <string name="crema">crema</string>
+
     <!-- ZONES NAMES -->
     <string name="sud_america">sud america</string>
     <string name="oceania">oceania</string>
@@ -192,6 +194,9 @@ oggi questa ricetta si prepara grazie alla pentola a pressione, che lascia la ca
     <string name="farikal_descr">il farikal è un tipico piatto autunnale norvegese agnello bollito con cavolo e pepe in grani.</string>
     <string name="farikal_curiosity" formatted="false">il 29th 2012, guinness world records ha assegnato il premio per la più grande porzione di farikal cucinata. il risultato sono stati 594,2 kg di farikal, che consistevano in 60% di agnello e 40% di cavolo. l\'evento si è svolto a  spikersuppa, oslo, norvegia, alla presenza di 10,000 partecipanti.</string>
 
+    <string name="honduras">honduras</string>
+    <string name="baleada_descr">un baleada è un piatto tradizionale honduregno composto da una tortilla di farina, spesso abbastanza spessa, piegato a metà e pieno di fagioli fritti purè. proviene da la ceiba. oltre fagioli, vi è una grande varietà di ingredienti che possono essere aggiunti alla baleada. i tipi più comuni di baleadas sono i baleadas sencillas che ha sbriciolato formaggio e crema. altro varietà comune di baleada è il mixta baleada che ha la stessa come la semplice baleada ma con l\'aggiunta di uova strapazzate. molte altre persone aggiungere salsiccia, piantaggine, salsa piccante, avocado, pollo, maiale e chismol che è il pomodoro a dadini, la cipolla e il peperone. le grandi città honduregni hanno spesso più di un ristorante che vende baleadas.</string>
+    <string name="baleada_curiosity">ci sono diverse storie sulle origini di questo piatto. una delle storie più conosciute risale a quando le aziende di banane erano in pieno boom a la ceiba, honduras settentrionale. a detta di tutti, una donna conosciuta come "doña tere" creò il piatto, che aveva un piccolo stand gastronomico vicino una di queste società di banana.</string>
     <!-- MASCOTS CATEGORIES -->
     <string name="frutta">frutta</string>
     <string name="fish">fish</string>
