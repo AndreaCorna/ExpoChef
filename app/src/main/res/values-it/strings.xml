@@ -108,6 +108,7 @@
     <string name="pane">pane</string>
     <string name="fagioli">fagioli</string>
     <string name="crema">crema</string>
+    <string name="brodo">brodo</string>
 
     <!-- ZONES NAMES -->
     <string name="sud_america">sud america</string>
@@ -197,6 +198,10 @@ oggi questa ricetta si prepara grazie alla pentola a pressione, che lascia la ca
     <string name="honduras">honduras</string>
     <string name="baleada_descr">un baleada è un piatto tradizionale honduregno composto da una tortilla di farina, spesso abbastanza spessa, piegato a metà e pieno di fagioli fritti purè. proviene da la ceiba. oltre fagioli, vi è una grande varietà di ingredienti che possono essere aggiunti alla baleada. i tipi più comuni di baleadas sono i baleadas sencillas che ha sbriciolato formaggio e crema. altro varietà comune di baleada è il mixta baleada che ha la stessa come la semplice baleada ma con l\'aggiunta di uova strapazzate. molte altre persone aggiungere salsiccia, piantaggine, salsa piccante, avocado, pollo, maiale e chismol che è il pomodoro a dadini, la cipolla e il peperone. le grandi città honduregni hanno spesso più di un ristorante che vende baleadas.</string>
     <string name="baleada_curiosity">ci sono diverse storie sulle origini di questo piatto. una delle storie più conosciute risale a quando le aziende di banane erano in pieno boom a la ceiba, honduras settentrionale. a detta di tutti, una donna conosciuta come "doña tere" creò il piatto, che aveva un piccolo stand gastronomico vicino una di queste società di banana.</string>
+    <string name="panama">panama</string>
+    <string name="sancocho_descr">sancocho (dal verbo sancochar spagnolo, "per sbollentare") è una zuppa tradizionale (spesso considerato uno stufato) in diverse cucine latina derivate dal piatto spagnolo conosciuto come cocido. variazioni rappresentano piatti nazionali popolari nelle isole canarie, puerto rico, honduras, messico, ecuador, colombia, panama, perù, repubblica dominicana e venezuela e stufati, come la corsica, irlandese, danese, tedesco e italiano e bouillon in haiti, pot au feu in francia. di solito consiste in grandi pezzi di carne, tuberi e verdure serviti in un brodo.</string>
+    <string name="sancocho_curiosity">il sancocho nato a cuba e si chiama ajiaco. ajiaco è uno stufato abbondante a base di carne di manzo, maiale, pollo, verdure, e una varietà di radici amidacee e tuberi classificati come viandas. questo spezzatino risale ai taínos nativi in cuba. il nome deriva dalla lingua ajiaco taíno e significa peperoncino.</string>
+
     <!-- MASCOTS CATEGORIES -->
     <string name="frutta">frutta</string>
     <string name="fish">fish</string>
