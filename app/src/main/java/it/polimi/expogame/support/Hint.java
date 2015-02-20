@@ -20,8 +20,13 @@ public class Hint implements Parcelable {
             this.drawableImage = ConverterImageNameToDrawableId.convertImageNameToDrawable(context,imageUrl);
         }
 
-        // Parcelling part
+    public void setAlreadySuggested(boolean hintGiven) {
+        this.hintGiven = hintGiven;
+    }
+
+    // Parcelling part
         public Hint(Parcel in){
+
 
             this.name = in.readString();
             this.drawableImage = in.readInt();

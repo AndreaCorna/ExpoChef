@@ -79,11 +79,21 @@ public class HintFragmentDialog extends DialogFragment {
         hintButton.setOnClickListener(new View.OnClickListener() {
                                           @Override
                                           public void onClick(View v) {
+                                              Log.d("ONCLICK","clicked on the button");
                                               for (int i=0; i<hintArrayList.size()-1;i++){
-                                                   Hint hint = hintArrayList.get(i);
+
+                                                  Hint hint = hintArrayList.get(i);
+                                                  Log.d("ONCLICK","current hint "+hint.getName());
+
+                                                  Log.d("ONCLICK","already suggested hint hint "+hint.alreadySuggested());
+
+
                                                   if (!hint.alreadySuggested()){
+                                                      Log.d("ONCLICK","unlocking hint hint "+hint.getName());
                                                       hintUnlockedListener.hintUnlocked(dishName,hint.getName());
+                                                      hint.setAlreadySuggested(true);
                                                       ((ImageView)getView().findViewWithTag(hint.getName())).setImageResource(hint.getDrawableImage());
+                                                      break;
                                                   }
                                               }
                                           }
