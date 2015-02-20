@@ -1,8 +1,6 @@
 package it.polimi.expogame.fragments.info;
 
-import android.app.ActionBar;
 import android.graphics.Point;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
@@ -22,7 +20,7 @@ import it.polimi.expogame.support.Hint;
 public class HintFragmentDialog extends DialogFragment {
 
     public  interface OnHintUnlockedListener{
-        public void hintUnlocked(Hint hint);
+        public void hintUnlocked(String nameDish, String nameIngredient);
     }
 
 
@@ -30,6 +28,7 @@ public class HintFragmentDialog extends DialogFragment {
 
     ArrayList<Hint> hintArrayList;
     private static final String TAG = "HintFragmentDialog";
+    private OnHintUnlockedListener hintUnlockedListener;
 
     public HintFragmentDialog() {
     }
@@ -87,6 +86,7 @@ public class HintFragmentDialog extends DialogFragment {
 
         int dialogWidth = width*3/4;
         int dialogHeight =  height*3/4;
+        hintUnlockedListener = (OnHintUnlockedListener)getActivity();
 
         getDialog().getWindow().setLayout(dialogWidth, dialogHeight);
     }

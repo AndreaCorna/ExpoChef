@@ -1,7 +1,9 @@
 package it.polimi.expogame.activities;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -16,8 +18,10 @@ import android.os.Build;
 import java.util.HashMap;
 
 import it.polimi.expogame.R;
+import it.polimi.expogame.database.IngredientsInDishes;
 import it.polimi.expogame.fragments.info.DetailsFragment;
 import it.polimi.expogame.fragments.info.HintFragmentDialog;
+import it.polimi.expogame.providers.DishesProvider;
 import it.polimi.expogame.support.ConverterImageNameToDrawableId;
 import it.polimi.expogame.support.Dish;
 import it.polimi.expogame.support.Hint;
@@ -89,9 +93,21 @@ public class DetailsActivity extends ActionBarActivity implements HintFragmentDi
     }
 
     @Override
-    public void hintUnlocked(Hint hint) {
-        
+    public void hintUnlocked(String nameDish, String nameIngredient) {
+        setIngredientSuggested(nameDish,nameIngredient);
     }
+
+    private void setIngredientSuggested(String nameDish, String nameIngredient){
+        Uri uri = Uri.parse(DishesProvider.CONTENT_URI+"/ingredients");
+        String where = IngredientsInDishes.COLUMN_ID_DISH + " = ? AND "+IngredientsInDishes.COLUMN_ID_INGREDIENT + " = ?";
+        String[] selectionArgs = new String[]{nameDish,nameIngredient};
+
+        ContentValues values = new ContentValues();
+        values.put(IngredientsInDishes.COLUMN_HINT_GIVEN, 1);
+
+        getContentResolver().update(uri, values, where, selectionArgs);
+    }
+
 
     private class PostObject{
         private String name;
