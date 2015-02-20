@@ -203,7 +203,9 @@ oggi questa ricetta si prepara grazie alla pentola a pressione, che lascia la ca
     <string name="panama">panama</string>
     <string name="sancocho_descr">sancocho (dal verbo sancochar spagnolo, "per sbollentare") è una zuppa tradizionale (spesso considerato uno stufato) in diverse cucine latina derivate dal piatto spagnolo conosciuto come cocido. variazioni rappresentano piatti nazionali popolari nelle isole canarie, puerto rico, honduras, messico, ecuador, colombia, panama, perù, repubblica dominicana e venezuela e stufati, come la corsica, irlandese, danese, tedesco e italiano e bouillon in haiti, pot au feu in francia. di solito consiste in grandi pezzi di carne, tuberi e verdure serviti in un brodo.</string>
     <string name="sancocho_curiosity">il sancocho nato a cuba e si chiama ajiaco. ajiaco è uno stufato abbondante a base di carne di manzo, maiale, pollo, verdure, e una varietà di radici amidacee e tuberi classificati come viandas. questo spezzatino risale ai taínos nativi in cuba. il nome deriva dalla lingua ajiaco taíno e significa peperoncino.</string>
-
+    <string name="arabia_saudita">arabia saudita</string>
+    <string name="kabsa_descr">il kabsa è un tipico piatto del medio oriente a base di carne, riso, verdure e spezie. viene di solito preparato con il pollo, agnello o il manzo, anche se a volte si usano altri animali.</string>
+    <string name="kabsa_curiosity">la kabsa non e’ solo un piatto tipico, ma e’ il modo di mangiare arabo: consiste in un grande piatto di riso, cotto con spezie, con sopra della carne, in genere di pollo e agnello o appunto cammello. i commensali mangiano tutti direttamente da questo grande piatto, rigorosamente con la mano destra, semi-sdraiati per terra appoggiati a dei cuscini anche se oggi comunque molte famiglie sono solite mangiare con un cucchiaio e seduti a tavola.</string>
     <!-- MASCOTS CATEGORIES -->
     <string name="frutta">frutta</string>
     <string name="fish">fish</string>

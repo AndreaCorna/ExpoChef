@@ -93,7 +93,7 @@
     <string name="germania">germany</string>
     <string name="honduras">honduras</string>
     <string name="panama">panama</string>
-
+    <string name="arabia_saudita">saudi arabia</string>
 
 
 
@@ -175,6 +175,7 @@
     <string name="farikal_descr">the farikal is a typical autumn dish Norwegian lamb boiled with cabbage and pepper.</string>
     <string name="baleada_descr">A Baleada is a traditional Honduran dish composed of a flour tortilla, often quite thick, folded in half and filled with mashed fried beans. It originates from La Ceiba. Aside from beans, there is a whole variety of ingredients that can be added to the Baleada. The most common types of baleadas are the baleadas sencillas (simple baleada) which has crumbled cheese and crema. Other common variety of baleada is the baleada mixta (mixed baleada) which has the same as the baleada simple but with an addition of scrambled eggs. Many other people add sausage, plantain, hot sauce, avocado, chicken, pork and chismol which is diced tomato, onion and bell pepper. The big Honduran towns often have more than one restaurant that sells baleadas.</string>
     <string name="sancocho_descr">Sancocho (from the Spanish verb sancochar, "to parboil") is a traditional soup (often considered a stew) in several Latin American cuisines derived from the Spanish dish known as Cocido. Variations represent popular national dishes in the Canary Islands, Puerto Rico, Honduras, Mexico, Ecuador, Colombia, Panama, Peru, Dominican Republic, and Venezuela and stews such as the Corsica, Irish, Danish, German and Italian versions and Bouillon in Haiti, pot au feu in France. It usually consists of large pieces of meat, tubers and vegetables served in a broth.</string>
+    <string name="kabsa_descr">the kabsa is a typical dish of the Middle East meat, rice, vegetables and spices. is usually prepared with chicken, lamb or beef, although sometimes using other animals.</string>
 
     <string name="gulasch_curiosity">was at the end of th 700 that was born the invention of the culinary tradition goulash , flat symbol of the people of Hungary .
 this food , whose term comes from Hungarian " gulyas " ( cowherd ) , indicated in medieovo a preparation made by herdsmen during the work on the pastures . recipe orginale was to dice the meat and then cook it over low heat in open pots and season with salt only ( later also chili ) .
@@ -206,6 +207,8 @@ during the political conflict with austria ( ca. 1780 ) , the Hungarian company 
     <string name="farikal_curiosity" formatted="false">the 29th 2012, Guinness World Records has awarded the prize for the largest portion of farikal cooked. the result were 594.2 kg of farikal, which consisted of 60% lamb and 40% of cabbage. the event was held in Spikersuppa, oslo, norway, attended by 10,000 participants.</string>
     <string name="baleada_curiosity">There are several stories about the origins of this dish. One of the most well-known stories dates back to when the banana companies were booming in La Ceiba, northern Honduras. By all accounts, a woman known as “Doña Tere” was supposed to have created dish, where she had a small food stand near one of these banana companies.</string>
     <string name="sancocho_curiosity">The Sancocho originated in Cuba and is called Ajiaco. Ajiaco is a hearty stew made from beef, pork, chicken, vegetables, and a variety of starchy roots and tubers classified as viandas. This stew dates back to the native Taínos in Cuba. The name ajiaco comes from taíno language and means pepper pot.</string>
+    <string name="kabsa_curiosity">the kabsa not "just a dish, but it" s the way you eat Arabic: consists of a large plate of rice, cooked with spices, topped with meat, usually chicken and lamb or camel precisely. diners eat all directly from this great dish, strictly with the right hand, half-lying on the floor leaning against the pillows although still today many families are accustomed to eat with a spoon and sitting at the table.</string>
+
     <!-- MASCOT CATEGORY -->
     <string name="frutta">fruit</string>
     <string name="fish">fish</string>

@@ -1,18 +1,23 @@
 package it.polimi.expogame.activities;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import it.polimi.expogame.R;
+import it.polimi.expogame.database.IngredientsInDishes;
+import it.polimi.expogame.fragments.info.HintFragmentDialog;
 import it.polimi.expogame.fragments.info.ZoneFragment;
+import it.polimi.expogame.providers.DishesProvider;
 
 /**
  * Activity used to show the list of dishes related to a zone
  */
-public class ZoneActivity extends ActionBarActivity {
+public class ZoneActivity extends ActionBarActivity implements HintFragmentDialog.OnHintUnlockedListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +47,22 @@ public class ZoneActivity extends ActionBarActivity {
 
         onBackPressed();
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void hintUnlocked(String nameDish, String nameIngredient) {
+        setIngredientSuggested(nameDish,nameIngredient);
+    }
+
+    private void setIngredientSuggested(String nameDish, String nameIngredient){
+        Uri uri = Uri.parse(DishesProvider.CONTENT_URI + "/ingredients");
+        String where = IngredientsInDishes.COLUMN_ID_DISH + " = ? AND "+IngredientsInDishes.COLUMN_ID_INGREDIENT + " = ?";
+        String[] selectionArgs = new String[]{nameDish,nameIngredient};
+
+        ContentValues values = new ContentValues();
+        values.put(IngredientsInDishes.COLUMN_HINT_GIVEN, 1);
+
+        getContentResolver().update(uri, values, where, selectionArgs);
     }
 
 
