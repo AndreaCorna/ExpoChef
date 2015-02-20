@@ -26,7 +26,7 @@
     <string name="message_toast_cook">Not a good choice...</string>
     <string name="start_text_tutorial">Hello!</string>
     <string-array name="tutorial_text">
-        <item>I\'ll explain you how\nto cook your dishes</item>
+        <item>I will explain you how\nto cook your dishes</item>
         <item>Use the map\nto come closer\nto the mascot</item>
         <item>When you are near\nclick on screen</item>
         <item>Find the mascot</item>
@@ -36,7 +36,7 @@
         <item>Drag them on chopping board</item>
         <item>...and cook!!!</item>
         <item>if your choice\nis correct</item>
-        <item>you\'ll discover\ninteresting information</item>
+        <item>you will discover\ninteresting information</item>
         <item>Good fun!!!</item>
     </string-array>
     <string name="label_curiosity">Curiosity</string>
@@ -82,6 +82,19 @@
     <string name="brasile">brazil</string>
     <string name="colombia">colombia</string>
     <string name="venezuela">venezuela</string>
+    <string name="sud_africa">south africa</string>
+    <string name="messico">mexico</string>
+    <string name="canada">canada</string>
+    <string name="romania">romania</string>
+    <string name="ungheria">hungary</string>
+    <string name="marocco">morocco</string>
+    <string name="norvegia">norway</string>
+    <string name="germania">germany</string>
+    <string name="honduras">honduras</string>
+    <string name="panama">panama</string>
+
+
+
 
     <!-- ZONE NAME -->
     <string name="sud_america">south america</string>
@@ -128,13 +141,20 @@
     <string name="fagioli">beans</string>
     <string name="mozzarella">mozzarella</string>
     <string name="formaggio">cheese</string>
+    <string name="banana">banana</string>
+    <string name="frutta_secca">dried fruit</string>
+    <string name="semola">semolina</string>
+    <string name="carota">carrot</string>
+    <string name="crema">cream</string>
+    <string name="brodo">broth</string>
+
 
     <!-- DESCRIPTIONS DISHES -->
     <string name="pizza_descr">the pizza is a delicacy typical of Neapolitan cuisine, today, with the pasta, the best known of Italian gastronomy. with this name, virtually unknown beyond the city walls Neapolitan, even in the nineteenth century, is indicated cakes, almost always sweet. it was not until the early nineteenth century that the pizza assumed, always in Naples, its current connotation, the next global success of the dish, led by extension, to define in the same way any similar preparation.</string>
     <string name="varenyky_descr">the Varenyky are a traditional dish of pasta stuffed Ukrainian triangular or half moon, with stuffed potato, meat, cheese or soft berries (cherries, blueberries etc.). this dish is considered one of the most traditional dishes of Ukraine.</string>
     <string name="pelmeni_descr">pelmeni are a traditional dish of Siberia and central-eastern europe product stuffed with mixed meat, wrapped in a thin sheet (made of flour and eggs, sometimes with the addition of milk or water). pork, lamb, beef, or any other type of meat can be used as a filling; mix up the different types is a common custom</string>
     <string name="pavlova_descr">the pavlova is a sweet summer of Australian origin. the base of the pavlova consists of a meringue covered with whipped cream and decorated with fresh fruits, such as berries, strawberries and kiwi. the difficulty in this dessert is to be able to prepare a meringue golden, crispy on the outside and very soft inside but the end result will definitely tasty. pairing with fresh fruit and cream gives the pavlova a special flavor and makes this cake a sweet very good and tasty.</string>
-    <string name="bazeen_descr">bazeen is one of the most typical dishes of North Africa. it\'s among the most widespread in western Libya, and is often served for lunch on Friday. There are variations of bazeen lamb, containing camel meat, chicken, squid or beans. a variant of winter bazeen is served with a soup hassa made with dried meat.</string>
+    <string name="bazeen_descr">bazeen is one of the most typical dishes of North Africa. it\ s among the most widespread in western Libya, and is often served for lunch on Friday. There are variations of bazeen lamb, containing camel meat, chicken, squid or beans. a variant of winter bazeen is served with a soup hassa made with dried meat.</string>
     <string name="sushi_descr">in Japanese cuisine sushi is a food made of rice along with other ingredients such as fish, algae, plants or eggs. the filling can be raw, cooked or marinated and can be served resting on rice, rolled in a strip of seaweed, placed in rice rolls or inserted into a small pocket of tofu. in Japan the word sushi literally means "acid" and refers to a wide range of foods made with rice. outside of japan is often understood as raw fish, or as a reference to a restricted kind of Japanese foods, such as maki or nigiri and sashimi.</string>
     <string name="ajiaco_descr">the ajiaco is a thick soup and particularly popular in Colombia. is one of the most beloved national dishes and there are several variables; the best known is the ajiaco bogotano or ajiaco santafereño, which takes its name from Bogotá (ancient name of bogota), the capital of Colombia, where this dish is a cultural tradition</string>
     <string name="feijoada_descr">feijoada is one of the typical dishes of Brazilian cuisine, probably the best known and representative. The term comes from feijão that in Portuguese is going to bean, this being one of the typical ingredients.</string>
@@ -143,6 +163,31 @@
     <string name="fish_and_chips_descr">the fish and chips is a typical dish of British cuisine. consists of white fish fillet (usually Gadidae such as cod or haddock) fried in batter and surrounded by abundant and thick chips, also fried, choices among cultivars floury maris piper, king edward or Desirée. is served with a sprinkle of salt and vinegar</string>
     <string name="pabellón_criollo_descr">the preparation of this dish stewed gives rise to a very soft and shredded meat, which lends itself well to the filling of many other local foods such as arepas and empanadas. Today this recipe is prepared thanks to a pressure cooker, which leaves the soft flesh without having to tap it in advance and that allows us to achieve the right degree of doneness.</string>
     <string name="peking_duck_descr">Peking Duck is a famous duck dish from Beijing that has been prepared since the imperial era. The meat is prized for its thin, crisp skin, with authentic versions of the dish serving mostly the skin and little meat, sliced in front of the diners by the cook. Ducks bred specially for the dish are slaughtered after 65 days and seasoned before being roasted in a closed or hung oven. The meat is eaten with scallion, cucumber and sweet bean sauce with pancakes rolled around the fillings. Sometimes pickled radish is also inside, and other sauces can be used.</string>
+
+    <string name="sarma_descr">The sarma is one of the national dishes of Romanian cuisine , it comes in rolls of leaves of pickled cabbage or grape leaves blanched in salted water , which contain a mixture of ground beef, rice and onion lightly browned . everything is cooked in a pot with water , oil and a pinch of salt .</string>
+    <string name="poutine_descr">The poutine is a delicious dish Canadian originates precisely in the province of Quebec, but sometimes it is also served in the northern states of the usa . consists of chips with cream cheese and gravy (butter , onions and beef broth in addition to other ingredients ) . The poutine is considered a quick meal , but the main one , and can be enjoyed on many occasions</string>
+    <string name="fajita_descr">the fajita are a typical dish of Mexican meat ( chicken breast or beef, or both ) , pepper and onion, with the addition of a spice mix reproducible with cumin , hot pepper , paprika , and oregano</string>
+    <string name="cuscus_descr">couscous (French: couscous ; Arabic Maghreb : كسكس ; Berber : seksu ) is a typical food of North Africa and the western Sicily , consisting of agglomerates or granules of semolina steamed ( the diameter of a millimeter before cooking ) .</string>
+    <string name="bobotie_descr">bobotie is a traditional dish of South African cuisine , it is a tasty meat pie that combines the flavors of sweet than salty : it is , in fact , made ​​with ground meat , spices , raisins and cranberries and can be enriched with other ingredients such as almonds or hazelnuts .</string>
+    <string name="gulasch_descr">goulash is a soup made of meat , bacon , fried onions and carrots , which the herdsmen cooked in a large pot set over a fire fueled by wood outdoors when , for example , carrying the precious gray cattle podolica (race by long-horned cattle ) from the plains of the puszta to markets morovia , vienna , nuremberg and venice .</string>
+    <string name="currywurst_descr">the currywurst is a typical street food born in Germany, but also widespread in Austria and South Tyrol. it is a grilled sausage (or, in other variants, boiled) and cut into slices, seasoned with a sauce made of tomato paste, sprinkle of curry, and accompanied by white bread or fries.</string>
+    <string name="farikal_descr">the farikal is a typical autumn dish Norwegian lamb boiled with cabbage and pepper.</string>
+    <string name="baleada_descr">A Baleada is a traditional Honduran dish composed of a flour tortilla, often quite thick, folded in half and filled with mashed fried beans. It originates from La Ceiba. Aside from beans, there is a whole variety of ingredients that can be added to the Baleada. The most common types of baleadas are the baleadas sencillas (simple baleada) which has crumbled cheese and crema. Other common variety of baleada is the baleada mixta (mixed baleada) which has the same as the baleada simple but with an addition of scrambled eggs. Many other people add sausage, plantain, hot sauce, avocado, chicken, pork and chismol which is diced tomato, onion and bell pepper. The big Honduran towns often have more than one restaurant that sells baleadas.</string>
+    <string name="sancocho_descr">Sancocho (from the Spanish verb sancochar, "to parboil") is a traditional soup (often considered a stew) in several Latin American cuisines derived from the Spanish dish known as Cocido. Variations represent popular national dishes in the Canary Islands, Puerto Rico, Honduras, Mexico, Ecuador, Colombia, Panama, Peru, Dominican Republic, and Venezuela and stews such as the Corsica, Irish, Danish, German and Italian versions and Bouillon in Haiti, pot au feu in France. It usually consists of large pieces of meat, tubers and vegetables served in a broth.</string>
+
+    <string name="gulasch_curiosity">was at the end of th 700 that was born the invention of the culinary tradition goulash , flat symbol of the people of Hungary .
+this food , whose term comes from Hungarian " gulyas " ( cowherd ) , indicated in medieovo a preparation made by herdsmen during the work on the pastures . recipe orginale was to dice the meat and then cook it over low heat in open pots and season with salt only ( later also chili ) .
+during the political conflict with austria ( ca. 1780 ) , the Hungarian company was in need of concrete symbols of its independence culturare , and it was for this that were chosen clothing aristocratic old style and the goulash of herdsmen .</string>
+    <string name="sarma_curiosity">Interestingly however the measure because while in serbia and romania are great western , eastern , moldova in Romanian and in the Republic of Moldova will do, however tiny , the size of a walnut ; pride of the hostess ( gospodina ) in Romanian. there is no party or celebration where they are served , from weddings , baptisms to religious and state holidays : even at funerals and facts are served , and after 40 days from the canons death , as is traditional in the Orthodox Church . it should be remembered that , during the "post " the Orthodox Lent , which is very rigid ( not allowing categorically meat consumption ) , are prepared with a filling of rice with vegetables .</string>
+    <string name="poutine_curiosity">according to many the poutine was born by chance in warwick in Quebec in September 1957, then a customer walked into a small restaurant called lutin qui rit owned by Monsieur fernand Lachance and made a request for a bit special ... or french fries to stick with the gravy , brown sauce made ​​with sauce of roasted meat and nibbles of cheese called cheese curds. The dish was so strange that prompted the owner to say: ça va faire une maudite poutine ( I will do a damn casino ) . hence the poutine . another story places the origin of this dish to 1964 : here we are in the roy jucep restaurant owned by jean paul roy . it claims to have prepared for the first sauce to put on chips and to have had bags of cheese curds after numerous requests of its customers that they added to the plate to give it more flavor.</string>
+    <string name="fajita_curiosity">It all goes back to the 30s in the rio grande valley , near the Mexican territory when the ranch Texans border taking the cheaper Mexican rancheros for laborers cattle . following the slaughter of animals , spread the habit of giving in to rancheros as partial payment for their work , some cuts scrap as the head, tripe and skirt . as often happens , the need for the mother of invention and the need to make edible fruits of the exchange has actually created the Tex-Mex cuisine , using cooking techniques learned from American employers : the barbecue . the use of the head is born so the barbacoa de cabeza , the tripe the menudo and the skirt , ( lombetti or diaphragm) , our own fajitas . </string>
+    <string name="cuscus_curiosity">the dish was created in morocco . the couscous was also known in the Sultanate of Nasrid Granada . always in the thirteenth century a historian of Aleppo Syrian cites the couscous on four occasions . these quotes so old show that couscous spread rapidly , but in general it was especially common in the West until the Islamic tripolitania , while further east , from Cyrenaica , the kitchen was especially Egyptian type , in which the couscous was only an occasional dish</string>
+    <string name="bobotie_curiosity">over 300 years ago , Dutch ships made ​​a stop in cape town , returning from Asia , before returning to Europe . gradually , however, began to stop and build . and in stop and build left part of the spices brought from java , then slaves , Malaysian , to cook for them .
+    influence between the kerriekerrie Asian cuisine native South Africa and that of the " white Europeans " came out the signature dish of this country .
+    for years , with British rule and then the laws of apartheid , the bobotie was deleted from the menu and cooked in secret , at home or at lunch counters Malaysian Cape Town .</string>
+
+
+
     <string name="peking_duck_curiosity">Two notable restaurants in Beijing which serve this dish are Quanjude and Bianyifang, both centuries-old establishments which have become household names, each with their own style: Quanjude is known for using the hung oven roasting method, while Bianyifang uses the oldest technique of closed oven roasting.</string>
     <string name="pizza_curiosity">feltham in London, a new record for the most distant pizza delivery is up to lucy clough. a pizza was cooked on November 17, 2004 and has traveled a distance of 16949 km to be delivered in ramsey street, melbourne, 19 November 2004. pizza louis xiii for two people costs € 8,300.00 pizza royale 007 created in new york costs € 3,000.00</string>
     <string name="varenyky_curiosity">popular saying "come what may just think there are the vareniki". vareniks are one of the favorite dishes by Ukrainians. vareniks the word means "boiled" and can be compared to Italian ravioli. some versions of this dish can be found in the kitchen Belarusian, Polish, Lithuanian and Russian.</string>
@@ -156,7 +201,10 @@
     <string name="crespella_curiosity">legend says that the crepe was born when Pope Gelasius, to feed a large number of French pilgrims arrived in Rome, he put together by chefs Vatican a significant amount of eggs and flour. everything was cooked on hot plates thus giving rise to the first rudimentary cracks. But setting aside the legends, we can say that in the Middle Ages milk, precious and nutritious element, was often replaced by water or wine and that the modern recipe, which uses mainly wheat flour, was born probably around the ninth century.</string>
     <string name="fish_and_chips_curiosity">the largest portion of fish and chips ever served weighs 47.75 kg (105 lb 4 oz) and was made from fish and chips @ ltd in London on 30 July 2012. The weight of the raw ingredients were: fish 21.65 kg (47 pounds 11 oz), chip 43.24 kg (95 lb 5 oz) and batter 1.914 g (4 lb 3 oz).</string>
     <string name="pabellón_criollo_curiosity">Venezuelan history goes into this dish, since its inception has fed his people, has always been associated to the battles for independence carried out by simon bolivar said "El Libertador", the "Garibaldi" Venezuelan</string>
-
+    <string name="currywurst_curiosity">maximilian meat specialties prepared and served the longest in the world currywurst 40 meters (about 122 feet) is more than double the previous record</string>
+    <string name="farikal_curiosity" formatted="false">the 29th 2012, Guinness World Records has awarded the prize for the largest portion of farikal cooked. the result were 594.2 kg of farikal, which consisted of 60% lamb and 40% of cabbage. the event was held in Spikersuppa, oslo, norway, attended by 10,000 participants.</string>
+    <string name="baleada_curiosity">There are several stories about the origins of this dish. One of the most well-known stories dates back to when the banana companies were booming in La Ceiba, northern Honduras. By all accounts, a woman known as “Doña Tere” was supposed to have created dish, where she had a small food stand near one of these banana companies.</string>
+    <string name="sancocho_curiosity">The Sancocho originated in Cuba and is called Ajiaco. Ajiaco is a hearty stew made from beef, pork, chicken, vegetables, and a variety of starchy roots and tubers classified as viandas. This stew dates back to the native Taínos in Cuba. The name ajiaco comes from taíno language and means pepper pot.</string>
     <!-- MASCOT CATEGORY -->
     <string name="frutta">fruit</string>
     <string name="fish">fish</string>

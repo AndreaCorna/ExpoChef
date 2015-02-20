@@ -25,6 +25,8 @@
         android:background="#55000000"
         android:layout_below="@id/picture_zone"
         android:gravity="center"
+        android:lines="2"
+
 
         />
 </RelativeLayout>

@@ -1,6 +1,7 @@
 package it.polimi.expogame.fragments.info;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -25,10 +26,16 @@ import java.util.ArrayList;
 import it.polimi.expogame.R;
 import it.polimi.expogame.activities.DetailsActivity;
 import it.polimi.expogame.database.DishesTable;
+import it.polimi.expogame.database.IngredientTable;
+import it.polimi.expogame.database.IngredientsInDishes;
 import it.polimi.expogame.providers.DishesProvider;
+import it.polimi.expogame.providers.IngredientsProvider;
+import it.polimi.expogame.support.ConverterImageNameToDrawableId;
+import it.polimi.expogame.support.ConverterStringToStringXml;
 import it.polimi.expogame.support.Dish;
 import it.polimi.expogame.support.GridDishItem;
 import it.polimi.expogame.support.GridDishesAdapter;
+import it.polimi.expogame.support.Ingredient;
 
 /**
  * Fragment in order to show dishes of a specific zone
@@ -42,6 +49,7 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
     private GridDishesAdapter gridAdapter;
     private ArrayList<GridDishItem> gridDishItems;
     private GridView gridView;
+    private ArrayList<Hint> hintIngredients;
 
 
     public static ZoneFragment newInstance() {
@@ -51,13 +59,16 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
     }
 
     public ZoneFragment() {
+
         gridDishItems = new ArrayList<GridDishItem>();
+        hintIngredients = new ArrayList<Hint>();
     }
 
     public ZoneFragment(String zone) {
 
         this.zone = zone.toLowerCase();
         gridDishItems = new ArrayList<GridDishItem>();
+        hintIngredients = new ArrayList<Hint>();
     }
 
     @Override
@@ -106,9 +117,10 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if(((GridDishItem)gridView.getAdapter().getItem(position)).isCreated()){
             loadDishClicked(id);
-        }
-        else{
-            showHintDialog();
+
+        }else{
+            hintIngredients.clear();
+            LoadHints(((GridDishItem)gridView.getAdapter().getItem(position)).getName());
         }
     }
 
@@ -186,6 +198,85 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
 
             startActivity(intent);
         }
+
+    }
+
+    //load ingredients for hint
+    private void LoadHints(String name){
+
+        Uri uri = Uri.parse(DishesProvider.CONTENT_URI+"/ingredients");
+        String selection = IngredientsInDishes.COLUMN_ID_DISH + " = ?";
+
+        String[] selectionArgs = new String[]{name};
+
+        Cursor cursor = getActivity().getContentResolver().query(uri,null,selection,selectionArgs,null);
+
+        if(cursor != null){
+            cursor.moveToFirst();
+            while(cursor.isAfterLast() == false){
+                String ingredient = cursor.getString(cursor.getColumnIndexOrThrow(IngredientsInDishes.COLUMN_ID_INGREDIENT));
+                int hintGivenField = cursor.getInt(cursor.getColumnIndexOrThrow(IngredientsInDishes.COLUMN_HINT_GIVEN));
+                boolean hintGiven = false;
+                if(hintGivenField == 1){
+                    hintGiven = true;
+                }
+                loadDetailsIngredient(ingredient, hintGiven);
+                cursor.moveToNext();
+
+            }
+
+            cursor.close();
+        }
+
+    }
+
+    //load details of the single ingredient
+    private void loadDetailsIngredient(String name,boolean hintGiven){
+        String selection = IngredientTable.COLUMN_NAME + " = ?";
+
+        String[] selectionArgs = new String[]{name};
+
+        Cursor cursor = getActivity().getContentResolver().query(IngredientsProvider.CONTENT_URI,null,selection,selectionArgs,null);
+
+        if (cursor != null){
+            cursor.moveToFirst();
+            String imageUrl = cursor.getString(cursor.getColumnIndexOrThrow(IngredientTable.COLUMN_IMAGEURL));
+
+            Hint hint = new Hint(getActivity().getApplicationContext(),name,imageUrl,hintGiven);
+            hintIngredients.add(hint);
+            Log.d("MAIN","Ho caricato "+name);
+
+        }
+        cursor.close();
+    }
+
+    private void setIngredientSuggested(String nameDish, String nameIngredient){
+        
+    }
+
+    private class Hint{
+        private String name;
+        private int drawableImage;
+        private boolean hintGiven;
+
+        public Hint(Context context, String name,String imageUrl, boolean hintGiven){
+            this.name = name;
+            this.hintGiven = hintGiven;
+            this.drawableImage = ConverterImageNameToDrawableId.convertImageNameToDrawable(context,imageUrl);
+        }
+
+        public String getName(){
+            return this.name;
+        }
+
+        public boolean alreadySuggested(){
+            return this.hintGiven;
+        }
+
+        public int getDrawableImage(){
+            return this.drawableImage;
+        }
+
 
     }
 

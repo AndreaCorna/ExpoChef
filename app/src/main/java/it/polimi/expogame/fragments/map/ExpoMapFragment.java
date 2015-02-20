@@ -58,9 +58,12 @@ public class ExpoMapFragment extends Fragment implements OnMapReadyCallback, Goo
 
     //Map Settings
     private float minZoom = 15;
-    private final LatLng INIT_POSITION = new LatLng(45.477493, 9.228400);
+    //Polimi
+    //private final LatLng INIT_POSITION = new LatLng(45.477493, 9.228400);
+    //EXPO
+    //private final LatLng INIT_POSITION = new LatLng(45.519899, 9.101893);
     //Cisano Bergamasco
-    //private final LatLng INIT_POSITION = new LatLng(45.738317, 9.476013);
+    private final LatLng INIT_POSITION = new LatLng(45.738317, 9.476013);
 
     private GoogleMap googleMap;
 
@@ -97,29 +100,6 @@ public class ExpoMapFragment extends Fragment implements OnMapReadyCallback, Goo
 
     }
 
-    /**
-     * Message box to ask for GPS
-     */
-    private void buildAlertMessageNoGps() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(ConverterStringToStringXml.getStringFromXml(getActivity().getApplicationContext(),"message_gps_activation"))
-                .setCancelable(false)
-                .setPositiveButton(ConverterStringToStringXml.getStringFromXml(getActivity().getApplicationContext(),"yes_answer"), new DialogInterface.OnClickListener() {
-                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-
-                    }
-                })
-                .setNegativeButton(ConverterStringToStringXml.getStringFromXml(getActivity().getApplicationContext(),"no_answer"), new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                        dialog.cancel();
-                    }
-                });
-        final AlertDialog alert = builder.create();
-        alert.show();
-    }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -149,13 +129,7 @@ public class ExpoMapFragment extends Fragment implements OnMapReadyCallback, Goo
         mapFragment.getMapAsync(this);
 
 
-        // check if enabled and if not send user to the GSP settings
-        LocationManager service = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        boolean enabled = service
-                .isProviderEnabled(LocationManager.GPS_PROVIDER);
-        if (!enabled) {
-            buildAlertMessageNoGps();
-        }
+
         return view;
     }
 
@@ -291,12 +265,7 @@ public class ExpoMapFragment extends Fragment implements OnMapReadyCallback, Goo
 
         }
 
-        //Stub to position a mascot on the expo area
-        googleMap.addMarker(new MarkerOptions()
-                .position(new LatLng(45.518824, 9.106110))
-                .title("Tommy Tomato")
-                .snippet("Verdura"));
-
+        cursor.close();
     }
 
 

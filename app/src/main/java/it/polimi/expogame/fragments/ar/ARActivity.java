@@ -69,12 +69,26 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
     //Radar object displayed in the metaio view
     private IRadar mRadar;
 
+    //----------------------------------------
+    //boolean variable in order to force reload of ingredients if  mascotte was captured
+    private boolean oneCaptured = false;
+    private Intent returnIntent;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Log.w("ExpoGame", "Spawning ARactivity");
+
+        returnIntent = new Intent();
+        Bundle conData = new Bundle();
+        conData.putBoolean("captured", oneCaptured);
+        returnIntent.putExtras(conData);
+        setResult(RESULT_OK,returnIntent);
+
         MascotsList = new ArrayList<IGeometry>();
+
+
+        //Log.w("ExpoGame", "Spawning ARactivity");
 
         // Set GPS tracking configuration
         boolean result = metaioSDK.setTrackingConfiguration("GPS", false);
@@ -104,15 +118,10 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
             //Log.w("MetaioACTIVITY", "generated mascotte with lati" + m.getLat());
             Mascots.add(m);
         }
-
-        LocationManager service = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        boolean enabled = service
-                .isProviderEnabled(LocationManager.GPS_PROVIDER);
-        if (!enabled) {
-            buildAlertMessageNoGps();
-        }
-
         c.close();
+
+
+
 
     }
 
@@ -139,12 +148,17 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
     protected void onStop() {
         mGoogleApiClient.disconnect(); //disconnect from the service
         super.onStop();
+
     }
 
     @Override
     protected void onPause() {
         mGoogleApiClient.disconnect();
         super.onPause();
+
+        //finish();
+
+
     }
 
     @Override
@@ -153,31 +167,8 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
         mGoogleApiClient.disconnect();
         super.onDestroy();
 
+        finish();
 
-            finish();
-
-    }
-
-    /**
-     * Message box to ask for GPS
-     */
-    private void buildAlertMessageNoGps() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(ConverterStringToStringXml.getStringFromXml(getApplicationContext(), "message_gps_activation"))
-                .setCancelable(false)
-                .setPositiveButton(ConverterStringToStringXml.getStringFromXml(getApplicationContext(),"yes_answer"), new DialogInterface.OnClickListener() {
-                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-
-                    }
-                })
-                .setNegativeButton(ConverterStringToStringXml.getStringFromXml(getApplicationContext(), "no_answer"), new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                        dialog.cancel();
-                    }
-                });
-        final AlertDialog alert = builder.create();
-        alert.show();
     }
 
 
@@ -447,6 +438,13 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
 
                     cr.update(IngredientsProvider.CONTENT_URI, values, where, name);
                     //-----------------------------------------------------
+
+                    //set true because on mascot was captured. in this way in main activity reload of ingredients
+                    oneCaptured = true;
+
+                      Bundle conData = new Bundle();
+                      conData.putBoolean("captured", oneCaptured);
+                      returnIntent.putExtras(conData);
                   }
                   break;
               }

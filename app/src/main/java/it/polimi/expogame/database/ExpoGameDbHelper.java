@@ -17,6 +17,8 @@ public class ExpoGameDbHelper extends SQLiteAssetHelper {
     public static final String TABLE_INGREDIENTS = IngredientTable.TABLE_NAME;
     public static final String TABLE_DISHES = DishesTable.TABLE_NAME;
     public static final String TABLE_ZONES = ZonesTable.TABLE_NAME;
+    public static final String TABLE_INGREDIENTS_IN_DISHES = IngredientsInDishes.TABLE_NAME;
+
 
     private static ExpoGameDbHelper instance;
 
