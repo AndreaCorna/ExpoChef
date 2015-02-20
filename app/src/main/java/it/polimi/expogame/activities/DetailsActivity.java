@@ -29,7 +29,7 @@ import it.polimi.expogame.support.Hint;
 /**
  * This class implements the activity to show details about a dish unlocked by user
  */
-public class DetailsActivity extends ActionBarActivity implements HintFragmentDialog.OnHintUnlockedListener{
+public class DetailsActivity extends ActionBarActivity{
 
     public static final String TAG ="Details Activity";
     private PostObject objectToPost;
@@ -92,21 +92,7 @@ public class DetailsActivity extends ActionBarActivity implements HintFragmentDi
         startActivity(intent);
     }
 
-    @Override
-    public void hintUnlocked(String nameDish, String nameIngredient) {
-        setIngredientSuggested(nameDish,nameIngredient);
-    }
 
-    private void setIngredientSuggested(String nameDish, String nameIngredient){
-        Uri uri = Uri.parse(DishesProvider.CONTENT_URI+"/ingredients");
-        String where = IngredientsInDishes.COLUMN_ID_DISH + " = ? AND "+IngredientsInDishes.COLUMN_ID_INGREDIENT + " = ?";
-        String[] selectionArgs = new String[]{nameDish,nameIngredient};
-
-        ContentValues values = new ContentValues();
-        values.put(IngredientsInDishes.COLUMN_HINT_GIVEN, 1);
-
-        getContentResolver().update(uri, values, where, selectionArgs);
-    }
 
 
     private class PostObject{
