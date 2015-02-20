@@ -21,6 +21,13 @@ import it.polimi.expogame.support.Hint;
 
 public class HintFragmentDialog extends DialogFragment {
 
+    public  interface OnHintUnlockedListener{
+        public void hintUnlocked(Hint hint);
+    }
+
+
+
+
     ArrayList<Hint> hintArrayList;
     private static final String TAG = "HintFragmentDialog";
 

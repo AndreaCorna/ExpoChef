@@ -17,13 +17,15 @@ import java.util.HashMap;
 
 import it.polimi.expogame.R;
 import it.polimi.expogame.fragments.info.DetailsFragment;
+import it.polimi.expogame.fragments.info.HintFragmentDialog;
 import it.polimi.expogame.support.ConverterImageNameToDrawableId;
 import it.polimi.expogame.support.Dish;
+import it.polimi.expogame.support.Hint;
 
 /**
  * This class implements the activity to show details about a dish unlocked by user
  */
-public class DetailsActivity extends ActionBarActivity {
+public class DetailsActivity extends ActionBarActivity implements HintFragmentDialog.OnHintUnlockedListener{
 
     public static final String TAG ="Details Activity";
     private PostObject objectToPost;
@@ -84,6 +86,11 @@ public class DetailsActivity extends ActionBarActivity {
         int id = objectToPost.getImageId();
         intent.putExtra("image",id);
         startActivity(intent);
+    }
+
+    @Override
+    public void hintUnlocked(Hint hint) {
+        
     }
 
     private class PostObject{
