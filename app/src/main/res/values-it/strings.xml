@@ -206,6 +206,13 @@ oggi questa ricetta si prepara grazie alla pentola a pressione, che lascia la ca
     <string name="arabia_saudita">arabia saudita</string>
     <string name="kabsa_descr">il kabsa è un tipico piatto del medio oriente a base di carne, riso, verdure e spezie. viene di solito preparato con il pollo, agnello o il manzo, anche se a volte si usano altri animali.</string>
     <string name="kabsa_curiosity">la kabsa non e’ solo un piatto tipico, ma e’ il modo di mangiare arabo: consiste in un grande piatto di riso, cotto con spezie, con sopra della carne, in genere di pollo e agnello o appunto cammello. i commensali mangiano tutti direttamente da questo grande piatto, rigorosamente con la mano destra, semi-sdraiati per terra appoggiati a dei cuscini anche se oggi comunque molte famiglie sono solite mangiare con un cucchiaio e seduti a tavola.</string>
+    <string name="turchia">turchia</string>
+    <string name="doner_kebab_descr">il kebab ("carne arrostita") è un piatto, a base di carne, tipico della cucina turca, divenuto popolare in tutto il mondo grazie alle immigrazioni provenienti dal medio oriente.</string>
+    <string name="doner_kebab_curiosity">questa specialità ha trovato in europa particolare diffusione nella città di berlino, dove kadir nurman, immigrato turco, nel 1972 realizzò il primo döner. la capitale tedesca è rinomata per il gusto speciale e l'economicità dei propri döner. questo sviluppo e diffusione sono stati favoriti dall'elevato numero di immigrati turchi (non solo nella capitale ma in tutta la germania occidentale) che spesso gestiscono i numerosissimi imbiss ("chiosco") presenti in città.</string>
+    <string name="egitto">egitto</string>
+    <string name="ful_medames_descr">il ful medames è uno dei piatti tipici della palestina, giordania, siria, libano ed egitto, mangiato spesso nella prima colazione.L'ingrediente principale sono le fave secche, cucinate a fuoco lento in apposti contenitori di rame. il ful è servito con tanto olio di oliva, del prezzemolo tagliato, della cipolla, dell'aglio e della spremuta di limone; tipicamente è mangiato con il pane.</string>
+    <string name="ful_medames_curiosity">la storia fa risalire il piatto proprio all’epoca dei faraoni, quando il legume selvatico veniva offerto in dono al nilo per assicurarsi le sue inondazioni e il prezioso limo. </string>
+
     <!-- MASCOTS CATEGORIES -->
     <string name="frutta">frutta</string>
     <string name="fish">fish</string>
