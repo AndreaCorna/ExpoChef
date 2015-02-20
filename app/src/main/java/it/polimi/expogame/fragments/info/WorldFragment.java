@@ -11,19 +11,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 
 import it.polimi.expogame.R;
 import it.polimi.expogame.activities.ZoneActivity;
-import it.polimi.expogame.database.DishesTable;
-import it.polimi.expogame.database.ZonesTable;
+import it.polimi.expogame.database.tables.ZonesTable;
 import it.polimi.expogame.providers.DishesProvider;
-import it.polimi.expogame.support.GridZonesAdapter;
-import it.polimi.expogame.support.GridZoneItem;
+import it.polimi.expogame.support.adapters.GridZonesAdapter;
+import it.polimi.expogame.support.adapters.GridZoneItem;
 
 
 /**

@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import it.polimi.expogame.R;
-import it.polimi.expogame.support.Ingredient;
+import it.polimi.expogame.database.objects.Ingredient;
 
 
 /**

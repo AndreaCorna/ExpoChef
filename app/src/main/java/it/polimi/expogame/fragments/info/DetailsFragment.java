@@ -14,9 +14,8 @@ import android.widget.TextView;
 import java.util.HashMap;
 
 import it.polimi.expogame.R;
-import it.polimi.expogame.support.ConverterImageNameToDrawableId;
-import it.polimi.expogame.support.ConverterStringToStringXml;
-import it.polimi.expogame.support.Dish;
+import it.polimi.expogame.support.converters.ConverterImageNameToDrawableId;
+import it.polimi.expogame.database.objects.Dish;
 
 
 /**

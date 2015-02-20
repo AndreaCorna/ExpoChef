@@ -10,11 +10,10 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.util.Log;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.HashSet;
 
-import it.polimi.expogame.database.DishesTable;
+import it.polimi.expogame.database.tables.DishesTable;
 import it.polimi.expogame.database.ExpoGameDbHelper;
 
 public class DishesProvider extends ContentProvider {

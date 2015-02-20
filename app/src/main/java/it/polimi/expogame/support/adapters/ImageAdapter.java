@@ -1,4 +1,4 @@
-package it.polimi.expogame.support;
+package it.polimi.expogame.support.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import it.polimi.expogame.R;
+import it.polimi.expogame.database.objects.Ingredient;
 
 
 /**

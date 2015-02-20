@@ -13,8 +13,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 import it.polimi.expogame.database.ExpoGameDbHelper;
-import it.polimi.expogame.database.IngredientTable;
-import it.polimi.expogame.database.MascotsTable;
+import it.polimi.expogame.database.tables.MascotsTable;
 
 public class MascotsProvider extends ContentProvider {
 

@@ -1,4 +1,4 @@
-package it.polimi.expogame.support;
+package it.polimi.expogame.support.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;

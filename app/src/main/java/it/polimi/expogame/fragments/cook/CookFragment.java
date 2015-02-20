@@ -1,16 +1,14 @@
 package it.polimi.expogame.fragments.cook;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import it.polimi.expogame.R;
-import it.polimi.expogame.support.Dish;
+import it.polimi.expogame.database.objects.Dish;
 
 
 /**

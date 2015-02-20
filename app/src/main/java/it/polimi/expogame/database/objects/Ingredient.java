@@ -1,8 +1,9 @@
-package it.polimi.expogame.support;
+package it.polimi.expogame.database.objects;
 
 import android.content.Context;
 
-import it.polimi.expogame.R;
+import it.polimi.expogame.support.converters.ConverterImageNameToDrawableId;
+import it.polimi.expogame.support.converters.ConverterStringToStringXml;
 
 /**
  * Created by Lorenzo on 22/12/14.
@@ -23,7 +24,7 @@ public class Ingredient {
     public Ingredient(Context mContext,String name, String imageUrl, String category, boolean unlocked){
         this.mContext = mContext;
         this.name = name;
-        this.drawableImage = ConverterImageNameToDrawableId.convertImageNameToDrawable(mContext,imageUrl);
+        this.drawableImage = ConverterImageNameToDrawableId.convertImageNameToDrawable(mContext, imageUrl);
         this.category = category;
         this.unlocked = unlocked;
     }
@@ -46,6 +47,6 @@ public class Ingredient {
     }
 
     public String getNameTranslation(){
-        return ConverterStringToStringXml.getStringFromXml(mContext,name.replaceAll(" ", "_").toLowerCase());
+        return ConverterStringToStringXml.getStringFromXml(mContext, name.replaceAll(" ", "_").toLowerCase());
     }
 }

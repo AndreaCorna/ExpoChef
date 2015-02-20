@@ -1,4 +1,4 @@
-package it.polimi.expogame.support;
+package it.polimi.expogame.database.objects;
 
 /**
  * Created by degrigis on 10/01/15.

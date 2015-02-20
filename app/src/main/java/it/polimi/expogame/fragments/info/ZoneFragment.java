@@ -1,43 +1,31 @@
 package it.polimi.expogame.fragments.info;
 
 import android.app.Activity;
-import android.content.ContentResolver;
-import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 
 import it.polimi.expogame.R;
 import it.polimi.expogame.activities.DetailsActivity;
-import it.polimi.expogame.database.DishesTable;
-import it.polimi.expogame.database.IngredientTable;
-import it.polimi.expogame.database.IngredientsInDishes;
+import it.polimi.expogame.database.tables.DishesTable;
+import it.polimi.expogame.database.tables.IngredientTable;
+import it.polimi.expogame.database.tables.IngredientsInDishes;
 import it.polimi.expogame.providers.DishesProvider;
 import it.polimi.expogame.providers.IngredientsProvider;
-import it.polimi.expogame.support.ConverterImageNameToDrawableId;
-import it.polimi.expogame.support.ConverterStringToStringXml;
-import it.polimi.expogame.support.Dish;
-import it.polimi.expogame.support.GridDishItem;
-import it.polimi.expogame.support.GridDishesAdapter;
-import it.polimi.expogame.support.Hint;
-import it.polimi.expogame.support.Ingredient;
+import it.polimi.expogame.support.adapters.GridDishItem;
+import it.polimi.expogame.support.adapters.GridDishesAdapter;
+import it.polimi.expogame.database.objects.Hint;
 
 /**
  * Fragment in order to show dishes of a specific zone

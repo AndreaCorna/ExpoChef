@@ -1,6 +1,8 @@
-package it.polimi.expogame.support;
+package it.polimi.expogame.database.objects;
 
 import android.content.Context;
+
+import it.polimi.expogame.support.converters.ConverterStringToStringXml;
 
 /**
  * Created by Lorenzo on 22/12/14.
@@ -27,7 +29,7 @@ public class Dish {
         this.name = name;
         this.nationality = nationality;
         this.imageUrl = imageUrl;
-        this.description = ConverterStringToStringXml.getStringFromXml(context,name.replaceAll(" ", "_").toLowerCase()+"_descr");
+        this.description = ConverterStringToStringXml.getStringFromXml(context, name.replaceAll(" ", "_").toLowerCase() + "_descr");
         this.zone = zone;
         this.created = created;
         this.hashIngredients = hashIngredients;

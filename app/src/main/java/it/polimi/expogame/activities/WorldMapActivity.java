@@ -6,9 +6,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import it.polimi.expogame.R;
-import it.polimi.expogame.fragments.info.WorldFragment;
 import it.polimi.expogame.fragments.map.ExpoMapFragment;
-import it.polimi.expogame.support.ConverterStringToStringXml;
+import it.polimi.expogame.support.converters.ConverterStringToStringXml;
 
 public class WorldMapActivity extends ActionBarActivity {
 

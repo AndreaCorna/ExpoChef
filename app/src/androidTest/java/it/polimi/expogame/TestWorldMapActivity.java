@@ -1,10 +1,9 @@
 package it.polimi.expogame;
 
 import android.test.ActivityInstrumentationTestCase2;
-import android.widget.TextView;
 
 import it.polimi.expogame.activities.WorldMapActivity;
-import it.polimi.expogame.support.ConverterStringToStringXml;
+import it.polimi.expogame.support.converters.ConverterStringToStringXml;
 
 /**
  * Created by andrea on 09/02/15.

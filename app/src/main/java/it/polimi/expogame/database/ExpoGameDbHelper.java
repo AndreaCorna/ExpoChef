@@ -3,6 +3,12 @@ package it.polimi.expogame.database;
 import android.content.Context;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
+import it.polimi.expogame.database.tables.DishesTable;
+import it.polimi.expogame.database.tables.IngredientTable;
+import it.polimi.expogame.database.tables.IngredientsInDishes;
+import it.polimi.expogame.database.tables.MascotsTable;
+import it.polimi.expogame.database.tables.ZonesTable;
+
 
 /**
  * Created by Lorenzo on 06/01/15.

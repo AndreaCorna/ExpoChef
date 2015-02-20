@@ -1,30 +1,16 @@
 package it.polimi.expogame.activities;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.os.Build;
-
-import java.util.HashMap;
 
 import it.polimi.expogame.R;
-import it.polimi.expogame.database.IngredientsInDishes;
 import it.polimi.expogame.fragments.info.DetailsFragment;
-import it.polimi.expogame.fragments.info.HintFragmentDialog;
-import it.polimi.expogame.providers.DishesProvider;
-import it.polimi.expogame.support.ConverterImageNameToDrawableId;
-import it.polimi.expogame.support.Dish;
-import it.polimi.expogame.support.Hint;
+import it.polimi.expogame.support.converters.ConverterImageNameToDrawableId;
+import it.polimi.expogame.database.objects.Dish;
 
 /**
  * This class implements the activity to show details about a dish unlocked by user

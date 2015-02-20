@@ -35,11 +35,11 @@ import java.util.Comparator;
 
 import it.polimi.expogame.R;
 import it.polimi.expogame.activities.DetailsActivity;
-import it.polimi.expogame.database.DishesTable;
+import it.polimi.expogame.database.tables.DishesTable;
 import it.polimi.expogame.providers.DishesProvider;
-import it.polimi.expogame.support.Dish;
-import it.polimi.expogame.support.ImageAdapterDraggable;
-import it.polimi.expogame.support.Ingredient;
+import it.polimi.expogame.database.objects.Dish;
+import it.polimi.expogame.support.adapters.ImageAdapterDraggable;
+import it.polimi.expogame.database.objects.Ingredient;
 import it.polimi.expogame.support.ViewHolder;
 
 

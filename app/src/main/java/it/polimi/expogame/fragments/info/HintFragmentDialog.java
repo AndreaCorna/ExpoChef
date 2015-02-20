@@ -14,10 +14,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import it.polimi.expogame.R;
-import it.polimi.expogame.support.Hint;
+import it.polimi.expogame.database.objects.Hint;
 
 
 public class HintFragmentDialog extends DialogFragment {

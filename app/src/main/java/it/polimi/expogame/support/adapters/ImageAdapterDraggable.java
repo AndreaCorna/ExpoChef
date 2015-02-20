@@ -1,21 +1,22 @@
-package it.polimi.expogame.support;
+package it.polimi.expogame.support.adapters;
 
 import android.content.ClipData;
 import android.content.Context;
 import android.util.Log;
-import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import it.polimi.expogame.R;
+import it.polimi.expogame.database.objects.Ingredient;
+import it.polimi.expogame.support.SquareImageView;
+import it.polimi.expogame.support.ViewHolder;
 
 /**
  * Created by andrea on 23/01/15.

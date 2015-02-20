@@ -33,7 +33,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".fragments.ar.ARActivity"
+            android:name=".activities.ARActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_ar"
             android:screenOrientation="portrait"

@@ -1,19 +1,10 @@
 package it.polimi.expogame.fragments.map;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.ContentResolver;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
@@ -21,8 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -32,15 +21,12 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.GroundOverlay;
 import com.google.android.gms.maps.model.GroundOverlayOptions;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import it.polimi.expogame.R;
-import it.polimi.expogame.database.ExpoGameDbHelper;
-import it.polimi.expogame.database.MascotsTable;
+import it.polimi.expogame.database.tables.MascotsTable;
 import it.polimi.expogame.providers.MascotsProvider;
-import it.polimi.expogame.support.ConverterStringToStringXml;
-import it.polimi.expogame.support.Mascotte;
+import it.polimi.expogame.support.converters.ConverterStringToStringXml;
 
 /**
  * A simple {@link Fragment} subclass.

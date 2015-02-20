@@ -1,4 +1,4 @@
-package it.polimi.expogame.support;
+package it.polimi.expogame.support.converters;
 
 import android.content.Context;
 

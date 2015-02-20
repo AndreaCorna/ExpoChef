@@ -1,15 +1,12 @@
-package it.polimi.expogame.fragments.ar;
+package it.polimi.expogame.activities;
 
 
-import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.BuildConfig;
 import android.util.Log;
@@ -28,7 +25,6 @@ import com.google.android.gms.location.LocationServices;
 import com.metaio.cloud.plugin.util.MetaioCloudUtils;
 import com.metaio.sdk.ARViewActivity;
 import com.metaio.sdk.MetaioDebug;
-import com.metaio.sdk.jni.Camera;
 import com.metaio.sdk.jni.IGeometry;
 import com.metaio.sdk.jni.IMetaioSDKCallback;
 import com.metaio.sdk.jni.IRadar;
@@ -39,12 +35,11 @@ import com.metaio.sdk.jni.Vector3d;
 import com.metaio.tools.io.AssetsManager;
 
 import it.polimi.expogame.R;
-import it.polimi.expogame.database.IngredientTable;
-import it.polimi.expogame.database.MascotsTable;
+import it.polimi.expogame.database.tables.IngredientTable;
+import it.polimi.expogame.database.tables.MascotsTable;
 import it.polimi.expogame.providers.IngredientsProvider;
 import it.polimi.expogame.providers.MascotsProvider;
-import it.polimi.expogame.support.ConverterStringToStringXml;
-import it.polimi.expogame.support.Mascotte;
+import it.polimi.expogame.database.objects.Mascotte;
 
 public class ARActivity extends ARViewActivity implements LocationListener, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener

@@ -1,8 +1,8 @@
-package it.polimi.expogame.support;
+package it.polimi.expogame.support.adapters;
 
 import android.content.Context;
 
-import it.polimi.expogame.R;
+import it.polimi.expogame.support.converters.ConverterImageNameToDrawableId;
 
 /**
  * Created by andrea on 25/01/15.
@@ -18,7 +18,7 @@ public class GridDishItem {
     public GridDishItem(Context context, long id, String name, String imageName, boolean isCreated) {
         this.context = context.getApplicationContext();
         this.name = name;
-        this.imageId = ConverterImageNameToDrawableId.convertImageNameToDrawable(context,imageName);
+        this.imageId = ConverterImageNameToDrawableId.convertImageNameToDrawable(context, imageName);
         this.isCreated = isCreated;
         this.id = id ;
     }

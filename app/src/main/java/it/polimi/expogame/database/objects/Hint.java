@@ -1,10 +1,10 @@
-package it.polimi.expogame.support;
+package it.polimi.expogame.database.objects;
 
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
+import it.polimi.expogame.support.converters.ConverterImageNameToDrawableId;
 
 /**
  * Created by Lorenzo on 20/02/15.
@@ -17,7 +17,7 @@ public class Hint implements Parcelable {
         public Hint(Context context, String name,String imageUrl, boolean hintGiven){
             this.name = name;
             this.hintGiven = hintGiven;
-            this.drawableImage = ConverterImageNameToDrawableId.convertImageNameToDrawable(context,imageUrl);
+            this.drawableImage = ConverterImageNameToDrawableId.convertImageNameToDrawable(context, imageUrl);
         }
 
     public void setAlreadySuggested(boolean hintGiven) {

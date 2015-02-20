@@ -30,9 +30,9 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import it.polimi.expogame.activities.MainActivity;
-import it.polimi.expogame.database.MascotsTable;
+import it.polimi.expogame.database.tables.MascotsTable;
 import it.polimi.expogame.providers.MascotsProvider;
-import it.polimi.expogame.support.Mascotte;
+import it.polimi.expogame.database.objects.Mascotte;
 
 
 /**
