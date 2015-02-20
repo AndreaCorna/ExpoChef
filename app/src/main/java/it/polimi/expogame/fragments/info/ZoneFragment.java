@@ -35,6 +35,7 @@ import it.polimi.expogame.support.ConverterStringToStringXml;
 import it.polimi.expogame.support.Dish;
 import it.polimi.expogame.support.GridDishItem;
 import it.polimi.expogame.support.GridDishesAdapter;
+import it.polimi.expogame.support.Hint;
 import it.polimi.expogame.support.Ingredient;
 
 /**
@@ -107,9 +108,17 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
         super.onDetach();
     }
 
-    private void showHintDialog() {
+    private void showHintDialog(GridDishItem dish) {
         FragmentManager fm = getActivity().getSupportFragmentManager();
         HintFragmentDialog hintFragmentDialog = new HintFragmentDialog();
+        Bundle args = new Bundle();
+        args.putParcelableArrayList("hints", hintIngredients);
+        args.putString("dish_name", dish.getName());
+        args.putInt("dish_image",dish.getImageId());
+
+        hintFragmentDialog.setArguments(args);
+
+
         hintFragmentDialog.show(fm, "fragment_hint_dialog");
     }
 
@@ -121,6 +130,7 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
         }else{
             hintIngredients.clear();
             LoadHints(((GridDishItem)gridView.getAdapter().getItem(position)).getName());
+            showHintDialog((GridDishItem)gridView.getAdapter().getItem(position));
         }
     }
 
@@ -254,31 +264,7 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
         
     }
 
-    private class Hint{
-        private String name;
-        private int drawableImage;
-        private boolean hintGiven;
 
-        public Hint(Context context, String name,String imageUrl, boolean hintGiven){
-            this.name = name;
-            this.hintGiven = hintGiven;
-            this.drawableImage = ConverterImageNameToDrawableId.convertImageNameToDrawable(context,imageUrl);
-        }
-
-        public String getName(){
-            return this.name;
-        }
-
-        public boolean alreadySuggested(){
-            return this.hintGiven;
-        }
-
-        public int getDrawableImage(){
-            return this.drawableImage;
-        }
-
-
-    }
 
 
 }
