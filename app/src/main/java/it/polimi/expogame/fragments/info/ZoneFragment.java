@@ -247,16 +247,18 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
     private class Hint{
         private int drawableImage;
         private boolean hintGiven;
-        private Context context;
 
         public Hint(Context context, String imageUrl, boolean hintGiven){
-            this.context = context;
             this.hintGiven = hintGiven;
             this.drawableImage = ConverterImageNameToDrawableId.convertImageNameToDrawable(context,imageUrl);
         }
 
         public boolean alreadySuggested(){
             return this.hintGiven;
+        }
+
+        public int getDrawableImage(){
+            return this.drawableImage;
         }
 
 
