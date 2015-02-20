@@ -29,6 +29,8 @@ import it.polimi.expogame.database.IngredientTable;
 import it.polimi.expogame.database.IngredientsInDishes;
 import it.polimi.expogame.providers.DishesProvider;
 import it.polimi.expogame.providers.IngredientsProvider;
+import it.polimi.expogame.support.ConverterImageNameToDrawableId;
+import it.polimi.expogame.support.ConverterStringToStringXml;
 import it.polimi.expogame.support.Dish;
 import it.polimi.expogame.support.GridDishItem;
 import it.polimi.expogame.support.GridDishesAdapter;
@@ -46,7 +48,7 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
     private GridDishesAdapter gridAdapter;
     private ArrayList<GridDishItem> gridDishItems;
     private GridView gridView;
-    private ArrayList<Ingredient> hintIngredients;
+    private ArrayList<Hint> hintIngredients;
 
 
     public static ZoneFragment newInstance() {
@@ -58,14 +60,14 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
     public ZoneFragment() {
 
         gridDishItems = new ArrayList<GridDishItem>();
-        hintIngredients = new ArrayList<Ingredient>();
+        hintIngredients = new ArrayList<Hint>();
     }
 
     public ZoneFragment(String zone) {
 
         this.zone = zone.toLowerCase();
         gridDishItems = new ArrayList<GridDishItem>();
-        hintIngredients = new ArrayList<Ingredient>();
+        hintIngredients = new ArrayList<Hint>();
     }
 
     @Override
@@ -111,7 +113,8 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
             loadDishClicked(id);
 
         }else{
-            showHint(((GridDishItem)gridView.getAdapter().getItem(position)).getName());
+            hintIngredients.clear();
+            LoadHints(((GridDishItem)gridView.getAdapter().getItem(position)).getName());
         }
     }
 
@@ -193,12 +196,12 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
     }
 
     //load ingredients for hint
-    private void showHint(String name){
+    private void LoadHints(String name){
 
         Uri uri = Uri.parse(DishesProvider.CONTENT_URI+"/ingredients");
-        String selection = IngredientsInDishes.COLUMN_ID_DISH + " = ? AND "+IngredientsInDishes.COLUMN_HINT_GIVEN + " = ?";
+        String selection = IngredientsInDishes.COLUMN_ID_DISH + " = ?";
 
-        String[] selectionArgs = new String[]{name,"0"};
+        String[] selectionArgs = new String[]{name};
 
         Cursor cursor = getActivity().getContentResolver().query(uri,null,selection,selectionArgs,null);
 
@@ -206,7 +209,12 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
             cursor.moveToFirst();
             while(cursor.isAfterLast() == false){
                 String ingredient = cursor.getString(cursor.getColumnIndexOrThrow(IngredientsInDishes.COLUMN_ID_INGREDIENT));
-                loadDetailsIngredient(ingredient);
+                int hintGivenField = cursor.getInt(cursor.getColumnIndexOrThrow(IngredientsInDishes.COLUMN_HINT_GIVEN));
+                boolean hintGiven = false;
+                if(hintGivenField == 1){
+                    hintGiven = true;
+                }
+                loadDetailsIngredient(ingredient, hintGiven);
                 cursor.moveToNext();
 
             }
@@ -217,7 +225,7 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
     }
 
     //load details of the single ingredient
-    private void loadDetailsIngredient(String name){
+    private void loadDetailsIngredient(String name,boolean hintGiven){
         String selection = IngredientTable.COLUMN_NAME + " = ?";
 
         String[] selectionArgs = new String[]{name};
@@ -227,21 +235,31 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
         if (cursor != null){
             cursor.moveToFirst();
             String imageUrl = cursor.getString(cursor.getColumnIndexOrThrow(IngredientTable.COLUMN_IMAGEURL));
-            String category = cursor.getString(cursor.getColumnIndexOrThrow(IngredientTable.COLUMN_CATEGORY));
-            int unlocked = cursor.getInt(cursor.getColumnIndexOrThrow(IngredientTable.COLUMN_UNLOCKED));
-            boolean unblocked;
-            if (unlocked == 0) {
-                unblocked = false;
-            } else {
-                unblocked = true;
-            }
-            Ingredient ingredient = new Ingredient(getActivity().getApplicationContext(),name, imageUrl, category, unblocked);
-            hintIngredients.add(ingredient);
 
+            Hint hint = new Hint(getActivity().getApplicationContext(),imageUrl,hintGiven);
+            hintIngredients.add(hint);
             Log.d("MAIN","Ho caricato "+name);
 
         }
         cursor.close();
+    }
+
+    private class Hint{
+        private int drawableImage;
+        private boolean hintGiven;
+        private Context context;
+
+        public Hint(Context context, String imageUrl, boolean hintGiven){
+            this.context = context;
+            this.hintGiven = hintGiven;
+            this.drawableImage = ConverterImageNameToDrawableId.convertImageNameToDrawable(context,imageUrl);
+        }
+
+        public boolean alreadySuggested(){
+            return this.hintGiven;
+        }
+
+
     }
 
 
