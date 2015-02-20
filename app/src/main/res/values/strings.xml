@@ -14,6 +14,7 @@
 
     <!-- LABELS -->
     <string name="label_description">Description</string>
+    <string name="hint_button">Hint</string>
     <string name="label_nationality">Nationality</string>
     <string name="title_activity_details">Details of</string>
     <string name="string_options">options</string>
@@ -214,6 +215,5 @@ during the political conflict with austria ( ca. 1780 ) , the Hungarian company 
     <string name="carne">meat</string>
     <string name="verdura">vegetables</string>
     <string name="title_activity_world_map">WorldMapActivity</string>
-    <string name="hello_world">Hello world!</string>
 
 </resources>

@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * Created by Lorenzo on 20/02/15.
  */
-public class Hint implements Parcelable{
+public class Hint implements Parcelable {
         private String name;
         private int drawableImage;
         private boolean hintGiven;

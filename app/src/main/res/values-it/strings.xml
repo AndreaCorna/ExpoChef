@@ -12,6 +12,7 @@
     <string name="app_id">558852617585267</string>
     <string name="app_package_name">it.polimi.expogame</string>
 
+
     <!-- LABELS -->
     <string name="label_description">Descrizione</string>
     <string name="label_nationality">Nazionalità</string>
@@ -25,6 +26,7 @@
     <string name="cook_button_label">Cucina!</string>
     <string name="message_toast_cook">Non una buona scelta...</string>
     <string name="start_text_tutorial">Ciao!</string>
+    <string name="hint_button">Aiuto</string>
     <string-array name="tutorial_text">
         <item>Ti spiegherò\ncome cucinare\ni tuoi piatti</item>
         <item>Usa la mappa\nper avvicinarti alle\nmascotte</item>

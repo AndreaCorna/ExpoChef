@@ -9,7 +9,7 @@
         android:layout_width="fill_parent"
 
         android:layout_height="0dp"
-        android:layout_weight="0.8"
+        android:layout_weight="0.7"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:id="@+id/image_dish_dialog"
@@ -20,10 +20,26 @@
         android:layout_gravity="center" android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.2"
+        android:layout_weight="0.15"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp">
 
 
     </LinearLayout>
+    <Button
+        android:id="@+id/show_hint_button"
+
+        android:text="@string/hint_button"
+        android:textColor="#FFFFFF"
+        android:textSize="10dp"
+
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
+        android:background="@drawable/hint_button_shape"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="1"
+        />
 </LinearLayout>
