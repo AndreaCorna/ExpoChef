@@ -236,7 +236,7 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
             cursor.moveToFirst();
             String imageUrl = cursor.getString(cursor.getColumnIndexOrThrow(IngredientTable.COLUMN_IMAGEURL));
 
-            Hint hint = new Hint(getActivity().getApplicationContext(),imageUrl,hintGiven);
+            Hint hint = new Hint(getActivity().getApplicationContext(),name,imageUrl,hintGiven);
             hintIngredients.add(hint);
             Log.d("MAIN","Ho caricato "+name);
 
@@ -244,13 +244,23 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
         cursor.close();
     }
 
+    private void setIngredientSuggested(String nameDish, String nameIngredient){
+        
+    }
+
     private class Hint{
+        private String name;
         private int drawableImage;
         private boolean hintGiven;
 
-        public Hint(Context context, String imageUrl, boolean hintGiven){
+        public Hint(Context context, String name,String imageUrl, boolean hintGiven){
+            this.name = name;
             this.hintGiven = hintGiven;
             this.drawableImage = ConverterImageNameToDrawableId.convertImageNameToDrawable(context,imageUrl);
+        }
+
+        public String getName(){
+            return this.name;
         }
 
         public boolean alreadySuggested(){
