@@ -122,7 +122,20 @@ public class DishesProvider extends ContentProvider {
 
         SQLiteDatabase db = this.database.getWritableDatabase();
         int rowsUpdated = 0;
-        rowsUpdated = db.update(database.TABLE_DISHES, values, selection, selectionArgs);
+        int uriType = sURIMatcher.match(uri);
+        String databaseTable;
+
+        switch (uriType) {
+            case DISHES:
+                databaseTable = database.TABLE_DISHES;
+                break;
+            case INGREDIENTS:
+                databaseTable = database.TABLE_INGREDIENTS_IN_DISHES;
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown URI: " + uri);
+        }
+        rowsUpdated = db.update(databaseTable, values, selection, selectionArgs);
 
         getContext().getContentResolver().notifyChange(uri, null);
 

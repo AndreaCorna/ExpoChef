@@ -2,6 +2,7 @@ package it.polimi.expogame.fragments.info;
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -245,7 +246,14 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
     }
 
     private void setIngredientSuggested(String nameDish, String nameIngredient){
-        
+        Uri uri = Uri.parse(DishesProvider.CONTENT_URI+"/ingredients");
+        String where = IngredientsInDishes.COLUMN_ID_DISH + " = ? AND "+IngredientsInDishes.COLUMN_ID_INGREDIENT + " = ?";
+        String[] selectionArgs = new String[]{nameDish,nameIngredient};
+
+        ContentValues values = new ContentValues();
+        values.put(IngredientsInDishes.COLUMN_HINT_GIVEN, 1);
+
+        getActivity().getContentResolver().update(uri, values, where, selectionArgs);
     }
 
     private class Hint{
