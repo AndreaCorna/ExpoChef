@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
@@ -95,12 +96,19 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
         super.onDetach();
     }
 
+    private void showHintDialog() {
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        HintFragmentDialog hintFragmentDialog = new HintFragmentDialog();
+        hintFragmentDialog.show(fm, "fragment_hint_dialog");
+    }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if(((GridDishItem)gridView.getAdapter().getItem(position)).isCreated()){
             loadDishClicked(id);
-
+        }
+        else{
+            showHintDialog();
         }
     }
 
