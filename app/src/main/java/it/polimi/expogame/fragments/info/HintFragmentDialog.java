@@ -54,7 +54,7 @@ public class HintFragmentDialog extends DialogFragment {
        // Collections.sort(hintArrayList);
 
         //adding hint image in dialog
-        for (int i=0;i<hintArrayList.size()-1;i++) {
+        for (int i=0;i<hintArrayList.size();i++) {
             Hint current_hint = hintArrayList.get(i);
             LinearLayout hintsBoxLayout = (LinearLayout) view.findViewById(R.id.hints_box);
             ImageView imageView = new ImageView(getActivity().getApplicationContext());
