@@ -104,8 +104,6 @@ public class WorldFragment extends Fragment  {
      */
     private void loadZones() {
 
-       // ArrayList<String> zoneList = new ArrayList<String>();
-
 
         Uri uri = Uri.parse(DishesProvider.CONTENT_URI+"/zones");
         String[] projection = {ZonesTable.COLUMN_ZONE,ZonesTable.COLUMN_IMAGE};
@@ -128,9 +126,7 @@ public class WorldFragment extends Fragment  {
 
         cursor.close();
 
-        /*for(String name:zoneList){
-            listZones.add(new GridZoneItem(getActivity(),name,"cancel.png"));
-        }*/
+
         adapterGridZones = new GridZonesAdapter(getActivity(),listZones);
         gridZones.setAdapter(adapterGridZones);
 

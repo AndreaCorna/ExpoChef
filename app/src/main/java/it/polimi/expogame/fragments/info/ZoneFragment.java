@@ -98,7 +98,6 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
     }
 
     private void showHintDialog(GridDishItem dish) {
-        FragmentManager fm = getActivity().getSupportFragmentManager();
         HintFragmentDialog hintFragmentDialog = new HintFragmentDialog();
         Bundle args = new Bundle();
         args.putParcelableArrayList("hints", hintIngredients);
@@ -108,7 +107,7 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
         hintFragmentDialog.setArguments(args);
 
 
-        hintFragmentDialog.show(fm, "fragment_hint_dialog");
+        hintFragmentDialog.show(getActivity().getSupportFragmentManager(), "fragment_hint_dialog");
     }
 
     @Override
@@ -166,8 +165,7 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
      */
     private void loadDishClicked(long id){
         Uri uri = Uri.parse(DishesProvider.CONTENT_URI+"/"+id);
-        String[] projection = new String[]{};
-        Cursor cursor = getActivity().getContentResolver().query(uri,projection,null,null,null);
+        Cursor cursor = getActivity().getContentResolver().query(uri,new String[]{},null,null,null);
         if(cursor != null){
             cursor.moveToFirst();
             String name = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_NAME));
