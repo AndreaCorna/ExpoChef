@@ -210,7 +210,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onStop(){
         super.onStop();
         if(this.soundtrackPlayer.isPlaying()){
-            this.soundtrackPlayer.stop();
+            this.soundtrackPlayer.pause();
         }
     }
 
