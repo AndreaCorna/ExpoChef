@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.location.Location;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.BuildConfig;
 import android.util.Log;
@@ -385,6 +387,11 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
         Vibrator v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
         // Vibrate for 500 milliseconds
         v.vibrate(500);
+
+        MediaPlayer mp = MediaPlayer.create(this.getApplicationContext(),R.raw.catchit);
+        mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mp.setVolume(0.5f,0.5f);
+        mp.start();
 
         int captured=0;
 

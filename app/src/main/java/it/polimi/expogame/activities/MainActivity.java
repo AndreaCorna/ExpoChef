@@ -9,6 +9,8 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.location.LocationManager;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -47,6 +49,7 @@ public class MainActivity extends ActionBarActivity {
 
     private CustomPagerAdapter customPagerAdapter;
 
+    private MediaPlayer soundtrackPlayer;
     private DrawerLayout mDrawerLayout;
     private GridView gridview;
     private LinearLayout linearLayout;
@@ -179,9 +182,26 @@ public class MainActivity extends ActionBarActivity {
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         mDrawerLayout.setDrawerListener(actionBarDrawerToggle);
         listIngredientsSelected = new ArrayList<Ingredient>();
+
+
+        soundtrackPlayer = MediaPlayer.create(this,R.raw.soundtrack);
+        soundtrackPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        soundtrackPlayer.setLooping(true);
+        soundtrackPlayer.setVolume(0.5f,0.5f);
+        soundtrackPlayer.start();
     }
 
 
+    /*
+    * Reactivate the soundtrack once returned in the view
+    * */
+    @Override
+    protected void onResume(){
+       super.onResume();
+       if(!this.soundtrackPlayer.isPlaying()){
+           this.soundtrackPlayer.start();
+       }
+    }
 
     /**
      * Method which provide the list of unlocked ingredients by calling the content provider
@@ -306,11 +326,13 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void launchCaptureActivity(){
+        this.soundtrackPlayer.pause();
         Intent i = new Intent(this,ARActivity.class);
         startActivityForResult(i,CAPTURE_ACTIVITY_RESULT);
     }
 
     private void launchMapActivity(){
+        this.soundtrackPlayer.pause();
         Intent i = new Intent(this,WorldMapActivity.class);
         startActivity(i);
     }
@@ -394,8 +416,9 @@ public class MainActivity extends ActionBarActivity {
         alert.show();
     }
 
-
-
+    public MediaPlayer getSoundtrackPlayer() {
+        return soundtrackPlayer;
+    }
 }
 
 
