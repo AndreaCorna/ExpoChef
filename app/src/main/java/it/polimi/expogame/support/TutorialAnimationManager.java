@@ -21,7 +21,6 @@ public class TutorialAnimationManager {
     private TextView textSpeakMascot;
     private ImageView mascot;
     private Point screenSize;
-    private FrameLayout parent;
 
     private Handler startHandler = new Handler();
     private Handler nextHandler = new Handler();
@@ -30,11 +29,10 @@ public class TutorialAnimationManager {
 
     private static final long UPDATE_INTERVAL = 2500;
 
-    public TutorialAnimationManager(TextView textSpeakMascot, ImageView mascot, Point screenSize, FrameLayout parent, ArrayList<String> tutorialStrings){
+    public TutorialAnimationManager(TextView textSpeakMascot, ImageView mascot, Point screenSize, ArrayList<String> tutorialStrings){
         this.textSpeakMascot = textSpeakMascot;
         this.mascot = mascot;
         this.screenSize = screenSize;
-        this.parent = parent;
         this.tutorialStrings = tutorialStrings;
         setupStartAnimation();
     }
@@ -69,7 +67,6 @@ public class TutorialAnimationManager {
             }
         });
 
-        parent.addView(mascot);
     }
 
 

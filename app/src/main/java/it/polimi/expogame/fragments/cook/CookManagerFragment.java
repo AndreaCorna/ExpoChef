@@ -117,8 +117,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
         //
         textSpeakMascotte = (TextView)currentView.findViewById(R.id.speak);
         textSpeakMascotte.setVisibility(View.INVISIBLE);
-        frameLayout = (FrameLayout)currentView.findViewById(R.id.cook_manager_fragment);
-
+        cookerFish = (ImageView)currentView.findViewById(R.id.cooker_image);
 
         getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
@@ -540,11 +539,10 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
     public void startAnimation(){
 
-        cookerFish = new ImageView(getActivity().getApplicationContext());
         cookerFish.setImageDrawable(getResources().getDrawable(R.drawable.cooker));
         cookerFish.setVisibility(View.INVISIBLE);
         loadTutorialStrings();
-        TutorialAnimationManager manager = new TutorialAnimationManager(textSpeakMascotte, cookerFish,getDimensionScreen(), frameLayout, tutorialStrings);
+        TutorialAnimationManager manager = new TutorialAnimationManager(textSpeakMascotte, cookerFish,getDimensionScreen(), tutorialStrings);
         manager.startEnterAnimation();
     }
 
