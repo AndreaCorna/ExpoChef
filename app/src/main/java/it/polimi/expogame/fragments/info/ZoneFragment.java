@@ -1,18 +1,25 @@
 package it.polimi.expogame.fragments.info;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -23,6 +30,7 @@ import it.polimi.expogame.database.tables.IngredientTable;
 import it.polimi.expogame.database.tables.IngredientsInDishes;
 import it.polimi.expogame.providers.DishesProvider;
 import it.polimi.expogame.providers.IngredientsProvider;
+import it.polimi.expogame.support.TutorialAnimationManager;
 import it.polimi.expogame.support.adapters.GridDishItem;
 import it.polimi.expogame.support.adapters.GridDishesAdapter;
 import it.polimi.expogame.database.objects.Hint;
@@ -40,6 +48,11 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
     private ArrayList<GridDishItem> gridDishItems;
     private GridView gridView;
     private ArrayList<Hint> hintIngredients;
+
+    private ImageView cookerFish;
+    private TextView textSpeakMascotte;
+    private FrameLayout frameLayout;
+    private ArrayList<String> tutorialStrings;
 
 
     public static ZoneFragment newInstance() {
@@ -74,10 +87,27 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
         gridView = (GridView)view.findViewById(R.id.grid_dish);
         gridView.setOnItemClickListener(this);
         loadDishesByZone(zone);
+        frameLayout = (FrameLayout)view.findViewById(R.id.zone_fragment_layout);
+        textSpeakMascotte = (TextView)view.findViewById(R.id.speak_tutorial_zone);
+        SharedPreferences prefs = getActivity().getSharedPreferences("expochef", Context.MODE_PRIVATE);
+        boolean isFirstTime = prefs.getBoolean("firstTimeZone",true);
+        if(isFirstTime){
+           startAnimation();
+            prefs.edit().putBoolean("firstTimeZone",false).commit();
+
+        }
 
         return view;
     }
 
+    private void startAnimation(){
+        cookerFish = new ImageView(getActivity().getApplicationContext());
+        cookerFish.setImageDrawable(getResources().getDrawable(R.drawable.cooker));
+        cookerFish.setVisibility(View.INVISIBLE);
+        loadTutorialStrings();
+        TutorialAnimationManager manager = new TutorialAnimationManager(textSpeakMascotte, cookerFish,getDimensionScreen(), frameLayout, tutorialStrings);
+        manager.startEnterAnimation();
+    }
 
 
     @Override
@@ -247,6 +277,32 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
         cursor.close();
     }
 
+
+    /**
+     * get the dimension of the scree
+     * @return point with dimension
+     */
+    private Point getDimensionScreen(){
+        WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return size;
+    }
+
+    /**
+     * load text for tutorial
+     */
+    private void loadTutorialStrings(){
+
+        tutorialStrings = new ArrayList<String>();
+        String[] parts = getActivity().getResources().getStringArray(R.array.tutorial_text_zone);
+        for(String item:parts){
+            tutorialStrings.add(item);
+        }
+
+
+    }
 
 
 }

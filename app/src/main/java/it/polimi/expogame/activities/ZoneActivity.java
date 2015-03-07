@@ -1,6 +1,8 @@
 package it.polimi.expogame.activities;
 
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -17,13 +19,14 @@ import it.polimi.expogame.providers.DishesProvider;
  * Activity used to show the list of dishes related to a zone
  */
 public class ZoneActivity extends ActionBarActivity implements HintFragmentDialog.OnHintUnlockedListener{
-
+    ZoneFragment fragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String zone = getIntent().getStringExtra("zone");
         String translation = getIntent().getStringExtra("translation");
         setContentView(R.layout.activity_zone);
+        fragment = new ZoneFragment(zone);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, new ZoneFragment(zone))
@@ -31,6 +34,7 @@ public class ZoneActivity extends ActionBarActivity implements HintFragmentDialo
         }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle(Character.toString(translation.charAt(0)).toUpperCase()+translation.substring(1));
+
     }
 
 
