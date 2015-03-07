@@ -194,6 +194,8 @@ public class MainActivity extends ActionBarActivity {
 
     /*
     * Reactivate the soundtrack once returned in the view
+    * for example when you are in ArActivity and you want to
+    * return in the cook activity.
     * */
     @Override
     protected void onResume(){
@@ -215,7 +217,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     /*
-  * Stop the soundtrack once leave from app
+  * Restart the soundtrack when return in the application
   * */
     @Override
     protected void onRestart(){

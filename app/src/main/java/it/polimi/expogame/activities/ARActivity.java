@@ -65,6 +65,7 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
 
     //Radar object displayed in the metaio view
     private IRadar mRadar;
+    private MediaPlayer myPlayer;
 
     //----------------------------------------
     //boolean variable in order to force reload of ingredients if  mascotte was captured
@@ -144,6 +145,9 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
     @Override
     protected void onStop() {
         mGoogleApiClient.disconnect(); //disconnect from the service
+        if(myPlayer!=null){
+            myPlayer.release();
+        }
         super.onStop();
 
     }
@@ -388,10 +392,10 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
         // Vibrate for 500 milliseconds
         v.vibrate(500);
 
-        MediaPlayer mp = MediaPlayer.create(this.getApplicationContext(),R.raw.catchit);
-        mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        mp.setVolume(0.5f,0.5f);
-        mp.start();
+        myPlayer = MediaPlayer.create(this.getApplicationContext(),R.raw.catchit);
+        myPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        myPlayer.setVolume(0.5f,0.5f);
+        myPlayer.start();
 
         int captured=0;
 
@@ -452,9 +456,6 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
               }
             continue;
         }
-
-        mp.stop();
-        mp.release();
     }
 
     /**
