@@ -25,8 +25,24 @@
     <string name="button_done_slider">Done</string>
     <string name="cook_button_label">Cook!</string>
     <string name="message_toast_cook">Not a good choice...</string>
-    <string name="start_text_tutorial">Hello!</string>
-    <string-array name="tutorial_text">
+    <string name="start_text_tutorial_cook">Hello!</string>
+    <string name="start_text_tutorial_world">Hello!</string>
+
+    <string-array name="tutorial_text_world">
+        <item>I will explain you how\nto cook your dishes</item>
+        <item>Use the map\nto come closer\nto the mascot</item>
+        <item>When you are near\nclick on screen</item>
+        <item>Find the mascot</item>
+        <item>Capture it</item>
+        <item>Click on shopping\nbasket</item>
+        <item>Choose the ingredients</item>
+        <item>Drag them on chopping board</item>
+        <item>...and cook!!!</item>
+        <item>if your choice\nis correct</item>
+        <item>you will discover\ninteresting information</item>
+        <item>Good fun!!!</item>
+    </string-array>
+    <string-array name="tutorial_text_cook">
         <item>I will explain you how\nto cook your dishes</item>
         <item>Use the map\nto come closer\nto the mascot</item>
         <item>When you are near\nclick on screen</item>

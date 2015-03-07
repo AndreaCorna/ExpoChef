@@ -26,8 +26,23 @@
     <string name="cook_button_label">Cucina!</string>
     <string name="message_toast_cook">Non una buona scelta...</string>
     <string name="start_text_tutorial">Ciao!</string>
+    <string name="start_text_world">Ciao!</string>
     <string name="hint_button">Aiuto</string>
-    <string-array name="tutorial_text">
+    <string-array name="tutorial_text_cook">
+        <item>Ti spiegherò\ncome cucinare\ni tuoi piatti</item>
+        <item>Usa la mappa\nper avvicinarti alle\nmascotte</item>
+        <item>Quando sei vicino\nclicca sul retino</item>
+        <item>Trova la mascotte</item>
+        <item>Catturala</item>
+        <item>Clicca sul cestino\ndella spesa</item>
+        <item>Scegli gli ingredienti</item>
+        <item>trascinali sul tagliere</item>
+        <item>...e cucina!!!</item>
+        <item>se la combinazione\nè corretta</item>
+        <item>scoprirai curiosità\ne informazioni</item>
+        <item>Buon divertimento!</item>
+    </string-array>
+    <string-array name="tutorial_text_world">
         <item>Ti spiegherò\ncome cucinare\ni tuoi piatti</item>
         <item>Usa la mappa\nper avvicinarti alle\nmascotte</item>
         <item>Quando sei vicino\nclicca sul retino</item>

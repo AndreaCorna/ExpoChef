@@ -50,7 +50,7 @@
                 android:layout_width="210dp"
                 android:layout_height="154dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/start_text_tutorial"
+                android:text="@string/start_text_tutorial_cook"
                 android:id="@+id/speak"
                 android:layout_gravity="left|top"
                 android:background="@drawable/nuvola"

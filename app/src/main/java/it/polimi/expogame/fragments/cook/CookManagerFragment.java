@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Display;
@@ -17,8 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.GridView;
@@ -38,6 +35,7 @@ import it.polimi.expogame.activities.DetailsActivity;
 import it.polimi.expogame.database.tables.DishesTable;
 import it.polimi.expogame.providers.DishesProvider;
 import it.polimi.expogame.database.objects.Dish;
+import it.polimi.expogame.support.TutorialAnimationManager;
 import it.polimi.expogame.support.adapters.ImageAdapterDraggable;
 import it.polimi.expogame.database.objects.Ingredient;
 import it.polimi.expogame.support.ViewHolder;
@@ -51,20 +49,15 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     private GridView gridView;
     private GridView cookerView;
     private ImageAdapterDraggable tovagliaAdapter;
-    private ImageAdapterDraggable imageAdapter;
-    private ArrayList<String> ingredientsToCombine;
     private ImageView cookerFish;
-    private TranslateAnimation enterAnimation;
     private TextView textSpeakMascotte;
     private ImageAdapterDraggable tagliereAdapter;
     private ImageView wasterBinImage;
+    private FrameLayout frameLayout;
 
     private static final String TAG="CookManagerFragment";
-    Handler startHandler = new Handler();
-    Handler nextHandler = new Handler();
     private ArrayList<String> tutorialStrings;
 
-    private static final long UPDATE_INTERVAL = 2500;
 
 
     public static CookManagerFragment newInstance() {
@@ -119,17 +112,18 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
         //
         textSpeakMascotte = (TextView)currentView.findViewById(R.id.speak);
         textSpeakMascotte.setVisibility(View.INVISIBLE);
-        //set animation 
-        animationCooker(currentView);
-        SharedPreferences prefs = getActivity().getSharedPreferences("expogame", Context.MODE_PRIVATE);
-        boolean isFirstTime = prefs.getBoolean("firstTime",true);
-        if(isFirstTime){
+        frameLayout = (FrameLayout)currentView.findViewById(R.id.cook_manager_fragment);
 
+
+        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        SharedPreferences prefs = getActivity().getSharedPreferences("expochef", Context.MODE_PRIVATE);
+        boolean isFirstTime = prefs.getBoolean("firstTimeCook",true);
+        if(isFirstTime){
             startAnimation();
-            prefs.edit().putBoolean("firstTime",false).commit();
+            prefs.edit().putBoolean("firstTimeCook",false).commit();
 
         }
-        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         return currentView;
     }
@@ -307,8 +301,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
             int screen_min_y = item.getHeight();
             Log.d(TAG,"screen max x "+screen_max_x);
             Log.d(TAG,"screen min x "+screen_min_x);
-         //   Log.d(TAG,"screen max y "+screen_max_y);
-         //   Log.d(TAG,"screen min y "+screen_min_y);
+
 
 
             if (current_x<= screen_min_x || current_x>= screen_max_x){
@@ -478,8 +471,8 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
     /**
      * set animation for the mascotte tutorial
-     * @param view
      */
+    /*
     private void animationCooker(View view){
         cookerFish = new ImageView(getActivity().getApplicationContext());
         cookerFish.setImageDrawable(getResources().getDrawable(R.drawable.cooker));
@@ -514,43 +507,18 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
         FrameLayout layout = (FrameLayout)view.findViewById(R.id.cook_manager_fragment);
         layout.addView(cookerFish);
-    }
+    }*/
 
     public void startAnimation(){
-        cookerFish.startAnimation(enterAnimation);
+
+        cookerFish = new ImageView(getActivity().getApplicationContext());
+        cookerFish.setImageDrawable(getResources().getDrawable(R.drawable.cooker));
+        cookerFish.setVisibility(View.INVISIBLE);
+        loadTutorialStrings();
+        TutorialAnimationManager manager = new TutorialAnimationManager(textSpeakMascotte, cookerFish,getDimensionScreen(), frameLayout, tutorialStrings);
+        manager.startEnterAnimation();
     }
 
-    /**
-     * Private class in order to update the text for the tutorial
-     */
-    private class UpdateTextRunnable implements Runnable{
-
-        private ArrayList<String> texts;
-
-        public UpdateTextRunnable(ArrayList<String> texts){
-            this.texts = texts;
-        }
-
-        @Override
-        public void run() {
-            //if i have some text to show update
-            if(texts.size() >0) {
-                textSpeakMascotte.setText(texts.remove(0));
-                nextHandler.postDelayed(new UpdateTextRunnable(texts), UPDATE_INTERVAL);
-            }else{
-                //else start animation out
-                textSpeakMascotte.setVisibility(View.INVISIBLE);
-                Point size = getDimensionScreen();
-                int width = size.x;
-                float to =  ((float)width)/3;
-                TranslateAnimation outAnimation = new TranslateAnimation(to, width,
-                        0.0f, 0.0f);          //  new TranslateAnimation(xFrom,xTo, yFrom,yTo)
-                outAnimation.setDuration(3000);  // animation duration
-                outAnimation.setFillAfter(true);
-                cookerFish.startAnimation(outAnimation);
-            }
-        }
-    }
 
     /**
      * get the dimension of the scree
@@ -570,7 +538,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     private void loadTutorialStrings(){
 
         tutorialStrings = new ArrayList<String>();
-        String[] parts = getActivity().getResources().getStringArray(R.array.tutorial_text);
+        String[] parts = getActivity().getResources().getStringArray(R.array.tutorial_text_cook);
         for(String item:parts){
                 tutorialStrings.add(item);
         }

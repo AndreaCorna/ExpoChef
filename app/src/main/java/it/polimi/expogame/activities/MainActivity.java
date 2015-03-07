@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.location.LocationManager;
@@ -32,6 +33,7 @@ import it.polimi.expogame.R;
 import it.polimi.expogame.database.tables.IngredientTable;
 import it.polimi.expogame.fragments.ar.ARFragment;
 import it.polimi.expogame.fragments.cook.CookManagerFragment;
+import it.polimi.expogame.fragments.info.WorldFragment;
 import it.polimi.expogame.providers.IngredientsProvider;
 import it.polimi.expogame.support.adapters.CustomPagerAdapter;
 import it.polimi.expogame.support.converters.ConverterStringToStringXml;
@@ -118,11 +120,17 @@ public class MainActivity extends ActionBarActivity {
                     getSupportActionBar().setHomeButtonEnabled(true);
 
 
-
                 }else{
                     mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                     getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                     getSupportActionBar().setHomeButtonEnabled(false);
+                    SharedPreferences prefs = getSharedPreferences("expochef", Context.MODE_PRIVATE);
+                    boolean isFirstTime = prefs.getBoolean("firstTimeWorld",true);
+                    if(isFirstTime){
+                        getWorldFragmentIstance().startAnimation();
+                        prefs.edit().putBoolean("firstTimeWorld",false).commit();
+
+                    }
 
                 }
             }
@@ -172,6 +180,8 @@ public class MainActivity extends ActionBarActivity {
         mDrawerLayout.setDrawerListener(actionBarDrawerToggle);
         listIngredientsSelected = new ArrayList<Ingredient>();
     }
+
+
 
     /**
      * Method which provide the list of unlocked ingredients by calling the content provider
@@ -276,6 +286,17 @@ public class MainActivity extends ActionBarActivity {
         }
         return null;
     }
+
+    private WorldFragment getWorldFragmentIstance(){
+        List<Fragment> list = getSupportFragmentManager().getFragments();
+        for(Fragment fragment:list){
+            if(fragment.getClass().equals(WorldFragment.class)){
+                return (WorldFragment)fragment;
+            }
+        }
+        return null;
+    }
+
 
     private void resetSliderView(){
         ((ImageAdapter)gridview.getAdapter()).resetAllSelection();
