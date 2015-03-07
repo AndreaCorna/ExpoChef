@@ -10,6 +10,7 @@ import android.graphics.Point;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Display;
@@ -56,6 +57,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     private ImageAdapterDraggable tagliereAdapter;
     private ImageView wasterBinImage;
     private FrameLayout frameLayout;
+    private MediaPlayer myPlayer;
 
     private static final String TAG="CookManagerFragment";
     private ArrayList<String> tutorialStrings;
@@ -141,6 +143,8 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     @Override
     public void onDetach() {
         super.onDetach();
+        if(myPlayer!=null) { myPlayer.release(); }
+
     }
 
     @Override
@@ -264,17 +268,17 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                 intent.putExtra("curiosityDish",curiosity);
                 intent.putExtra("difficultyDish",difficulty);
 
-                MediaPlayer mp = MediaPlayer.create(getActivity().getApplicationContext(),R.raw.tada);
-                mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                mp.setVolume(0.5f,0.5f);
-                mp.start();
+                myPlayer = MediaPlayer.create(getActivity().getApplicationContext(),R.raw.tada);
+                myPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                myPlayer.setVolume(0.5f,0.5f);
+                myPlayer.start();
 
                 startActivity(intent);
             }else{
-                MediaPlayer mp = MediaPlayer.create(getActivity().getApplicationContext(),R.raw.fail);
-                mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                mp.setVolume(0.5f,0.5f);
-                mp.start();
+                myPlayer = MediaPlayer.create(getActivity().getApplicationContext(),R.raw.fail);
+                myPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                myPlayer.setVolume(0.5f, 0.5f);
+                myPlayer.start();
                 Toast.makeText(getActivity().getApplicationContext(),getResources().getString(R.string.message_toast_cook),Toast.LENGTH_LONG).show();
             }
         }
@@ -395,8 +399,8 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
                     mp = MediaPlayer.create(getActivity().getApplicationContext(),R.raw.trash);
                     mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                    mp.setVolume(0.5f,0.5f);
-                    mp.start(); //TODO deallocate the resources
+                    mp.setVolume(0.5f, 0.5f);
+                    mp.start();
                     ViewHolder holder = (ViewHolder) ingredient_view.getTag();
                     Ingredient ingredient = holder.getIngredient();
                     if(parent_id == R.id.ingredient_table){
@@ -467,7 +471,6 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                         cookerView.setAdapter(tagliereAdapter);
 
                     }
-
 
                     gridView.invalidateViews();
                     cookerView.invalidateViews();

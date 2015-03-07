@@ -452,6 +452,9 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
               }
             continue;
         }
+
+        mp.stop();
+        mp.release();
     }
 
     /**

@@ -203,6 +203,27 @@ public class MainActivity extends ActionBarActivity {
        }
     }
 
+    /*
+    * Stop the soundtrack once leave from app
+    * */
+    @Override
+    protected void onStop(){
+        super.onStop();
+        if(this.soundtrackPlayer.isPlaying()){
+            this.soundtrackPlayer.stop();
+        }
+    }
+
+    /*
+  * Stop the soundtrack once leave from app
+  * */
+    @Override
+    protected void onRestart(){
+        super.onRestart();
+        this.soundtrackPlayer.start();
+
+    }
+
     /**
      * Method which provide the list of unlocked ingredients by calling the content provider
      */
