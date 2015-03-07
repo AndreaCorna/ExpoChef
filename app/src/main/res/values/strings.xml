@@ -27,24 +27,8 @@
     <string name="message_toast_cook">Not a good choice...</string>
     <string name="start_text_tutorial_cook">Hello!</string>
     <string name="start_text_tutorial_world">These are all\nthe world\'s zones</string>
-    <string name="start_text_tutorial_zone">These are all\nthe world\'s zones</string>
+    <string name="start_text_tutorial_zone">Here is the list\nof dishes</string>
 
-
-
-    <string-array name="tutorial_text_world">
-        <item>I will explain you how\nto cook your dishes</item>
-        <item>Use the map\nto come closer\nto the mascot</item>
-        <item>When you are near\nclick on screen</item>
-        <item>Find the mascot</item>
-        <item>Capture it</item>
-        <item>Click on shopping\nbasket</item>
-        <item>Choose the ingredients</item>
-        <item>Drag them on chopping board</item>
-        <item>...and cook!!!</item>
-        <item>if your choice\nis correct</item>
-        <item>you will discover\ninteresting information</item>
-        <item>Good fun!!!</item>
-    </string-array>
     <string-array name="tutorial_text_cook">
         <item>I will explain you how\nto cook your dishes</item>
         <item>Use the map\nto come closer\nto the mascot</item>
@@ -59,19 +43,21 @@
         <item>you will discover\ninteresting information</item>
         <item>Good fun!!!</item>
     </string-array>
+    <string-array name="tutorial_text_world">
+        <item>Click on one\n of them</item>
+        <item>to see all\ndishes</item>
+        <item>of a specific\nzone.</item>
+    </string-array>
     <string-array name="tutorial_text_zone">
-        <item>I will explain you how\nto cook your dishes</item>
-        <item>Use the map\nto come closer\nto the mascot</item>
-        <item>When you are near\nclick on screen</item>
-        <item>Find the mascot</item>
-        <item>Capture it</item>
-        <item>Click on shopping\nbasket</item>
-        <item>Choose the ingredients</item>
-        <item>Drag them on chopping board</item>
-        <item>...and cook!!!</item>
-        <item>if your choice\nis correct</item>
-        <item>you will discover\ninteresting information</item>
-        <item>Good fun!!!</item>
+        <item>Here you can\nfind all dishes</item>
+        <item>of this zone.</item>
+        <item>Click on images</item>
+        <item>to receive hint\non how to unlock</item>
+        <item>the dish</item>
+        <item>or see all\nthe information</item>
+        <item>of the dish\nalready unlocked</item>
+        <item>and share your\nprogresses</item>
+        <item>with your friends.</item>
     </string-array>
     <string name="label_curiosity">Curiosity</string>
     <string name="difficulty">Difficulty</string>
