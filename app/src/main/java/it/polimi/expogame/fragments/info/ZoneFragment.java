@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 import it.polimi.expogame.R;
 import it.polimi.expogame.activities.DetailsActivity;
+import it.polimi.expogame.activities.MainActivity;
 import it.polimi.expogame.database.tables.DishesTable;
 import it.polimi.expogame.database.tables.IngredientTable;
 import it.polimi.expogame.database.tables.IngredientsInDishes;
@@ -77,6 +78,8 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+
     }
 
     @Override

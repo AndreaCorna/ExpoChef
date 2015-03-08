@@ -223,7 +223,6 @@ public class MainActivity extends ActionBarActivity {
     protected void onRestart(){
         super.onRestart();
         this.soundtrackPlayer.start();
-
     }
 
     /**

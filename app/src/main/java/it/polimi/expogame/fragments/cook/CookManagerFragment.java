@@ -226,7 +226,9 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
         String[] selectionArgs = new String[]{hash};
         Cursor cursor = getActivity().getContentResolver().query(DishesProvider.CONTENT_URI,null,selection,selectionArgs,null);
 
-        //----animation TODO put in an async task
+        //----animation-----
+
+
 
 
 
