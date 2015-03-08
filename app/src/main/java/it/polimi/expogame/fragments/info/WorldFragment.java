@@ -54,9 +54,7 @@ public class WorldFragment extends Fragment  {
     private GridZonesAdapter adapterGridZones;
 
     private ImageView cookerFish;
-    private TranslateAnimation enterAnimation;
     private TextView textSpeakMascotte;
-    private FrameLayout frameLayout;
     private ArrayList<String> tutorialStrings;
 
 
@@ -99,8 +97,7 @@ public class WorldFragment extends Fragment  {
 
         textSpeakMascotte = (TextView)view.findViewById(R.id.speak_tutorial_world);
 
-        frameLayout = (FrameLayout)view.findViewById(R.id.layout_world_fragment);
-
+        cookerFish  = (ImageView)view.findViewById(R.id.cooker_image);
 
         return view;
     }
@@ -125,11 +122,10 @@ public class WorldFragment extends Fragment  {
 
     public void startAnimation(){
 
-        cookerFish = new ImageView(getActivity().getApplicationContext());
         cookerFish.setImageDrawable(getResources().getDrawable(R.drawable.cooker));
         cookerFish.setVisibility(View.INVISIBLE);
         loadTutorialStrings();
-        TutorialAnimationManager manager = new TutorialAnimationManager(textSpeakMascotte, cookerFish,getDimensionScreen(), frameLayout, tutorialStrings);
+        TutorialAnimationManager manager = new TutorialAnimationManager(textSpeakMascotte, cookerFish,getDimensionScreen(), tutorialStrings);
         manager.startEnterAnimation();
     }
 

@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,6 +93,7 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
         loadDishesByZone(zone);
         frameLayout = (FrameLayout)view.findViewById(R.id.zone_fragment_layout);
         textSpeakMascotte = (TextView)view.findViewById(R.id.speak_tutorial_zone);
+        cookerFish = (ImageView)view.findViewById(R.id.cooker_image);
         SharedPreferences prefs = getActivity().getSharedPreferences("expochef", Context.MODE_PRIVATE);
         boolean isFirstTime = prefs.getBoolean("firstTimeZone",true);
         if(isFirstTime){
@@ -104,11 +106,11 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
     }
 
     private void startAnimation(){
-        cookerFish = new ImageView(getActivity().getApplicationContext());
+        //cookerFish = new ImageView(getActivity().getApplicationContext());
         cookerFish.setImageDrawable(getResources().getDrawable(R.drawable.cooker));
         cookerFish.setVisibility(View.INVISIBLE);
         loadTutorialStrings();
-        TutorialAnimationManager manager = new TutorialAnimationManager(textSpeakMascotte, cookerFish,getDimensionScreen(), frameLayout, tutorialStrings);
+        TutorialAnimationManager manager = new TutorialAnimationManager(textSpeakMascotte, cookerFish,getDimensionScreen(), tutorialStrings);
         manager.startEnterAnimation();
     }
 
