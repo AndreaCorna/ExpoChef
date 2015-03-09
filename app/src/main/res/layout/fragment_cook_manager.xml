@@ -47,8 +47,6 @@
                 android:src="@drawable/wasterbin" />
 
 
-
-
             <GridView
                 android:layout_width="159dp"
                 android:layout_height="150dp"
@@ -61,6 +59,12 @@
                 android:layout_gravity="center"
                 />
 
+            <ImageView
+                android:layout_width="190dp"
+                android:layout_height="190dp"
+                android:id="@+id/cookingcloud"
+                android:layout_gravity="center"
+                 />
 
 
         </FrameLayout>

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Point;
+import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.GridView;
@@ -44,7 +46,7 @@ import it.polimi.expogame.database.objects.Ingredient;
 import it.polimi.expogame.support.ViewHolder;
 
 
-public class CookManagerFragment extends Fragment implements  CookFragment.OnDishCreatedListener, IngredientFragment.OnIngredientSelectedListener{
+public class CookManagerFragment extends Fragment implements  CookFragment.OnDishCreatedListener, IngredientFragment.OnIngredientSelectedListener, Animation.AnimationListener {
 
 
     private ArrayList<Ingredient> ingredientsSelected;
@@ -53,6 +55,8 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     private GridView cookerView;
     private ImageAdapterDraggable tovagliaAdapter;
     private ImageView cookerFish;
+    private ImageView cookingCloud;
+    private AnimationDrawable cookingAnimation;
     private TextView textSpeakMascotte;
     private ImageAdapterDraggable tagliereAdapter;
     private ImageView wasterBinImage;
@@ -74,7 +78,6 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
         ingredientsSelected = new ArrayList<Ingredient>();
         ingredientsCombined = new ArrayList<Ingredient>();
-
     }
 
     @Override
@@ -118,6 +121,11 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
         textSpeakMascotte = (TextView)currentView.findViewById(R.id.speak);
         textSpeakMascotte.setVisibility(View.INVISIBLE);
         cookerFish = (ImageView)currentView.findViewById(R.id.cooker_image);
+
+        cookingCloud = (ImageView)currentView.findViewById(R.id.cookingcloud);
+        cookingCloud.setBackgroundResource(R.drawable.cookingcloud);
+        cookingAnimation = (AnimationDrawable) cookingCloud.getBackground();
+        cookingCloud.setVisibility(View.INVISIBLE);
 
         getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
@@ -225,64 +233,17 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
         String[] selectionArgs = new String[]{hash};
         Cursor cursor = getActivity().getContentResolver().query(DishesProvider.CONTENT_URI,null,selection,selectionArgs,null);
 
-        //----animation-----
+        int size = cookerView.getChildCount();
 
-
-
-
-
-        if(cursor != null){
-            if(cursor.moveToFirst()){
-                cursor.moveToFirst();
-                long id = cursor.getLong(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_ID));
-                String name = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_NAME));
-                String nationality = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_NATIONALITY));
-                String imageUrl = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_IMAGE));
-                String description = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_DESCRIPTION));
-                String zone = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_ZONE));
-                String curiosity = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_CURIOSITY));
-                Integer difficulty = cursor.getInt(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_DIFFICULTY));
-                int created = cursor.getInt(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_CREATED));
-                boolean createdDish = false;
-                if(created == 1){
-                    createdDish = true;
-                }
-                //update db
-                String where = DishesTable.COLUMN_NAME + " = ?";
-                String[] names = new String[]{name};
-
-                ContentValues values = new ContentValues();
-
-                values.put(DishesTable.COLUMN_CREATED,1);
-                getActivity().getContentResolver().update(DishesProvider.CONTENT_URI, values, where, names);
-                resetSelectionsIngredients();
-
-                //show details
-                Intent intent = new Intent(getActivity().getApplicationContext(), DetailsActivity.class);
-                intent.putExtra("idDish",id);
-                intent.putExtra("nameDish",name);
-                intent.putExtra("nationalityDish",nationality);
-                intent.putExtra("imageUrlDish",imageUrl);
-                intent.putExtra("descriptionDish",description);
-                intent.putExtra("zoneDish",zone);
-                intent.putExtra("createdDish",createdDish);
-                intent.putExtra("curiosityDish",curiosity);
-                intent.putExtra("difficultyDish",difficulty);
-
-                myPlayer = MediaPlayer.create(getActivity().getApplicationContext(),R.raw.tada);
-                myPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                myPlayer.setVolume(0.5f,0.5f);
-                myPlayer.start();
-
-                startActivity(intent);
-            }else{
-                myPlayer = MediaPlayer.create(getActivity().getApplicationContext(),R.raw.fail);
-                myPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                myPlayer.setVolume(0.5f, 0.5f);
-                myPlayer.start();
-                Toast.makeText(getActivity().getApplicationContext(),getResources().getString(R.string.message_toast_cook),Toast.LENGTH_LONG).show();
-            }
+        for(int i=0;i<size;i++){
+            View ingredient_view = (View) cookerView.getChildAt(i);
+            ingredient_view.setVisibility(View.INVISIBLE);
         }
+
+        //----animation-----
+        cookingCloud.setVisibility(View.VISIBLE);
+        cookingAnimation.start();
+
 
     }
 
@@ -297,6 +258,20 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
     }
 
+    @Override
+    public void onAnimationStart(Animation animation) {
+
+    }
+
+    @Override
+    public void onAnimationEnd(Animation animation) {
+
+    }
+
+    @Override
+    public void onAnimationRepeat(Animation animation) {
+
+    }
 
 
     private class MyDragListener implements View.OnDragListener {
