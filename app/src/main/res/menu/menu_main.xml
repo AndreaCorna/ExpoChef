@@ -4,9 +4,14 @@
     >
     <item android:id="@+id/action_start_map" android:title="Start map"
         android:icon="@drawable/mappa_icon_button"
-        expoChef:showAsAction="ifRoom"
+        expoChef:showAsAction="always"
        />
     <item android:id="@+id/action_start_capture" android:title="Start capture"
         android:icon="@drawable/retino"
-        expoChef:showAsAction="ifRoom"/>
+        expoChef:showAsAction="always"/>
+
+    <item android:id="@+id/options" android:title="Options"
+        expoChef:showAsAction="withText"/>
+
+
 </menu>
