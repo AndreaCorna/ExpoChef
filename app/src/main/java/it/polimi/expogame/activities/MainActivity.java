@@ -230,9 +230,6 @@ public class MainActivity extends ActionBarActivity {
 
         }
         super.onRestart();
-<<<<<<< HEAD
-        this.soundtrackPlayer.start();
-=======
         SharedPreferences prefs = getSharedPreferences("expochef", Context.MODE_PRIVATE);
         audioActivated = prefs.getBoolean("audioActivated",true);
         if(audioActivated){
@@ -244,7 +241,6 @@ public class MainActivity extends ActionBarActivity {
         }
         //this.soundtrackPlayer.start();
 
->>>>>>> andre
     }
 
     private void startCookAnimation(){
