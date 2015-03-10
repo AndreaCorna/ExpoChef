@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import it.polimi.expogame.R;
+import it.polimi.expogame.fragments.options.OptionsFragment;
 
 public class OptionsActivity extends ActionBarActivity {
 
@@ -13,6 +14,12 @@ public class OptionsActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
+
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, new OptionsFragment())
+                    .commit();
+        }
     }
 
 

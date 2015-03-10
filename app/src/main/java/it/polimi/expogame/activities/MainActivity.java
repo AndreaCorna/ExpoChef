@@ -447,7 +447,7 @@ public class MainActivity extends ActionBarActivity {
 
 
     private void launchOptionsActivity(){
-        Intent intent = new Intent();
+        Intent intent = new Intent(this,OptionsActivity.class);
         startActivity(intent);
     }
 }

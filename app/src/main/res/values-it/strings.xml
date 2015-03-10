@@ -29,6 +29,10 @@
     <string name="start_text_tutorial_world">Queste sono le\nzone del mondo</string>
     <string name="start_text_tutorial_zone">Ecco la schermata\ndei piatti.</string>
     <string name="label_option_fragment">Opzioni</string>
+    <string name="title_activity_options">Opzioni</string>
+    <string name="text_tutorial_option">Mostra il tutorial</string>
+    <string name="text_audio_option">Attiva i suoni</string>
+
 
 
     <string name="hint_button">Aiuto</string>
