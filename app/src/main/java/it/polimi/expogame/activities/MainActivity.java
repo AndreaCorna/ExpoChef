@@ -294,6 +294,8 @@ public class MainActivity extends ActionBarActivity {
                     buildAlertMessageNoGps(R.id.action_start_capture);
                 }
                 break;
+            case R.id.options:
+                launchOptionsActivity();
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -441,6 +443,12 @@ public class MainActivity extends ActionBarActivity {
 
     public MediaPlayer getSoundtrackPlayer() {
         return soundtrackPlayer;
+    }
+
+
+    private void launchOptionsActivity(){
+        Intent intent = new Intent();
+        startActivity(intent);
     }
 }
 

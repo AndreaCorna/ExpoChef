@@ -10,7 +10,7 @@
         android:icon="@drawable/retino"
         expoChef:showAsAction="always"/>
 
-    <item android:id="@+id/options" android:title="Options"
+    <item android:id="@+id/options" android:title="@string/string_options"
         expoChef:showAsAction="withText"/>
 
 
