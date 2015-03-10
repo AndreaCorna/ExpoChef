@@ -121,20 +121,15 @@ public class MainActivity extends ActionBarActivity {
                     mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                     getSupportActionBar().setHomeButtonEnabled(true);
+                    startCookAnimation();
 
 
                 }else{
                     mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                     getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                     getSupportActionBar().setHomeButtonEnabled(false);
-                    SharedPreferences prefs = getSharedPreferences("expochef", Context.MODE_PRIVATE);
-                    boolean isFirstTime = prefs.getBoolean("firstTimeWorld",true);
-                    if(isFirstTime){
-                        getWorldFragmentIstance().startAnimation();
-                        prefs.edit().putBoolean("firstTimeWorld",false).commit();
 
-                    }
-
+                    startWorldAnimation();
                 }
             }
 
@@ -221,8 +216,38 @@ public class MainActivity extends ActionBarActivity {
   * */
     @Override
     protected void onRestart(){
+        switch (viewPager.getCurrentItem()){
+            case 0:
+                startCookAnimation();
+                break;
+            case 1:
+                startWorldAnimation();
+                break;
+
+        }
         super.onRestart();
         this.soundtrackPlayer.start();
+    }
+
+    private void startCookAnimation(){
+        SharedPreferences prefs = getSharedPreferences("expochef", Context.MODE_PRIVATE);
+        boolean isFirstTime = prefs.getBoolean("firstTimeCook",true);
+        if(isFirstTime){
+            getCookManagerFragmentIstance().startAnimation();
+            prefs.edit().putBoolean("firstTimeCook",false).commit();
+
+        }
+    }
+
+    private void startWorldAnimation(){
+        SharedPreferences prefs = getSharedPreferences("expochef", Context.MODE_PRIVATE);
+        boolean isFirstTime = prefs.getBoolean("firstTimeWorld",true);
+        if(isFirstTime){
+            getWorldFragmentIstance().startAnimation();
+            prefs.edit().putBoolean("firstTimeWorld",false).commit();
+
+        }
+
     }
 
     /**
@@ -293,6 +318,8 @@ public class MainActivity extends ActionBarActivity {
                     buildAlertMessageNoGps(R.id.action_start_capture);
                 }
                 break;
+            case R.id.options:
+                launchOptionsActivity();
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -440,6 +467,12 @@ public class MainActivity extends ActionBarActivity {
 
     public MediaPlayer getSoundtrackPlayer() {
         return soundtrackPlayer;
+    }
+
+
+    private void launchOptionsActivity(){
+        Intent intent = new Intent(this,OptionsActivity.class);
+        startActivity(intent);
     }
 }
 
