@@ -36,6 +36,12 @@ public class HintFragmentDialog extends DialogFragment {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.MyDialog);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_hint_dialog, container);
@@ -110,7 +116,7 @@ public class HintFragmentDialog extends DialogFragment {
         int height = size.y;
 
 
-        int dialogWidth = width*3/4;
+        int dialogWidth = width*5/6;
         int dialogHeight =  height*3/4;
 
         getDialog().getWindow().setLayout(dialogWidth, dialogHeight);
