@@ -62,6 +62,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     private ImageView wasterBinImage;
     private FrameLayout frameLayout;
     private MediaPlayer myPlayer;
+    private String hash;
 
     private static final String TAG="CookManagerFragment";
     private ArrayList<String> tutorialStrings;
@@ -113,8 +114,8 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
             //on click check if a dish will be unlocked
             public void onClick(View v) {
                 ArrayList<String> nameIngredients = reorderListIngredientsToCombine();
-                String hash = hashListIngredientsToCombine(nameIngredients);
-                checkNewDishUnlocked(hash);
+                hash = hashListIngredientsToCombine(nameIngredients);
+                checkNewDishUnlocked();
             }
         });
         //
@@ -227,22 +228,71 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     }
 
     //check if a dish is unlock show details activity and update db
-    private void checkNewDishUnlocked(String hash){
+    private void checkNewDishUnlocked(){
 
         String selection = DishesTable.COLUMN_HASHINGREDIENTS + " = ?";
         String[] selectionArgs = new String[]{hash};
         Cursor cursor = getActivity().getContentResolver().query(DishesProvider.CONTENT_URI,null,selection,selectionArgs,null);
 
-        int size = cookerView.getChildCount();
+        if(cursor != null){
+            if(cursor.moveToFirst()){
+                cursor.moveToFirst();
+                long id = cursor.getLong(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_ID));
+                String name = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_NAME));
+                String nationality = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_NATIONALITY));
+                String imageUrl = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_IMAGE));
+                String description = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_DESCRIPTION));
+                String zone = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_ZONE));
+                String curiosity = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_CURIOSITY));
+                Integer difficulty = cursor.getInt(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_DIFFICULTY));
+                int created = cursor.getInt(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_CREATED));
+                boolean createdDish = false;
+                if(created == 1){
+                    createdDish = true;
+                }
+                //update db
+                String where = DishesTable.COLUMN_NAME + " = ?";
+                String[] names = new String[]{name};
 
-        for(int i=0;i<size;i++){
-            View ingredient_view = (View) cookerView.getChildAt(i);
-            ingredient_view.setVisibility(View.INVISIBLE);
+                ContentValues values = new ContentValues();
+
+                values.put(DishesTable.COLUMN_CREATED,1);
+                getActivity().getContentResolver().update(DishesProvider.CONTENT_URI, values, where, names);
+                resetSelectionsIngredients();
+
+                //show details
+                Intent intent = new Intent(getActivity().getApplicationContext(), DetailsActivity.class);
+                intent.putExtra("idDish",id);
+                intent.putExtra("nameDish",name);
+                intent.putExtra("nationalityDish",nationality);
+                intent.putExtra("imageUrlDish",imageUrl);
+                intent.putExtra("descriptionDish",description);
+                intent.putExtra("zoneDish",zone);
+                intent.putExtra("createdDish",createdDish);
+                intent.putExtra("curiosityDish",curiosity);
+                intent.putExtra("difficultyDish",difficulty);
+
+                myPlayer = MediaPlayer.create(getActivity().getApplicationContext(),R.raw.tada);
+                myPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                myPlayer.setVolume(0.5f,0.5f);
+                myPlayer.start();
+
+                startActivity(intent);
+            }else{
+                myPlayer = MediaPlayer.create(getActivity().getApplicationContext(),R.raw.fail);
+                myPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                myPlayer.setVolume(0.5f, 0.5f);
+                myPlayer.start();
+                int size = cookerView.getChildCount();
+                for(int i=0;i<size;i++){
+
+                    View ingredient_view = (View)cookerView.getChildAt(i);
+                    ingredient_view.setVisibility(View.VISIBLE);
+                }
+                Toast.makeText(getActivity().getApplicationContext(),getResources().getString(R.string.message_toast_cook),Toast.LENGTH_LONG).show();
+            }
         }
 
-        //----animation-----
-        cookingCloud.setVisibility(View.VISIBLE);
-        cookingAnimation.start();
 
 
     }
@@ -258,20 +308,6 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
     }
 
-    @Override
-    public void onAnimationStart(Animation animation) {
-
-    }
-
-    @Override
-    public void onAnimationEnd(Animation animation) {
-
-    }
-
-    @Override
-    public void onAnimationRepeat(Animation animation) {
-
-    }
 
 
     private class MyDragListener implements View.OnDragListener {
@@ -546,9 +582,46 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
         for(String item:parts){
                 tutorialStrings.add(item);
         }
+    }
 
+    //----------------------------------
+    //COOKING ANIMATION METHODS
+    //----------------------------------
+
+    private void startCookingAnimation(){
+
+        int size = cookerView.getChildCount();
+        for(int i=0;i<size;i++){
+
+            View ingredient_view = (View)cookerView.getChildAt(i);
+            ingredient_view.setVisibility(View.INVISIBLE);
+        }
+
+        cookingCloud.setVisibility(View.VISIBLE);
+        cookingAnimation.start();
 
     }
+
+
+
+    @Override
+    public void onAnimationStart(Animation animation) {
+
+    }
+
+    @Override
+    public void onAnimationEnd(Animation animation) {
+        cookingAnimation.stop();
+        cookingCloud.setVisibility(View.INVISIBLE);
+        checkNewDishUnlocked();
+    }
+
+    @Override
+    public void onAnimationRepeat(Animation animation) {
+
+    }
+
+    //---------------------------------------------
 
 
 }
