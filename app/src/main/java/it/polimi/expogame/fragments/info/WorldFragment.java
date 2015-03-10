@@ -121,7 +121,7 @@ public class WorldFragment extends Fragment  {
     }
 
     public void startAnimation(){
-
+        textSpeakMascotte.setText(R.string.start_text_tutorial_world);
         cookerFish.setImageDrawable(getResources().getDrawable(R.drawable.cooker));
         cookerFish.setVisibility(View.INVISIBLE);
         loadTutorialStrings();

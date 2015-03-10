@@ -91,6 +91,8 @@ public class TutorialAnimationManager {
                 textSpeakMascot.setText(texts.remove(0));
                 nextHandler.postDelayed(new UpdateTextRunnable(texts), UPDATE_INTERVAL);
             }else{
+                texts.clear();
+                tutorialStrings.clear();
                 //else start animation out
                 textSpeakMascot.setVisibility(View.INVISIBLE);
                 int width = screenSize.x;

@@ -44,9 +44,27 @@ public class OptionsFragment extends Fragment {
         SharedPreferences prefs = getActivity().getSharedPreferences("expochef", Context.MODE_PRIVATE);
         CheckBox tutorialBox = (CheckBox)view.findViewById(R.id.checkBox_option_tutorial);
         tutorialBox.setChecked(prefs.getBoolean("firstTimeCook",true));
+        tutorialBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences prefs = getActivity().getSharedPreferences("expochef", Context.MODE_PRIVATE);
+                prefs.edit().putBoolean("firstTimeCook",((CheckBox)v).isChecked()).commit();
+                prefs.edit().putBoolean("firstTimeWorld",((CheckBox)v).isChecked()).commit();
+                prefs.edit().putBoolean("firstTimeZone",((CheckBox)v).isChecked()).commit();
+
+
+            }
+        });
 
         CheckBox audioBox = (CheckBox)view.findViewById(R.id.checkBox_option_audio);
         audioBox.setChecked(prefs.getBoolean("audioActivated",true));
+        audioBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences prefs = getActivity().getSharedPreferences("expochef", Context.MODE_PRIVATE);
+                prefs.edit().putBoolean("audioActivated",((CheckBox)v).isChecked()).commit();
+            }
+        });
         return view;
     }
 
