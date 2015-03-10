@@ -30,7 +30,9 @@
     <string name="start_text_tutorial_zone">Here is the list\nof dishes</string>
     <string name="label_option_fragment">Options</string>
     <string name="text_tutorial_option">Activate tutorial</string>
-    <string name="text_audio_option">Activate audio and background sounds</string>
+    <string name="text_music_option">Activate game music</string>
+    <string name="text_audio_option">Activate background sounds</string>
+
 
     <string-array name="tutorial_text_cook">
         <item>I will explain you how\nto cook your dishes</item>

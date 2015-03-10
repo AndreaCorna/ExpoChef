@@ -240,6 +240,8 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
             ingredient_view.setVisibility(View.INVISIBLE);
         }
 
+
+
         //----animation-----
         cookingCloud.setVisibility(View.VISIBLE);
         cookingAnimation.start();

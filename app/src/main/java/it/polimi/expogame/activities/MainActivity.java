@@ -179,7 +179,7 @@ public class MainActivity extends ActionBarActivity {
         listIngredientsSelected = new ArrayList<Ingredient>();
 
         SharedPreferences prefs = getSharedPreferences("expochef", Context.MODE_PRIVATE);
-        audioActivated = prefs.getBoolean("audioActivated",true);
+        audioActivated = prefs.getBoolean("musicActivated",true);
         if(audioActivated){
             soundtrackPlayer = MediaPlayer.create(this,R.raw.soundtrack);
             soundtrackPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -231,7 +231,7 @@ public class MainActivity extends ActionBarActivity {
         }
         super.onRestart();
         SharedPreferences prefs = getSharedPreferences("expochef", Context.MODE_PRIVATE);
-        audioActivated = prefs.getBoolean("audioActivated",true);
+        audioActivated = prefs.getBoolean("musicActivated",true);
         if(audioActivated){
             soundtrackPlayer = MediaPlayer.create(this,R.raw.soundtrack);
             soundtrackPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);

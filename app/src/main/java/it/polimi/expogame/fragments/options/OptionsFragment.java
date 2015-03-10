@@ -56,6 +56,16 @@ public class OptionsFragment extends Fragment {
             }
         });
 
+        CheckBox musicBox = (CheckBox)view.findViewById(R.id.checkBox_option_music);
+        musicBox.setChecked(prefs.getBoolean("musicActivated",true));
+        musicBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences prefs = getActivity().getSharedPreferences("expochef", Context.MODE_PRIVATE);
+                prefs.edit().putBoolean("musicActivated",((CheckBox)v).isChecked()).commit();
+            }
+        });
+
         CheckBox audioBox = (CheckBox)view.findViewById(R.id.checkBox_option_audio);
         audioBox.setChecked(prefs.getBoolean("audioActivated",true));
         audioBox.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +75,7 @@ public class OptionsFragment extends Fragment {
                 prefs.edit().putBoolean("audioActivated",((CheckBox)v).isChecked()).commit();
             }
         });
+
         return view;
     }
 
