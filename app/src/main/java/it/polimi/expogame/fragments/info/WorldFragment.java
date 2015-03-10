@@ -1,17 +1,29 @@
 package it.polimi.expogame.fragments.info;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -19,6 +31,7 @@ import it.polimi.expogame.R;
 import it.polimi.expogame.activities.ZoneActivity;
 import it.polimi.expogame.database.tables.ZonesTable;
 import it.polimi.expogame.providers.DishesProvider;
+import it.polimi.expogame.support.TutorialAnimationManager;
 import it.polimi.expogame.support.adapters.GridZonesAdapter;
 import it.polimi.expogame.support.adapters.GridZoneItem;
 
@@ -39,6 +52,10 @@ public class WorldFragment extends Fragment  {
     private GridView gridZones;
     private ArrayList<GridZoneItem> listZones;
     private GridZonesAdapter adapterGridZones;
+
+    private ImageView cookerFish;
+    private TextView textSpeakMascotte;
+    private ArrayList<String> tutorialStrings;
 
 
     public static WorldFragment newInstance() {
@@ -78,6 +95,10 @@ public class WorldFragment extends Fragment  {
 
         loadZones();
 
+        textSpeakMascotte = (TextView)view.findViewById(R.id.speak_tutorial_world);
+
+        cookerFish  = (ImageView)view.findViewById(R.id.cooker_image);
+
         return view;
     }
 
@@ -99,12 +120,19 @@ public class WorldFragment extends Fragment  {
         super.onDetach();
     }
 
+    public void startAnimation(){
+        textSpeakMascotte.setText(R.string.start_text_tutorial_world);
+        cookerFish.setImageDrawable(getResources().getDrawable(R.drawable.cooker));
+        cookerFish.setVisibility(View.INVISIBLE);
+        loadTutorialStrings();
+        TutorialAnimationManager manager = new TutorialAnimationManager(textSpeakMascotte, cookerFish,getDimensionScreen(), tutorialStrings);
+        manager.startEnterAnimation();
+    }
+
     /**
      * load zone with the content provider and set the list adapter of the listview
      */
     private void loadZones() {
-
-       // ArrayList<String> zoneList = new ArrayList<String>();
 
 
         Uri uri = Uri.parse(DishesProvider.CONTENT_URI+"/zones");
@@ -128,9 +156,7 @@ public class WorldFragment extends Fragment  {
 
         cursor.close();
 
-        /*for(String name:zoneList){
-            listZones.add(new GridZoneItem(getActivity(),name,"cancel.png"));
-        }*/
+
         adapterGridZones = new GridZonesAdapter(getActivity(),listZones);
         gridZones.setAdapter(adapterGridZones);
 
@@ -149,6 +175,36 @@ public class WorldFragment extends Fragment  {
 
 
     }
+
+
+    /**
+     * get the dimension of the scree
+     * @return point with dimension
+     */
+    private Point getDimensionScreen(){
+        WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return size;
+    }
+
+    /**
+     * load text for tutorial
+     */
+    private void loadTutorialStrings(){
+
+        tutorialStrings = new ArrayList<String>();
+        String[] parts = getActivity().getResources().getStringArray(R.array.tutorial_text_world);
+        for(String item:parts){
+            tutorialStrings.add(item);
+        }
+
+
+    }
+
+
+
 
 
 }

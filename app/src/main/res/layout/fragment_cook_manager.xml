@@ -46,19 +46,6 @@
                 android:layout_gravity="left|top"
                 android:src="@drawable/wasterbin" />
 
-            <TextView
-                android:layout_width="210dp"
-                android:layout_height="154dp"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/start_text_tutorial"
-                android:id="@+id/speak"
-                android:layout_gravity="left|top"
-                android:background="@drawable/nuvola"
-                android:layout_margin="5dp"
-                android:gravity="center_horizontal|clip_horizontal|clip_vertical"
-                android:autoText="false"
-                android:paddingTop="30dp" />
-
 
             <GridView
                 android:layout_width="159dp"
@@ -72,6 +59,12 @@
                 android:layout_gravity="center"
                 />
 
+            <ImageView
+                android:layout_width="190dp"
+                android:layout_height="190dp"
+                android:id="@+id/cookingcloud"
+                android:layout_gravity="center"
+                 />
 
 
         </FrameLayout>
@@ -91,5 +84,24 @@
 
 
     </LinearLayout>
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cooker_image"/>
+    <TextView
+        android:layout_width="210dp"
+        android:layout_height="154dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/start_text_tutorial_cook"
+        android:id="@+id/speak"
+        android:layout_gravity="left|top"
+        android:background="@drawable/nuvola"
+        android:layout_margin="5dp"
+        android:gravity="center_horizontal|clip_horizontal|clip_vertical"
+        android:autoText="false"
+        android:paddingTop="30dp" />
+
 
 </FrameLayout>

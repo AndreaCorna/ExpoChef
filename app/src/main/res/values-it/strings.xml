@@ -17,7 +17,7 @@
     <string name="label_description">Descrizione</string>
     <string name="label_nationality">Nazionalità</string>
     <string name="title_activity_details">Dettagli di</string>
-    <string name="string_options">opzioni</string>
+    <string name="string_options">Opzioni</string>
     <string name="title_activity_zone">ZoneActivity</string>
     <string name="list_zone_activity">Lista dei piatti</string>
     <string name="label_list_zones">Lista delle zone</string>
@@ -25,9 +25,19 @@
     <string name="button_done_slider">Fatto</string>
     <string name="cook_button_label">Cucina!</string>
     <string name="message_toast_cook">Non una buona scelta...</string>
-    <string name="start_text_tutorial">Ciao!</string>
+    <string name="start_text_tutorial_cook">Ciao!</string>
+    <string name="start_text_tutorial_world">Queste sono le\nzone del mondo</string>
+    <string name="start_text_tutorial_zone">Ecco la schermata\ndei piatti.</string>
+    <string name="label_option_fragment">Opzioni</string>
+    <string name="title_activity_options">Opzioni</string>
+    <string name="text_tutorial_option">Mostra il tutorial</string>
+    <string name="text_audio_option">Attiva i suoni</string>
+    <string name="text_music_option">Attiva la musica</string>
+
+
+
     <string name="hint_button">Aiuto</string>
-    <string-array name="tutorial_text">
+    <string-array name="tutorial_text_cook">
         <item>Ti spiegherò\ncome cucinare\ni tuoi piatti</item>
         <item>Usa la mappa\nper avvicinarti alle\nmascotte</item>
         <item>Quando sei vicino\nclicca sul retino</item>
@@ -40,6 +50,22 @@
         <item>se la combinazione\nè corretta</item>
         <item>scoprirai curiosità\ne informazioni</item>
         <item>Buon divertimento!</item>
+    </string-array>
+    <string-array name="tutorial_text_world">
+        <item>Clicca su una\n di queste</item>
+        <item>per vedere tutti\ni piatti</item>
+        <item>di quella zona.</item>
+    </string-array>
+    <string-array name="tutorial_text_zone">
+        <item>Qui puoi trovare\ntutti i piatti</item>
+        <item>di questa zona.</item>
+        <item>Clicca sulle immagini</item>
+        <item>per avere indizi\nsu come sbloccare</item>
+        <item>il piatto</item>
+        <item>oppure vedere le\n informazioni</item>
+        <item>dei piatti\nsbloccati</item>
+        <item>e condividere\ni tuoi progressi</item>
+        <item>con i tuoi\namici.</item>
     </string-array>
     <string name="label_curiosity">Curiosità</string>
     <string name="difficulty">Difficoltà</string>

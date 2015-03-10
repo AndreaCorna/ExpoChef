@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.location.Location;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.BuildConfig;
 import android.util.Log;
@@ -63,6 +65,7 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
 
     //Radar object displayed in the metaio view
     private IRadar mRadar;
+    private MediaPlayer myPlayer;
 
     //----------------------------------------
     //boolean variable in order to force reload of ingredients if  mascotte was captured
@@ -142,6 +145,9 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
     @Override
     protected void onStop() {
         mGoogleApiClient.disconnect(); //disconnect from the service
+        if(myPlayer!=null){
+            myPlayer.release();
+        }
         super.onStop();
 
     }
@@ -385,6 +391,11 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
         Vibrator v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
         // Vibrate for 500 milliseconds
         v.vibrate(500);
+
+        myPlayer = MediaPlayer.create(this.getApplicationContext(),R.raw.catchit);
+        myPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        myPlayer.setVolume(0.5f,0.5f);
+        myPlayer.start();
 
         int captured=0;
 

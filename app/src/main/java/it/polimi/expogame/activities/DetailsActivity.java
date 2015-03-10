@@ -73,8 +73,7 @@ public class DetailsActivity extends ActionBarActivity{
     private void launchPostActivity(){
         Intent intent = new Intent(getApplicationContext(),FacebookShareActivity.class);
         intent.putExtra("name", objectToPost.getName());
-        int id = objectToPost.getImageId();
-        intent.putExtra("image",id);
+        intent.putExtra("image",objectToPost.getImageId());
         startActivity(intent);
     }
 
