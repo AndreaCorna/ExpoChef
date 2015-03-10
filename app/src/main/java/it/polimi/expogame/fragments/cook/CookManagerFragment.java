@@ -395,11 +395,14 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                     return true;
 
                 } else if(v.getId() == R.id.wasterbin){
+                    boolean audioActivated = getActivity().getSharedPreferences("expochef", Context.MODE_PRIVATE).getBoolean("audioActivated",true);
+                    if(audioActivated){
+                        mp = MediaPlayer.create(getActivity().getApplicationContext(),R.raw.trash);
+                        mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                        mp.setVolume(0.5f, 0.5f);
+                        mp.start();
+                    }
 
-                    mp = MediaPlayer.create(getActivity().getApplicationContext(),R.raw.trash);
-                    mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                    mp.setVolume(0.5f, 0.5f);
-                    mp.start();
                     ViewHolder holder = (ViewHolder) ingredient_view.getTag();
                     Ingredient ingredient = holder.getIngredient();
                     if(parent_id == R.id.ingredient_table){

@@ -60,7 +60,7 @@ public class MainActivity extends ActionBarActivity {
     private static final int CAPTURE_ACTIVITY_RESULT = 10;
     private static final int CAPTURE_ACTIVITY_LAUNCH = 20;
     private static final int MAP_ACTIVITY_LAUNCH = 30;
-
+    private boolean audioActivated;
 
 
     @Override
@@ -178,12 +178,16 @@ public class MainActivity extends ActionBarActivity {
         mDrawerLayout.setDrawerListener(actionBarDrawerToggle);
         listIngredientsSelected = new ArrayList<Ingredient>();
 
+        SharedPreferences prefs = getSharedPreferences("expochef", Context.MODE_PRIVATE);
+        audioActivated = prefs.getBoolean("audioActivated",true);
+        if(audioActivated){
+            soundtrackPlayer = MediaPlayer.create(this,R.raw.soundtrack);
+            soundtrackPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            soundtrackPlayer.setLooping(true);
+            soundtrackPlayer.setVolume(0.5f,0.5f);
+            soundtrackPlayer.start();
+        }
 
-        soundtrackPlayer = MediaPlayer.create(this,R.raw.soundtrack);
-        soundtrackPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        soundtrackPlayer.setLooping(true);
-        soundtrackPlayer.setVolume(0.5f,0.5f);
-        soundtrackPlayer.start();
     }
 
 
@@ -195,7 +199,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onResume(){
        super.onResume();
-       if(!this.soundtrackPlayer.isPlaying()){
+       if(audioActivated && !this.soundtrackPlayer.isPlaying()){
            this.soundtrackPlayer.start();
        }
     }
@@ -206,7 +210,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onStop(){
         super.onStop();
-        if(this.soundtrackPlayer.isPlaying()){
+        if(audioActivated && this.soundtrackPlayer.isPlaying()){
             this.soundtrackPlayer.pause();
         }
     }
@@ -226,7 +230,16 @@ public class MainActivity extends ActionBarActivity {
 
         }
         super.onRestart();
-        this.soundtrackPlayer.start();
+        SharedPreferences prefs = getSharedPreferences("expochef", Context.MODE_PRIVATE);
+        audioActivated = prefs.getBoolean("audioActivated",true);
+        if(audioActivated){
+            soundtrackPlayer = MediaPlayer.create(this,R.raw.soundtrack);
+            soundtrackPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            soundtrackPlayer.setLooping(true);
+            soundtrackPlayer.setVolume(0.5f,0.5f);
+            soundtrackPlayer.start();
+        }
+        //this.soundtrackPlayer.start();
 
     }
 
