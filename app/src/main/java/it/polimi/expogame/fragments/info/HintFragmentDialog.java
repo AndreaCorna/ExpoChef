@@ -12,11 +12,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import it.polimi.expogame.R;
 import it.polimi.expogame.database.objects.Hint;
+import it.polimi.expogame.support.UserScore;
 
 
 public class HintFragmentDialog extends DialogFragment {
@@ -25,6 +27,8 @@ public class HintFragmentDialog extends DialogFragment {
     ArrayList<Hint> hintArrayList;
     private static final String TAG = "HintFragmentDialog";
     private OnHintUnlockedListener hintUnlockedListener;
+
+    private UserScore score;
 
 
     public  interface OnHintUnlockedListener{
@@ -39,6 +43,9 @@ public class HintFragmentDialog extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NORMAL, R.style.MyDialog);
+
+        //initialize score object
+        score = UserScore.getIstance(getActivity().getApplicationContext());
     }
 
     @Override
@@ -84,16 +91,25 @@ public class HintFragmentDialog extends DialogFragment {
         hintButton.setOnClickListener(new View.OnClickListener() {
                                           @Override
                                           public void onClick(View v) {
-                                              for (int i=0; i<hintArrayList.size()-1;i++){
+                                              if(UserScore.hintCost<=score.getCurrentScore()){
+                                                  for (int i=0; i<hintArrayList.size()-1;i++){
 
-                                                  Hint hint = hintArrayList.get(i);
-                                                  if (!hint.alreadySuggested()){
-                                                      hintUnlockedListener.hintUnlocked(dishName,hint.getName());
-                                                      hint.setAlreadySuggested(true);
-                                                      ((ImageView)getView().findViewWithTag(hint.getName())).setImageResource(hint.getDrawableImage());
-                                                      break;
+                                                      Hint hint = hintArrayList.get(i);
+                                                      if (!hint.alreadySuggested()){
+                                                          score.removePoints(UserScore.hintCost);
+                                                          hintUnlockedListener.hintUnlocked(dishName,hint.getName());
+                                                          hint.setAlreadySuggested(true);
+                                                          ((ImageView)getView().findViewWithTag(hint.getName())).setImageResource(hint.getDrawableImage());
+                                                          break;
+                                                      }
                                                   }
+
                                               }
+                                              else{
+                                                  Toast.makeText(getActivity().getApplicationContext(), "You need to have at least "+UserScore.hintCost+" credits to get an hint",
+                                                          Toast.LENGTH_SHORT).show();
+                                              }
+
                                           }
                                       }
         );

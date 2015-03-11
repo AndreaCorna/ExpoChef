@@ -41,6 +41,7 @@ import it.polimi.expogame.database.tables.DishesTable;
 import it.polimi.expogame.providers.DishesProvider;
 import it.polimi.expogame.database.objects.Dish;
 import it.polimi.expogame.support.TutorialAnimationManager;
+import it.polimi.expogame.support.UserScore;
 import it.polimi.expogame.support.adapters.ImageAdapterDraggable;
 import it.polimi.expogame.database.objects.Ingredient;
 import it.polimi.expogame.support.ViewHolder;
@@ -66,6 +67,8 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     private static final String TAG="CookManagerFragment";
     private ArrayList<String> tutorialStrings;
 
+    private UserScore score;
+
 
 
     public static CookManagerFragment newInstance() {
@@ -83,6 +86,8 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        score = UserScore.getIstance(getActivity().getApplicationContext());
+
     }
 
     @Override
@@ -240,7 +245,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
             ingredient_view.setVisibility(View.INVISIBLE);
         }
 
-
+        score.addPoints(UserScore.dishPrize);
 
         //----animation-----
         cookingCloud.setVisibility(View.VISIBLE);

@@ -1,6 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:expoChef="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="it.polimi.expogame.activities.WorldMapActivity">
     />
+
+    <item android:id="@+id/action_score" android:title="100"
+        expoChef:showAsAction="always"
+        />
 </menu>

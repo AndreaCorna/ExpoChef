@@ -26,6 +26,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ import it.polimi.expogame.fragments.ar.ARFragment;
 import it.polimi.expogame.fragments.cook.CookManagerFragment;
 import it.polimi.expogame.fragments.info.WorldFragment;
 import it.polimi.expogame.providers.IngredientsProvider;
+import it.polimi.expogame.support.UserScore;
 import it.polimi.expogame.support.adapters.CustomPagerAdapter;
 import it.polimi.expogame.support.converters.ConverterStringToStringXml;
 import it.polimi.expogame.support.adapters.ImageAdapter;
@@ -63,6 +65,8 @@ public class MainActivity extends ActionBarActivity {
     private boolean audioActivated;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +80,8 @@ public class MainActivity extends ActionBarActivity {
         gridview = (GridView) findViewById(R.id.gridview);
         imageAdapter = new ImageAdapter(this,ingredientsUnlocked);
         gridview.setAdapter(imageAdapter);
+
+
 
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -345,6 +351,8 @@ public class MainActivity extends ActionBarActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         // if nav drawer is opened, hide the action items
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(linearLayout);
+   //     scoreView = (TextView) menu.findItem(R.id.action_score).getActionView();
+ //       scoreView.setText(score.getCurrentScore());
         return super.onPrepareOptionsMenu(menu);
     }
 
