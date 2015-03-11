@@ -389,17 +389,13 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void launchCaptureActivity(){
-        if(audioActivated){
-            this.soundtrackPlayer.pause();
-        }
+
         Intent i = new Intent(this,ARActivity.class);
         startActivityForResult(i,CAPTURE_ACTIVITY_RESULT);
     }
 
     private void launchMapActivity(){
-        if(audioActivated){
-            this.soundtrackPlayer.pause();
-        }
+      
         Intent i = new Intent(this,WorldMapActivity.class);
         startActivity(i);
     }
