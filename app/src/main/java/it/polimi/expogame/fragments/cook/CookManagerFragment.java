@@ -255,6 +255,13 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                 if(created == 1){
                     createdDish = true;
                 }
+
+                //update score
+                if(!createdDish){
+                    score.addPoints(UserScore.dishPrize);
+                }
+
+
                 //update db
                 String where = DishesTable.COLUMN_NAME + " = ?";
                 String[] names = new String[]{name};
@@ -304,7 +311,6 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                 Toast.makeText(getActivity().getApplicationContext(),getResources().getString(R.string.message_toast_cook),Toast.LENGTH_LONG).show();
             }
         }
-        score.addPoints(UserScore.dishPrize);
         cursor.close();
     }
 
