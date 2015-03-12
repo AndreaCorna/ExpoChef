@@ -11,6 +11,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -40,13 +41,14 @@ import it.polimi.expogame.activities.DetailsActivity;
 import it.polimi.expogame.database.tables.DishesTable;
 import it.polimi.expogame.providers.DishesProvider;
 import it.polimi.expogame.database.objects.Dish;
+import it.polimi.expogame.support.CookingAnimationDrawable;
 import it.polimi.expogame.support.TutorialAnimationManager;
 import it.polimi.expogame.support.adapters.ImageAdapterDraggable;
 import it.polimi.expogame.database.objects.Ingredient;
 import it.polimi.expogame.support.ViewHolder;
 
 
-public class CookManagerFragment extends Fragment implements  CookFragment.OnDishCreatedListener, IngredientFragment.OnIngredientSelectedListener, Animation.AnimationListener {
+public class CookManagerFragment extends Fragment implements  CookFragment.OnDishCreatedListener, IngredientFragment.OnIngredientSelectedListener {
 
 
     private ArrayList<Ingredient> ingredientsSelected;
@@ -56,7 +58,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     private ImageAdapterDraggable tovagliaAdapter;
     private ImageView cookerFish;
     private ImageView cookingCloud;
-    private AnimationDrawable cookingAnimation;
+    private CookingAnimationDrawable cookingAnimation;
     private TextView textSpeakMascotte;
     private ImageAdapterDraggable tagliereAdapter;
     private ImageView wasterBinImage;
@@ -115,7 +117,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
             public void onClick(View v) {
                 ArrayList<String> nameIngredients = reorderListIngredientsToCombine();
                 hash = hashListIngredientsToCombine(nameIngredients);
-                checkNewDishUnlocked();
+                startCookingAnimation();
             }
         });
         //
@@ -124,8 +126,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
         cookerFish = (ImageView)currentView.findViewById(R.id.cooker_image);
 
         cookingCloud = (ImageView)currentView.findViewById(R.id.cookingcloud);
-        cookingCloud.setBackgroundResource(R.drawable.cookingcloud);
-        cookingAnimation = (AnimationDrawable) cookingCloud.getBackground();
+
         cookingCloud.setVisibility(View.INVISIBLE);
 
         getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -591,37 +592,43 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     private void startCookingAnimation(){
 
         int size = cookerView.getChildCount();
+        if(size==0){ //if there aren't ingredients on the table return immediately
+            return;
+        }
+
+        final MediaPlayer myPlayer2 = MediaPlayer.create(getActivity().getApplicationContext(),R.raw.cook);
+        myPlayer2.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        myPlayer2.setVolume(0.8f,0.8f);
+        myPlayer2.start();
+
+        ;
         for(int i=0;i<size;i++){
 
             View ingredient_view = (View)cookerView.getChildAt(i);
             ingredient_view.setVisibility(View.INVISIBLE);
         }
 
+        CookingAnimationDrawable cad = new CookingAnimationDrawable(
+                (AnimationDrawable) getResources().getDrawable(
+                        R.drawable.cookingcloud)) {
+
+            @Override
+            protected void onAnimationFinish() {
+                checkNewDishUnlocked();
+                cookingCloud.setVisibility(View.INVISIBLE);
+                myPlayer2.stop();
+                myPlayer2.release();
+            }
+
+        };
+
         cookingCloud.setVisibility(View.VISIBLE);
-        cookingAnimation.start();
+        cookingCloud.setBackground(cad);
+
+
+
+        cad.start();
+
 
     }
-
-
-
-    @Override
-    public void onAnimationStart(Animation animation) {
-
-    }
-
-    @Override
-    public void onAnimationEnd(Animation animation) {
-        cookingAnimation.stop();
-        cookingCloud.setVisibility(View.INVISIBLE);
-        checkNewDishUnlocked();
-    }
-
-    @Override
-    public void onAnimationRepeat(Animation animation) {
-
-    }
-
-    //---------------------------------------------
-
-
 }
