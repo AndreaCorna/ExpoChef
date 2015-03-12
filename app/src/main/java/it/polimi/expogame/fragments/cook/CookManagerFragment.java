@@ -277,17 +277,24 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                 intent.putExtra("curiosityDish",curiosity);
                 intent.putExtra("difficultyDish",difficulty);
 
-                myPlayer = MediaPlayer.create(getActivity().getApplicationContext(),R.raw.tada);
-                myPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                myPlayer.setVolume(0.5f,0.5f);
-                myPlayer.start();
+                boolean audioActivated = getActivity().getSharedPreferences("expochef", Context.MODE_PRIVATE).getBoolean("audioActivated",true);
+                if(audioActivated) {
+                    myPlayer = MediaPlayer.create(getActivity().getApplicationContext(), R.raw.tada);
+                    myPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                    myPlayer.setVolume(0.5f, 0.5f);
+                    myPlayer.start();
+                }
 
                 startActivity(intent);
             }else{
-                myPlayer = MediaPlayer.create(getActivity().getApplicationContext(),R.raw.fail);
-                myPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                myPlayer.setVolume(0.5f, 0.5f);
-                myPlayer.start();
+                boolean audioActivated = getActivity().getSharedPreferences("expochef", Context.MODE_PRIVATE).getBoolean("audioActivated",true);
+                if(audioActivated){
+                    myPlayer = MediaPlayer.create(getActivity().getApplicationContext(),R.raw.fail);
+                    myPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                    myPlayer.setVolume(0.5f, 0.5f);
+                    myPlayer.start();
+                }
+
                 int size = cookerView.getChildCount();
                 for(int i=0;i<size;i++){
 
@@ -298,6 +305,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
             }
         }
         score.addPoints(UserScore.dishPrize);
+        cursor.close();
     }
 
     //if a dish is created, refresh  combined
@@ -563,11 +571,14 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
             return;
         }
 
-        final MediaPlayer myPlayer2 = MediaPlayer.create(getActivity().getApplicationContext(),R.raw.cook);
-        myPlayer2.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        myPlayer2.setVolume(0.8f,0.8f);
-        myPlayer2.start();
 
+        final MediaPlayer myPlayer2 = MediaPlayer.create(getActivity().getApplicationContext(), R.raw.cook);
+        boolean audioActivated = getActivity().getSharedPreferences("expochef", Context.MODE_PRIVATE).getBoolean("audioActivated",true);
+        if(audioActivated) {
+            myPlayer2.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            myPlayer2.setVolume(0.8f, 0.8f);
+            myPlayer2.start();
+        }
         ;
         for(int i=0;i<size;i++){
 
@@ -583,8 +594,11 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
             protected void onAnimationFinish() {
                 checkNewDishUnlocked();
                 cookingCloud.setVisibility(View.INVISIBLE);
-                myPlayer2.stop();
-                myPlayer2.release();
+                boolean audioActivated = getActivity().getSharedPreferences("expochef", Context.MODE_PRIVATE).getBoolean("audioActivated",true);
+                if(audioActivated) {
+                    myPlayer2.stop();
+                    myPlayer2.release();
+                }
             }
 
         };
