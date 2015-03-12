@@ -91,7 +91,7 @@ public class HintFragmentDialog extends DialogFragment {
         hintButton.setOnClickListener(new View.OnClickListener() {
                                           @Override
                                           public void onClick(View v) {
-                                              if(UserScore.hintCost<=score.getCurrentScore()){
+                                              if(score.getCurrentScore() >= UserScore.hintCost){
                                                   for (int i=0; i<hintArrayList.size()-1;i++){
 
                                                       Hint hint = hintArrayList.get(i);
@@ -106,7 +106,7 @@ public class HintFragmentDialog extends DialogFragment {
 
                                               }
                                               else{
-                                                  Toast.makeText(getActivity().getApplicationContext(), "You need to have at least "+UserScore.hintCost+" credits to get an hint",
+                                                  Toast.makeText(getActivity().getApplicationContext(), getActivity().getString(R.string.no_points_message,UserScore.hintCost),
                                                           Toast.LENGTH_SHORT).show();
                                               }
 

@@ -41,7 +41,7 @@ public class UserScore {
 
     public boolean removePoints(int points){
         int currentScore = getCurrentScore();
-        if (currentScore <= points ){
+        if (currentScore < points ){
             Log.d(TAG,"Not enough points");
             return false; //not enough points
         }
