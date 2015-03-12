@@ -14,12 +14,18 @@ import it.polimi.expogame.database.tables.IngredientsInDishes;
 import it.polimi.expogame.fragments.info.HintFragmentDialog;
 import it.polimi.expogame.fragments.info.ZoneFragment;
 import it.polimi.expogame.providers.DishesProvider;
+import it.polimi.expogame.support.UserScore;
 
 /**
  * Activity used to show the list of dishes related to a zone
  */
 public class ZoneActivity extends ActionBarActivity implements HintFragmentDialog.OnHintUnlockedListener{
     ZoneFragment fragment;
+
+    //need to update the view of the score when hint is used
+    private UserScore score;
+    MenuItem scoreView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +33,10 @@ public class ZoneActivity extends ActionBarActivity implements HintFragmentDialo
         String translation = getIntent().getStringExtra("translation");
         setContentView(R.layout.activity_zone);
         fragment = new ZoneFragment(zone);
+
+        //initialize score object
+        score = UserScore.getIstance(getApplicationContext());
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, new ZoneFragment(zone))
@@ -42,6 +52,8 @@ public class ZoneActivity extends ActionBarActivity implements HintFragmentDialo
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_zone, menu);
+        scoreView = menu.findItem(R.id.action_score);
+        scoreView.setTitle(""+score.getCurrentScore());
         return true;
     }
 
@@ -50,11 +62,13 @@ public class ZoneActivity extends ActionBarActivity implements HintFragmentDialo
 
         onBackPressed();
         return super.onOptionsItemSelected(item);
+
     }
 
     @Override
     public void hintUnlocked(String nameDish, String nameIngredient) {
         setIngredientSuggested(nameDish,nameIngredient);
+        scoreView.setTitle(""+score.getCurrentScore());
     }
 
     private void setIngredientSuggested(String nameDish, String nameIngredient){

@@ -2,5 +2,7 @@
 
     <color name="black_overlay">#66000000</color>
     <color name="grey_background">#ff989898</color>
+    <color name="light_yellow">#fff9ffdf</color>
+
 
 </resources>

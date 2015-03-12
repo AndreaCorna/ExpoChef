@@ -107,6 +107,7 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
 
     private void startAnimation(){
         //cookerFish = new ImageView(getActivity().getApplicationContext());
+        textSpeakMascotte.setText(R.string.start_text_tutorial_zone);
         cookerFish.setImageDrawable(getResources().getDrawable(R.drawable.cooker));
         cookerFish.setVisibility(View.INVISIBLE);
         loadTutorialStrings();

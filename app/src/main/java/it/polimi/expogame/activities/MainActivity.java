@@ -26,6 +26,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ import it.polimi.expogame.fragments.ar.ARFragment;
 import it.polimi.expogame.fragments.cook.CookManagerFragment;
 import it.polimi.expogame.fragments.info.WorldFragment;
 import it.polimi.expogame.providers.IngredientsProvider;
+import it.polimi.expogame.support.UserScore;
 import it.polimi.expogame.support.adapters.CustomPagerAdapter;
 import it.polimi.expogame.support.converters.ConverterStringToStringXml;
 import it.polimi.expogame.support.adapters.ImageAdapter;
@@ -60,6 +62,8 @@ public class MainActivity extends ActionBarActivity {
     private static final int CAPTURE_ACTIVITY_RESULT = 10;
     private static final int CAPTURE_ACTIVITY_LAUNCH = 20;
     private static final int MAP_ACTIVITY_LAUNCH = 30;
+    private boolean audioActivated;
+
 
 
 
@@ -76,6 +80,8 @@ public class MainActivity extends ActionBarActivity {
         gridview = (GridView) findViewById(R.id.gridview);
         imageAdapter = new ImageAdapter(this,ingredientsUnlocked);
         gridview.setAdapter(imageAdapter);
+
+
 
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -121,20 +127,15 @@ public class MainActivity extends ActionBarActivity {
                     mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                     getSupportActionBar().setHomeButtonEnabled(true);
+                    startCookAnimation();
 
 
                 }else{
                     mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                     getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                     getSupportActionBar().setHomeButtonEnabled(false);
-                    SharedPreferences prefs = getSharedPreferences("expochef", Context.MODE_PRIVATE);
-                    boolean isFirstTime = prefs.getBoolean("firstTimeWorld",true);
-                    if(isFirstTime){
-                        getWorldFragmentIstance().startAnimation();
-                        prefs.edit().putBoolean("firstTimeWorld",false).commit();
 
-                    }
-
+                    startWorldAnimation();
                 }
             }
 
@@ -183,12 +184,16 @@ public class MainActivity extends ActionBarActivity {
         mDrawerLayout.setDrawerListener(actionBarDrawerToggle);
         listIngredientsSelected = new ArrayList<Ingredient>();
 
+        SharedPreferences prefs = getSharedPreferences("expochef", Context.MODE_PRIVATE);
+        audioActivated = prefs.getBoolean("musicActivated",true);
+        if(audioActivated){
+            soundtrackPlayer = MediaPlayer.create(this,R.raw.soundtrack);
+            soundtrackPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            soundtrackPlayer.setLooping(true);
+            soundtrackPlayer.setVolume(0.5f,0.5f);
+            soundtrackPlayer.start();
+        }
 
-        soundtrackPlayer = MediaPlayer.create(this,R.raw.soundtrack);
-        soundtrackPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        soundtrackPlayer.setLooping(true);
-        soundtrackPlayer.setVolume(0.5f,0.5f);
-        soundtrackPlayer.start();
     }
 
 
@@ -200,7 +205,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onResume(){
        super.onResume();
-       if(!this.soundtrackPlayer.isPlaying()){
+       if(audioActivated && !this.soundtrackPlayer.isPlaying()){
            this.soundtrackPlayer.start();
        }
     }
@@ -211,7 +216,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onStop(){
         super.onStop();
-        if(this.soundtrackPlayer.isPlaying()){
+        if(audioActivated && this.soundtrackPlayer.isPlaying()){
             this.soundtrackPlayer.pause();
         }
     }
@@ -221,8 +226,48 @@ public class MainActivity extends ActionBarActivity {
   * */
     @Override
     protected void onRestart(){
+        switch (viewPager.getCurrentItem()){
+            case 0:
+                startCookAnimation();
+                break;
+            case 1:
+                startWorldAnimation();
+                break;
+
+        }
         super.onRestart();
-        this.soundtrackPlayer.start();
+        SharedPreferences prefs = getSharedPreferences("expochef", Context.MODE_PRIVATE);
+        audioActivated = prefs.getBoolean("musicActivated",true);
+        if(audioActivated){
+            soundtrackPlayer = MediaPlayer.create(this,R.raw.soundtrack);
+            soundtrackPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            soundtrackPlayer.setLooping(true);
+            soundtrackPlayer.setVolume(0.5f,0.5f);
+            soundtrackPlayer.start();
+        }
+        //this.soundtrackPlayer.start();
+
+    }
+
+    private void startCookAnimation(){
+        SharedPreferences prefs = getSharedPreferences("expochef", Context.MODE_PRIVATE);
+        boolean isFirstTime = prefs.getBoolean("firstTimeCook",true);
+        if(isFirstTime){
+            getCookManagerFragmentIstance().startAnimation();
+            prefs.edit().putBoolean("firstTimeCook",false).commit();
+
+        }
+    }
+
+    private void startWorldAnimation(){
+        SharedPreferences prefs = getSharedPreferences("expochef", Context.MODE_PRIVATE);
+        boolean isFirstTime = prefs.getBoolean("firstTimeWorld",true);
+        if(isFirstTime){
+            getWorldFragmentIstance().startAnimation();
+            prefs.edit().putBoolean("firstTimeWorld",false).commit();
+
+        }
+
     }
 
     /**
@@ -293,6 +338,8 @@ public class MainActivity extends ActionBarActivity {
                     buildAlertMessageNoGps(R.id.action_start_capture);
                 }
                 break;
+            case R.id.options:
+                launchOptionsActivity();
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -304,6 +351,8 @@ public class MainActivity extends ActionBarActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         // if nav drawer is opened, hide the action items
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(linearLayout);
+   //     scoreView = (TextView) menu.findItem(R.id.action_score).getActionView();
+ //       scoreView.setText(score.getCurrentScore());
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -348,13 +397,13 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void launchCaptureActivity(){
-        this.soundtrackPlayer.pause();
+
         Intent i = new Intent(this,ARActivity.class);
         startActivityForResult(i,CAPTURE_ACTIVITY_RESULT);
     }
 
     private void launchMapActivity(){
-        this.soundtrackPlayer.pause();
+      
         Intent i = new Intent(this,WorldMapActivity.class);
         startActivity(i);
     }
@@ -440,6 +489,12 @@ public class MainActivity extends ActionBarActivity {
 
     public MediaPlayer getSoundtrackPlayer() {
         return soundtrackPlayer;
+    }
+
+
+    private void launchOptionsActivity(){
+        Intent intent = new Intent(this,OptionsActivity.class);
+        startActivity(intent);
     }
 }
 

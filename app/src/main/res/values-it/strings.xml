@@ -17,7 +17,7 @@
     <string name="label_description">Descrizione</string>
     <string name="label_nationality">Nazionalità</string>
     <string name="title_activity_details">Dettagli di</string>
-    <string name="string_options">opzioni</string>
+    <string name="string_options">Opzioni</string>
     <string name="title_activity_zone">ZoneActivity</string>
     <string name="list_zone_activity">Lista dei piatti</string>
     <string name="label_list_zones">Lista delle zone</string>
@@ -28,6 +28,13 @@
     <string name="start_text_tutorial_cook">Ciao!</string>
     <string name="start_text_tutorial_world">Queste sono le\nzone del mondo</string>
     <string name="start_text_tutorial_zone">Ecco la schermata\ndei piatti.</string>
+    <string name="label_option_fragment">Opzioni</string>
+    <string name="title_activity_options">Opzioni</string>
+    <string name="text_tutorial_option">Mostra il tutorial</string>
+    <string name="text_audio_option">Attiva i suoni</string>
+    <string name="text_music_option">Attiva la musica</string>
+
+
 
     <string name="hint_button">Aiuto</string>
     <string-array name="tutorial_text_cook">

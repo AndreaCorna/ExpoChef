@@ -43,6 +43,7 @@ import it.polimi.expogame.providers.DishesProvider;
 import it.polimi.expogame.database.objects.Dish;
 import it.polimi.expogame.support.CookingAnimationDrawable;
 import it.polimi.expogame.support.TutorialAnimationManager;
+import it.polimi.expogame.support.UserScore;
 import it.polimi.expogame.support.adapters.ImageAdapterDraggable;
 import it.polimi.expogame.database.objects.Ingredient;
 import it.polimi.expogame.support.ViewHolder;
@@ -58,7 +59,6 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     private ImageAdapterDraggable tovagliaAdapter;
     private ImageView cookerFish;
     private ImageView cookingCloud;
-    private CookingAnimationDrawable cookingAnimation;
     private TextView textSpeakMascotte;
     private ImageAdapterDraggable tagliereAdapter;
     private ImageView wasterBinImage;
@@ -68,6 +68,8 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
     private static final String TAG="CookManagerFragment";
     private ArrayList<String> tutorialStrings;
+
+    private UserScore score;
 
 
 
@@ -86,6 +88,8 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        score = UserScore.getIstance(getActivity().getApplicationContext());
+
     }
 
     @Override
@@ -293,9 +297,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                 Toast.makeText(getActivity().getApplicationContext(),getResources().getString(R.string.message_toast_cook),Toast.LENGTH_LONG).show();
             }
         }
-
-
-
+        score.addPoints(UserScore.dishPrize);
     }
 
     //if a dish is created, refresh  combined
@@ -409,11 +411,14 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                     return true;
 
                 } else if(v.getId() == R.id.wasterbin){
+                    boolean audioActivated = getActivity().getSharedPreferences("expochef", Context.MODE_PRIVATE).getBoolean("audioActivated",true);
+                    if(audioActivated){
+                        mp = MediaPlayer.create(getActivity().getApplicationContext(),R.raw.trash);
+                        mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                        mp.setVolume(0.5f, 0.5f);
+                        mp.start();
+                    }
 
-                    mp = MediaPlayer.create(getActivity().getApplicationContext(),R.raw.trash);
-                    mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                    mp.setVolume(0.5f, 0.5f);
-                    mp.start();
                     ViewHolder holder = (ViewHolder) ingredient_view.getTag();
                     Ingredient ingredient = holder.getIngredient();
                     if(parent_id == R.id.ingredient_table){
@@ -511,48 +516,10 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
     }
 
-    /**
-     * set animation for the mascotte tutorial
-     */
-    /*
-    private void animationCooker(View view){
-        cookerFish = new ImageView(getActivity().getApplicationContext());
-        cookerFish.setImageDrawable(getResources().getDrawable(R.drawable.cooker));
-        cookerFish.setVisibility(View.INVISIBLE);
 
-
-        Point size = getDimensionScreen();
-        int width = size.x;
-        float to =  ((float)width)/3;
-        enterAnimation = new TranslateAnimation(width, to,
-                0.0f, 0.0f);          //  new TranslateAnimation(xFrom,xTo, yFrom,yTo)
-        enterAnimation.setDuration(3000);  // animation duration
-        enterAnimation.setFillAfter(true);
-        enterAnimation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-                cookerFish.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                loadTutorialStrings();
-                startHandler.postDelayed(new UpdateTextRunnable(tutorialStrings),UPDATE_INTERVAL);
-                textSpeakMascotte.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-
-        FrameLayout layout = (FrameLayout)view.findViewById(R.id.cook_manager_fragment);
-        layout.addView(cookerFish);
-    }*/
 
     public void startAnimation(){
-
+        textSpeakMascotte.setText(R.string.start_text_tutorial_cook);
         cookerFish.setImageDrawable(getResources().getDrawable(R.drawable.cooker));
         cookerFish.setVisibility(View.INVISIBLE);
         loadTutorialStrings();
