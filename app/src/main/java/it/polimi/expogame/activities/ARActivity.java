@@ -389,9 +389,11 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
 
 
         Vibrator v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
-        // Vibrate for 500 milliseconds
+        // Vibrate for 500 milliserconds
         v.vibrate(500);
 
+        Rotation originalRotation = geometry.getRotation();
+        
         myPlayer = MediaPlayer.create(this.getApplicationContext(),R.raw.catchit);
         myPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         myPlayer.setVolume(0.5f,0.5f);
