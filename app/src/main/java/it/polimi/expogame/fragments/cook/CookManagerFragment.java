@@ -55,6 +55,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     private ImageAdapterDraggable tovagliaAdapter;
     private ImageView cookerFish;
     private ImageView cookingCloud;
+    private AnimationDrawable cookingButton;
     private TextView textSpeakMascotte;
     private ImageAdapterDraggable tagliereAdapter;
     private ImageView wasterBinImage;
@@ -115,6 +116,10 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
             //on click check if a dish will be unlocked
             public void onClick(View v) {
                 ArrayList<String> nameIngredients = reorderListIngredientsToCombine();
+                if(nameIngredients.size()==0){
+                    Toast.makeText(getActivity().getApplicationContext(),getResources().getString(R.string.no_ingredients),Toast.LENGTH_LONG).show();
+                    return;
+                }
                 hash = hashListIngredientsToCombine(nameIngredients);
                 startCookingAnimation();
             }
@@ -125,8 +130,15 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
         cookerFish = (ImageView)currentView.findViewById(R.id.cooker_image);
 
         cookingCloud = (ImageView)currentView.findViewById(R.id.cookingcloud);
-
         cookingCloud.setVisibility(View.INVISIBLE);
+
+
+        cookButton = (Button)currentView.findViewById(R.id.cook_button);
+        cookButton.setBackgroundResource(R.drawable.cookingbutton);
+        cookingButton = (AnimationDrawable) cookButton.getBackground();
+        cookingButton.start();
+
+
 
         getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 

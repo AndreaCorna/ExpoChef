@@ -33,10 +33,9 @@
 
             <Button
                 android:id="@+id/cook_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/round_button"
-                android:text="@string/cook_button_label"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/cookbutton"
                 android:layout_gravity="right" />
 
             <ImageView

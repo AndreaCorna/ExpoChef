@@ -41,6 +41,8 @@ public class OptionsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_options, container, false);
 
+        view.setBackground(getActivity().getResources().getDrawable(R.drawable.tovaglia));
+
         SharedPreferences prefs = getActivity().getSharedPreferences("expochef", Context.MODE_PRIVATE);
         CheckBox tutorialBox = (CheckBox)view.findViewById(R.id.checkBox_option_tutorial);
         tutorialBox.setChecked(prefs.getBoolean("firstTimeCook",true));
