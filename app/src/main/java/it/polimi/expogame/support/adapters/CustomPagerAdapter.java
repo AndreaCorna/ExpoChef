@@ -16,6 +16,9 @@ public class CustomPagerAdapter extends FragmentPagerAdapter {
 
     private static final int TAB_NUMBER = 2;
     private Context context;
+    public static final int COOK_FRAGMENT_INDEX = 0;
+    public static final int WORLD_FRAGMENT_INDEX = 1;
+
 
     public CustomPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -38,10 +41,10 @@ public class CustomPagerAdapter extends FragmentPagerAdapter {
         //switch link the tab number with the fragment which has to be used
         switch (position) {
 
-            case 0:
+            case COOK_FRAGMENT_INDEX:
                 fragment = new CookManagerFragment();
                 break;
-            case 1:
+            case WORLD_FRAGMENT_INDEX:
                 fragment = new RootFragment();
 
 
@@ -63,10 +66,10 @@ public class CustomPagerAdapter extends FragmentPagerAdapter {
         String title = new String();
         switch (position) {
 
-            case 0:
+            case COOK_FRAGMENT_INDEX:
                 title = ConverterStringToStringXml.getStringFromXml(context, "cook_pager_label");
                 break;
-            case 1:
+            case WORLD_FRAGMENT_INDEX:
                 title = ConverterStringToStringXml.getStringFromXml(context,"info_pager_label");
 
 

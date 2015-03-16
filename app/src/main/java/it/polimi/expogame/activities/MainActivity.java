@@ -227,10 +227,10 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onRestart(){
         switch (viewPager.getCurrentItem()){
-            case 0:
+            case CustomPagerAdapter.COOK_FRAGMENT_INDEX:
                 startCookAnimation();
                 break;
-            case 1:
+            case CustomPagerAdapter.WORLD_FRAGMENT_INDEX:
                 startWorldAnimation();
                 break;
 
