@@ -34,6 +34,8 @@
     <string name="text_audio_option">Attiva i suoni</string>
     <string name="text_music_option">Attiva la musica</string>
     <string name="no_points_message">Devi avere almeno %1$s punti per avere un indizio</string>
+    <string name="no_ingredients">Non ci sono ingredienti sul tavolo!</string>
+
 
 
 
