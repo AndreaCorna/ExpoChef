@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 
 /**
- * Created by andrea on 07/03/15.
+ * This class can be used to manage an animation for the tutorial.
  */
 public class TutorialAnimationManager {
 
@@ -37,11 +37,16 @@ public class TutorialAnimationManager {
         setupStartAnimation();
     }
 
-
+    /**
+     * The method starts the animation over the image view field set in the object with the constructor.
+     */
     public void startEnterAnimation(){
         mascot.startAnimation(enterAnimation);
     }
 
+    /**
+     * The method is used to configure the parameters of the animation
+     */
     private void setupStartAnimation(){
         int width = screenSize.x;
         float to =  ((float)width)/3;
