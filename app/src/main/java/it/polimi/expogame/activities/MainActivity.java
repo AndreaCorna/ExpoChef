@@ -63,7 +63,7 @@ public class MainActivity extends ActionBarActivity {
     private static final int CAPTURE_ACTIVITY_LAUNCH = 20;
     private static final int MAP_ACTIVITY_LAUNCH = 30;
     private boolean audioActivated;
-
+    private boolean onBackButtonPressed;
 
 
 
@@ -208,6 +208,7 @@ public class MainActivity extends ActionBarActivity {
        if(audioActivated && !this.soundtrackPlayer.isPlaying()){
            this.soundtrackPlayer.start();
        }
+       onBackButtonPressed = false;
     }
 
     /*
@@ -216,7 +217,10 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onStop(){
         super.onStop();
-        if(audioActivated && this.soundtrackPlayer.isPlaying() && viewPager.getCurrentItem() != CustomPagerAdapter.WORLD_FRAGMENT_INDEX){
+        if(audioActivated &&
+                this.soundtrackPlayer.isPlaying() &&
+                (viewPager.getCurrentItem() != CustomPagerAdapter.WORLD_FRAGMENT_INDEX ||
+                onBackButtonPressed)){
             this.soundtrackPlayer.pause();
         }
     }
@@ -264,6 +268,13 @@ public class MainActivity extends ActionBarActivity {
 
         }
 
+    }
+
+    //override method in order to control stop and play of music
+    @Override
+    public void onBackPressed() {
+        onBackButtonPressed = true;
+        onBackPressed();
     }
 
     /**
@@ -393,13 +404,18 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void launchCaptureActivity(){
+        if(audioActivated && this.soundtrackPlayer.isPlaying()){
+            this.soundtrackPlayer.pause();
+        }
 
         Intent i = new Intent(this,ARActivity.class);
         startActivityForResult(i,CAPTURE_ACTIVITY_RESULT);
     }
 
     private void launchMapActivity(){
-      
+        if(audioActivated && this.soundtrackPlayer.isPlaying()){
+            this.soundtrackPlayer.pause();
+        }
         Intent i = new Intent(this,WorldMapActivity.class);
         startActivity(i);
     }
@@ -489,6 +505,9 @@ public class MainActivity extends ActionBarActivity {
 
 
     private void launchOptionsActivity(){
+        if(audioActivated && this.soundtrackPlayer.isPlaying()){
+            this.soundtrackPlayer.pause();
+        }
         Intent intent = new Intent(this,OptionsActivity.class);
         startActivity(intent);
     }

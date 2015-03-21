@@ -5,5 +5,11 @@
 
     <item android:id="@+id/action_facebook"
         android:icon="@drawable/facebook"
+        android:title="Share on facebook"
         app:showAsAction="ifRoom"  />
+
+    <item android:id="@+id/action_google_plus"
+        android:title="Share on G+"
+        android:icon="@drawable/google_plus_icon"
+        app:showAsAction="ifRoom"/>
 </menu>

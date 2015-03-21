@@ -2,10 +2,13 @@ package it.polimi.expogame.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.google.android.gms.plus.PlusShare;
 
 import it.polimi.expogame.R;
 import it.polimi.expogame.fragments.info.DetailsFragment;
@@ -62,6 +65,14 @@ public class DetailsActivity extends ActionBarActivity{
         switch (item.getItemId()) {
             case R.id.action_facebook:
                 launchPostActivity();
+                return true;
+            case R.id.action_google_plus:
+                Intent shareIntent = new PlusShare.Builder(this)
+                        .setType("text/plain")
+                        .setText(getResources().getString(R.string.happy_message_facebook) +" "+objectToPost.getName())
+                        .getIntent();
+
+                startActivityForResult(shareIntent, 0);
                 return true;
             default:
                 onBackPressed();
