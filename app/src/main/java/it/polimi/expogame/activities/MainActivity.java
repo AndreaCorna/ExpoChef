@@ -186,7 +186,7 @@ public class MainActivity extends ActionBarActivity {
 
         SharedPreferences prefs = getSharedPreferences("expochef", Context.MODE_PRIVATE);
         audioActivated = prefs.getBoolean("musicActivated",true);
-        soundtrackPlayer = MediaPlayer.create(this,R.raw.soundtrack);
+        soundtrackPlayer = MediaPlayer.create(getApplicationContext(),R.raw.soundtrack);
         soundtrackPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         soundtrackPlayer.setLooping(true);
         soundtrackPlayer.setVolume(0.5f,0.5f);
@@ -222,6 +222,7 @@ public class MainActivity extends ActionBarActivity {
                 (viewPager.getCurrentItem() != CustomPagerAdapter.WORLD_FRAGMENT_INDEX ||
                 onBackButtonPressed)){
             this.soundtrackPlayer.pause();
+            this.soundtrackPlayer.release();
         }
     }
 
