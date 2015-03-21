@@ -273,8 +273,9 @@ public class MainActivity extends ActionBarActivity {
     //override method in order to control stop and play of music
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
         onBackButtonPressed = true;
-        onBackPressed();
+
     }
 
     /**
