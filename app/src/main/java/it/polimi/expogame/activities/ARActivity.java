@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.location.Location;
 import android.media.AudioManager;
@@ -393,11 +394,16 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
         v.vibrate(500);
 
         Rotation originalRotation = geometry.getRotation();
-        
-        myPlayer = MediaPlayer.create(this.getApplicationContext(),R.raw.catchit);
-        myPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        myPlayer.setVolume(0.5f,0.5f);
-        myPlayer.start();
+
+        SharedPreferences prefs = getSharedPreferences("expochef", Context.MODE_PRIVATE);
+
+        if(prefs.getBoolean("audioActivated",true)){
+           myPlayer = MediaPlayer.create(this.getApplicationContext(),R.raw.catchit);
+           myPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+           myPlayer.setVolume(0.5f,0.5f);
+           myPlayer.start();
+        }
+
 
         int captured=0;
 

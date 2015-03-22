@@ -35,7 +35,7 @@
     <string name="text_music_option">Attiva la musica</string>
     <string name="no_points_message">Devi avere almeno %1$s punti per avere un indizio</string>
     <string name="no_ingredients">Non ci sono ingredienti sul tavolo!</string>
-
+    <string name="optionstitle">Opzioni</string>
 
 
 
@@ -252,5 +252,4 @@ oggi questa ricetta si prepara grazie alla pentola a pressione, che lascia la ca
     <string name="verdura_hot">verdura hot</string>
     <string name="carne">carne</string>
     <string name="verdura">verdura</string>
-    <string name="optionstitle">Options</string>
 </resources>
