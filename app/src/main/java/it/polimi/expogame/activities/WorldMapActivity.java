@@ -7,6 +7,7 @@ import android.view.MenuItem;
 
 import it.polimi.expogame.R;
 import it.polimi.expogame.fragments.map.ExpoMapFragment;
+import it.polimi.expogame.support.UserScore;
 import it.polimi.expogame.support.converters.ConverterStringToStringXml;
 
 public class WorldMapActivity extends ActionBarActivity {
@@ -23,6 +24,7 @@ public class WorldMapActivity extends ActionBarActivity {
         }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle(ConverterStringToStringXml.getStringFromXml(getApplicationContext(),"map_pager_label"));
+
     }
 
 
@@ -30,13 +32,21 @@ public class WorldMapActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_world_map, menu);
+        menu.findItem(R.id.action_score).setTitle(ConverterStringToStringXml.getStringFromXml(getApplicationContext(), "score_label")+String.valueOf(UserScore.getInstance(getApplicationContext()).getCurrentScore()));
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        onBackPressed();
+        switch (item.getItemId()) {
+            case R.id.action_score:
+                break;
+            default:
+                onBackPressed();
+
+        }
 
         return super.onOptionsItemSelected(item);
     }

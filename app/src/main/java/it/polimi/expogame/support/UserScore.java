@@ -21,7 +21,7 @@ public class UserScore {
 
     }
 
-    public static UserScore getIstance(Context context){
+    public static UserScore getInstance(Context context){
         if(istance == null){
             istance = new UserScore();
             UserScore.context=context;

@@ -222,7 +222,7 @@ public class MainActivity extends ActionBarActivity {
                 (viewPager.getCurrentItem() != CustomPagerAdapter.WORLD_FRAGMENT_INDEX ||
                 onBackButtonPressed)){
             this.soundtrackPlayer.pause();
-            this.soundtrackPlayer.release();
+            //this.soundtrackPlayer.release();
         }
     }
 
@@ -231,6 +231,8 @@ public class MainActivity extends ActionBarActivity {
   * */
     @Override
     protected void onRestart(){
+        super.onRestart();
+
         switch (viewPager.getCurrentItem()){
             case CustomPagerAdapter.COOK_FRAGMENT_INDEX:
                 startCookAnimation();
@@ -240,10 +242,9 @@ public class MainActivity extends ActionBarActivity {
                 break;
 
         }
-        super.onRestart();
         SharedPreferences prefs = getSharedPreferences("expochef", Context.MODE_PRIVATE);
         audioActivated = prefs.getBoolean("musicActivated",true);
-        if(audioActivated && !this.soundtrackPlayer.isPlaying()){
+        if(audioActivated && this.soundtrackPlayer != null && !this.soundtrackPlayer.isPlaying()){
             soundtrackPlayer.start();
         }
         //this.soundtrackPlayer.start();

@@ -36,6 +36,7 @@
     <string name="no_points_message">Devi avere almeno %1$s punti per avere un indizio</string>
     <string name="no_ingredients">Non ci sono ingredienti sul tavolo!</string>
     <string name="optionstitle">Opzioni</string>
+    <string name="score_label">Punti:</string>
 
 
 

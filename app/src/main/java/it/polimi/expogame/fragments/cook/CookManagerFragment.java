@@ -84,7 +84,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        score = UserScore.getIstance(getActivity().getApplicationContext());
+        score = UserScore.getInstance(getActivity().getApplicationContext());
 
     }
 

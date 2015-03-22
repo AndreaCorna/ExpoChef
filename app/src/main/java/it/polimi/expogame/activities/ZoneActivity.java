@@ -1,8 +1,6 @@
 package it.polimi.expogame.activities;
 
 import android.content.ContentValues;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -15,6 +13,7 @@ import it.polimi.expogame.fragments.info.HintFragmentDialog;
 import it.polimi.expogame.fragments.info.ZoneFragment;
 import it.polimi.expogame.providers.DishesProvider;
 import it.polimi.expogame.support.UserScore;
+import it.polimi.expogame.support.converters.ConverterStringToStringXml;
 
 /**
  * Activity used to show the list of dishes related to a zone
@@ -24,7 +23,7 @@ public class ZoneActivity extends ActionBarActivity implements HintFragmentDialo
 
     //need to update the view of the score when hint is used
     private UserScore score;
-    MenuItem scoreView;
+    private MenuItem scoreView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +34,7 @@ public class ZoneActivity extends ActionBarActivity implements HintFragmentDialo
         fragment = new ZoneFragment(zone);
 
         //initialize score object
-        score = UserScore.getIstance(getApplicationContext());
+        score = UserScore.getInstance(getApplicationContext());
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -53,14 +52,19 @@ public class ZoneActivity extends ActionBarActivity implements HintFragmentDialo
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_zone, menu);
         scoreView = menu.findItem(R.id.action_score);
-        scoreView.setTitle(""+score.getCurrentScore());
+        scoreView.setTitle(ConverterStringToStringXml.getStringFromXml(getApplicationContext(), "score_label")+score.getCurrentScore());
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_score:
+                break;
+            default:
+                onBackPressed();
 
-        onBackPressed();
+        }
         return super.onOptionsItemSelected(item);
 
     }
@@ -68,7 +72,7 @@ public class ZoneActivity extends ActionBarActivity implements HintFragmentDialo
     @Override
     public void hintUnlocked(String nameDish, String nameIngredient) {
         setIngredientSuggested(nameDish,nameIngredient);
-        scoreView.setTitle(""+score.getCurrentScore());
+        scoreView.setTitle(ConverterStringToStringXml.getStringFromXml(getApplicationContext(), "score_label")+score.getCurrentScore());
     }
 
     private void setIngredientSuggested(String nameDish, String nameIngredient){
