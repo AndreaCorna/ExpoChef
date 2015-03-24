@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="it.polimi.expogame.activities.ZoneActivity">
 
-    <item android:id="@+id/action_score" android:title="100"
+    <item android:id="@+id/action_score" android:title=""
         expoChef:showAsAction="always"
         />
 

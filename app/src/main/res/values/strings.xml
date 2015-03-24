@@ -33,6 +33,7 @@
     <string name="text_music_option">Activate game music</string>
     <string name="text_audio_option">Activate background sounds</string>
     <string name="no_points_message">You need to have at least %1$s credits to get an hint</string>
+    <string name="score_label">Score:</string>
 
 
     <string-array name="tutorial_text_cook">

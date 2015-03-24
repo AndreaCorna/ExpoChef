@@ -11,8 +11,6 @@ import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Handler;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Display;
@@ -21,9 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.Animation;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -63,7 +59,6 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     private TextView textSpeakMascotte;
     private ImageAdapterDraggable tagliereAdapter;
     private ImageView wasterBinImage;
-    private FrameLayout frameLayout;
     private MediaPlayer myPlayer;
     private String hash;
 
@@ -89,7 +84,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        score = UserScore.getIstance(getActivity().getApplicationContext());
+        score = UserScore.getInstance(getActivity().getApplicationContext());
 
     }
 

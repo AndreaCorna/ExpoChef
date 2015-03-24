@@ -45,7 +45,7 @@ public class HintFragmentDialog extends DialogFragment {
         setStyle(DialogFragment.STYLE_NORMAL, R.style.MyDialog);
 
         //initialize score object
-        score = UserScore.getIstance(getActivity().getApplicationContext());
+        score = UserScore.getInstance(getActivity().getApplicationContext());
     }
 
     @Override
