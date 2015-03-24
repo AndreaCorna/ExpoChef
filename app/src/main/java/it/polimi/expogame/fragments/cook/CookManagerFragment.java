@@ -624,8 +624,6 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
         cookingCloud.setVisibility(View.VISIBLE);
         cookingCloud.setBackground(cad);
 
-
-
         cad.start();
 
 
