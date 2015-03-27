@@ -61,6 +61,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     private ImageView wasterBinImage;
     private MediaPlayer myPlayer;
     private String hash;
+    private Button cookButton;
 
     private static final String TAG="CookManagerFragment";
     private ArrayList<String> tutorialStrings;
@@ -110,7 +111,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
         Log.w(TAG,"cookerView tag is " + cookerView.getId()); // if = 2131296398
 
 
-        Button cookButton = (Button)currentView.findViewById(R.id.cook_button);
+        cookButton = (Button)currentView.findViewById(R.id.cook_button);
         cookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             //on click check if a dish will be unlocked
@@ -299,6 +300,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                     myPlayer.start();
                 }
 
+                this.cookButton.setEnabled(Boolean.TRUE);
                 startActivity(intent);
             }else{
                 boolean audioActivated = getActivity().getSharedPreferences("expochef", Context.MODE_PRIVATE).getBoolean("audioActivated",true);
@@ -316,6 +318,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                     ingredient_view.setVisibility(View.VISIBLE);
                 }
                 Toast.makeText(getActivity().getApplicationContext(),getResources().getString(R.string.message_toast_cook),Toast.LENGTH_LONG).show();
+                this.cookButton.setEnabled(Boolean.TRUE);
             }
         }
         cursor.close();
@@ -578,6 +581,8 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
     //----------------------------------
 
     private void startCookingAnimation(){
+
+        this.cookButton.setEnabled(Boolean.FALSE);
 
         int size = cookerView.getChildCount();
         if(size==0){ //if there aren't ingredients on the table return immediately
