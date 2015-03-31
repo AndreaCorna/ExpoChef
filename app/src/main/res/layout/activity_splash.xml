@@ -12,8 +12,8 @@
 
     <ImageView
         android:id="@+id/imgLogo"
-        android:layout_width="384dp"
-        android:layout_height="189dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:src="@drawable/logo" />
 

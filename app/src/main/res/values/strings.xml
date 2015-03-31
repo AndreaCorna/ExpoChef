@@ -245,5 +245,6 @@ during the political conflict with austria ( ca. 1780 ) , the Hungarian company 
     <string name="title_activity_options">Options</string>
     <string name="no_ingredients">There are no ingredients on the table!</string>
     <string name="optionstitle">Options</string>
+    <string name="label_receipe" > Ingredients </string>
 
 </resources>

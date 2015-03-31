@@ -204,6 +204,7 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
         Cursor cursor = getActivity().getContentResolver().query(uri,new String[]{},null,null,null);
         if(cursor != null){
             cursor.moveToFirst();
+            String id_dish = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_ID));
             String name = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_NAME));
             String nationality = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_NATIONALITY));
             String imageUrl = cursor.getString(cursor.getColumnIndexOrThrow(DishesTable.COLUMN_IMAGE));

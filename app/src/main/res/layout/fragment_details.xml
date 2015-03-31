@@ -108,6 +108,33 @@
         </LinearLayout>
 
 
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.25"
+            style="@style/DetailsFragmentTiles"
+            >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/labreceipe"
+                android:text="@string/label_receipe"
+                style="@style/DetailsFragmentsTitles"
+                />
+
+
+
+          <GridLayout
+              android:id="@+id/ingredients_list_images"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content">
+          </GridLayout>
+
+        </LinearLayout>
+
+
 
     <LinearLayout
         android:orientation="vertical"
@@ -120,12 +147,10 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/labelDescription"
+            android:id="@+id/labelIngredients"
             android:text="@string/label_description"
             style="@style/DetailsFragmentsTitles"
             />
-
-
 
         <TextView
             android:layout_width="fill_parent"
@@ -140,6 +165,7 @@
 
 
     </LinearLayout>
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
@@ -166,9 +192,6 @@
             android:textSize="14dp"
             android:textColor="#ff2b2b2b"
             />
-
-
-
 
     </LinearLayout>
 
