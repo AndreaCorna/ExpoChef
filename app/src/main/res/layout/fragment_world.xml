@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="it.polimi.expogame.fragments.info.WorldFragment"
     android:orientation="vertical"
-    android:background="#ffffe4a0"
+    android:background="@drawable/tovaglia"
     android:id="@+id/layout_world_fragment">
 
 

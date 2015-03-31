@@ -3,7 +3,7 @@
         android:layout_height="match_parent" tools:context="it.polimi.expogame.fragments.info.WorldFragment"
         android:orientation="vertical"
         android:id="@+id/zone_fragment_layout"
-    android:background="#ffffe4a0">
+    android:background="@drawable/tovaglia">
 
     <LinearLayout
         android:layout_width="match_parent"
