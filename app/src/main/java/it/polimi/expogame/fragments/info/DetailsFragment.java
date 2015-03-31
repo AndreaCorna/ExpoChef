@@ -1,6 +1,8 @@
 package it.polimi.expogame.fragments.info;
 
 import android.app.Activity;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import  android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -10,11 +12,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import it.polimi.expogame.R;
+import it.polimi.expogame.database.objects.Hint;
+import it.polimi.expogame.database.tables.IngredientTable;
+import it.polimi.expogame.database.tables.IngredientsInDishes;
+import it.polimi.expogame.providers.DishesProvider;
+import it.polimi.expogame.providers.IngredientsProvider;
 import it.polimi.expogame.support.converters.ConverterImageNameToDrawableId;
 import it.polimi.expogame.database.objects.Dish;
 
@@ -83,30 +92,82 @@ public class DetailsFragment extends Fragment{
             TextView nationality = (TextView) view.findViewById(R.id.nationality_dish);
             nationality.setText(dish.getTranslationNationality());
             ImageView difficultyStars = (ImageView) view.findViewById(R.id.imageDifficulty);
-            Log.d(Tag,"dish "+dish.getName()+"   "+dish.getDifficulty());
+            Log.d(Tag, "dish " + dish.getName() + "   " + dish.getDifficulty());
             difficultyStars.setImageResource(difficultyStarsMap.get(dish.getDifficulty()));
             //setting image of the nationality
             ImageView nationalityImage = (ImageView) view.findViewById(R.id.imageFlag);
-            String nationalityImageFile = dish.getNationality().replaceAll(" ", "_").toLowerCase()+".png";
-            Log.d(Tag,nationalityImageFile);
+            String nationalityImageFile = dish.getNationality().replaceAll(" ", "_").toLowerCase() + ".png";
+            Log.d(Tag, nationalityImageFile);
 
-            int nationalImageId = ConverterImageNameToDrawableId.convertImageNameToDrawable(getActivity(),nationalityImageFile);
+            int nationalImageId = ConverterImageNameToDrawableId.convertImageNameToDrawable(getActivity(), nationalityImageFile);
             nationalityImage.setImageDrawable(getResources().getDrawable(nationalImageId));
 
             final ImageView imageDish = (ImageView) view.findViewById(R.id.imageDish);
-            int imageDishId = ConverterImageNameToDrawableId.convertImageNameToDrawable(getActivity(),dish.getImageUrl());
+            int imageDishId = ConverterImageNameToDrawableId.convertImageNameToDrawable(getActivity(), dish.getImageUrl());
             imageDish.setImageDrawable(getResources().getDrawable(imageDishId));
             imageDish.setTag(new Integer(imageDishId));
 
 
-            GridLayout receipe = (GridLayout)view.findViewById(R.id.ingredients_list_images);
-           
+            LinearLayout receipe = (LinearLayout) view.findViewById(R.id.ingredients_list_images);
 
+            ArrayList<String> ingredients = new ArrayList<String>();
+
+            //now let's put in the GridLayout all the ImageView relatives to the ingredients of the dish
+
+            String name = dish.getName();
+
+            Uri uri = Uri.parse(DishesProvider.CONTENT_URI + "/ingredients");
+            String selection = IngredientsInDishes.COLUMN_ID_DISH + " = ?";
+
+            String[] selectionArgs = new String[]{name};
+
+            Cursor cursor = getActivity().getContentResolver().query(uri, null, selection, selectionArgs, null);
+
+            if (cursor != null) {
+                cursor.moveToFirst();
+                while (cursor.isAfterLast() == false) {
+                    String ingredient = cursor.getString(cursor.getColumnIndexOrThrow(IngredientsInDishes.COLUMN_ID_INGREDIENT));
+                    Log.w("ExpoChef","in detailsfragment trovo" + ingredient);
+                    ingredients.add(loadDetailsIngredient(ingredient));
+                    cursor.moveToNext();
+                }
+                cursor.close();
+            }
+
+            for (String s : ingredients) {
+
+                ImageView image = new ImageView(getActivity().getApplicationContext());
+                int imageIngredientsId = ConverterImageNameToDrawableId.convertImageNameToDrawable(getActivity(), s);
+                image.setImageDrawable(getResources().getDrawable(imageIngredientsId));
+                LinearLayout.LayoutParams layout = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 0.5f);
+                layout.setMargins(10,0,10,0);
+                image.setLayoutParams(layout);
+                receipe.addView(image);
+
+            }
         }
-
         return view;
     }
 
+
+    private String loadDetailsIngredient(String name){
+
+
+        String imageUrl="";
+        String selection = IngredientTable.COLUMN_NAME + " = ?";
+
+        String[] selectionArgs = new String[]{name};
+
+        Cursor cursor = getActivity().getContentResolver().query(IngredientsProvider.CONTENT_URI,null,selection,selectionArgs,null);
+
+        if (cursor != null){
+            cursor.moveToFirst();
+            imageUrl = cursor.getString(cursor.getColumnIndexOrThrow(IngredientTable.COLUMN_IMAGEURL));
+        }
+        cursor.close();
+
+        return imageUrl;
+    }
 
 
     @Override

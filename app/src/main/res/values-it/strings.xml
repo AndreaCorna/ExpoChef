@@ -19,8 +19,8 @@
     <string name="title_activity_details">Dettagli di</string>
     <string name="string_options">Opzioni</string>
     <string name="title_activity_zone">ZoneActivity</string>
-    <string name="list_zone_activity">Lista dei piatti</string>
-    <string name="label_list_zones">Lista delle zone</string>
+    <string name="list_zone_activity">Piatti</string>
+    <string name="label_list_zones">Zone</string>
     <string name="label_slider">Ingredienti</string>
     <string name="button_done_slider">Fatto</string>
     <string name="cook_button_label">Cucina!</string>
