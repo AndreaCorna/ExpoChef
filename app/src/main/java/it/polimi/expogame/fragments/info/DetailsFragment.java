@@ -139,12 +139,14 @@ public class DetailsFragment extends Fragment{
                 ImageView image = new ImageView(getActivity().getApplicationContext());
                 int imageIngredientsId = ConverterImageNameToDrawableId.convertImageNameToDrawable(getActivity(), s);
                 image.setImageDrawable(getResources().getDrawable(imageIngredientsId));
-                LinearLayout.LayoutParams layout = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 0.5f);
+                LinearLayout.LayoutParams layout = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 0.5f);
                 layout.setMargins(10,0,10,0);
                 image.setLayoutParams(layout);
                 receipe.addView(image);
 
             }
+
+
         }
         return view;
     }
