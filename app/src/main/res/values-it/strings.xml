@@ -22,7 +22,7 @@
     <string name="list_zone_activity">Piatti</string>
     <string name="label_list_zones">Zone</string>
     <string name="label_slider">Ingredienti</string>
-    <string name="button_done_slider">Fatto</string>
+    <string name="button_done_slider">Fatto!</string>
     <string name="cook_button_label">Cucina!</string>
     <string name="message_toast_cook">Non una buona scelta...</string>
     <string name="start_text_tutorial_cook">Ciao!</string>
@@ -254,4 +254,6 @@ oggi questa ricetta si prepara grazie alla pentola a pressione, che lascia la ca
     <string name="carne">carne</string>
     <string name="verdura">verdura</string>
     <string name="label_receipe">Ingredienti</string>
+    <string name="message_earned_points"> Hai guadagnato 200 punti! </string>
+    <string name="mascot_captured" > Hey! Hai sbloccato nuovi ingredienti! </string>
 </resources>

@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import it.polimi.expogame.R;
 import it.polimi.expogame.fragments.map.ExpoMapFragment;
 import it.polimi.expogame.support.UserScore;
+import it.polimi.expogame.support.adapters.CustomPagerAdapter;
 import it.polimi.expogame.support.converters.ConverterStringToStringXml;
 
 public class WorldMapActivity extends ActionBarActivity {
@@ -35,7 +36,6 @@ public class WorldMapActivity extends ActionBarActivity {
         menu.findItem(R.id.action_score).setTitle(ConverterStringToStringXml.getStringFromXml(getApplicationContext(), "score_label")+String.valueOf(UserScore.getInstance(getApplicationContext()).getCurrentScore()));
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

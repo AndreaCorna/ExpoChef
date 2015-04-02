@@ -15,6 +15,8 @@ import android.support.v4.BuildConfig;
 import android.util.Log;
 import android.view.View;
 import android.os.Vibrator;
+import android.widget.Toast;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -459,6 +461,8 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
                       Bundle conData = new Bundle();
                       conData.putBoolean("captured", oneCaptured);
                       returnIntent.putExtras(conData);
+                      Toast.makeText(this.getApplicationContext(), getResources().getString(R.string.mascot_captured), Toast.LENGTH_LONG).show();
+
                   }
                   break;
               }

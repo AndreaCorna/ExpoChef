@@ -246,5 +246,7 @@ during the political conflict with austria ( ca. 1780 ) , the Hungarian company 
     <string name="no_ingredients">There are no ingredients on the table!</string>
     <string name="optionstitle">Options</string>
     <string name="label_receipe" > Ingredients </string>
+    <string name="message_earned_points" > You earned 200 points! </string>
+    <string name="mascot_captured"> Hey there! You have unlocked new ingredients! </string>
 
 </resources>

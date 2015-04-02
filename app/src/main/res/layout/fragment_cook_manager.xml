@@ -31,12 +31,15 @@
                 android:layout_gravity="center_horizontal|right"
                 android:adjustViewBounds="false" />
 
+
             <Button
                 android:id="@+id/cook_button"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:background="@drawable/cookbutton"
-                android:layout_gravity="right" />
+                android:layout_gravity="right"
+                />
+
 
             <ImageView
                 android:layout_width="80dp"

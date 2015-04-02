@@ -159,7 +159,7 @@ public class MainActivity extends ActionBarActivity {
         getSupportActionBar().setHomeAsUpIndicator(getResources().getDrawable(R.drawable.icon_ingredients));
 
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-                R.drawable.ic_launcher, //nav menu toggle icon
+                R.drawable.cookbutton, //nav menu toggle icon
                 R.string.app_name, // nav drawer open - description for accessibility
                 R.string.app_name // nav drawer close - description for accessibility
 

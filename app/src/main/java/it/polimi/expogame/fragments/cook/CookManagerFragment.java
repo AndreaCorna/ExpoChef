@@ -266,6 +266,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
                 //update score
                 if(!createdDish){
+                    Toast.makeText(getActivity().getApplicationContext(),getResources().getString(R.string.message_earned_points),Toast.LENGTH_LONG).show();
                     score.addPoints(UserScore.dishPrize);
                 }
 
@@ -302,6 +303,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
                 this.cookButton.setEnabled(Boolean.TRUE);
                 startActivity(intent);
+
             }else{
                 boolean audioActivated = getActivity().getSharedPreferences("expochef", Context.MODE_PRIVATE).getBoolean("audioActivated",true);
                 if(audioActivated){
