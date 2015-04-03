@@ -28,6 +28,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import it.polimi.expogame.R;
+import it.polimi.expogame.activities.MainActivity;
 import it.polimi.expogame.activities.ZoneActivity;
 import it.polimi.expogame.database.tables.ZonesTable;
 import it.polimi.expogame.providers.DishesProvider;
@@ -166,7 +167,7 @@ public class WorldFragment extends Fragment  {
      * Start the activity to show the dishes of one zone. The name of zone is passde with and intent extra
      */
     private void loadDishesByZone(String zone, String translation){
-
+        ((MainActivity)getActivity()).setChildrenActivityLaunched();
         Intent intent = new Intent(getActivity().getApplicationContext(), ZoneActivity.class);
         intent.putExtra("zone",zone);
         intent.putExtra("translation",translation);

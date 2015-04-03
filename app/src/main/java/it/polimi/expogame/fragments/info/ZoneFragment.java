@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import it.polimi.expogame.R;
 import it.polimi.expogame.activities.DetailsActivity;
 import it.polimi.expogame.activities.MainActivity;
+import it.polimi.expogame.activities.ZoneActivity;
 import it.polimi.expogame.database.tables.DishesTable;
 import it.polimi.expogame.database.tables.IngredientTable;
 import it.polimi.expogame.database.tables.IngredientsInDishes;
@@ -218,6 +219,7 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
                 createdDish = true;
             }
 
+            ((ZoneActivity)getActivity()).setChilderActivityLaunched();
 
             Intent intent = new Intent(getActivity().getApplicationContext(), DetailsActivity.class);
             intent.putExtra("idDish",id);
