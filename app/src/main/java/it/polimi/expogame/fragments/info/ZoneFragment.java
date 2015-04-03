@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Display;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,6 @@ import java.util.ArrayList;
 
 import it.polimi.expogame.R;
 import it.polimi.expogame.activities.DetailsActivity;
-import it.polimi.expogame.activities.MainActivity;
 import it.polimi.expogame.activities.ZoneActivity;
 import it.polimi.expogame.database.tables.DishesTable;
 import it.polimi.expogame.database.tables.IngredientTable;
@@ -219,7 +217,7 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
                 createdDish = true;
             }
 
-            ((ZoneActivity)getActivity()).setChilderActivityLaunched();
+            ((ZoneActivity)getActivity()).setChildrenActivityLaunched();
 
             Intent intent = new Intent(getActivity().getApplicationContext(), DetailsActivity.class);
             intent.putExtra("idDish",id);

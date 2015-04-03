@@ -128,7 +128,7 @@ public class ZoneActivity extends ActionBarActivity implements HintFragmentDialo
 
     }
 
-    public void setChilderActivityLaunched(){
+    public void setChildrenActivityLaunched(){
         playMusic = true;
     }
 

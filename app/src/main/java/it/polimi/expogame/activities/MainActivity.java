@@ -231,29 +231,7 @@ public class MainActivity extends ActionBarActivity {
     public void setChildrenActivityLaunched(){
         childrenActivityLaunched = true;
     }
-/*
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)
-    {
-        if(keyCode == KeyEvent.KEYCODE_HOME)
-        {
-            homePressed = true;
-            return true;
-        }
-        return false;
-    }
 
-
-    @Override
-    protected void onPause(){
-        super.onPause();
-        if(audioActivated &&
-                this.soundtrackPlayer.isPlaying() && homePressed ){
-            this.soundtrackPlayer.pause();
-            //this.soundtrackPlayer.release();
-        }
-    }
-*/
     /*
   * Restart the soundtrack when return in the application
   * */
