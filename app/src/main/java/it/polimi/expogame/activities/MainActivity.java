@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,6 +39,7 @@ import it.polimi.expogame.fragments.ar.ARFragment;
 import it.polimi.expogame.fragments.cook.CookManagerFragment;
 import it.polimi.expogame.fragments.info.WorldFragment;
 import it.polimi.expogame.providers.IngredientsProvider;
+import it.polimi.expogame.support.MusicPlayerManager;
 import it.polimi.expogame.support.UserScore;
 import it.polimi.expogame.support.adapters.CustomPagerAdapter;
 import it.polimi.expogame.support.converters.ConverterStringToStringXml;
@@ -51,7 +53,7 @@ public class MainActivity extends ActionBarActivity {
 
     private CustomPagerAdapter customPagerAdapter;
 
-    private MediaPlayer soundtrackPlayer;
+   // private MediaPlayer soundtrackPlayer;
     private DrawerLayout mDrawerLayout;
     private GridView gridview;
     private LinearLayout linearLayout;
@@ -64,7 +66,7 @@ public class MainActivity extends ActionBarActivity {
     private static final int MAP_ACTIVITY_LAUNCH = 30;
     private boolean audioActivated;
     private boolean onBackButtonPressed;
-
+    private boolean childrenActivityLaunched;
 
 
     @Override
@@ -186,14 +188,12 @@ public class MainActivity extends ActionBarActivity {
 
         SharedPreferences prefs = getSharedPreferences("expochef", Context.MODE_PRIVATE);
         audioActivated = prefs.getBoolean("musicActivated",true);
-        soundtrackPlayer = MediaPlayer.create(getApplicationContext(),R.raw.soundtrack);
-        soundtrackPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        soundtrackPlayer.setLooping(true);
-        soundtrackPlayer.setVolume(0.5f,0.5f);
-        if(audioActivated){
-            soundtrackPlayer.start();
-        }
+        MusicPlayerManager.initialize(getApplicationContext(),R.raw.soundtrack,AudioManager.STREAM_MUSIC,true,0.5f,0.5f);
 
+        if(audioActivated){
+            MusicPlayerManager.getInstance().startPlayer();
+        }
+      //  homePressed = false;
     }
 
 
@@ -205,10 +205,12 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onResume(){
        super.onResume();
-       if(audioActivated && !this.soundtrackPlayer.isPlaying()){
-           this.soundtrackPlayer.start();
+       if(audioActivated && !MusicPlayerManager.getInstance().isPlaying()){
+           MusicPlayerManager.getInstance().startPlayer();
        }
        onBackButtonPressed = false;
+       childrenActivityLaunched = false;
+
     }
 
     /*
@@ -216,16 +218,42 @@ public class MainActivity extends ActionBarActivity {
     * */
     @Override
     protected void onStop(){
+        Log.d("EXIT","call onStop "+childrenActivityLaunched);
         super.onStop();
         if(audioActivated &&
-                this.soundtrackPlayer.isPlaying() &&
-                (viewPager.getCurrentItem() != CustomPagerAdapter.WORLD_FRAGMENT_INDEX ||
-                onBackButtonPressed)){
-            this.soundtrackPlayer.pause();
+                MusicPlayerManager.getInstance().isPlaying() &&
+                (onBackButtonPressed || !childrenActivityLaunched)){
+            MusicPlayerManager.getInstance().pausePlayer();
             //this.soundtrackPlayer.release();
         }
     }
 
+    public void setChildrenActivityLaunched(){
+        childrenActivityLaunched = true;
+    }
+/*
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if(keyCode == KeyEvent.KEYCODE_HOME)
+        {
+            homePressed = true;
+            return true;
+        }
+        return false;
+    }
+
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        if(audioActivated &&
+                this.soundtrackPlayer.isPlaying() && homePressed ){
+            this.soundtrackPlayer.pause();
+            //this.soundtrackPlayer.release();
+        }
+    }
+*/
     /*
   * Restart the soundtrack when return in the application
   * */
@@ -244,8 +272,8 @@ public class MainActivity extends ActionBarActivity {
         }
         SharedPreferences prefs = getSharedPreferences("expochef", Context.MODE_PRIVATE);
         audioActivated = prefs.getBoolean("musicActivated",true);
-        if(audioActivated && this.soundtrackPlayer != null && !this.soundtrackPlayer.isPlaying()){
-            soundtrackPlayer.start();
+        if(audioActivated && !MusicPlayerManager.getInstance().isPlaying()){
+            MusicPlayerManager.getInstance().startPlayer();
         }
         //this.soundtrackPlayer.start();
 
@@ -336,6 +364,7 @@ public class MainActivity extends ActionBarActivity {
             case R.id.action_start_map:
                 //check if gps is on, if it is not ask for activation, result check in onactivityresult
                 if(isLocationServiceActive()) {
+                    childrenActivityLaunched = true;
                     launchMapActivity();
                 }else {
                     buildAlertMessageNoGps(R.id.action_start_map);
@@ -343,12 +372,14 @@ public class MainActivity extends ActionBarActivity {
                 break;
             case R.id.action_start_capture:
                 if(isLocationServiceActive()) {
+                    childrenActivityLaunched = true;
                     launchCaptureActivity();
                 }else {
                     buildAlertMessageNoGps(R.id.action_start_capture);
                 }
                 break;
             case R.id.options:
+                childrenActivityLaunched = true;
                 launchOptionsActivity();
 
             default:
@@ -407,8 +438,8 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void launchCaptureActivity(){
-        if(audioActivated && this.soundtrackPlayer.isPlaying()){
-            this.soundtrackPlayer.pause();
+        if(audioActivated && MusicPlayerManager.getInstance().isPlaying()){
+            MusicPlayerManager.getInstance().pausePlayer();
         }
 
         Intent i = new Intent(this,ARActivity.class);
@@ -416,8 +447,8 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void launchMapActivity(){
-        if(audioActivated && this.soundtrackPlayer.isPlaying()){
-            this.soundtrackPlayer.pause();
+        if(audioActivated && MusicPlayerManager.getInstance().isPlaying()){
+            MusicPlayerManager.getInstance().pausePlayer();
         }
         Intent i = new Intent(this,WorldMapActivity.class);
         startActivity(i);
@@ -501,15 +532,15 @@ public class MainActivity extends ActionBarActivity {
         final AlertDialog alert = builder.create();
         alert.show();
     }
-
-    public MediaPlayer getSoundtrackPlayer() {
+/*
+     //public MediaPlayer getSoundtrackPlayer() {
         return soundtrackPlayer;
-    }
+    }*/
 
 
     private void launchOptionsActivity(){
-        if(audioActivated && this.soundtrackPlayer.isPlaying()){
-            this.soundtrackPlayer.pause();
+        if(audioActivated && MusicPlayerManager.getInstance().isPlaying()){
+            MusicPlayerManager.getInstance().pausePlayer();
         }
         Intent intent = new Intent(this,OptionsActivity.class);
         startActivity(intent);

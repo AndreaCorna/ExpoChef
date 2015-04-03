@@ -2,9 +2,12 @@ package it.polimi.expogame.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -12,6 +15,7 @@ import com.google.android.gms.plus.PlusShare;
 
 import it.polimi.expogame.R;
 import it.polimi.expogame.fragments.info.DetailsFragment;
+import it.polimi.expogame.support.MusicPlayerManager;
 import it.polimi.expogame.support.converters.ConverterImageNameToDrawableId;
 import it.polimi.expogame.database.objects.Dish;
 
@@ -22,6 +26,8 @@ public class DetailsActivity extends ActionBarActivity{
 
     public static final String TAG ="Details Activity";
     private PostObject objectToPost;
+    private boolean audioActivated;
+    private boolean onBackButtonPressed;
 
     @Override
     /**
@@ -47,6 +53,8 @@ public class DetailsActivity extends ActionBarActivity{
         }
         setTitle(getTitle()+" "+name);
         objectToPost = new PostObject(getApplicationContext(),name,imageUrl);
+        SharedPreferences prefs = getSharedPreferences("expochef", Context.MODE_PRIVATE);
+        audioActivated = prefs.getBoolean("musicActivated",true);
 
 
     }
@@ -89,6 +97,35 @@ public class DetailsActivity extends ActionBarActivity{
     }
 
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+        if(audioActivated && !MusicPlayerManager.getInstance().isPlaying()){
+            MusicPlayerManager.getInstance().startPlayer();
+        }
+        onBackButtonPressed = false;
+    }
+
+    /*
+    * Stop the soundtrack once leave from app
+    * */
+    @Override
+    protected void onStop(){
+        Log.d("EXIT", "call onStop");
+        super.onStop();
+        if(audioActivated &&
+                MusicPlayerManager.getInstance().isPlaying() && !onBackButtonPressed){
+            MusicPlayerManager.getInstance().pausePlayer();
+            //this.soundtrackPlayer.release();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        onBackButtonPressed = true;
+
+    }
 
 
     private class PostObject{

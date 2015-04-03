@@ -1,9 +1,13 @@
 package it.polimi.expogame.activities;
 
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -12,7 +16,9 @@ import it.polimi.expogame.database.tables.IngredientsInDishes;
 import it.polimi.expogame.fragments.info.HintFragmentDialog;
 import it.polimi.expogame.fragments.info.ZoneFragment;
 import it.polimi.expogame.providers.DishesProvider;
+import it.polimi.expogame.support.MusicPlayerManager;
 import it.polimi.expogame.support.UserScore;
+import it.polimi.expogame.support.adapters.CustomPagerAdapter;
 import it.polimi.expogame.support.converters.ConverterStringToStringXml;
 
 /**
@@ -24,6 +30,8 @@ public class ZoneActivity extends ActionBarActivity implements HintFragmentDialo
     //need to update the view of the score when hint is used
     private UserScore score;
     private MenuItem scoreView;
+    private boolean audioActivated;
+    private boolean playMusic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +51,8 @@ public class ZoneActivity extends ActionBarActivity implements HintFragmentDialo
         }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle(Character.toString(translation.charAt(0)).toUpperCase()+translation.substring(1));
+        SharedPreferences prefs = getSharedPreferences("expochef", Context.MODE_PRIVATE);
+        audioActivated = prefs.getBoolean("musicActivated",true);
 
     }
 
@@ -85,6 +95,44 @@ public class ZoneActivity extends ActionBarActivity implements HintFragmentDialo
 
         getContentResolver().update(uri, values, where, selectionArgs);
     }
+
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        if(audioActivated && !MusicPlayerManager.getInstance().isPlaying()){
+            MusicPlayerManager.getInstance().startPlayer();
+        }
+        playMusic = false;
+    }
+
+    /*
+    * Stop the soundtrack once leave from app
+    * */
+    @Override
+    protected void onStop(){
+        Log.d("MM", "call onStop "+playMusic);
+        super.onStop();
+        if(audioActivated &&
+                MusicPlayerManager.getInstance().isPlaying() && !playMusic){
+            MusicPlayerManager.getInstance().pausePlayer();
+            //this.soundtrackPlayer.release();
+
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        playMusic = true;
+
+    }
+
+    public void setChilderActivityLaunched(){
+        playMusic = true;
+    }
+
+
 
 
 
