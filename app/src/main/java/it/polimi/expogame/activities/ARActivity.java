@@ -390,6 +390,18 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
     protected void onGeometryTouched(final IGeometry geometry) {
         MetaioDebug.log("Geometry selected: " + geometry);
 
+        final Vector3d oldTranslation = geometry.getTranslation();
+       
+        mSurfaceView.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                Vector3d oldTranslation = geometry.getTranslation();
+                Vector3d newTranslation = new Vector3d(oldTranslation.getX(),oldTranslation.getY(),oldTranslation.getZ()+1000);
+                geometry.setTranslation(newTranslation);
+
+            }
+        });
+
 
         Vibrator v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
         // Vibrate for 500 milliserconds
@@ -405,6 +417,7 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
            myPlayer.setVolume(0.5f,0.5f);
            myPlayer.start();
         }
+
 
 
         int captured=0;
@@ -468,6 +481,15 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
               }
             continue;
         }
+
+
+        mSurfaceView.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                geometry.setTranslation(oldTranslation);
+            }
+        });
+
     }
 
     /**
