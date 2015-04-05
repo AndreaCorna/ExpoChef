@@ -391,12 +391,12 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
         MetaioDebug.log("Geometry selected: " + geometry);
 
         final Vector3d oldTranslation = geometry.getTranslation();
-       
+
         mSurfaceView.queueEvent(new Runnable() {
             @Override
             public void run() {
                 Vector3d oldTranslation = geometry.getTranslation();
-                Vector3d newTranslation = new Vector3d(oldTranslation.getX(),oldTranslation.getY(),oldTranslation.getZ()+1000);
+                Vector3d newTranslation = new Vector3d(oldTranslation.getX(),oldTranslation.getY(),oldTranslation.getZ()+2000);
                 geometry.setTranslation(newTranslation);
 
             }
