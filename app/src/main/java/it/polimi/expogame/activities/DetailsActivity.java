@@ -3,7 +3,9 @@ package it.polimi.expogame.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,7 +16,9 @@ import android.view.MenuItem;
 import com.google.android.gms.plus.PlusShare;
 
 import it.polimi.expogame.R;
+import it.polimi.expogame.fragments.EmptyFragment;
 import it.polimi.expogame.fragments.info.DetailsFragment;
+import it.polimi.expogame.fragments.info.ZoneFragment;
 import it.polimi.expogame.support.MusicPlayerManager;
 import it.polimi.expogame.support.converters.ConverterImageNameToDrawableId;
 import it.polimi.expogame.database.objects.Dish;
@@ -48,8 +52,23 @@ public class DetailsActivity extends ActionBarActivity{
         boolean created = getIntent().getBooleanExtra("createdDish",false);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new DetailsFragment(new Dish(getApplicationContext(),id, name, nationality, imageUrl, description, zone, created,null,curiosity,difficulty)))
                     .commit();
+        }
+
+        if (savedInstanceState == null) {
+            FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+            if (getString(R.string.screen_type).equals("phone")) {
+                //MEGLIO SEMPRE METTERE IL TAG PERCHÈ CON QUELLO SI PUÒ OTTENERE LA REFERENCE DEL FRAGMENT
+                trans.add(R.id.container, new DetailsFragment(new Dish(getApplicationContext(),id, name, nationality, imageUrl, description, zone, created,null,curiosity,difficulty)));
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+            }
+            else {
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+            }
+            trans.commit();
+
         }
         setTitle(getTitle()+" "+name);
         objectToPost = new PostObject(getApplicationContext(),name,imageUrl);

@@ -1,24 +1,29 @@
 package it.polimi.expogame.activities;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import it.polimi.expogame.R;
 import it.polimi.expogame.database.tables.IngredientsInDishes;
+import it.polimi.expogame.fragments.EmptyFragment;
 import it.polimi.expogame.fragments.info.HintFragmentDialog;
+import it.polimi.expogame.fragments.info.RootFragment;
 import it.polimi.expogame.fragments.info.ZoneFragment;
 import it.polimi.expogame.providers.DishesProvider;
 import it.polimi.expogame.support.MusicPlayerManager;
 import it.polimi.expogame.support.UserScore;
-import it.polimi.expogame.support.adapters.CustomPagerAdapter;
 import it.polimi.expogame.support.converters.ConverterStringToStringXml;
 
 /**
@@ -38,6 +43,8 @@ public class ZoneActivity extends ActionBarActivity implements HintFragmentDialo
         super.onCreate(savedInstanceState);
         String zone = getIntent().getStringExtra("zone");
         String translation = getIntent().getStringExtra("translation");
+        String screenType = getString(R.string.screen_type);
+
         setContentView(R.layout.activity_zone);
         fragment = new ZoneFragment(zone);
 
@@ -45,9 +52,22 @@ public class ZoneActivity extends ActionBarActivity implements HintFragmentDialo
         score = UserScore.getInstance(getApplicationContext());
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new ZoneFragment(zone))
-                    .commit();
+            FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+            if (screenType.equals("tablet")) {
+                //MEGLIO SEMPRE METTERE IL TAG PERCHÈ CON QUELLO SI PUÒ OTTENERE LA REFERENCE DEL FRAGMENT
+                trans.add(R.id.zoneFragment, new ZoneFragment(zone),ZoneFragment.TAG);
+                trans.add(R.id.detailFragment, new EmptyFragment(),EmptyFragment.TAG);
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+            }
+            else {
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                trans.add(R.id.container, new ZoneFragment(zone),ZoneFragment.TAG);
+
+
+            }
+            trans.commit();
+
         }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle(Character.toString(translation.charAt(0)).toUpperCase()+translation.substring(1));

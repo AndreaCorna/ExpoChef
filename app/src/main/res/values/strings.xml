@@ -35,7 +35,6 @@
     <string name="no_points_message">You need to have at least %1$s credits to get an hint</string>
     <string name="score_label">Score:</string>
 
-
     <string-array name="tutorial_text_cook">
         <item>I will explain you how\nto cook your dishes</item>
         <item>Use the map\nto come closer\nto the mascot</item>
@@ -202,7 +201,6 @@
     <string name="kabsa_descr">the kabsa is a typical dish of the Middle East meat, rice, vegetables and spices. is usually prepared with chicken, lamb or beef, although sometimes using other animals.</string>
     <string name="doner_kebab_descr">Kebab ( " roasted meat " ) is a dish , meat , typical of Turkish cuisine , which has become popular all over the world thanks to immigration from the Middle East.</string>
     <string name="ful_medames_descr">Ful medames is one of the typical dishes of Palestine , Jordan , Syria , Lebanon and Egypt , often eaten in the breakfast. the main ingredient is dried beans , cooked on low heat affixed in copper containers . Fula is served with lots of olive oil, chopped parsley , onion, garlic and lemon juice ; is typically eaten with bread.</string>
-
     <string name="gulasch_curiosity">was at the end of th 700 that was born the invention of the culinary tradition goulash , flat symbol of the people of Hungary .
 this food , whose term comes from Hungarian " gulyas " ( cowherd ) , indicated in medieovo a preparation made by herdsmen during the work on the pastures . recipe orginale was to dice the meat and then cook it over low heat in open pots and season with salt only ( later also chili ) .
 during the political conflict with austria ( ca. 1780 ) , the Hungarian company was in need of concrete symbols of its independence culturare , and it was for this that were chosen clothing aristocratic old style and the goulash of herdsmen .</string>
@@ -245,8 +243,9 @@ during the political conflict with austria ( ca. 1780 ) , the Hungarian company 
     <string name="title_activity_options">Options</string>
     <string name="no_ingredients">There are no ingredients on the table!</string>
     <string name="optionstitle">Options</string>
-    <string name="label_receipe" > Ingredients </string>
-    <string name="message_earned_points" > You earned 200 points! </string>
+    <string name="label_receipe"> Ingredients </string>
+    <string name="message_earned_points"> You earned 200 points! </string>
     <string name="mascot_captured"> Hey there! You have unlocked new ingredients! </string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

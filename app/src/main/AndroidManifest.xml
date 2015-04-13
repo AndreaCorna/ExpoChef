@@ -82,13 +82,13 @@
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_details"
             android:noHistory="true"
-            android:screenOrientation="portrait" >
+             >
         </activity>
         <activity
             android:name=".activities.ZoneActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_zone"
-            android:screenOrientation="portrait" >
+             >
         </activity>
         <activity
             android:name=".activities.FacebookShareActivity"
