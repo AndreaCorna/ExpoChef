@@ -35,14 +35,12 @@
         <activity
             android:name=".activities.ARActivity"
             android:configChanges="orientation|screenSize"
-            android:label="@string/title_activity_ar"
-            android:screenOrientation="portrait" >
+            android:label="@string/title_activity_ar" >
         </activity>
         <activity
             android:name=".SplashActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

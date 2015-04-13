@@ -1,5 +1,7 @@
 package it.polimi.expogame.activities;
 
+import android.content.pm.ActivityInfo;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -7,6 +9,7 @@ import android.view.MenuItem;
 
 import it.polimi.expogame.R;
 import it.polimi.expogame.fragments.map.ExpoMapFragment;
+import it.polimi.expogame.fragments.options.OptionsFragment;
 import it.polimi.expogame.support.UserScore;
 import it.polimi.expogame.support.adapters.CustomPagerAdapter;
 import it.polimi.expogame.support.converters.ConverterStringToStringXml;
@@ -19,9 +22,20 @@ public class WorldMapActivity extends ActionBarActivity {
         setContentView(R.layout.activity_world_map);
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new ExpoMapFragment())
-                    .commit();
+
+            FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+            trans.add(R.id.container, new ExpoMapFragment());
+
+            if (getString(R.string.screen_type).equals("phone")) {
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+            }
+            else {
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+            }
+            trans.commit();
+
         }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle(ConverterStringToStringXml.getStringFromXml(getApplicationContext(),"map_pager_label"));
