@@ -177,7 +177,7 @@ public class MainActivity extends ActionBarActivity {
             public void onDrawerOpened(View drawerView) {
                 String title = customPagerAdapter.getPageTitle(viewPager.getCurrentItem()).toString().toLowerCase();
                 title = Character.toString(title.charAt(0)).toUpperCase()+title.substring(1);
-                getSupportActionBar().setTitle(title+" "+getString(R.string.string_options));
+                getSupportActionBar().setTitle(getString(R.string.ingredients));
                 // calling onPrepareOptionsMenu() to hide action bar icons
                 invalidateOptionsMenu();
             }
