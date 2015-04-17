@@ -80,6 +80,13 @@ public class MainActivity extends ActionBarActivity  implements IngredientFragme
 
         linearLayout = (LinearLayout)findViewById(R.id.ingredients_layout);
 
+        IngredientFragment ing = new IngredientFragment();
+        FragmentTransaction transaction =
+                getSupportFragmentManager().beginTransaction();
+
+        transaction.add(R.id.ingredients_layout, ing);
+        transaction.commit();
+
 
 
 
@@ -136,6 +143,25 @@ public class MainActivity extends ActionBarActivity  implements IngredientFragme
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(getResources().getDrawable(R.drawable.icon_ingredients));
 
+
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        mDrawerLayout.setDrawerListener(actionBarDrawerToggle);
+
+        SharedPreferences prefs = getSharedPreferences("expochef", Context.MODE_PRIVATE);
+        audioActivated = prefs.getBoolean("musicActivated",true);
+        MusicPlayerManager.initialize(getApplicationContext(),R.raw.soundtrack,AudioManager.STREAM_MUSIC,true,0.5f,0.5f);
+
+        if(audioActivated){
+            MusicPlayerManager.getInstance().startPlayer();
+        }
+      //  homePressed = false;
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.drawable.cookbutton, //nav menu toggle icon
                 R.string.app_name, // nav drawer open - description for accessibility
@@ -158,22 +184,7 @@ public class MainActivity extends ActionBarActivity  implements IngredientFragme
                 invalidateOptionsMenu();
             }
         };
-        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-        mDrawerLayout.setDrawerListener(actionBarDrawerToggle);
 
-        SharedPreferences prefs = getSharedPreferences("expochef", Context.MODE_PRIVATE);
-        audioActivated = prefs.getBoolean("musicActivated",true);
-        MusicPlayerManager.initialize(getApplicationContext(),R.raw.soundtrack,AudioManager.STREAM_MUSIC,true,0.5f,0.5f);
-
-        if(audioActivated){
-            MusicPlayerManager.getInstance().startPlayer();
-        }
-      //  homePressed = false;
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
     }
 
     /*
@@ -184,7 +195,7 @@ public class MainActivity extends ActionBarActivity  implements IngredientFragme
     @Override
     protected void onResume(){
        super.onResume();
-       if(audioActivated && !MusicPlayerManager.getInstance().isPlaying()){
+        if(audioActivated && !MusicPlayerManager.getInstance().isPlaying()){
            MusicPlayerManager.getInstance().startPlayer();
        }
        onBackButtonPressed = false;

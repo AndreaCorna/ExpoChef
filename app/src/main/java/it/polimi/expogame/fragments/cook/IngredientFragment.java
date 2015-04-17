@@ -28,7 +28,7 @@ import it.polimi.expogame.support.adapters.ImageAdapter;
  * Activities that contain this fragment must implement the
  * {@link it.polimi.expogame.fragments.cook.IngredientFragment.OnIngredientSelectedListener} interface
  * to handle interaction events.
- * Use the {@link IngredientFragment#newInstance} factory method to
+ * Use the {@link IngredientFragment} factory method to
  * create an instance of this fragment.
  */
 public class IngredientFragment extends Fragment {
@@ -54,10 +54,10 @@ public class IngredientFragment extends Fragment {
         super.onCreate(savedInstanceState);
         //getting reference of the ViewPager element in the view
         ingredientsUnlocked = new ArrayList<Ingredient>();
+        Log.d("Ingredients","Called onCreate");
 
 
-        //loading unlocked ingredients in the Cook Options Fragment
-        loadUnlockedIngredients();
+
 
 
 
@@ -92,6 +92,9 @@ public class IngredientFragment extends Fragment {
                 }
             }
         });
+        //loading unlocked ingredients in the Cook Options Fragment
+        initializeIngredientsGrid();
+        Log.d("Ingredients","Called onCreateView");
 
         // Inflate the layout for this fragment
         return view;
@@ -128,7 +131,6 @@ public class IngredientFragment extends Fragment {
             Ingredient ingredient = new Ingredient(getActivity(),name, imageUrl, category, unblocked);
             ingredientsUnlocked.add(ingredient);
 
-            Log.d("MAIN", "Ho caricato " + name);
 
         }
         cursor.close();
@@ -141,6 +143,10 @@ public class IngredientFragment extends Fragment {
      */
     public void initializeIngredientsGrid(){
         loadUnlockedIngredients();
+        for(Ingredient ing : ingredientsUnlocked){
+            Log.d("Ingredients","Loaded "+ing.getName());
+
+        }
         imageAdapter = new ImageAdapter(getActivity(),ingredientsUnlocked);
         gridview.setAdapter(imageAdapter);
         listIngredientsSelected = new ArrayList<Ingredient>();
