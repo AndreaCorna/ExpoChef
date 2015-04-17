@@ -149,6 +149,10 @@ public class IngredientFragment extends Fragment {
         }
         imageAdapter = new ImageAdapter(getActivity(),ingredientsUnlocked);
         gridview.setAdapter(imageAdapter);
+        imageAdapter.setIngredients(ingredientsUnlocked);
+        gridview.setAdapter(null);
+        gridview.setAdapter(imageAdapter);
+        gridview.invalidateViews();
         listIngredientsSelected = new ArrayList<Ingredient>();
     }
 

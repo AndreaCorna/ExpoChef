@@ -84,7 +84,7 @@ public class MainActivity extends ActionBarActivity  implements IngredientFragme
         FragmentTransaction transaction =
                 getSupportFragmentManager().beginTransaction();
 
-        transaction.add(R.id.ingredients_layout, ing);
+        transaction.add(R.id.ingredients_id, ing);
         transaction.commit();
 
 
