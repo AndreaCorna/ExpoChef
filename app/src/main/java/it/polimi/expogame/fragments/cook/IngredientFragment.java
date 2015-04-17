@@ -43,20 +43,7 @@ public class IngredientFragment extends Fragment {
 
     private OnIngredientSelectedListener onIngredientSelectedListener;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment IngredientFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static IngredientFragment newInstance(String param1, String param2) {
-        IngredientFragment fragment = new IngredientFragment();
 
-        return fragment;
-    }
 
     public IngredientFragment() {
         // Required empty public constructor
@@ -71,15 +58,15 @@ public class IngredientFragment extends Fragment {
 
         //loading unlocked ingredients in the Cook Options Fragment
         loadUnlockedIngredients();
-        imageAdapter = new ImageAdapter(this,ingredientsUnlocked);
-        gridview.setAdapter(imageAdapter);
+
+
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_ingredient, container, false);
+        View view = inflater.inflate(R.layout.ricettario_layout, container, false);
 
         linearLayout = (LinearLayout)view.findViewById(R.id.ingredients_layout);
         gridview = (GridView) view.findViewById(R.id.gridview);
@@ -113,10 +100,10 @@ public class IngredientFragment extends Fragment {
     /**
      * Method which provide the list of unlocked ingredients by calling the content provider
      */
-    private void loadUnlockedIngredients() {
+    private  void loadUnlockedIngredients() {
         ingredientsUnlocked.clear();
 
-        ContentResolver cr = this.getContentResolver();
+        ContentResolver cr = getActivity().getContentResolver();
 
         String selection = IngredientTable.COLUMN_UNLOCKED + " = ?";
 
@@ -138,13 +125,43 @@ public class IngredientFragment extends Fragment {
             } else {
                 unblocked = true;
             }
-            Ingredient ingredient = new Ingredient(this,name, imageUrl, category, unblocked);
+            Ingredient ingredient = new Ingredient(getActivity(),name, imageUrl, category, unblocked);
             ingredientsUnlocked.add(ingredient);
 
             Log.d("MAIN", "Ho caricato " + name);
 
         }
         cursor.close();
+
+
+    }
+
+    /**
+     * Initialize the gridView with the ingredients loaded from the content Provider
+     */
+    public void initializeIngredientsGrid(){
+        loadUnlockedIngredients();
+        imageAdapter = new ImageAdapter(getActivity(),ingredientsUnlocked);
+        gridview.setAdapter(imageAdapter);
+        listIngredientsSelected = new ArrayList<Ingredient>();
+    }
+
+    public void updateIngredientsGrid(){
+        loadUnlockedIngredients();
+        imageAdapter.setIngredients(ingredientsUnlocked);
+        gridview.setAdapter(null);
+        gridview.setAdapter(imageAdapter);
+        gridview.invalidateViews();
+    }
+
+    public void clearIngredients(){
+        listIngredientsSelected.clear();
+    }
+
+    public void resetSliderView(){
+        ((ImageAdapter)gridview.getAdapter()).resetAllSelection();
+        gridview.invalidateViews();
+
 
     }
 

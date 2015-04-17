@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.location.LocationManager;
@@ -14,6 +15,7 @@ import android.media.MediaPlayer;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -39,6 +41,7 @@ import it.polimi.expogame.fragments.ar.ARFragment;
 import it.polimi.expogame.fragments.cook.CookManagerFragment;
 import it.polimi.expogame.fragments.cook.IngredientFragment;
 import it.polimi.expogame.fragments.info.WorldFragment;
+import it.polimi.expogame.fragments.options.OptionsFragment;
 import it.polimi.expogame.providers.IngredientsProvider;
 import it.polimi.expogame.support.MusicPlayerManager;
 import it.polimi.expogame.support.UserScore;
@@ -66,13 +69,16 @@ public class MainActivity extends ActionBarActivity  implements IngredientFragme
     private boolean onBackButtonPressed;
     private boolean childrenActivityLaunched;
 
+    private LinearLayout linearLayout;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        linearLayout = (LinearLayout)findViewById(R.id.ingredients_layout);
 
 
 
@@ -140,8 +146,8 @@ public class MainActivity extends ActionBarActivity  implements IngredientFragme
                 getSupportActionBar().setTitle(getString(R.string.app_name));
                 // calling onPrepareOptionsMenu() to show action bar icons
                 invalidateOptionsMenu();
-                resetSliderView();
-                listIngredientsSelected.clear();
+                getIngredientFragmentIstance().resetSliderView();
+                getIngredientFragmentIstance().clearIngredients();
             }
 
             public void onDrawerOpened(View drawerView) {
@@ -154,7 +160,6 @@ public class MainActivity extends ActionBarActivity  implements IngredientFragme
         };
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         mDrawerLayout.setDrawerListener(actionBarDrawerToggle);
-        listIngredientsSelected = new ArrayList<Ingredient>();
 
         SharedPreferences prefs = getSharedPreferences("expochef", Context.MODE_PRIVATE);
         audioActivated = prefs.getBoolean("musicActivated",true);
@@ -166,12 +171,16 @@ public class MainActivity extends ActionBarActivity  implements IngredientFragme
       //  homePressed = false;
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
 
     /*
-    * Reactivate the soundtrack once returned in the view
-    * for example when you are in ArActivity and you want to
-    * return in the cook activity.
-    * */
+        * Reactivate the soundtrack once returned in the view
+        * for example when you are in ArActivity and you want to
+        * return in the cook activity.
+        * */
     @Override
     protected void onResume(){
        super.onResume();
@@ -317,8 +326,18 @@ public class MainActivity extends ActionBarActivity  implements IngredientFragme
     public void chooseDone(View view){
 
         mDrawerLayout.closeDrawers();
-        resetSliderView();
-        listIngredientsSelected.clear();
+        getIngredientFragmentIstance().resetSliderView();
+        getIngredientFragmentIstance().clearIngredients();
+    }
+
+    private IngredientFragment getIngredientFragmentIstance(){
+        List<Fragment> list = getSupportFragmentManager().getFragments();
+        for(Fragment fragment:list){
+            if(fragment.getClass().equals(IngredientFragment.class)){
+                return (IngredientFragment)fragment;
+            }
+        }
+        return null;
     }
 
     private CookManagerFragment getCookManagerFragmentIstance(){
@@ -342,12 +361,7 @@ public class MainActivity extends ActionBarActivity  implements IngredientFragme
     }
 
 
-    private void resetSliderView(){
-        ((ImageAdapter)gridview.getAdapter()).resetAllSelection();
-        gridview.invalidateViews();
 
-
-    }
 
     private void launchCaptureActivity(){
         if(audioActivated && MusicPlayerManager.getInstance().isPlaying()){
@@ -378,11 +392,7 @@ public class MainActivity extends ActionBarActivity  implements IngredientFragme
             case CAPTURE_ACTIVITY_RESULT:
                 //check if a mascotte was unlocked, if true refresh ingredients on slider
                 if(resultCode == RESULT_OK && data.getExtras().getBoolean("captured")){
-                    loadUnlockedIngredients();
-                    imageAdapter.setIngredients(ingredientsUnlocked);
-                    gridview.setAdapter(null);
-                    gridview.setAdapter(imageAdapter);
-                    gridview.invalidateViews();
+                    getIngredientFragmentIstance().updateIngredientsGrid();
 
                 }
                 break;

@@ -173,10 +173,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
     }
 
-    @Override
-    public void onIngredientSelected(Ingredient ingredient) {
 
-    }
 
 
     public void addIngredientSelected(Ingredient ingredient){
