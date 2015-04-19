@@ -133,7 +133,7 @@ public class MainActivity extends ActionBarActivity  implements IngredientFragme
         });
         FragmentManager fragmentManager = getSupportFragmentManager();
         //creating the adapter to attach to the viewPager
-        customPagerAdapter = new CustomPagerAdapter(fragmentManager,getApplicationContext());
+        customPagerAdapter = new CustomPagerAdapter(fragmentManager,getApplicationContext(),getString(R.string.screen_type));
 
         viewPager.setAdapter(customPagerAdapter);
 
