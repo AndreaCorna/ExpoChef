@@ -24,11 +24,8 @@
     </android.support.v4.view.ViewPager>
 
         <!-- Include slider layout  -->
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/ingredients_id"
-        ></FrameLayout>
+    <include layout="@layout/ricettario_layout"/>
+
 
 
 </android.support.v4.widget.DrawerLayout>
