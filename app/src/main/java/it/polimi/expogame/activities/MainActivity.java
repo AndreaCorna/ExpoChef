@@ -27,6 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -68,6 +69,8 @@ public class MainActivity extends ActionBarActivity  implements IngredientFragme
     private boolean audioActivated;
     private boolean onBackButtonPressed;
     private boolean childrenActivityLaunched;
+    private IngredientFragment ing;
+
 
     private LinearLayout linearLayout;
 
@@ -78,14 +81,13 @@ public class MainActivity extends ActionBarActivity  implements IngredientFragme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        linearLayout = (LinearLayout)findViewById(R.id.ingredients_layout);
-
-        IngredientFragment ing = new IngredientFragment();
+        ing = new IngredientFragment();
         FragmentTransaction transaction =
                 getSupportFragmentManager().beginTransaction();
 
-        transaction.add(R.id.ingredients_layout, ing);
+        transaction.add(R.id.ingredients_frame, ing);
         transaction.commit();
+
 
 
 
@@ -323,7 +325,8 @@ public class MainActivity extends ActionBarActivity  implements IngredientFragme
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // if nav drawer is opened, hide the action items
-        boolean drawerOpen = mDrawerLayout.isDrawerOpen(linearLayout);
+        FrameLayout ingredientslayout = (FrameLayout) findViewById(R.id.ingredients_frame);
+        boolean drawerOpen = mDrawerLayout.isDrawerOpen(ingredientslayout);
    //     scoreView = (TextView) menu.findItem(R.id.action_score).getActionView();
  //       scoreView.setText(score.getCurrentScore());
         return super.onPrepareOptionsMenu(menu);
