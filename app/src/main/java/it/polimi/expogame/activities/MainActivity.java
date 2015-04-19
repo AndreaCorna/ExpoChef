@@ -89,7 +89,13 @@ public class MainActivity extends ActionBarActivity  implements IngredientFragme
         transaction.commit();
 
 
+        if(getString(R.string.screen_type).equals("phone")){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        }else{
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+        }
 
 
 
