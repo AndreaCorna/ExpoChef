@@ -64,6 +64,7 @@ public class DetailsActivity extends ActionBarActivity{
 
             }
             else {
+                trans.add(R.id.container, new DetailsFragment(new Dish(getApplicationContext(),id, name, nationality, imageUrl, description, zone, created,null,curiosity,difficulty)));
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
             }
