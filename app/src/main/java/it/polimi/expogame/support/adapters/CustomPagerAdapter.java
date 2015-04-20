@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import it.polimi.expogame.fragments.CookTabletFragment;
 import it.polimi.expogame.fragments.cook.CookManagerFragment;
 import it.polimi.expogame.fragments.info.RootFragment;
 import it.polimi.expogame.support.converters.ConverterStringToStringXml;
@@ -18,17 +19,17 @@ public class CustomPagerAdapter extends FragmentPagerAdapter {
     private Context context;
     public static final int COOK_FRAGMENT_INDEX = 0;
     public static final int WORLD_FRAGMENT_INDEX = 1;
-
+    private String screenType;
 
     public CustomPagerAdapter(FragmentManager fm) {
         super(fm);
 
     }
 
-    public CustomPagerAdapter(FragmentManager fm, Context context) {
+    public CustomPagerAdapter(FragmentManager fm, Context context,String screenType) {
         super(fm);
         this.context = context;
-
+        this.screenType = screenType;
     }
 
 
@@ -42,7 +43,11 @@ public class CustomPagerAdapter extends FragmentPagerAdapter {
         switch (position) {
 
             case COOK_FRAGMENT_INDEX:
-                fragment = new CookManagerFragment();
+                if(screenType.equals("phone")){
+                    fragment = new CookManagerFragment();
+                }else{
+                    fragment = new CookTabletFragment();
+                }
                 break;
             case WORLD_FRAGMENT_INDEX:
                 fragment = new RootFragment();

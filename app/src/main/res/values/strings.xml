@@ -36,7 +36,6 @@
     <string name="score_label">Score:</string>
     <string name="ingredients">Ingredients</string>
 
-
     <string-array name="tutorial_text_cook">
         <item>I will explain you how\nto cook your dishes</item>
         <item>Use the map\nto come closer\nto the mascot</item>

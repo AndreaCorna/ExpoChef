@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.location.LocationManager;
@@ -14,6 +15,7 @@ import android.media.MediaPlayer;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -25,6 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -37,7 +40,9 @@ import it.polimi.expogame.R;
 import it.polimi.expogame.database.tables.IngredientTable;
 import it.polimi.expogame.fragments.ar.ARFragment;
 import it.polimi.expogame.fragments.cook.CookManagerFragment;
+import it.polimi.expogame.fragments.cook.IngredientFragment;
 import it.polimi.expogame.fragments.info.WorldFragment;
+import it.polimi.expogame.fragments.options.OptionsFragment;
 import it.polimi.expogame.providers.IngredientsProvider;
 import it.polimi.expogame.support.MusicPlayerManager;
 import it.polimi.expogame.support.UserScore;
@@ -47,7 +52,7 @@ import it.polimi.expogame.support.adapters.ImageAdapter;
 import it.polimi.expogame.database.objects.Ingredient;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity  implements IngredientFragment.OnIngredientSelectedListener{
     private static final String TAG = "MAIN ACTIVITY";
     private ViewPager viewPager = null;
 
@@ -55,58 +60,44 @@ public class MainActivity extends ActionBarActivity {
 
    // private MediaPlayer soundtrackPlayer;
     private DrawerLayout mDrawerLayout;
-    private GridView gridview;
-    private LinearLayout linearLayout;
+
     private ActionBarDrawerToggle actionBarDrawerToggle;
-    private ArrayList<Ingredient> listIngredientsSelected;
-    private ImageAdapter imageAdapter;
-    private ArrayList<Ingredient> ingredientsUnlocked;
+
     private static final int CAPTURE_ACTIVITY_RESULT = 10;
     private static final int CAPTURE_ACTIVITY_LAUNCH = 20;
     private static final int MAP_ACTIVITY_LAUNCH = 30;
     private boolean audioActivated;
     private boolean onBackButtonPressed;
     private boolean childrenActivityLaunched;
+    private IngredientFragment ing;
+
+
+    private LinearLayout linearLayout;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //getting reference of the ViewPager element in the view
-        ingredientsUnlocked = new ArrayList<Ingredient>();
-        linearLayout = (LinearLayout)findViewById(R.id.ingredients_layout);
 
-         //loading unlocked ingredients in the Cook Options Fragment
-        loadUnlockedIngredients();
-        gridview = (GridView) findViewById(R.id.gridview);
-        imageAdapter = new ImageAdapter(this,ingredientsUnlocked);
-        gridview.setAdapter(imageAdapter);
+        ing = new IngredientFragment();
+        FragmentTransaction transaction =
+                getSupportFragmentManager().beginTransaction();
+
+        transaction.add(R.id.ingredients_frame, ing);
+        transaction.commit();
 
 
+        if(getString(R.string.screen_type).equals("phone")){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        }else{
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+        }
 
 
-        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            //override in order to change background of an item when is selected and add/remove it from the
-            //arraylist we want to pass to cook fragment
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Ingredient ingredient = (Ingredient)gridview.getAdapter().getItem(position);
-                if(!listIngredientsSelected.contains(ingredient)){
-                    view.setBackgroundColor(Color.LTGRAY);
-                    listIngredientsSelected.add(ingredient);
-                    getCookManagerFragmentIstance().addIngredientSelected(ingredient);
-                    ((ImageAdapter)gridview.getAdapter()).setSelected(ingredient.getName(),true);
-                }else{
-                    view.setBackgroundColor(303030);
-                    getCookManagerFragmentIstance().removeIngredient(ingredient);
-                    listIngredientsSelected.remove(ingredient);
-                    ((ImageAdapter)gridview.getAdapter()).setSelected(ingredient.getName(),false);
-
-                }
-            }
-        });
 
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setOffscreenPageLimit(1);
@@ -148,7 +139,7 @@ public class MainActivity extends ActionBarActivity {
         });
         FragmentManager fragmentManager = getSupportFragmentManager();
         //creating the adapter to attach to the viewPager
-        customPagerAdapter = new CustomPagerAdapter(fragmentManager,getApplicationContext());
+        customPagerAdapter = new CustomPagerAdapter(fragmentManager,getApplicationContext(),getString(R.string.screen_type));
 
         viewPager.setAdapter(customPagerAdapter);
 
@@ -160,31 +151,9 @@ public class MainActivity extends ActionBarActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(getResources().getDrawable(R.drawable.icon_ingredients));
 
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-                R.drawable.cookbutton, //nav menu toggle icon
-                R.string.app_name, // nav drawer open - description for accessibility
-                R.string.app_name // nav drawer close - description for accessibility
 
-        ) {
-            public void onDrawerClosed(View view) {
-                getSupportActionBar().setTitle(getString(R.string.app_name));
-                // calling onPrepareOptionsMenu() to show action bar icons
-                invalidateOptionsMenu();
-                resetSliderView();
-                listIngredientsSelected.clear();
-            }
-
-            public void onDrawerOpened(View drawerView) {
-                String title = customPagerAdapter.getPageTitle(viewPager.getCurrentItem()).toString().toLowerCase();
-                title = Character.toString(title.charAt(0)).toUpperCase()+title.substring(1);
-                getSupportActionBar().setTitle(getString(R.string.ingredients));
-                // calling onPrepareOptionsMenu() to hide action bar icons
-                invalidateOptionsMenu();
-            }
-        };
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         mDrawerLayout.setDrawerListener(actionBarDrawerToggle);
-        listIngredientsSelected = new ArrayList<Ingredient>();
 
         SharedPreferences prefs = getSharedPreferences("expochef", Context.MODE_PRIVATE);
         audioActivated = prefs.getBoolean("musicActivated",true);
@@ -197,15 +166,44 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+                R.drawable.cookbutton, //nav menu toggle icon
+                R.string.app_name, // nav drawer open - description for accessibility
+                R.string.app_name // nav drawer close - description for accessibility
+
+        ) {
+            public void onDrawerClosed(View view) {
+                getSupportActionBar().setTitle(getString(R.string.app_name));
+                // calling onPrepareOptionsMenu() to show action bar icons
+                invalidateOptionsMenu();
+                getIngredientFragmentIstance().resetSliderView();
+                getIngredientFragmentIstance().clearIngredients();
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                String title = customPagerAdapter.getPageTitle(viewPager.getCurrentItem()).toString().toLowerCase();
+                title = Character.toString(title.charAt(0)).toUpperCase()+title.substring(1);
+                getSupportActionBar().setTitle(getString(R.string.ingredients));
+                // calling onPrepareOptionsMenu() to hide action bar icons
+                invalidateOptionsMenu();
+            }
+        };
+
+    }
+
     /*
-    * Reactivate the soundtrack once returned in the view
-    * for example when you are in ArActivity and you want to
-    * return in the cook activity.
-    * */
+        * Reactivate the soundtrack once returned in the view
+        * for example when you are in ArActivity and you want to
+        * return in the cook activity.
+        * */
     @Override
     protected void onResume(){
        super.onResume();
-       if(audioActivated && !MusicPlayerManager.getInstance().isPlaying()){
+        if(audioActivated && !MusicPlayerManager.getInstance().isPlaying()){
            MusicPlayerManager.getInstance().startPlayer();
        }
        onBackButtonPressed = false;
@@ -286,43 +284,7 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-    /**
-     * Method which provide the list of unlocked ingredients by calling the content provider
-     */
-    private void loadUnlockedIngredients() {
-        ingredientsUnlocked.clear();
 
-        ContentResolver cr = this.getContentResolver();
-
-        String selection = IngredientTable.COLUMN_UNLOCKED + " = ?";
-
-        String[] selectionArgs = new String[]{"1"};
-        Cursor cursor = cr.query(IngredientsProvider.CONTENT_URI,
-                new String[]{},
-                selection,
-                selectionArgs,
-                null);
-
-        while (cursor.moveToNext()) {
-            String name = cursor.getString(cursor.getColumnIndexOrThrow(IngredientTable.COLUMN_NAME));
-            String imageUrl = cursor.getString(cursor.getColumnIndexOrThrow(IngredientTable.COLUMN_IMAGEURL));
-            String category = cursor.getString(cursor.getColumnIndexOrThrow(IngredientTable.COLUMN_CATEGORY));
-            int unlocked = cursor.getInt(cursor.getColumnIndexOrThrow(IngredientTable.COLUMN_UNLOCKED));
-            boolean unblocked;
-            if (unlocked == 0) {
-                unblocked = false;
-            } else {
-                unblocked = true;
-            }
-            Ingredient ingredient = new Ingredient(this,name, imageUrl, category, unblocked);
-            ingredientsUnlocked.add(ingredient);
-
-            Log.d("MAIN","Ho caricato "+name);
-
-        }
-        cursor.close();
-
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -369,7 +331,8 @@ public class MainActivity extends ActionBarActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // if nav drawer is opened, hide the action items
-        boolean drawerOpen = mDrawerLayout.isDrawerOpen(linearLayout);
+        FrameLayout ingredientslayout = (FrameLayout) findViewById(R.id.ingredients_frame);
+        boolean drawerOpen = mDrawerLayout.isDrawerOpen(ingredientslayout);
    //     scoreView = (TextView) menu.findItem(R.id.action_score).getActionView();
  //       scoreView.setText(score.getCurrentScore());
         return super.onPrepareOptionsMenu(menu);
@@ -383,8 +346,18 @@ public class MainActivity extends ActionBarActivity {
     public void chooseDone(View view){
 
         mDrawerLayout.closeDrawers();
-        resetSliderView();
-        listIngredientsSelected.clear();
+        getIngredientFragmentIstance().resetSliderView();
+        getIngredientFragmentIstance().clearIngredients();
+    }
+
+    private IngredientFragment getIngredientFragmentIstance(){
+        List<Fragment> list = getSupportFragmentManager().getFragments();
+        for(Fragment fragment:list){
+            if(fragment.getClass().equals(IngredientFragment.class)){
+                return (IngredientFragment)fragment;
+            }
+        }
+        return null;
     }
 
     private CookManagerFragment getCookManagerFragmentIstance(){
@@ -408,12 +381,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
-    private void resetSliderView(){
-        ((ImageAdapter)gridview.getAdapter()).resetAllSelection();
-        gridview.invalidateViews();
 
-
-    }
 
     private void launchCaptureActivity(){
         if(audioActivated && MusicPlayerManager.getInstance().isPlaying()){
@@ -421,7 +389,7 @@ public class MainActivity extends ActionBarActivity {
         }
 
         Intent i = new Intent(this,ARActivity.class);
-        startActivityForResult(i,CAPTURE_ACTIVITY_RESULT);
+        startActivityForResult(i, CAPTURE_ACTIVITY_RESULT);
     }
 
     private void launchMapActivity(){
@@ -444,11 +412,7 @@ public class MainActivity extends ActionBarActivity {
             case CAPTURE_ACTIVITY_RESULT:
                 //check if a mascotte was unlocked, if true refresh ingredients on slider
                 if(resultCode == RESULT_OK && data.getExtras().getBoolean("captured")){
-                    loadUnlockedIngredients();
-                    imageAdapter.setIngredients(ingredientsUnlocked);
-                    gridview.setAdapter(null);
-                    gridview.setAdapter(imageAdapter);
-                    gridview.invalidateViews();
+                    getIngredientFragmentIstance().updateIngredientsGrid();
 
                 }
                 break;
@@ -522,6 +486,17 @@ public class MainActivity extends ActionBarActivity {
         }
         Intent intent = new Intent(this,OptionsActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void addIngredientSelected(Ingredient ingredient) {
+        getCookManagerFragmentIstance().addIngredientSelected(ingredient);
+    }
+
+    @Override
+    public void removeIngredient(Ingredient ingredient) {
+        getCookManagerFragmentIstance().removeIngredient(ingredient);
+
     }
 }
 

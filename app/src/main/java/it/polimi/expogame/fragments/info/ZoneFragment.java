@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import it.polimi.expogame.R;
 import it.polimi.expogame.activities.DetailsActivity;
 import it.polimi.expogame.activities.ZoneActivity;
+import it.polimi.expogame.database.objects.Dish;
 import it.polimi.expogame.database.tables.DishesTable;
 import it.polimi.expogame.database.tables.IngredientTable;
 import it.polimi.expogame.database.tables.IngredientsInDishes;
@@ -217,20 +218,31 @@ public class ZoneFragment extends Fragment implements  AdapterView.OnItemClickLi
                 createdDish = true;
             }
 
-            ((ZoneActivity)getActivity()).setChildrenActivityLaunched();
+            if(getString(R.string.screen_type).equals("phone")){
+                Log.d("SCREEN","phone");
+                ((ZoneActivity)getActivity()).setChildrenActivityLaunched();
 
-            Intent intent = new Intent(getActivity().getApplicationContext(), DetailsActivity.class);
-            intent.putExtra("idDish",id);
-            intent.putExtra("nameDish",name);
-            intent.putExtra("nationalityDish",nationality);
-            intent.putExtra("imageUrlDish",imageUrl);
-            intent.putExtra("descriptionDish",description);
-            intent.putExtra("zoneDish",zone);
-            intent.putExtra("createdDish",createdDish);
-            intent.putExtra("curiosityDish",curiosity);
-            intent.putExtra("difficultyDish",difficulty);
+                Intent intent = new Intent(getActivity().getApplicationContext(), DetailsActivity.class);
+                intent.putExtra("idDish",id);
+                intent.putExtra("nameDish",name);
+                intent.putExtra("nationalityDish",nationality);
+                intent.putExtra("imageUrlDish",imageUrl);
+                intent.putExtra("descriptionDish",description);
+                intent.putExtra("zoneDish",zone);
+                intent.putExtra("createdDish",createdDish);
+                intent.putExtra("curiosityDish",curiosity);
+                intent.putExtra("difficultyDish",difficulty);
 
-            startActivity(intent);
+                startActivity(intent);
+            }else{
+                Log.d("SCREEN","tablet");
+
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.detailFragment,
+                        new DetailsFragment(new Dish(getActivity().getApplicationContext(),id,
+                                name, nationality, imageUrl, description, zone,
+                                createdDish,null,curiosity,difficulty))).commit();
+            }
+
         }
 
     }
