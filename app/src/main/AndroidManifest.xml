@@ -118,8 +118,7 @@
 
         <activity
             android:name=".activities.WorldMapActivity"
-            android:label="@string/title_activity_world_map"
-            android:screenOrientation="portrait" >
+            android:label="@string/title_activity_world_map" >
         </activity>
         <activity
             android:name=".activities.OptionsActivity"
