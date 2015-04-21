@@ -1,0 +1,65 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="it.polimi.expogame.fragments.info.WorldFragment"
+    android:orientation="vertical"
+    android:background="@drawable/tovaglia"
+    android:id="@+id/layout_world_fragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/rowTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textSize="25dp"
+            android:textColor="@color/primary_material_dark"
+            android:text="@string/label_list_zones"
+            android:layout_gravity="center">
+        </TextView>
+
+
+        <GridView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:columnWidth="70dp"
+            android:numColumns="5"
+            android:verticalSpacing="5dp"
+            android:horizontalSpacing="5dp"
+            android:stretchMode="columnWidth"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+
+            android:id="@+id/grid_zone"
+            >
+
+
+        </GridView>
+
+    </LinearLayout>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cooker_image"/>
+    <TextView
+        android:layout_width="210dp"
+        android:layout_height="154dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/start_text_tutorial_world"
+        android:id="@+id/speak_tutorial_world"
+        android:layout_gravity="left|top"
+        android:background="@drawable/nuvola"
+        android:layout_margin="5dp"
+        android:gravity="center_horizontal|clip_horizontal|clip_vertical"
+        android:autoText="false"
+        android:paddingTop="30dp"
+        android:visibility="invisible"/>
+
+
+
+
+</FrameLayout>

@@ -92,7 +92,6 @@
             android:configChanges="orientation|screenSize"
             android:icon="@drawable/icon_facebook_activity"
             android:label="@string/title_activity_facebook_share"
-            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" >
 
             <!-- Using icon from facebook app as of 23/05/14 -->

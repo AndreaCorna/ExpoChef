@@ -110,6 +110,7 @@ public class MainActivity extends ActionBarActivity  implements IngredientFragme
             //also used to enable and disable back button on actionbar
             @Override
             public void onPageSelected(int position) {
+
                 if(customPagerAdapter.getItem(position).getClass().equals(ARFragment.class)) {
                     //screen can turn down
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -498,6 +499,8 @@ public class MainActivity extends ActionBarActivity  implements IngredientFragme
         getCookManagerFragmentIstance().removeIngredient(ingredient);
 
     }
+
+
 }
 
 
