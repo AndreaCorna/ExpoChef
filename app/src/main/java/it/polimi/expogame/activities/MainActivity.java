@@ -89,10 +89,17 @@ public class MainActivity extends ActionBarActivity  implements IngredientFragme
         transaction.commit();
 
 
+
+        getSupportActionBar().setHomeAsUpIndicator(getResources().getDrawable(R.drawable.icon_ingredients));
+
         if(getString(R.string.screen_type).equals("phone")){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         }else{
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            getSupportActionBar().setHomeButtonEnabled(false);
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         }
@@ -124,12 +131,18 @@ public class MainActivity extends ActionBarActivity  implements IngredientFragme
                     startCookAnimation();
 
 
-                }else{
+                }else if(customPagerAdapter.getItem(position).getClass().equals(WorldFragment.class)){
                     mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                     getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                     getSupportActionBar().setHomeButtonEnabled(false);
 
                     startWorldAnimation();
+                }else{
+                    mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                    getSupportActionBar().setHomeButtonEnabled(false);
+                    startCookAnimation();
+
                 }
             }
 
@@ -148,12 +161,14 @@ public class MainActivity extends ActionBarActivity  implements IngredientFragme
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
 
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(getResources().getDrawable(R.drawable.icon_ingredients));
 
 
-        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        if(getString(R.string.screen_type).equals("phone")) {
+            mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        }else{
+            mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
+        }
         mDrawerLayout.setDrawerListener(actionBarDrawerToggle);
 
         SharedPreferences prefs = getSharedPreferences("expochef", Context.MODE_PRIVATE);

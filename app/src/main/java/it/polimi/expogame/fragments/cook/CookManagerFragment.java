@@ -546,7 +546,8 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
         cookerFish.setImageDrawable(getResources().getDrawable(R.drawable.cooker));
         cookerFish.setVisibility(View.INVISIBLE);
         loadTutorialStrings();
-        TutorialAnimationManager manager = new TutorialAnimationManager(textSpeakMascotte, cookerFish,getDimensionScreen(), tutorialStrings);
+        TutorialAnimationManager manager = new TutorialAnimationManager(textSpeakMascotte, cookerFish,
+                getDimensionScreen(), tutorialStrings,getString(R.string.screen_type),false);
         manager.startEnterAnimation();
     }
 

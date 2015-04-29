@@ -126,7 +126,8 @@ public class WorldFragment extends Fragment  {
         cookerFish.setImageDrawable(getResources().getDrawable(R.drawable.cooker));
         cookerFish.setVisibility(View.INVISIBLE);
         loadTutorialStrings();
-        TutorialAnimationManager manager = new TutorialAnimationManager(textSpeakMascotte, cookerFish,getDimensionScreen(), tutorialStrings);
+        TutorialAnimationManager manager = new TutorialAnimationManager(textSpeakMascotte, cookerFish,
+                getDimensionScreen(), tutorialStrings,getString(R.string.screen_type),true);
         manager.startEnterAnimation();
     }
 
