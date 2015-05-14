@@ -38,9 +38,11 @@ import java.util.List;
 
 import it.polimi.expogame.R;
 import it.polimi.expogame.database.tables.IngredientTable;
+import it.polimi.expogame.fragments.CookTabletFragment;
 import it.polimi.expogame.fragments.ar.ARFragment;
 import it.polimi.expogame.fragments.cook.CookManagerFragment;
 import it.polimi.expogame.fragments.cook.IngredientFragment;
+import it.polimi.expogame.fragments.info.RootFragment;
 import it.polimi.expogame.fragments.info.WorldFragment;
 import it.polimi.expogame.fragments.options.OptionsFragment;
 import it.polimi.expogame.providers.IngredientsProvider;
@@ -124,6 +126,7 @@ public class MainActivity extends ActionBarActivity  implements IngredientFragme
                 }
 
                 if(customPagerAdapter.getItem(position).getClass().equals(CookManagerFragment.class)){
+                    Log.d("CHECKANIMATION","inside CookManagerFragment");
 
                     mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -131,13 +134,16 @@ public class MainActivity extends ActionBarActivity  implements IngredientFragme
                     startCookAnimation();
 
 
-                }else if(customPagerAdapter.getItem(position).getClass().equals(WorldFragment.class)){
+                }else if(customPagerAdapter.getItem(position).getClass().equals(RootFragment.class)){
+                    Log.d("CHECKANIMATION","inside world");
                     mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                     getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                     getSupportActionBar().setHomeButtonEnabled(false);
 
                     startWorldAnimation();
-                }else{
+                }else if(customPagerAdapter.getItem(position).getClass().equals(CookTabletFragment.class)){
+                    Log.d("CHECKANIMATION","inside CookTabletFragment");
+
                     mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                     getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                     getSupportActionBar().setHomeButtonEnabled(false);
@@ -423,11 +429,17 @@ public class MainActivity extends ActionBarActivity  implements IngredientFragme
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode,resultCode,data);
+        Log.d("ONRESULT","on before all");
         switch (requestCode){
+
             //return from ar activity: load new ingredient
             case CAPTURE_ACTIVITY_RESULT:
+                Log.d("ONRESULT","CAPTURE_ACTIVITY_RESULT");
+
                 //check if a mascotte was unlocked, if true refresh ingredients on slider
                 if(resultCode == RESULT_OK && data.getExtras().getBoolean("captured")){
+                    Log.d("ONRESULT","CAPTURED");
+
                     getIngredientFragmentIstance().updateIngredientsGrid();
 
                 }
