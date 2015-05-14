@@ -43,7 +43,7 @@ public class CookTabletFragment extends Fragment {
         FragmentTransaction transaction = getFragmentManager()
                 .beginTransaction();
 
-        transaction.replace(R.id.ingredient_tablet_frame, new IngredientFragment());
+        transaction.replace(R.id.ingredient_tablet_frame, new IngredientFragment(),"IngredientFragment");
         transaction.replace(R.id.cook_tablet_frame, new CookManagerFragment());
 
         transaction.commit();

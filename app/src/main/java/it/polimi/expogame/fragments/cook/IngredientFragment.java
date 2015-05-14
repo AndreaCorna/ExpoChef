@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -143,10 +144,6 @@ public class IngredientFragment extends Fragment {
      */
     public void initializeIngredientsGrid(){
         loadUnlockedIngredients();
-        for(Ingredient ing : ingredientsUnlocked){
-            Log.d("Ingredients","Loaded "+ing.getName());
-
-        }
         imageAdapter = new ImageAdapter(getActivity(),ingredientsUnlocked);
         gridview.setAdapter(imageAdapter);
         imageAdapter.setIngredients(ingredientsUnlocked);
@@ -162,6 +159,14 @@ public class IngredientFragment extends Fragment {
         gridview.setAdapter(null);
         gridview.setAdapter(imageAdapter);
         gridview.invalidateViews();
+        //refresh internal view
+        if(!getString(R.string.screen_type).equals("phone")){
+            Fragment currentFragment = getFragmentManager().findFragmentByTag("IngredientFragment");
+            FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
+            fragTransaction.detach(currentFragment);
+            fragTransaction.attach(currentFragment);
+            fragTransaction.commit();
+        }
     }
 
     public void clearIngredients(){
