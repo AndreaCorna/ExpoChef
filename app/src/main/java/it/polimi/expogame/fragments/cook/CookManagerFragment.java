@@ -12,6 +12,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Display;
 import android.view.DragEvent;
@@ -239,7 +240,7 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
 
     //check if a dish is unlock show details activity and update db
     private void checkNewDishUnlocked(){
-
+        resetTabletView();
         String selection = DishesTable.COLUMN_HASHINGREDIENTS + " = ?";
         String[] selectionArgs = new String[]{hash};
         Cursor cursor = getActivity().getContentResolver().query(DishesProvider.CONTENT_URI,null,selection,selectionArgs,null);
@@ -537,6 +538,13 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
         return true;
     }
 
+    }
+
+    private void resetTabletView(){
+        if(getActivity().getString(R.string.screen_type).equals("tablet")){
+            IngredientFragment ingredientFragment = (IngredientFragment)getFragmentManager().findFragmentByTag("IngredientFragment");
+            ingredientFragment.resetTabletView();
+        }
     }
 
 

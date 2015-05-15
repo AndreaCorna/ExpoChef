@@ -180,6 +180,11 @@ public class IngredientFragment extends Fragment {
 
     }
 
+    public void resetTabletView(){
+        ((ImageAdapter)gridview.getAdapter()).resetAllSelection();
+        gridview.invalidateViews();
+    }
+
 
 
     @Override
