@@ -459,6 +459,9 @@ public class CookManagerFragment extends Fragment implements  CookFragment.OnDis
                         cookerView.setAdapter(tagliereAdapter);
                     }
 
+                    resetTabletView();
+
+
                 }else { //we are moving from down to up or viceversa
 
                     int width = ingredient_view.getWidth();
