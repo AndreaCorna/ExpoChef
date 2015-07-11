@@ -72,7 +72,7 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
     private MediaPlayer myPlayer;
 
     //----------------------------------------
-    //boolean variable in order to force reload of ingredients if  mascotte was captured
+    //boolean variable in order to force reload of ingredients when  mascotte is captured
     private boolean oneCaptured = false;
     private Intent returnIntent;
 
@@ -129,10 +129,6 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
             Mascots.add(m);
         }
         c.close();
-
-
-
-
     }
 
     @Override
@@ -185,7 +181,6 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
     }
 
 
-
     @Override
     public void onDrawFrame() {
         if (metaioSDK != null && mSensors != null) {
@@ -215,23 +210,7 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
                     geo.setRotation(rot);
                 }
             }
-
-
-            /*for (IGeometry geo : geos) {
-                Log.d("ROTATION",""+geo.getRotation().getAxisAngle().getX());
-                if (geo != null) {
-                    Rotation rot;
-                    Vector3d vector = new Vector3d();
-                    //geo.getRotation().setFromEulerAngleDegrees(new Vector3d(90,0,90));
-                    //rot = new Rotation((float) (Math.PI / 2), 0.0f,  (float) (Math.PI / 2));
-
-                    rot = new Rotation((float) (Math.PI / 2), 0.0f,  0);
-
-                    geo.setRotation(rot);
-                }
-            }*/
         }
-
         super.onDrawFrame();
     }
 
@@ -293,7 +272,6 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
                     Float.parseFloat(mascotte.getLongi()),
                     0, 0),mascotte.getModel());
 
-            Log.d("fdsafd",NewMascot.toString());
             //MascotList contains all the IGeometries generated from the mascots java objects
             //retreived from the MascotsProvider
             MascotsList.add(NewMascot);
@@ -309,7 +287,6 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
             //Let's turn red the mascots captured yet
             if(mascotte.getCaptured()==1)
             {
-
                 //Update the SurfaceView with a red point
                 mSurfaceView.queueEvent(new Runnable() {
                     @Override
@@ -325,7 +302,7 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
     //-----UTILITY------------------------------------------------------------------------------
 
     /**
-     * Create Igeometry object based on coordinates of mascots and theri obj model
+     * Create Igeometry object based on coordinates of mascots and their obj model
      *
      * @param lla are the coordinates lati+longi of the mascot
      * @return the IGeometry 3d object that will be displayed on the ARView
@@ -401,6 +378,7 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
 
         final Vector3d oldTranslation = geometry.getTranslation();
 
+        //-- small jump of the mascotte
         mSurfaceView.queueEvent(new Runnable() {
             @Override
             public void run() {
@@ -413,7 +391,7 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
 
 
         Vibrator v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
-        // Vibrate for 500 milliserconds
+        // Vibrate for 500 milliseconds
         v.vibrate(500);
 
         Rotation originalRotation = geometry.getRotation();
@@ -426,8 +404,6 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
            myPlayer.setVolume(0.5f,0.5f);
            myPlayer.start();
         }
-
-
 
         int captured=0;
 
@@ -505,7 +481,8 @@ public class ARActivity extends ARViewActivity implements LocationListener, Goog
      * This function update the SurfaceView of Metaio to show the characters
      * when you are at 'range' meters from them or hide when you are further.
      * This function is declared in the superclass of this class and implemented here,
-     * it is called when
+     * it is called when the location change in the function onLocationChanged invoked
+     * by the locationSerivice.
      */
     @Override
     protected void updateView() {
