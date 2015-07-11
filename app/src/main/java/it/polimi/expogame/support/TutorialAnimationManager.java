@@ -54,14 +54,14 @@ public class TutorialAnimationManager {
      * The method is used to configure the parameters of the animation
      */
     private void setupStartAnimation(){
-        int width;
+        final int width;
 
         if(screenType.equals("phone") || inZoneFragment){
             width = screenSize.x;
         }else{
             width = (screenSize.x)/2;
         }
-        float to =  ((float)width)/3;
+        final float to =  ((float)width)/3;
         enterAnimation = new TranslateAnimation(width, to,
                 0.0f, 0.0f);          //  new TranslateAnimation(xFrom,xTo, yFrom,yTo)
         enterAnimation.setDuration(3000);  // animation duration
@@ -75,6 +75,9 @@ public class TutorialAnimationManager {
             @Override
             public void onAnimationEnd(Animation animation) {
                 startHandler.postDelayed(new UpdateTextRunnable(tutorialStrings),UPDATE_INTERVAL);
+                if(!screenType.equals("phone")) {
+                    textSpeakMascot.setX(to - textSpeakMascot.getWidth() / 2);
+                }
                 textSpeakMascot.setVisibility(View.VISIBLE);
             }
 

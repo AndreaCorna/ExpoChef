@@ -22,7 +22,6 @@ public class OptionsActivity extends ActionBarActivity {
         if (savedInstanceState == null) {
 
             FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
-            trans.add(R.id.container, new OptionsFragment());
 
             if (getString(R.string.screen_type).equals("phone")) {
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -32,9 +31,13 @@ public class OptionsActivity extends ActionBarActivity {
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
             }
+            trans.add(R.id.container, new OptionsFragment());
+
             trans.commit();
 
         }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
 
