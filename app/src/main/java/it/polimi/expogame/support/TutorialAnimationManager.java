@@ -55,13 +55,18 @@ public class TutorialAnimationManager {
      */
     private void setupStartAnimation(){
         final int width;
-
+        float tabletMovement;
         if(screenType.equals("phone") || inZoneFragment){
             width = screenSize.x;
+            tabletMovement = width;
         }else{
             width = (screenSize.x)/2;
+            tabletMovement = width-80
+            ;
+
         }
         final float to =  ((float)width)/3;
+        final float tabletPosition = tabletMovement - to;
         enterAnimation = new TranslateAnimation(width, to,
                 0.0f, 0.0f);          //  new TranslateAnimation(xFrom,xTo, yFrom,yTo)
         enterAnimation.setDuration(3000);  // animation duration
@@ -76,7 +81,7 @@ public class TutorialAnimationManager {
             public void onAnimationEnd(Animation animation) {
                 startHandler.postDelayed(new UpdateTextRunnable(tutorialStrings),UPDATE_INTERVAL);
                 if(!screenType.equals("phone")) {
-                    textSpeakMascot.setX(to - textSpeakMascot.getWidth() / 2);
+                    textSpeakMascot.setX(tabletPosition-textSpeakMascot.getWidth()/2);
                 }
                 textSpeakMascot.setVisibility(View.VISIBLE);
             }
