@@ -79,7 +79,7 @@ public class ZoneActivity extends ActionBarActivity implements HintFragmentDialo
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // Inflate the menu; this adds items to the action bar if it is present.z
         getMenuInflater().inflate(R.menu.menu_zone, menu);
         scoreView = menu.findItem(R.id.action_score);
         scoreView.setTitle(ConverterStringToStringXml.getStringFromXml(getApplicationContext(), "score_label")+score.getCurrentScore());

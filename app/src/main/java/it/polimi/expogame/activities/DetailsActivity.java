@@ -83,7 +83,7 @@ public class DetailsActivity extends ActionBarActivity{
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_details, menu);
+        //getMenuInflater().inflate(R.menu.menu_details, menu);
         return true;
     }
 
@@ -91,7 +91,7 @@ public class DetailsActivity extends ActionBarActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.action_facebook:
+            /*case R.id.action_facebook:
                 launchPostActivity();
                 return true;
             case R.id.action_google_plus:
@@ -101,7 +101,7 @@ public class DetailsActivity extends ActionBarActivity{
                         .getIntent();
 
                 startActivityForResult(shareIntent, 0);
-                return true;
+                return true;*/
             default:
                 onBackPressed();
 
@@ -109,12 +109,12 @@ public class DetailsActivity extends ActionBarActivity{
         return super.onOptionsItemSelected(item);
     }
 
-    private void launchPostActivity(){
+   /* private void launchPostActivity(){
         Intent intent = new Intent(getApplicationContext(),FacebookShareActivity.class);
         intent.putExtra("name", objectToPost.getName());
         intent.putExtra("image",objectToPost.getImageId());
         startActivity(intent);
-    }
+    }*/
 
 
     @Override

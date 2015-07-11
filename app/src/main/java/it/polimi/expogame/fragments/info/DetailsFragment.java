@@ -1,6 +1,7 @@
 package it.polimi.expogame.fragments.info;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,6 +9,9 @@ import  android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
@@ -15,10 +19,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.plus.PlusShare;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import it.polimi.expogame.R;
+import it.polimi.expogame.activities.FacebookShareActivity;
 import it.polimi.expogame.database.objects.Hint;
 import it.polimi.expogame.database.tables.IngredientTable;
 import it.polimi.expogame.database.tables.IngredientsInDishes;
@@ -74,7 +81,42 @@ public class DetailsFragment extends Fragment{
         super.onCreate(savedInstanceState);
          //enable go back button on activity action bar
         ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setHasOptionsMenu(true);
 
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu,MenuInflater inflater) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        inflater.inflate(R.menu.menu_details, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_facebook:
+                launchPostActivity();
+                return true;
+            case R.id.action_google_plus:
+                Intent shareIntent = new PlusShare.Builder(getActivity())
+                        .setType("text/plain")
+                        .setText(getResources().getString(R.string.happy_message_facebook) +" "+ dish.getName())
+                        .getIntent();
+
+                startActivityForResult(shareIntent, 0);
+                return true;
+            default:
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void launchPostActivity(){
+        Intent intent = new Intent(getActivity().getApplicationContext(),FacebookShareActivity.class);
+        intent.putExtra("name", dish.getName());
+        intent.putExtra("image",ConverterImageNameToDrawableId.convertImageNameToDrawable(getActivity().getApplicationContext(),dish.getImageUrl()));
+        startActivity(intent);
     }
 
     @Override
